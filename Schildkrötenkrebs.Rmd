@@ -1,6 +1,6 @@
 ---
 title: "Schildkrötenkrebs"
-author: "Jakob, Anna, David, Maren"
+author: "Jakob, Anna, Maren, David"
 date: "2 5 2022"
 output: html_document
 ---
