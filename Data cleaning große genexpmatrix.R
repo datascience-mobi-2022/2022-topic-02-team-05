@@ -44,6 +44,19 @@ JAKSTAT_pathway = gsea_pathways[gsea_pathways$gs_name == "KEGG_JAK_STAT_SIGNALIN
 ferroptosis_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_FERROPTOSIS", ]
 translationInitiation_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_EIF_PATHWAY", ]
 mehrEnergie_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_ETC_PATHWAY", ]
+glycolysis_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_GLYCOLYSIS_PATHWAY", ]
+citric_cycle_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_KREB_PATHWAY", ]
+synapsis_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_PDZS_PATHWAY", ]
+aminoacid_pathway = gsea_pathways[gsea_pathways$gs_name == "REACTOME_AMINO_ACID_SYNTHESIS_AND_INTERCONVERSION_TRANSAMINATION", ]
+estrogen_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_ESTROGEN_METABOLISM", ]
+ACE_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_ACE2_PATHWAY", ] #Angiotensin converting enzyme: Niere 
+inflam_response_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_INFLAM_PATHWAY", ] #Cytokines and Inflammatory Response
+CaMK_pathway = gsea_pathways[gsea_pathways$gs_name == "KEGG_HEMATOPOIETIC_CELL_LINEAGE", ] #Hematopoietic cell lineage
+stemmcell_reg_pathway = gsea_pathways[gsea_pathways$gs_name == "REACTOME_TRANSCRIPTIONAL_REGULATION_OF_PLURIPOTENT_STEM_CELLS", ] #Transcriptional regulation of pluripotent stem cells
+mammarygland1_embryo_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_MAMMARY_GLAND_DEVELOPMENT_PATHWAY_EMBRYONIC_DEVELOPMENT_STAGE_1_OF_4", ]
+mammarygland2_puberty_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_MAMMARY_GLAND_DEVELOPMENT_PATHWAY_PUBERTY_STAGE_2_OF_4", ]
+mammarygland3_pregnancy_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_MAMMARY_GLAND_DEVELOPMENT_PATHWAY_PREGNANCY_AND_LACTATION_STAGE_3_OF_4", ]
+mammarygland4_abbau_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_MAMMARY_GLAND_DEVELOPMENT_PATHWAY_INVOLUTION_STAGE_4_OF_4", ]
 
 
 
@@ -71,7 +84,7 @@ names(our_genesets) = c('TERT_pathway',
 #genetypen der pathways checken
 #---------------------------------------------------
 
-#function die Gennamen nimmt und dafür den gentypen gibt
+#function die Gennamen nimmt und daf?r den gentypen gibt
 checkbiotypes = function(pathway){mart = useEnsembl(dataset = "hsapiens_gene_ensembl", biomart='ensembl')
   
                                   res = getBM(attributes = c("ensembl_gene_id", "gene_biotype"),
@@ -111,7 +124,7 @@ for (i in 1:length(our_genesets_biotypes)) {
   
 }
 
-#plotten einer gesamtübersicht über die biotypes aller unserer pathways
+#plotten einer gesamt?bersicht ?ber die biotypes aller unserer pathways
 res = NULL
 for (i in 1:length(our_genesets_biotypes)){
   res = c(res, our_genesets_biotypes[[i]])
@@ -138,7 +151,7 @@ genesets_biotypes = genesets_biotypes[2,]
 plotbiotypes(genesets_biotypes, 1)
 #besser hier ein funktion die alle pathways nacheinander in eine Grafik plottet
 
-#plotten einer Übersicht über die biotypes aller von carls pathways
+#plotten einer ?bersicht ?ber die biotypes aller von carls pathways
 res = NULL
 for (i in 1:length(genesets_biotypes)){
   res = c(res, genesets_biotypes[[i]])
@@ -158,17 +171,17 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #gennamen extrahieren
 tcga_genes = rownames(tcga_exp_hvar)
 
-#dieser vetor enthält sowohl enseblm id als auch genenamen und muss daher gespalten werden
+#dieser vetor enth?lt sowohl enseblm id als auch genenamen und muss daher gespalten werden
 tcga_genes = strsplit(tcga_genes, split = '|', fixed = TRUE)
 
 #speicher der gennamen als eigenen vektor
 tcga_genenames = sapply(tcga_genes, function(tcga_genes){return(tcga_genes[2])})
 
-#entfernen der Versionsnummern für ensembl id und gennamen
+#entfernen der Versionsnummern f?r ensembl id und gennamen
 tcga_genenames = strsplit(tcga_genenames, split = '.', fixed = TRUE)
 tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_genenames[1])})
 
-#hier am besten noch doppelte namen mit eventuell anderen versionsnummern überprüfen und die neuere nehemen
+#hier am besten noch doppelte namen mit eventuell anderen versionsnummern ?berpr?fen und die neuere nehemen
 
 #biotypes der tcga gene bestimmen
 tcga_biotypes = checkbiotypes(tcga_genenames)
@@ -195,7 +208,7 @@ tcga_exp_protcod = na.omit(tcga_exp_protcod)
 
 tcga_exp_pca = prcomp(tcga_exp_protcod)
 
-#plotten der prozentualen var die durch die ersten 10 PCs erklärt wird
+#plotten der prozentualen var die durch die ersten 10 PCs erkl?rt wird
 barplot(sqrt(tcga_exp_pca$sdev[1:10]/sum(tcga_exp_pca$sdev)),
         names.arg = colnames(tcga_exp_pca$x)[1:10])  
 
