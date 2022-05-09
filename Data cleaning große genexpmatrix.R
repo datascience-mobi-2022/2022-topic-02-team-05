@@ -62,7 +62,11 @@ our_genesets = list(TERT_pathway$gene_symbol,
                     ferroptosis_pathway$gene_symbol,
                     translationInitiation_pathway$gene_symbol,
                     mehrEnergie_pathway$gene_symbol,
-                    TGFBEMT_pathway$gene_symbol
+                    TGFBEMT_pathway$gene_symbol,
+                    CaspaseCascade_pathway$gene_symbol,
+                    NKcytotoxicity$gene_symbol,
+                    Tcellactivation$gene_symbol,
+                    Bcellactivation$gene_symbol
                     )
 names(our_genesets) = c('TERT_pathway',
                         'MAPK_pathway',
@@ -71,7 +75,11 @@ names(our_genesets) = c('TERT_pathway',
                         'ferroptosis_pathway',
                         'translationInitiation_pathway',
                         'mehrEnergie_pathway',
-                        'TGFb EMT Genes UP'
+                        'TGFb EMT Genes UP',
+                        'Caspase Cascade Pathway',
+                        'NK cytotoxicity',
+                        'Tcell activation',
+                        'Bcell activation'
                         )
 
 
