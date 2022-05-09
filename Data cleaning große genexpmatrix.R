@@ -44,6 +44,13 @@ JAKSTAT_pathway = gsea_pathways[gsea_pathways$gs_name == "KEGG_JAK_STAT_SIGNALIN
 ferroptosis_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_FERROPTOSIS", ]
 translationInitiation_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_EIF_PATHWAY", ]
 mehrEnergie_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_ETC_PATHWAY", ]
+TGFBEMT_pathway = gsea_pathways[gsea_pathways$gs_name == "FOROUTAN_TGFB_EMT_UP", ]
+CaspaseCascade_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_CASPASE_PATHWAY", ]
+NKcytotoxicity = gsea_pathways[gsea_pathways$gs_name == "KEGG_NATURAL_KILLER_CELL_MEDIATED_CYTOTOXICITY", ]
+Tcellactivation = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_TCR_PATHWAY", ]
+Bcellactivation = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_BCR_PATHWAY", ]
+
+
 
 
 
@@ -54,7 +61,8 @@ our_genesets = list(TERT_pathway$gene_symbol,
                     JAKSTAT_pathway$gene_symbol,
                     ferroptosis_pathway$gene_symbol,
                     translationInitiation_pathway$gene_symbol,
-                    mehrEnergie_pathway$gene_symbol
+                    mehrEnergie_pathway$gene_symbol,
+                    TGFBEMT_pathway$gene_symbol
                     )
 names(our_genesets) = c('TERT_pathway',
                         'MAPK_pathway',
@@ -62,7 +70,8 @@ names(our_genesets) = c('TERT_pathway',
                         'JAKSTAT_pathway',
                         'ferroptosis_pathway',
                         'translationInitiation_pathway',
-                        'mehrEnergie_pathway'
+                        'mehrEnergie_pathway',
+                        'TGFb EMT Genes UP'
                         )
 
 
