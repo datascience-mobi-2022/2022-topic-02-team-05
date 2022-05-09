@@ -139,6 +139,7 @@ tcga_exp_cleaned = tcga_exp_hvar[tcga_biotypes$gene_biotype == 'protein_coding',
 tcga_exp_cleaned = na.omit(tcga_exp_protcod)
 ##hier geht sich das iwie nicht mit den zeilen aus wieso kommen wir von 1000 auf 800 auf 300 auf 140
 
-save(our_genesets_biotypes, file = 'data/our_genesets_biotypes.RData')
-save(genesets_biotypes, file = 'data/genesets_biotypes.RData')
-save(tcga_exp_cleaned, file = 'data/tcga_exp_cleaned.RData')
+save(our_genesets_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/our_genesets_biotypes.RData')
+save(genesets_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/genesets_biotypes.RData')
+save(tcga_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/tcga_biotypes.RData')
+save(tcga_exp_cleaned, file = '~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
