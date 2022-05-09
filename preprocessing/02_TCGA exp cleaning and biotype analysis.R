@@ -8,8 +8,8 @@ library(dplyr)
 library(ggplot2)
 
 #laden der daten
-tcga_exp = readRDS("data/tcga_tumor_log2TPM.RDS")
-genesets = readRDS("data/hallmarks_genesets.rds")
+tcga_exp = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_log2TPM.RDS")
+genesets = readRDS("~/GitHub/2022-topic-02-team-05/data/hallmarks_genesets.rds")
 load("~/GitHub/2022-topic-02-team-05/data/our_genesets.RData")
 
 #----------------------------------------------
@@ -136,7 +136,7 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #entfernen aller nicht proteincodierenden gene aus der tcga expressions matrix
 #--------------------------------------------------------------------------
 tcga_exp_cleaned = tcga_exp_hvar[tcga_biotypes$gene_biotype == 'protein_coding', ]
-tcga_exp_cleaned = na.omit(tcga_exp_protcod)
+tcga_exp_cleaned = na.omit(tcga_exp_cleaned)
 ##hier geht sich das iwie nicht mit den zeilen aus wieso kommen wir von 1000 auf 800 auf 300 auf 140
 
 save(our_genesets_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/our_genesets_biotypes.RData')
