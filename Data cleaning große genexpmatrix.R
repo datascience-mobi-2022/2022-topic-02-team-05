@@ -57,7 +57,12 @@ mammarygland1_embryo_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_MAMMAR
 mammarygland2_puberty_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_MAMMARY_GLAND_DEVELOPMENT_PATHWAY_PUBERTY_STAGE_2_OF_4", ]
 mammarygland3_pregnancy_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_MAMMARY_GLAND_DEVELOPMENT_PATHWAY_PREGNANCY_AND_LACTATION_STAGE_3_OF_4", ]
 mammarygland4_abbau_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_MAMMARY_GLAND_DEVELOPMENT_PATHWAY_INVOLUTION_STAGE_4_OF_4", ]
-
+TGFBEMT_pathway = gsea_pathways[gsea_pathways$gs_name == "FOROUTAN_TGFB_EMT_UP", ]
+CaspaseCascade_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_CASPASE_PATHWAY", ]
+NKcytotoxicity = gsea_pathways[gsea_pathways$gs_name == "KEGG_NATURAL_KILLER_CELL_MEDIATED_CYTOTOXICITY", ]
+Tcellactivation = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_TCR_PATHWAY", ]
+Bcellactivation = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_BCR_PATHWAY", ]
+purin_denovo_pathway = gsea_pathways[gsea_pathways$gs_name == "KEGG_PURINE_METABOLISM", ]
 
 
 #liste aller pathways mit allen inofs zum jeweiligen pathway
@@ -67,7 +72,26 @@ our_genesets = list(TERT_pathway$gene_symbol,
                     JAKSTAT_pathway$gene_symbol,
                     ferroptosis_pathway$gene_symbol,
                     translationInitiation_pathway$gene_symbol,
-                    mehrEnergie_pathway$gene_symbol
+                    mehrEnergie_pathway$gene_symbol,
+                    glycolysis_pathway$gene_symbol,
+                    citric_cycle_pathway$gene_symbol,
+                    synapsis_pathway$gene_symbol,
+                    aminoacid_pathway$gene_symbol,
+                    estrogen_pathway$gene_symbol,
+                    ACE_pathway$gene_symbol,
+                    inflam_response_pathway$gene_symbol,
+                    CaMK_pathway$gene_symbol,
+                    stemmcell_reg_pathway$gene_symbol,
+                    mammarygland1_embryo_pathway$gene_symbol,
+                    mammarygland2_puberty_pathway$gene_symbol,
+                    mammarygland3_pregnancy_pathway$gene_symbol,
+                    mammarygland4_abbau_pathway$gene_symbol,
+                    TGFBEMT_pathway$gene_symbol,
+                    CaspaseCascade_pathway$gene_symbol,
+                    NKcytotoxicity$gene_symbol,
+                    Tcellactivation$gene_symbol,
+                    Bcellactivation$gene_symbol,
+                    purin_denovo_pathway$gene_symbole
                     )
 names(our_genesets) = c('TERT_pathway',
                         'MAPK_pathway',
@@ -75,7 +99,26 @@ names(our_genesets) = c('TERT_pathway',
                         'JAKSTAT_pathway',
                         'ferroptosis_pathway',
                         'translationInitiation_pathway',
-                        'mehrEnergie_pathway'
+                        'mehrEnergie_pathway',
+                        'glycolysis_pathway',
+                        'citric_cycle_pathway',
+                        'synapsis_pathway',
+                        'aminoacid_pathway',
+                        'estrogen_pathway',
+                        'ACE_pathway',
+                        'inflam_response_pathway',
+                        'CaMK_pathway',
+                        'stemmcell_reg_pathway',
+                        'mammarygland1_embryo_pathway',
+                        'mammarygland2_puberty_pathway',
+                        'mammarygland3_pregnancy_pathway',
+                        'mammarygland4_abbau_pathway',
+                        'TGFb EMT Genes UP',
+                        'Caspase Cascade Pathway',
+                        'NK cytotoxicity',
+                        'Tcell activation',
+                        'Bcell activation',
+                        'purin_denovo_pathway'
                         )
 
 
