@@ -3,16 +3,16 @@
 # if (!require("BiocManager", quietly = TRUE))
 #   install.packages("BiocManager")
 # 
-# BiocManager::install("biomaRt")
+#BiocManager::install("biomaRt")
 library(biomaRt)
 library(msigdbr)
 library(dplyr)
 library(ggplot2)
 #laden der daten von carl
-#tcga_exp = readRDS("C:/Users/jakob/Documents/R/Data Analysis Seminar/tcga_tumor_log2TPM.RDS")
-#tcga_annot = readRDS("C:/Users/jakob/Documents/R/Data Analysis Seminar/tcga_tumor_annotation.RDS")
-#tcga_tumor_norm = readRDS("C:/Users/jakob/Documents/R/Data Analysis Seminar/tcga_tumor_normal_datascience_proj_2020.RDS")
-#genesets = readRDS("C:/Users/jakob/Documents/R/Data Analysis Seminar/hallmarks_genesets.rds")
+tcga_exp = readRDS("data/tcga_tumor_log2TPM.RDS")
+tcga_annot = readRDS("data/tcga_tumor_annotation.RDS")
+tcga_tumor_norm = readRDS("data/tcga_tumor_normal_datascience_proj_2020.RDS")
+genesets = readRDS("data/hallmarks_genesets.rds")
 
 
 #----------------------------------------
@@ -40,13 +40,30 @@ gsea_pathways = msigdbr(species = "Homo sapiens")
 TERT_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_TEL_PATHWAY", ]
 MAPK_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_MAPK_PATHWAY", ]
 thyroidhormone_pathway = gsea_pathways[gsea_pathways$gs_name == "GOBP_THYROID_HORMONE_METABOLIC_PROCESS", ]
+JAKSTAT_pathway = gsea_pathways[gsea_pathways$gs_name == "KEGG_JAK_STAT_SIGNALING_PATHWAY", ]
+ferroptosis_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_FERROPTOSIS", ]
+translationInitiation_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_EIF_PATHWAY", ]
+mehrEnergie_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_ETC_PATHWAY", ]
+
+
 
 #liste aller pathways mit allen inofs zum jeweiligen pathway
 our_genesets = list(TERT_pathway$gene_symbol,
                     MAPK_pathway$gene_symbol,
-                    thyroidhormone_pathway$gene_symbol
+                    thyroidhormone_pathway$gene_symbol,
+                    JAKSTAT_pathway$gene_symbol,
+                    ferroptosis_pathway$gene_symbol,
+                    translationInitiation_pathway$gene_symbol,
+                    mehrEnergie_pathway$gene_symbol
                     )
-names(our_genesets) = c('TERT_pathway', 'MAPK_pathway', 'thyroidhormone_pathway')
+names(our_genesets) = c('TERT_pathway',
+                        'MAPK_pathway',
+                        'thyroidhormone_pathway',
+                        'JAKSTAT_pathway',
+                        'ferroptosis_pathway',
+                        'translationInitiation_pathway',
+                        'mehrEnergie_pathway'
+                        )
 
 
 
@@ -151,6 +168,8 @@ tcga_genenames = sapply(tcga_genes, function(tcga_genes){return(tcga_genes[2])})
 tcga_genenames = strsplit(tcga_genenames, split = '.', fixed = TRUE)
 tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_genenames[1])})
 
+#hier am besten noch doppelte namen mit eventuell anderen versionsnummern überprüfen und die neuere nehemen
+
 #biotypes der tcga gene bestimmen
 tcga_biotypes = checkbiotypes(tcga_genenames)
 
@@ -168,6 +187,7 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #--------------------------------------------------------------------------
 tcga_exp_protcod = tcga_exp_hvar[tcga_biotypes$gene_biotype == 'protein_coding', ]
 tcga_exp_protcod = na.omit(tcga_exp_protcod)
+##hier geht sich das iwie nicht mit den zeilen aus wieso kommen wir von 1000 auf 800 auf 300 auf 140
 
 #----------------------------------------------------
 #pca der gereinigten tcga expressionsdaten
