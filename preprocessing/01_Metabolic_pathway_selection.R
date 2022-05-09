@@ -19,10 +19,10 @@ JAKSTAT_pathway = gsea_pathways[gsea_pathways$gs_name == "KEGG_JAK_STAT_SIGNALIN
 ferroptosis_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_FERROPTOSIS", ]
 translationInitiation_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_EIF_PATHWAY", ]
 mehrEnergie_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_ETC_PATHWAY", ]
-glycolysis_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_GLYCOLYSIS_PATHWAY", ]
+#glycolysis_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_GLYCOLYSIS_PATHWAY", ]
 citric_cycle_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_KREB_PATHWAY", ]
 synapsis_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_PDZS_PATHWAY", ]
-aminoacid_pathway = gsea_pathways[gsea_pathways$gs_name == "REACTOME_AMINO_ACID_SYNTHESIS_AND_INTERCONVERSION_TRANSAMINATION", ]
+#aminoacid_pathway = gsea_pathways[gsea_pathways$gs_name == "REACTOME_AMINO_ACID_SYNTHESIS_AND_INTERCONVERSION_TRANSAMINATION", ]
 estrogen_pathway = gsea_pathways[gsea_pathways$gs_name == "WP_ESTROGEN_METABOLISM", ]
 ACE_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_ACE2_PATHWAY", ] #Angiotensin converting enzyme: Niere 
 inflam_response_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_INFLAM_PATHWAY", ] #Cytokines and Inflammatory Response
@@ -59,10 +59,10 @@ our_genesets = list(TERT_pathway$gene_symbol,
                     ferroptosis_pathway$gene_symbol,
                     translationInitiation_pathway$gene_symbol,
                     mehrEnergie_pathway$gene_symbol,
-                    glycolysis_pathway$gene_symbol,
+                    #glycolysis_pathway$gene_symbol,
                     citric_cycle_pathway$gene_symbol,
                     synapsis_pathway$gene_symbol,
-                    aminoacid_pathway$gene_symbol,
+                    #aminoacid_pathway$gene_symbol,
                     estrogen_pathway$gene_symbol,
                     ACE_pathway$gene_symbol,
                     inflam_response_pathway$gene_symbol,
@@ -94,10 +94,10 @@ names(our_genesets) = c('TERT_pathway',
                         'ferroptosis_pathway',
                         'translationInitiation_pathway',
                         'mehrEnergie_pathway',
-                        'glycolysis_pathway',
+                        #'glycolysis_pathway',
                         'citric_cycle_pathway',
                         'synapsis_pathway',
-                        'aminoacid_pathway',
+                        #'aminoacid_pathway',
                         'estrogen_pathway',
                         'ACE_pathway',
                         'inflam_response_pathway',
