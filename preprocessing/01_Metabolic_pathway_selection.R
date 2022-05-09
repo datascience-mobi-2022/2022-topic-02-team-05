@@ -3,7 +3,7 @@
 #-----------------------------------------------------
 
 #install.packages("msigdbr")
-# if (!require("BiocManager", quietly = TRUE))
+#if (!require("BiocManager", quietly = TRUE))
 #   install.packages("BiocManager")
 
 library(msigdbr)
@@ -124,4 +124,5 @@ names(our_genesets) = c('TERT_pathway',
 )
 
 #saving the list with all our genesets in our github folder data
-save(our_genesets, file = 'data/our_genesets.RData')
+save(our_genesets, file = '~/GitHub/2022-topic-02-team-05/data/our_genesets.RData')
+
