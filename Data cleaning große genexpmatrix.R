@@ -11,7 +11,7 @@ library(ggplot2)
 #laden der daten von carl
 tcga_exp = readRDS("data/tcga_tumor_log2TPM.RDS")
 tcga_annot = readRDS("data/tcga_tumor_annotation.RDS")
-tcga_tumor_norm = readRDS("data/tcga_tumor_normal_datascience_proj_2020.RDS")
+tcga_tumor_norm = readRDS("data/tcga_tumor_normal_datascience_proj_2022.RDS")
 genesets = readRDS("data/hallmarks_genesets.rds")
 
 
