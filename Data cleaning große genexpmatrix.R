@@ -63,6 +63,17 @@ NKcytotoxicity = gsea_pathways[gsea_pathways$gs_name == "KEGG_NATURAL_KILLER_CEL
 Tcellactivation = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_TCR_PATHWAY", ]
 Bcellactivation = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_BCR_PATHWAY", ]
 purin_denovo_pathway = gsea_pathways[gsea_pathways$gs_name == "KEGG_PURINE_METABOLISM", ]
+Interleukin_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_IL1R_PATHWAY", ]
+wnt_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_WNT_PATHWAY", ]
+oxStress_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_ARENRF2_PATHWAY", ]
+IGF1_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_IGF1_PATHWAY", ]
+ACHR_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_ACH_PATHWAY", ]
+HSP27_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_HSP27_PATHWAY", ]
+RAN_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_RAN_PATHWAY", ]
+RAN_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_RAN_PATHWAY", ]
+glycosylation_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_AMAN_PATHWAY", ]
+
+
 
 
 #liste aller pathways mit allen inofs zum jeweiligen pathway
@@ -92,6 +103,14 @@ our_genesets = list(TERT_pathway$gene_symbol,
                     Tcellactivation$gene_symbol,
                     Bcellactivation$gene_symbol,
                     purin_denovo_pathway$gene_symbole
+                    Interleukin_pathway$gene_symbol,
+                    wnt_pathway$gene_symbol,
+                    oxStress_pathway$gene_symbol,
+                    IGF1_pathway$gene_symbol,
+                    ACHR_pathway$gene_symbol,
+                    HSP27_pathway$gene_symbol,
+                    RAN_pathway$gene_symbol,
+                    glycosylation_pathway$gene_symbol
                     )
 names(our_genesets) = c('TERT_pathway',
                         'MAPK_pathway',
@@ -119,6 +138,14 @@ names(our_genesets) = c('TERT_pathway',
                         'Tcell activation',
                         'Bcell activation',
                         'purin_denovo_pathway'
+                        'Interleukin_pathway',
+                        'wnt_pathway',
+                        'oxStress_pathway',
+                        'IGF1_pathway',
+                        'ACHR_pathway',
+                        'HSP27_pathway',
+                        'RAN_pathway',
+                        'glycosylation_pathway'
                         )
 
 
