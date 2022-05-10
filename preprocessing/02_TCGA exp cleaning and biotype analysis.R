@@ -16,8 +16,8 @@ load("~/GitHub/2022-topic-02-team-05/data/our_genesets.RData")
 #Cleaning der TCGA expressionsdaten
 #----------------------------------------------
 #checking for NAs
-#erstmal nur in den ersten tausend genen weil ich sonst fehler bekomm ):
-tcga_exp_narm = na.omit(tcga_exp[1:1000,])
+#erstmal nur in den ersten dreitausend genen weil ich sonst fehler bei der varianz bekomm ):
+tcga_exp_narm = na.omit(tcga_exp[1:3000,])
 
 #Berrechnen der Varianz aller Gene
 tcga_exp_var = apply(tcga_exp_narm, 1, var)

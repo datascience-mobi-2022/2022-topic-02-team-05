@@ -8,6 +8,7 @@ library(fgsea)
 
 load('~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
 load('~/GitHub/2022-topic-02-team-05/data/our_genesets.RData')
+genesets = readRDS("~/GitHub/2022-topic-02-team-05/data/hallmarks_genesets.rds")
 
 #----------------------------------------------------------
 #bennen der gene in tcga exp nur mit namen ohne ensembl id
@@ -26,39 +27,31 @@ tcga_genenames = strsplit(tcga_genenames, split = '.', fixed = TRUE)
 tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_genenames[1])})
 
 #----------------------
-#versuch eine gsea für einen patienten zu implementieren
+#versuch eine gsea zu implementieren
 #------------------------
-probe_exp = tcga_exp_cleaned[,1]
-names(probe_exp) = tcga_genenames
-probe_exp = sort(probe_exp, decreasing = TRUE)
 
-pval = 0.05
-pathways = gmtPathways("C:/Users/jakob/Desktop/c2.cp.v7.5.1.symbols.gmt")
+#pathways = gmtPathways("C:/Users/jakob/Desktop/c2.cp.v7.5.1.symbols.gmt") alle canonischen pathways msigr vllt als alternative
 
-probe_gsea_3 <- fgseaMultilevel(pathways = our_genesets, 
-                                stats = probe_exp,
-                                minSize=3,
-                                maxSize=600) #%>% 
+
+#function die eine gsea für einen beliebigen patienten durchführt und den NES ausgibt
+GSEA = function(patient){
+  pathways = c(genesets[[1]], our_genesets)
+  names(patient) = tcga_genenames
+  patient = sort(patient, decreasing = TRUE)
   
-  #dplyr::filter(padj < !!pval)
+  res = fgseaMultilevel(pathways = pathways, 
+                        stats = patient,
+                        minSize=3
+                        )
+  message('I´m still standing')
+  return(res)
+}
+
+#liste mit allen infos (ES NES pWERT) zu den GSEAS der einzelnen patienten
+GSEA_list = apply(tcga_exp_cleaned[,1:10], 2, GSEA) #erstmal nur die ersten zehn patienten weil das sonst exig dauert
+#hier muss jetzt eine fuktion hin die die NEM spalte aller dataframes aus der GSEA liste pulled und als df speichert
 
 
+save(GSEA_list, file = '~/GitHub/2022-topic-02-team-05/data/GSEA_matrix.RData')
 
 
-
-
-
-
-
-
-
-tcga_gsea = gseGO(geneList=our_genesets_sorted[[1]], 
-      ont ="ALL", 
-      keyType = "SYMBOL", 
-      nPerm = 100, #the higher the more accurrate but longer
-      minGSSize = 3, 
-      maxGSSize = 800, 
-      pvalueCutoff = 0.05, 
-      verbose = TRUE, 
-      OrgDb = "org.Hs.eg.db", 
-      pAdjustMethod = "none")
