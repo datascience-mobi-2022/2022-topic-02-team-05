@@ -70,11 +70,20 @@ IGF1_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_IGF1_PATHWAY", ]
 ACHR_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_ACH_PATHWAY", ]
 HSP27_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_HSP27_PATHWAY", ]
 RAN_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_RAN_PATHWAY", ]
-RAN_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_RAN_PATHWAY", ]
 glycosylation_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_AMAN_PATHWAY", ]
-
-
-
+TATAregulated_genes_pathway = gsea_pathways[gsea_pathways$gs_name == "TATAAA_TATA_01", ] #TATA-regulated genes
+TGGAAAregulated_genes_pathway = gsea_pathways[gsea_pathways$gs_name == "TGGAAA_NFAT_Q4_01", ] #TGGAAA-regulated genes
+Retinoate_pathway = gsea_pathways[gsea_pathways$gs_name == "GOMF_RETINAL_DEHYDROGENASE_ACTIVITY", ] #Retinoate from Retinol via Dehydrogenase
+Retinol_pathway = gsea_pathways[gsea_pathways$gs_name == "KEGG_RETINOL_METABOLISM", ] #Retinol metabolism
+Farnesly_diphosphate_pathway = gsea_pathways[gsea_pathways$gs_name == "GOBP_FARNESYL_DIPHOSPHATE_METABOLIC_PROCESS", ] #for example squalene synthesis 
+cholesterol_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_FXR_PATHWAY", ] #cholesterol regulation
+cortisol_pathway = gsea_pathways[gsea_pathways$gs_name == "GOBP_CORTISOL_BIOSYNTHETIC_PROCESS", ] #cortisol synthesis
+steroid_hormone_pathway = gsea_pathways[gsea_pathways$gs_name == "KEGG_STEROID_HORMONE_BIOSYNTHESIS", ] #steroid hormone synthesis in general
+hypogonadism_pathway = gsea_pathways[gsea_pathways$gs_name == "HP_MALE_HYPOGONADISM", ] #Decreased functionality of the male gonad, i.e., of the testis, with reduced spermatogenesis or testosterone synthesis.
+estradiol_responsive_genes_pathway = gsea_pathways[gsea_pathways$gs_name == "SYED_ESTRADIOL_RESPONSE", ] #genes responsive to estradiol regulation 
+Oocyte_maturation_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_MPR_PATHWAY", ] #initiation of oocyte maturation via progesterone
+Vitamin_D_pathway = gsea_pathways[gsea_pathways$gs_name == "GOBP_VITAMIN_D_BIOSYNTHETIC_PROCESS", ] #VitaminD synthesis
+urea_pathway = gsea_pathways[gsea_pathways$gs_name == "GOBP_UREA_CYCLE", ] #urea synthesis
 
 #liste aller pathways mit allen inofs zum jeweiligen pathway
 our_genesets = list(TERT_pathway$gene_symbol,
