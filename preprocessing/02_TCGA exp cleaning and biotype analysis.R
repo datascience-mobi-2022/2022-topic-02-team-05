@@ -18,7 +18,7 @@ load("~/GitHub/2022-topic-02-team-05/data/our_genesets.RData")
 #checking for NAs
 #erstmal nur in den ersten dreitausend genen weil ich sonst fehler bei der varianz bekomm ):
 gc() #gibt arbeitsspeciher frei der für die großen datenmengen gebraucht wird
-tcga_exp_narm = na.omit(tcga_exp)
+tcga_exp_narm = na.omit(tcga_exp[1:10000,])
 
 #Berrechnen der Varianz aller Gene
 tcga_exp_var = apply(tcga_exp_narm, 1, var)
@@ -37,7 +37,7 @@ savePlot(filename = "~/GitHub/2022-topic-02-team-05/output/tcga_exp_genevariance
 tcga_exp_hvar = tcga_exp_narm[log(tcga_exp_var) > -1, ]
 
 #wdh für die nächsten gene
-tcga_exp_narm_2 = na.omit(tcga_exp[3001:6000,])
+tcga_exp_narm_2 = na.omit(tcga_exp[10001:20000,])
 tcga_exp_var_2 = apply(tcga_exp_narm_2, 1, var)
 tcga_exp_hvar_2 = tcga_exp_narm_2[log(tcga_exp_var_2) > -1, ]
 
@@ -50,7 +50,7 @@ tcga_exp_hvar = rbind(tcga_exp_hvar, tcga_exp_hvar_2)
 checkbiotypes = function(pathway){mart = useEnsembl(dataset = "hsapiens_gene_ensembl", biomart='ensembl')
 
 res = getBM(attributes = c("ensembl_gene_id", "gene_biotype"),
-            filters = "external_gene_name",
+            filters = "ensembl_gene_id",
             values = pathway,
             mart = mart )
 message('Let me check that for you :D')
