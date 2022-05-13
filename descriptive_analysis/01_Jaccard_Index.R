@@ -21,24 +21,28 @@ colnames(data.jaccard) <- names(our_genesets) #n
 rownames(data.jaccard) <- names(hallmarks_genesets$genesets) #m
 
 #jaccard_index:
-for (geneset.our in our_genesets){
-  for (geneset.hm in hallmarks_genesets$genesets) { 
-    sapply(geneset.our, setequal(geneset.our,geneset.hm))
-  }
-}
 
 n = 1
 m = 1
-for (geneset.our in our_genesets){
-  for (gene in geneset.our){
-    for (geneset.hm in hallmarks_genesets$genesets){ 
-      count[m,n] <- gene %in% geneset.hm
-      n <- n+1
-    }
-  }
+
+jaccard <- function(a, b) {
+  intersection = length(intersect(a, b))
+  union = length(a) + length(b) - intersection
+  return (intersection/union)
 }
 
+for (set_our in our_genesets){
+  for (set_hm in hallmarks_genesets$genesets){
+    jacindex <- jaccard(set_our, set_hm)
+    print(jacindex)
+    data.jaccard[m,n] <- jacindex
+    m <- m+1
+  }
+  m <- 1
+  n <- n+1
+}
 
+heatmap(as.matrix(data.jaccard), mar = c(12.5,10), main= 'Similarity of hallmark and our genesets', xlab = 'our genesets', ylab = 'hallmark genesets')
 
 
        
