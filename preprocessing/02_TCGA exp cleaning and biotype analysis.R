@@ -9,7 +9,7 @@ library(ggplot2)
 
 #laden der daten
 tcga_exp = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_log2TPM.RDS")
-genesets_ids = readRDS("~/GitHub/2022-topic-02-team-05/data/genesets_ids.rds")
+load("~/GitHub/2022-topic-02-team-05/data/geneset_ids.RData")
 load("~/GitHub/2022-topic-02-team-05/data/our_genesets.RData")
 
 #----------------------------------------------
@@ -17,7 +17,7 @@ load("~/GitHub/2022-topic-02-team-05/data/our_genesets.RData")
 #----------------------------------------------
 #checking for NAs
 #erstmal nur in den ersten dreitausend genen weil ich sonst fehler bei der varianz bekomm ):
-gc() #gibt arbeitsspeciher frei der für die großen datenmengen gebraucht wird
+gc() #gibt arbeitsspeciher frei der f?r die gro?en datenmengen gebraucht wird
 tcga_exp_narm = na.omit(tcga_exp)
 
 #Berrechnen der Varianz aller Gene
@@ -28,29 +28,24 @@ hist(log(tcga_exp_var), breaks = 50, probability = TRUE)
 
 #speichern als plot
 #funktioniert noch nicht
-savePlot(filename = "~/GitHub/2022-topic-02-team-05/output/tcga_exp_genevariance",
-         device = dev.cur(),
-         type = "jpg")
+# savePlot(filename = "~/GitHub/2022-topic-02-team-05/output/tcga_exp_genevariance",
+#          device = dev.cur(),
+#          type = "jpg")
 
 #cutting der gene mit sehr niedriger exression d.h. log(var) < -1
-#erstmal willkürlich festgestzt
+#erstmal willk?rlich festgestzt
 tcga_exp_hvar = tcga_exp_narm[log(tcga_exp_var) > -1, ]
-
-#wdh für die nächsten gene
-tcga_exp_narm_2 = na.omit(tcga_exp[3001:6000,])
-tcga_exp_var_2 = apply(tcga_exp_narm_2, 1, var)
-tcga_exp_hvar_2 = tcga_exp_narm_2[log(tcga_exp_var_2) > -1, ]
-
-tcga_exp_hvar = rbind(tcga_exp_hvar, tcga_exp_hvar_2)
+save(tcga_exp_hvar, file = '~/GitHub/2022-topic-02-team-05/data/tcga_exp_hvar.RData')
 
 #-----------------------------------------------
 # Analyse der Biotypes von Unseren pathways, Dr. Herrmanns pathways und den tcga expressionsdaten
 #-----------------------------------------------
-#function die Gennamen nimmt und dafür den gentypen gibt
-checkbiotypes = function(pathway){mart = useEnsembl(dataset = "hsapiens_gene_ensembl", biomart='ensembl')
+#function die Gennamen nimmt und daf?r den gentypen gibt
+mart = useEnsembl(dataset = "hsapiens_gene_ensembl", biomart='ensembl')
+checkbiotypes = function(pathway){
 
-res = getBM(attributes = c("ensembl_gene_id", "gene_biotype"),
-            filters = "external_gene_name",
+res = getBM(attributes = c("ensembl_gene_id","gene_biotype"),
+            filters = "ensembl_gene_id",
             values = pathway,
             mart = mart )
 message('Let me check that for you :D')
@@ -58,23 +53,11 @@ message('Let me check that for you :D')
 return(res)
 }
 
-#function die alle biotypes eines pathways als barplot plottet
-#genelist ist dabei die liste unserer pathways, number die stelle des pathways in der liste
-plotbiotypes = function(genelist, number){
-  x = as.data.frame(table(as.vector(genelist[[number]])))
-  colnames(x) = c('Biotype','Ammount')
-  
-  ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +  
-    labs(title = names(genelist[number])) +
-    theme(axis.text = element_text(angle = 0,))
-}
-
-
 #-----------------------------------------
 #gene biotypes unserer Metabolic pathways bestimmen
 #-----------------------------------------
 our_genesets_biotypes = sapply(our_genesets, checkbiotypes)
-our_genesets_biotypes = our_genesets_biotypes[2,]#entfernen der ensembl ids
+our_genesets_biotypes = our_genesets_biotypes[2,]
 
 #plotten einer gesamt?bersicht ?ber die biotypes aller unserer pathways
 res = NULL
@@ -91,8 +74,8 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #-------------------------------
 #gene biotypes von carls pathways bestimmen
 #----------------------------------
-genesets_biotypes = sapply(genesets[[1]], checkbiotypes)
-genesets_biotypes = genesets_biotypes[2,]#entfernen der ids
+genesets_biotypes = sapply(genesets_ids, checkbiotypes)
+genesets_biotypes = genesets_biotypes[2,]
 
 
 #plotten einer ?bersicht ?ber die biotypes aller von carls pathways
@@ -111,26 +94,12 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #---------------------------------------------------------
 #analyse der biotypen der gene aus den tcga expressionsdaten
 #---------------------------------------------------------
-#gennamen extrahieren
-tcga_genes = rownames(tcga_exp_hvar)
-
-#dieser vetor enth?lt sowohl enseblm id als auch genenamen und muss daher gespalten werden
-tcga_genes = strsplit(tcga_genes, split = '|', fixed = TRUE)
-
-#speicher der gennamen als eigenen vektor
-tcga_genenames = sapply(tcga_genes, function(tcga_genes){return(tcga_genes[2])})
-
-#entfernen der Versionsnummern f?r ensembl id und gennamen
-tcga_genenames = strsplit(tcga_genenames, split = '.', fixed = TRUE)
-tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_genenames[1])})
-
-#hier am besten noch doppelte namen mit eventuell anderen versionsnummern ?berpr?fen und die neuere nehemen
-
-#biotypes der tcga gene bestimmen
-tcga_biotypes = checkbiotypes(tcga_genenames)
+load('~/GitHub/2022-topic-02-team-05/data/tcga_genes.RData')
+tcga_biotypes = checkbiotypes(tcga_genes$tcga_geneids)
+tcga_biotypes = tcga_biotypes$gene_biotype
 
 #darstellen aller biotypes im set
-x = as.data.frame(table(as.vector(tcga_biotypes$gene_biotype)))
+x = as.data.frame(table(as.vector(tcga_biotypes)))
 colnames(x) = c('Biotype','Ammount')
 
 ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +  
@@ -141,12 +110,10 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #--------------------------------------------------------------------------
 #entfernen aller nicht proteincodierenden gene aus der tcga expressions matrix
 #--------------------------------------------------------------------------
-tcga_exp_cleaned = tcga_exp_hvar[tcga_biotypes$gene_biotype == 'protein_coding', ]
+tcga_exp_cleaned = tcga_exp_hvar[tcga_biotypes == 'protein_coding', ]
 tcga_exp_cleaned = na.omit(tcga_exp_cleaned)
 ##hier geht sich das iwie nicht mit den zeilen aus wieso kommen wir von 1000 auf 800 auf 300 auf 140
 
-save(our_genesets_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/our_genesets_biotypes.RData')
-save(genesets_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/genesets_biotypes.RData')
-save(tcga_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/tcga_biotypes.RData')
+
 save(tcga_exp_cleaned, file = '~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
 

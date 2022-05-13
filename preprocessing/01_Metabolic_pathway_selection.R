@@ -9,7 +9,7 @@
 
 library(msigdbr)
 
-#öffnen der Datenbank
+#?ffnen der Datenbank
 gsea_pathways = msigdbr(species = "Homo sapiens")
 
 #Auswahl der einzelnen pathways
@@ -184,7 +184,7 @@ tcga_genenames = strsplit(tcga_genenames, split = '.', fixed = TRUE)
 tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_genenames[1])})
 
 tcga_genes = cbind.data.frame(tcga_geneids,tcga_genenames)
-#speichern eines datframes der der die Ensembl ids und genenamen aller genen der exp daten enthält
+#speichern eines datframes der der die Ensembl ids und genenamen aller genen der exp daten enth?lt
 save(tcga_genes, file = '~/GitHub/2022-topic-02-team-05/data/tcga_genes.RData')
 
 #---------------------------------------------------
@@ -198,7 +198,8 @@ mart = useEnsembl(dataset = "hsapiens_gene_ensembl", biomart='ensembl')
 genesets_ids = lapply(genesets[[1]], FUN = function(x){getBM(attributes = "ensembl_gene_id",
                                            filters = "external_gene_name",
                                            values = x,
-                                           mart = mart )%>% as.vector()})
+                                           mart = mart )})
+genesets_ids = sapply(genesets_ids, FUN = function(genesets_ids){return(as.vector(genesets_ids))})
 save(genesets_ids, file = '~/GitHub/2022-topic-02-team-05/data/geneset_ids.RData')
     
 
