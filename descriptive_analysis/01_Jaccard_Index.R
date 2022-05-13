@@ -43,6 +43,19 @@ for (set_our in our_genesets){
 }
 
 heatmap(as.matrix(data.jaccard), mar = c(12.5,10), main= 'Similarity of hallmark and our genesets', xlab = 'our genesets', ylab = 'hallmark genesets')
-
+library(pheatmap)
+pheatmap(as.matrix(data.jaccard),
+         breaks = seq(0, max(data.jaccard), length.out = 51),
+         color = colorRampPalette(c('lightskyblue','lightcyan','white','yellow','orange', 'red'),
+                                  bias = 1,
+                                  space = 'rgb',
+                                  interpolate = 'linear'
+         )(50),
+         clustering_method = 'average', treeheight_row = 20, treeheight_col = 20,
+         cellwidth = 10, cellheight = 10,
+         fontsize = 8, border_color = 'lightcyan2',
+         legend_breaks = c(0, max(data.jaccard)),
+         legend_labels = c('unlike','same')
+)
 
        
