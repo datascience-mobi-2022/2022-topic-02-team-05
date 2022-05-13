@@ -1,5 +1,6 @@
 #-----------------------------------------------------
-#Dokument in dem wir alle Metabolischen pathways laden
+#Dokument in dem wir alle Metabolischen pathways laden und die Hallmarkpathways
+#in ENsembl IDs umschreiben
 #-----------------------------------------------------
 
 #install.packages("msigdbr")
@@ -60,57 +61,54 @@ Oocyte_maturation_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_MPR
 Vitamin_D_pathway = gsea_pathways[gsea_pathways$gs_name == "GOBP_VITAMIN_D_BIOSYNTHETIC_PROCESS", ] #VitaminD synthesis
 urea_pathway = gsea_pathways[gsea_pathways$gs_name == "GOBP_UREA_CYCLE", ] #urea synthesis
 
-
-
-
 #liste aller pathways mit allen inofs zum jeweiligen pathway
-our_genesets = list(TERT_pathway$gene_symbol,
-                    MAPK_pathway$gene_symbol,
-                    thyroidhormone_pathway$gene_symbol,
-                    JAKSTAT_pathway$gene_symbol,
-                    ferroptosis_pathway$gene_symbol,
-                    translationInitiation_pathway$gene_symbol,
-                    mehrEnergie_pathway$gene_symbol,
-                    #glycolysis_pathway$gene_symbol,
-                    citric_cycle_pathway$gene_symbol,
-                    synapsis_pathway$gene_symbol,
-                    #aminoacid_pathway$gene_symbol,
-                    estrogen_pathway$gene_symbol,
-                    ACE_pathway$gene_symbol,
-                    inflam_response_pathway$gene_symbol,
-                    CaMK_pathway$gene_symbol,
-                    stemmcell_reg_pathway$gene_symbol,
-                    mammarygland1_embryo_pathway$gene_symbol,
-                    mammarygland2_puberty_pathway$gene_symbol,
-                    mammarygland3_pregnancy_pathway$gene_symbol,
-                    mammarygland4_abbau_pathway$gene_symbol,
-                    TGFBEMT_pathway$gene_symbol,
-                    CaspaseCascade_pathway$gene_symbol,
-                    NKcytotoxicity$gene_symbol,
-                    Tcellactivation$gene_symbol,
-                    Bcellactivation$gene_symbol,
-                    purin_denovo_pathway$gene_symbol,
-                    Interleukin_pathway$gene_symbol,
-                    wnt_pathway$gene_symbol,
-                    oxStress_pathway$gene_symbol,
-                    IGF1_pathway$gene_symbol,
-                    ACHR_pathway$gene_symbol,
-                    HSP27_pathway$gene_symbol,
-                    RAN_pathway$gene_symbol,
-                    glycosylation_pathway$gene_symbol,
-                    TATAregulated_genes_pathway$gene_symbol,
-                    TGGAAAregulated_genes_pathway$gene_symbol,
-                    Retinoate_pathway$gene_symbol,
-                    Retinol_pathway$gene_symbol,
-                    Farnesly_diphosphate_pathway$gene_symbol,
-                    cholesterol_pathway$gene_symbol,
-                    cortisol_pathway$gene_symbol,
-                    steroid_hormone_pathway$gene_symbol,
-                    hypogonadism_pathway$gene_symbol,
-                    estradiol_responsive_genes_pathway$gene_symbol,
-                    Oocyte_maturation_pathway$gene_symbol,
-                    Vitamin_D_pathway$gene_symbol,
-                    urea_pathway$gene_symbol
+our_genesets = list(TERT_pathway$human_ensembl_gene,
+                    MAPK_pathway$human_ensembl_gene,
+                    thyroidhormone_pathway$human_ensembl_gene,
+                    JAKSTAT_pathway$human_ensembl_gene,
+                    ferroptosis_pathway$human_ensembl_gene,
+                    translationInitiation_pathway$human_ensembl_gene,
+                    mehrEnergie_pathway$human_ensembl_gene,
+                    #glycolysis_pathway$human_ensembl_gene,
+                    citric_cycle_pathway$human_ensembl_gene,
+                    synapsis_pathway$human_ensembl_gene,
+                    #aminoacid_pathway$human_ensembl_gene,
+                    estrogen_pathway$human_ensembl_gene,
+                    ACE_pathway$human_ensembl_gene,
+                    inflam_response_pathway$human_ensembl_gene,
+                    CaMK_pathway$human_ensembl_gene,
+                    stemmcell_reg_pathway$human_ensembl_gene,
+                    mammarygland1_embryo_pathway$human_ensembl_gene,
+                    mammarygland2_puberty_pathway$human_ensembl_gene,
+                    mammarygland3_pregnancy_pathway$human_ensembl_gene,
+                    mammarygland4_abbau_pathway$human_ensembl_gene,
+                    TGFBEMT_pathway$human_ensembl_gene,
+                    CaspaseCascade_pathway$human_ensembl_gene,
+                    NKcytotoxicity$human_ensembl_gene,
+                    Tcellactivation$human_ensembl_gene,
+                    Bcellactivation$human_ensembl_gene,
+                    purin_denovo_pathway$human_ensembl_gene,
+                    Interleukin_pathway$human_ensembl_gene,
+                    wnt_pathway$human_ensembl_gene,
+                    oxStress_pathway$human_ensembl_gene,
+                    IGF1_pathway$human_ensembl_gene,
+                    ACHR_pathway$human_ensembl_gene,
+                    HSP27_pathway$human_ensembl_gene,
+                    RAN_pathway$human_ensembl_gene,
+                    glycosylation_pathway$human_ensembl_gene,
+                    TATAregulated_genes_pathway$human_ensembl_gene,
+                    TGGAAAregulated_genes_pathway$human_ensembl_gene,
+                    Retinoate_pathway$human_ensembl_gene,
+                    Retinol_pathway$human_ensembl_gene,
+                    Farnesly_diphosphate_pathway$human_ensembl_gene,
+                    cholesterol_pathway$human_ensembl_gene,
+                    cortisol_pathway$human_ensembl_gene,
+                    steroid_hormone_pathway$human_ensembl_gene,
+                    hypogonadism_pathway$human_ensembl_gene,
+                    estradiol_responsive_genes_pathway$human_ensembl_gene,
+                    Oocyte_maturation_pathway$human_ensembl_gene,
+                    Vitamin_D_pathway$human_ensembl_gene,
+                    urea_pathway$human_ensembl_gene
                     )
 
 names(our_genesets) = c('TERT_pathway',
@@ -161,7 +159,47 @@ names(our_genesets) = c('TERT_pathway',
                         'Vitamin_D_pathway',
                         'urea_pathway')
 
-
 #saving the list with all our genesets in our github folder data
 save(our_genesets, file = '~/GitHub/2022-topic-02-team-05/data/our_genesets.RData')
+
+#--------------------------------
+#Extraktion aller ensembl ids und gennamen aus den exp daten
+#--------------------------------
+tcga_exp = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_log2TPM.RDS")
+
+#extrhiren aller gene die in den Expressionsdaten vorkommen
+tcga_genes = rownames(tcga_exp)
+
+#dieser vetor enth?lt sowohl enseblm id als auch genenamen und muss daher gespalten werden
+tcga_genes = strsplit(tcga_genes, split = '|', fixed = TRUE)
+
+#speicher der ensembl ids ohne versionsnummer als eigenen vektor
+tcga_geneids = sapply(tcga_genes, function(tcga_genes){return(tcga_genes[1])})
+tcga_geneids = strsplit(tcga_geneids, split = '.', fixed = TRUE)
+tcga_geneids = sapply(tcga_geneids, function(tcga_geneids){return(tcga_geneids[1])})
+
+#speicher der genenames ohne versionsnummer als eigenen vektor
+tcga_genenames = sapply(tcga_genes, function(tcga_genes){return(tcga_genes[2])})
+tcga_genenames = strsplit(tcga_genenames, split = '.', fixed = TRUE)
+tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_genenames[1])})
+
+tcga_genes = cbind.data.frame(tcga_geneids,tcga_genenames)
+#speichern eines datframes der der die Ensembl ids und genenamen aller genen der exp daten enthält
+save(tcga_genes, file = '~/GitHub/2022-topic-02-team-05/data/tcga_genes.RData')
+
+#---------------------------------------------------
+#Umschreiben der Hallmarkpathways von Gennamen in Ensembl ids 
+#-----------------------------------------------------
+#BiocManager::install("biomaRt")
+library(biomaRt)
+genesets = readRDS("~/GitHub/2022-topic-02-team-05/data/hallmarks_genesets.rds")
+
+mart = useEnsembl(dataset = "hsapiens_gene_ensembl", biomart='ensembl')
+genesets_ids = lapply(genesets[[1]], FUN = function(x){getBM(attributes = "ensembl_gene_id",
+                                           filters = "external_gene_name",
+                                           values = x,
+                                           mart = mart )%>% as.vector()})
+save(genesets_ids, file = '~/GitHub/2022-topic-02-team-05/data/geneset_ids.RData')
+    
+
 

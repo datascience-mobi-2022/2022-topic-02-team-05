@@ -1,3 +1,9 @@
+#--------------------------------------------------
+# In diesem Dukoment versuchen wir die Gereinigten expressionsdaten mittels gsea zu
+#pathway activitäten zusammenzufassen un din einer matrix mit patienten als spalten und 
+# enrichment scores als zeilen zusammenzufassen
+#--------------------------------------------------
+
 if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install("gage")
@@ -5,6 +11,7 @@ BiocManager::install("fgsea")
 library(dplyr)
 library(gage)
 library(fgsea)
+library(pheatmap)
 
 load('~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
 load('~/GitHub/2022-topic-02-team-05/data/our_genesets.RData')
@@ -30,28 +37,56 @@ tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_gen
 #versuch eine gsea zu implementieren
 #------------------------
 
-#pathways = gmtPathways("C:/Users/jakob/Desktop/c2.cp.v7.5.1.symbols.gmt") alle canonischen pathways msigr vllt als alternative
+#function die eine gsea für einen beliebigen patienten durchführt und nur den NES benannt ausgibt
+#alle pathways die nocht siginifikant von der base level abweichen werden 0 gesetzt
 
-
-#function die eine gsea für einen beliebigen patienten durchführt und den NES ausgibt
-GSEA = function(patient){
-  pathways = c(genesets[[1]], our_genesets)
-  names(patient) = tcga_genenames
-  patient = sort(patient, decreasing = TRUE)
+GSEA_NES = function(patient, pathways = c(genesets[[1]], our_genesets), pvalue = 0.05){
   
+  #sorting and naming the exp data
+  names(patient) = tcga_genenames
+  #hiervor z-transforamtion einfügen
+  patient = sort(patient, decreasing = TRUE) 
+  
+  #duarchführen der GSEA
   res = fgseaMultilevel(pathways = pathways, 
                         stats = patient,
-                        minSize=3
-                        )
+                        minSize=3)
+  #extrahieren der NES werte & nullsetzten aller nichtsiginifikanten
+  ret = res$NES; names(ret) = res$pathway
+  #ret[res$padj > pvalue] = 0
+  ret[is.na(ret)] = 0
+  
   message('I´m still standing')
-  return(res)
+  return(ret)
 }
 
-#liste mit allen infos (ES NES pWERT) zu den GSEAS der einzelnen patienten
-GSEA_list = apply(tcga_exp_cleaned[,1:10], 2, GSEA) #erstmal nur die ersten zehn patienten weil das sonst exig dauert
-#hier muss jetzt eine fuktion hin die die NEM spalte aller dataframes aus der GSEA liste pulled und als df speichert
+#-------------------------------------------
+#Durchführung der GSEA
+#-----------------------------------------------
+
+#pathways = gmtPathways("C:/Users/jakob/Desktop/c2.cp.v7.5.1.symbols.gmt") alle canonischen pathways msigr vllt als alternative
+GSEA_matrix = apply(tcga_exp_cleaned[,1:20], 2, GSEA_NES) %>% as.data.frame()
+
+#darstellen der GSEA matrix als heatmap
+#rote sind überexpremierte pathways, blue unterexpremierte, weiß keine abweichung
+pheatmap(as.matrix(GSEA_matrix),
+         breaks = seq(-max(GSEA_matrix), max(GSEA_matrix), length.out = 201),
+         color = colorRampPalette(c('blue','light blue', 'white','yellow', 'red'),
+                                  bias = 1,
+                                  space = 'rgb',
+                                  interpolate = 'linear'
+         )(200),
+         clustering_method = 'average',
+         treeheight_row = 25, treeheight_col = 20, cellwidth = 20,cellheight = 20,
+         show_colnames = FALSE,
+         legend_breaks = c(-max(GSEA_matrix),0, max(GSEA_matrix)),
+         legend_labels = c('underexpressed', 'normal expression', 'overexpressed')
+        )
 
 
-save(GSEA_list, file = '~/GitHub/2022-topic-02-team-05/data/GSEA_matrix.RData')
+save(GSEA_matrix, file = '~/GitHub/2022-topic-02-team-05/data/GSEA_matrix.RData')
 
+
+
+  
 

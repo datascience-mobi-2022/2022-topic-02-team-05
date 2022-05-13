@@ -9,7 +9,7 @@ library(ggplot2)
 
 #laden der daten
 tcga_exp = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_log2TPM.RDS")
-genesets = readRDS("~/GitHub/2022-topic-02-team-05/data/hallmarks_genesets.rds")
+genesets_ids = readRDS("~/GitHub/2022-topic-02-team-05/data/genesets_ids.rds")
 load("~/GitHub/2022-topic-02-team-05/data/our_genesets.RData")
 
 #----------------------------------------------
@@ -17,7 +17,8 @@ load("~/GitHub/2022-topic-02-team-05/data/our_genesets.RData")
 #----------------------------------------------
 #checking for NAs
 #erstmal nur in den ersten dreitausend genen weil ich sonst fehler bei der varianz bekomm ):
-tcga_exp_narm = na.omit(tcga_exp[1:3000,])
+gc() #gibt arbeitsspeciher frei der für die großen datenmengen gebraucht wird
+tcga_exp_narm = na.omit(tcga_exp)
 
 #Berrechnen der Varianz aller Gene
 tcga_exp_var = apply(tcga_exp_narm, 1, var)
@@ -35,7 +36,12 @@ savePlot(filename = "~/GitHub/2022-topic-02-team-05/output/tcga_exp_genevariance
 #erstmal willkürlich festgestzt
 tcga_exp_hvar = tcga_exp_narm[log(tcga_exp_var) > -1, ]
 
+#wdh für die nächsten gene
+tcga_exp_narm_2 = na.omit(tcga_exp[3001:6000,])
+tcga_exp_var_2 = apply(tcga_exp_narm_2, 1, var)
+tcga_exp_hvar_2 = tcga_exp_narm_2[log(tcga_exp_var_2) > -1, ]
 
+tcga_exp_hvar = rbind(tcga_exp_hvar, tcga_exp_hvar_2)
 
 #-----------------------------------------------
 # Analyse der Biotypes von Unseren pathways, Dr. Herrmanns pathways und den tcga expressionsdaten
@@ -143,3 +149,4 @@ save(our_genesets_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/our_gene
 save(genesets_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/genesets_biotypes.RData')
 save(tcga_biotypes, file = '~/GitHub/2022-topic-02-team-05/data/tcga_biotypes.RData')
 save(tcga_exp_cleaned, file = '~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
+
