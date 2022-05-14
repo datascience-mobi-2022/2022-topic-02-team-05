@@ -25,11 +25,17 @@ rownames(data.jaccard) <- names(genesets_ids) #m
 n = 1
 m = 1
 
+# Jaccar-Fkt. definieren: zwei Vektoren a und b als input und gibt die Schnittmenge der Vektoren 
+# (intersection) geteilt durch die Vereinigungsmenge (union) als output. 
+
 jaccard <- function(a, b) {
   intersection = length(intersect(a, b))
   union = length(a) + length(b) - intersection
   return (intersection/union)
 }
+
+# Jaccardindex für all unsere Pathways mit den Hallmarkpathways einzeln darstellen
+# --> herausfinden der Ähnlichkeit der Pathways
 
 for (set_our in our_genesets){
   for (set_hm in genesets_ids){
@@ -41,6 +47,8 @@ for (set_our in our_genesets){
   m <- 1
   n <- n+1
 }
+
+# Darstellung des Jaccardindexes (Zahl zwischen 0 und 1) mithilfe einer Heatmap:
 
 heatmap(as.matrix(data.jaccard), mar = c(12.5,10), main= 'Similarity of hallmark and our genesets', xlab = 'our genesets', ylab = 'hallmark genesets')
 library(pheatmap)
