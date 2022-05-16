@@ -3,8 +3,8 @@
 #----------------------------------------------
 
 #Laden der bereits gecleanten Daten aus der großen tcga matrix - außerdem laden der ungecleanten Daten
-load('~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
-#load('~/GitHub/2022-topic-02-team-05/data/tcga_exp.RData')
+load('data/tcga_exp_cleaned.RData')
+#load('data/tcga_exp.RData')
 
 #grobe Analyse großer Datensatz Matrix
 #str(tcga_exp)
@@ -17,14 +17,23 @@ load('~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
 #Mea_big <- mean(tcga_exp)
 
 Var_clean <- var(tcga_exp_cleaned)
+  #Var_clean <- apply(tcga_exp_cleaned, var)
 Mea_clean <- mean(tcga_exp_cleaned)
-  
+  #Mea_clean <- apply(tcga_exp_cleaned, mean)
+
 #Standardisieren der Varianz und logarithmieren des Mittelwerts
 log_mean_clean <- log(Mea_clean)
-stand_var_big <- (Var_clean - mean(Var_clean)) / var(Var_clean)
-
+  #log_mean_clean <- apply(Mea_clean, log)
+stand_var_clean <- (Var_clean - mean(Var_clean)) / var(Var_clean)
+#Func1 <- function(x){
+  #(Var_clean - mean(Var_clean)) / var(Var_clean)
+#}
+#stand_var_clean <- apply(Var_clean, Func1)
+                         
 #plotten der Werte mit Varianz über Mittelwert 
 plot(log_mean_clean, stand_var_big, "p", main = "Descriptive analysis", sub = "Variance over mean", xlab = "log_Mean", ylab = "standardized_Variance") -> descriptiveMeanVar 
 
 #Punkte ab gewissem Schwellenwert benennen 
-
+if (log_mean_clean > SCHWELLE & stand_var_big > SCHWELLE) {
+  text(log_mean_clean, stand_var_big, labels = row.names(tcga_exp_cleaned), cex = 0.7, pos = 3)
+}
