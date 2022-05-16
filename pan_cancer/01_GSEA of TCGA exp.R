@@ -16,6 +16,8 @@ library(pheatmap)
 load('~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
 load('~/GitHub/2022-topic-02-team-05/data/our_genesets.RData')
 load("~/GitHub/2022-topic-02-team-05/data/geneset_ids.RData")
+tcga_anno = readRDS('~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS')
+
 
 #--------------------------------
 #Extraktion aller ensembl ids und gennamen aus den cleanen exp daten
@@ -70,6 +72,43 @@ pathways = c(genesets_ids, our_genesets)
 
 #ztransforamtion der daten zur gsea analyse nach Peng et al.
 tcga_exp_ztrans = apply(as.matrix(tcga_exp_cleaned), 2, scale)
+
+
+#verbesserte Version
+# extraktion aller patienten mit einem tumortype
+tcga_anno = tcga_anno[order(tcga_anno$cancer_type_abbreviation),]
+
+cancers = list();cancers = vector('list',length(table(tcga_anno$cancer_type_abbreviation)))
+names(cancers) = names(table(tcga_anno$cancer_type_abbreviation))
+
+y = 1 ;z = 1;type = 'ACC'
+for (j in 1:length(tcga_anno$cancer_type_abbreviation)){
+  
+  if(tcga_anno$cancer_type_abbreviation[j] == type){
+      cancers[[y]][[z]] = tcga_anno$sample[j]
+      z = z+1
+  } else {
+      type = tcga_anno$cancer_type_abbreviation[j]
+      y = y+1
+      z = 1
+      cancers[[y]][[z]] = tcga_anno$sample[j]
+      
+  }
+  message(j)
+}
+#list mit allen patient mit einem cancertype
+canc = list()
+for(i in 1:length(cancers)){
+    canc[[i]] = (sapply(cancers[[i]], FUN = function(x){return(x)}))
+}
+names(canc) = names(table(tcga_anno$cancer_type_abbreviation))
+
+
+tcga_cancers = lapply(canc, FUN = function(x){
+  return(tcga_exp_cleaned[,tcga_exp_cleaned == x])
+})
+
+test = tcga_exp_cleaned[3,colnames(tcga_exp_cleaned) == canc[['ACC']]]
 
 GSEA_matrix = apply(tcga_exp_ztrans[,1:100], 2, GSEA_NES) %>% as.data.frame()
 save(GSEA_matrix, file = '~/GitHub/2022-topic-02-team-05/data/GSEA_matrix.RData')
