@@ -8,9 +8,9 @@ library(dplyr)
 library(ggplot2)
 
 #laden der daten
-tcga_exp = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_log2TPM.RDS")
-load("~/GitHub/2022-topic-02-team-05/data/geneset_ids.RData")
-load("~/GitHub/2022-topic-02-team-05/data/our_genesets.RData")
+tcga_exp = readRDS("data/tcga_tumor_log2TPM.RDS")
+load("data/geneset_ids.RData")
+load("data/our_genesets.RData")
 
 #----------------------------------------------
 #Cleaning der TCGA expressionsdaten
@@ -28,14 +28,14 @@ hist(log(tcga_exp_var), breaks = 50, probability = TRUE)
 
 #speichern als plot
 #funktioniert noch nicht
-# savePlot(filename = "~/GitHub/2022-topic-02-team-05/output/tcga_exp_genevariance",
+# savePlot(filename = "output/tcga_exp_genevariance",
 #          device = dev.cur(),
 #          type = "jpg")
 
 #cutting der gene mit sehr niedriger exression d.h. log(var) < -1
 #erstmal willk?rlich festgestzt
 tcga_exp_hvar = tcga_exp_narm[log(tcga_exp_var) > -1, ]
-save(tcga_exp_hvar, file = '~/GitHub/2022-topic-02-team-05/data/tcga_exp_hvar.RData')
+save(tcga_exp_hvar, file = 'data/tcga_exp_hvar.RData')
 
 #-----------------------------------------------
 # Analyse der Biotypes von Unseren pathways, Dr. Herrmanns pathways und den tcga expressionsdaten
@@ -94,7 +94,7 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #---------------------------------------------------------
 #analyse der biotypen der gene aus den tcga expressionsdaten
 #---------------------------------------------------------
-load('~/GitHub/2022-topic-02-team-05/data/tcga_genes.RData')
+load('data/tcga_genes.RData')
 tcga_biotypes = checkbiotypes(tcga_genes$tcga_geneids)
 tcga_biotypes = tcga_biotypes$gene_biotype
 
@@ -115,5 +115,5 @@ tcga_exp_cleaned = na.omit(tcga_exp_cleaned)
 ##hier geht sich das iwie nicht mit den zeilen aus wieso kommen wir von 1000 auf 800 auf 300 auf 140
 
 
-save(tcga_exp_cleaned, file = '~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
+save(tcga_exp_cleaned, file = 'data/tcga_exp_cleaned.RData')
 

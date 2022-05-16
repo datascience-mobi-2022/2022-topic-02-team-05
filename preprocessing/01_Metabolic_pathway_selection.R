@@ -5,7 +5,8 @@
 
 #install.packages("msigdbr")
 #if (!require("BiocManager", quietly = TRUE))
-#   install.packages("BiocManager")
+   #install.packages("BiocManager")
+#BiocManager::install(version = "3.14")
 
 library(msigdbr)
 
@@ -160,12 +161,12 @@ names(our_genesets) = c('TERT_pathway',
                         'urea_pathway')
 
 #saving the list with all our genesets in our github folder data
-save(our_genesets, file = '~/GitHub/2022-topic-02-team-05/data/our_genesets.RData')
+save(our_genesets, file = 'data/our_genesets.RData')
 
 #--------------------------------
 #Extraktion aller ensembl ids und gennamen aus den exp daten
 #--------------------------------
-tcga_exp = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_log2TPM.RDS")
+tcga_exp = readRDS("data/tcga_tumor_log2TPM.RDS")
 
 #extrhiren aller gene die in den Expressionsdaten vorkommen
 tcga_genes = rownames(tcga_exp)
@@ -185,14 +186,14 @@ tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_gen
 
 tcga_genes = cbind.data.frame(tcga_geneids,tcga_genenames)
 #speichern eines datframes der der die Ensembl ids und genenamen aller genen der exp daten enth?lt
-save(tcga_genes, file = '~/GitHub/2022-topic-02-team-05/data/tcga_genes.RData')
+save(tcga_genes, file = 'data/tcga_genes.RData')
 
 #---------------------------------------------------
 #Umschreiben der Hallmarkpathways von Gennamen in Ensembl ids 
 #-----------------------------------------------------
 #BiocManager::install("biomaRt")
 library(biomaRt)
-genesets = readRDS("~/GitHub/2022-topic-02-team-05/data/hallmarks_genesets.rds")
+genesets = readRDS("data/hallmarks_genesets.rds")
 
 mart = useEnsembl(dataset = "hsapiens_gene_ensembl", biomart='ensembl')
 genesets_ids = lapply(genesets[[1]], FUN = function(x){getBM(attributes = "ensembl_gene_id",
@@ -200,7 +201,7 @@ genesets_ids = lapply(genesets[[1]], FUN = function(x){getBM(attributes = "ensem
                                            values = x,
                                            mart = mart )})
 genesets_ids = sapply(genesets_ids, FUN = function(genesets_ids){return(as.vector(genesets_ids))})
-save(genesets_ids, file = '~/GitHub/2022-topic-02-team-05/data/geneset_ids.RData')
+save(genesets_ids, file = 'data/geneset_ids.RData')
     
 
 
