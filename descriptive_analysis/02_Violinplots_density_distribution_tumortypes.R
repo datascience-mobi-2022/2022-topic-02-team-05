@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
-# Darstellung der Verteilung der Genexpressions-Verteilung (density plot) für 
-# jeden unserer 5 Krebstypen: Darstellung über violin plots
+# Darstellung der Verteilung der Genexpressions-Verteilung (density plot) f?r 
+# jeden unserer 5 Krebstypen: Darstellung ?ber violin plots
 #-------------------------------------------------------------------------------
 
 #Daten laden:
@@ -25,12 +25,17 @@ THCA_genes <- tcga_exp_cleaned[,tcga_anno$cancer_type_abbreviation == 'THCA']
 #rbind(BRCA_genes, KIRC_genes,LUAD_genes,PRAD_genes,THCA_genes)
 
 #Mittelwerte der einzelnen Gene:
-BRCA_mean <- apply(BRCA_genes,1, mean)
-KIRC_mean <- apply(KIRC_genes,1, mean)
-LUAD_mean <- apply(LUAD_genes,1, mean)
-PRAD_mean <- apply(PRAD_genes,1, mean)
-THCA_mean <- apply(THCA_genes,1, mean)
+BRCA_mean <- apply(BRCA_genes,1, median)
+KIRC_mean <- apply(KIRC_genes,1, median)
+LUAD_mean <- apply(LUAD_genes,1, median)
+PRAD_mean <- apply(PRAD_genes,1, median)
+THCA_mean <- apply(THCA_genes,1, median)
 
+#BRCA_mean <- apply(BRCA_genes,1, var)
+#KIRC_mean <- apply(KIRC_genes,1, var)
+#LUAD_mean <- apply(LUAD_genes,1, var)
+#PRAD_mean <- apply(PRAD_genes,1, var)
+#THCA_mean <- apply(THCA_genes,1, var)
 
 #Violinplots mit einzelnen Tumortypes:
 
@@ -40,8 +45,8 @@ vioplot(LUAD_mean)
 vioplot(PRAD_mean)
 vioplot(THCA_mean)
 
-#alle Violinplots in einem Plot; dafür einen Dataframe mit allen mean-Expressionsdaten
-#erstellen mit zugehörigem Cancer-Type
+#alle Violinplots in einem Plot; daf?r einen Dataframe mit allen mean-Expressionsdaten
+#erstellen mit zugeh?rigem Cancer-Type
 
 BRCA_mframe <- data.frame('gene_mean' = BRCA_mean, 'cancer_type' = 'BRCA')
 KIRC_mframe <- data.frame('gene_mean' = KIRC_mean, 'cancer_type' = 'KIRC')

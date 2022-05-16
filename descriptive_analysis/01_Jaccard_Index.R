@@ -34,8 +34,8 @@ jaccard <- function(a, b) {
   return (intersection/union)
 }
 
-# Jaccardindex für all unsere Pathways mit den Hallmarkpathways einzeln darstellen
-# --> herausfinden der Ähnlichkeit der Pathways
+# Jaccardindex f?r all unsere Pathways mit den Hallmarkpathways einzeln darstellen
+# --> herausfinden der ?hnlichkeit der Pathways
 
 for (set_our in our_genesets){
   for (set_hm in genesets_ids){
@@ -50,7 +50,7 @@ for (set_our in our_genesets){
 
 # Darstellung des Jaccardindexes (Zahl zwischen 0 und 1) mithilfe einer Heatmap:
 
-heatmap(as.matrix(data.jaccard), mar = c(12.5,10), main= 'Similarity of hallmark and our genesets', xlab = 'our genesets', ylab = 'hallmark genesets')
+#heatmap(as.matrix(data.jaccard), mar = c(12.5,10), main= 'Similarity of hallmark and our genesets', xlab = 'our genesets', ylab = 'hallmark genesets')
 library(pheatmap)
 pheatmap(as.matrix(data.jaccard),
          breaks = seq(0, max(data.jaccard), length.out = 51),
@@ -62,7 +62,7 @@ pheatmap(as.matrix(data.jaccard),
          clustering_method = 'average', treeheight_row = 20, treeheight_col = 20,
          cellwidth = 10, cellheight = 10,
          fontsize = 8, border_color = 'lightcyan2',
-         legend_breaks = c(0, max(data.jaccard)),
+         legend_breaks = c(0, 1),
          legend_labels = c('unlike','same')
 )
 
