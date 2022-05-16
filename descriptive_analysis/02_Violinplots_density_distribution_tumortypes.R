@@ -31,12 +31,29 @@ LUAD_mean <- apply(LUAD_genes,1, mean)
 PRAD_mean <- apply(PRAD_genes,1, mean)
 THCA_mean <- apply(THCA_genes,1, mean)
 
+
 #Violinplots mit einzelnen Tumortypes:
 
 vioplot(BRCA_mean)
+vioplot(KIRC_mean)
+vioplot(LUAD_mean)
+vioplot(PRAD_mean)
+vioplot(THCA_mean)
 
-#alle Violinplots in einem Plot! 
-#Achsen noch beschriften
+#alle Violinplots in einem Plot; dafür einen Dataframe mit allen mean-Expressionsdaten
+#erstellen mit zugehörigem Cancer-Type
 
+BRCA_mframe <- data.frame('gene_mean' = BRCA_mean, 'cancer_type' = 'BRCA')
+KIRC_mframe <- data.frame('gene_mean' = KIRC_mean, 'cancer_type' = 'KIRC')
+LUAD_mframe <- data.frame('gene_mean' = LUAD_mean, 'cancer_type' = 'LUAD')
+PRAD_mframe <- data.frame('gene_mean' = PRAD_mean, 'cancer_type' = 'PRAD')
+THCA_mframe <- data.frame('gene_mean' = THCA_mean, 'cancer_type' = 'THCA')
+
+five_cancers_frame <- rbind(BRCA_mframe, KIRC_mframe, LUAD_mframe, PRAD_mframe, THCA_mframe)
+
+#Nun Violinplot erstellen, sodass alle plots nebeneinander sind
+
+vioplot(five_cancers_frame$gene_mean ~ five_cancers_frame$cancer_type, col = 2:length(levels(five_cancers_frame$cancer_type)),
+        xlab = "cancer type", ylab = "gene expression")
 
   
