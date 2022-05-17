@@ -1,22 +1,22 @@
 #--------------------------------------
-# In diesem Dkument nehemn wir die GSEA Daten und führen eine PCA sowie wie
-# ein clustering der transformierten Daten durch so können wir hoffentlich verschiedenen
-# unterschiedliche Pathway activtäten zuordnen
+# In diesem Dkument nehemn wir die GSEA Daten und f?hren eine PCA sowie wie
+# ein clustering der transformierten Daten durch so k?nnen wir hoffentlich verschiedenen
+# unterschiedliche Pathway activt?ten zuordnen
 #------------------------------------------
 library(ggplot2)
 library(metaplot)
 library(gridExtra)
-
+   
 
 load('~/GitHub/2022-topic-02-team-05/data/GSEA_matrix.RData')
 tcga_anno = readRDS('~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS')
 
 #--------------------------------------------
-#Durchführen der PCA
+#Durchf?hren der PCA
 #---------------------------------------------
 PCA = prcomp(t(GSEA_matrix))
 
-#Varianz die erklärt wird
+#Varianz die erkl?rt wird
 PCs = 1:84; var_prop = PCA$sdev^2/sum(PCA$sdev^2); var_cum = cumsum(var_prop)
 Var = cbind.data.frame(PCs, var_prop, var_cum)
 v1 = ggplot(Var[1:10,], aes(PCs, var_prop)) + geom_point()+
@@ -49,7 +49,7 @@ t3 = ggplot(pathways[1:10,], aes(names, PC3)) + geom_col()+
 grid.arrange(grobs = list(t1, t2, t3), ncol = 3)
 
 
-#plotten der daten gefärbt nach tumortype
+#plotten der daten gef?rbt nach tumortype
 PCA_data = as.data.frame(PCA$x) 
 PCA_data = PCA_data[order(row.names(PCA_data)),]
 
