@@ -8,7 +8,7 @@ load('~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
 tcga_anno = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS")
 
 #Packages:
-install.packages("vioplot")
+#install.packages("vioplot")
 library("vioplot")
 
 #Patienten herauspicken nach den einzelnen Tumortypes:
@@ -22,9 +22,8 @@ PRAD_genes <- tcga_exp_cleaned[,tcga_anno$cancer_type_abbreviation == 'PRAD']
 
 THCA_genes <- tcga_exp_cleaned[,tcga_anno$cancer_type_abbreviation == 'THCA']
 
-#rbind(BRCA_genes, KIRC_genes,LUAD_genes,PRAD_genes,THCA_genes)
 
-#Mittelwerte der einzelnen Gene:
+#Median der einzelnen Gene:
 BRCA_mean <- apply(BRCA_genes,1, median)
 KIRC_mean <- apply(KIRC_genes,1, median)
 LUAD_mean <- apply(LUAD_genes,1, median)
@@ -38,7 +37,6 @@ THCA_mean <- apply(THCA_genes,1, median)
 #THCA_mean <- apply(THCA_genes,1, var)
 
 #Violinplots mit einzelnen Tumortypes:
-
 vioplot(BRCA_mean)
 vioplot(KIRC_mean)
 vioplot(LUAD_mean)
