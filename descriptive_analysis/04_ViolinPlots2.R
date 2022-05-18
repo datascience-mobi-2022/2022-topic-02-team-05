@@ -53,14 +53,47 @@ log2fc.thca = mean.thca.norm - mean.thca.tumor
 #as.vector(thca.norm.va[1,1:ncol(thca.norm.va)]), as.vector(thca.tumor.va[1,1:ncol(thca.tumor.va)]
 #means in einen Datenframe packen:
 
-ttest.thca <- data.frame(expression = c(mean.thca.tumor, mean.thca.norm),
-                         tissue.type = c(rep('tumor', length(mean.thca.tumor)), rep('normal', length(mean.thca.norm))))
+#ttest.thca <- data.frame(expression = c(mean.thca.tumor, mean.thca.norm),
+ #                        tissue.type = c(rep('tumor', length(mean.thca.tumor)), rep('normal', length(mean.thca.norm))))
 
-t.test(tumor ~ normal,
-       data = ttest.thca,
-       alternative = 'two.sided',
-       paired = TRUE)
+#t.test(tumor ~ normal,
+  #     data = ttest.thca,
+   #    alternative = 'two.sided',
+    #   paired = TRUE)
+#wilcox.test(thca.norm.va[,1], thca.tumor.va[,1], paired = TRUE)
 
+#for (mean in 1:length(mean.thca.norm)) {
+#  x <- wilcox.test(mean.thca.norm[mean], mean.thca.tumor[mean], paired = TRUE)
+#  print(x)
+#}
+
+#x = t.test(thca.norm.va[1,], thca.tumor.va[1,], alternative = 'two.sided')$p.value
+
+
+#Leeren Vektor definieren:
+p.values <- c()
+
+#for-loop: ttest-paired durchführen über alle Gene zwischen normal und tumor tissue
+for (i in (1:nrow(thca.norm.va))){
+  x <- t.test(thca.norm.va[i,], thca.tumor.va[i,], alternative = 'two.sided')$p.value
+  p.values <- append(p.values, x)
+}
+
+#ACHTUNG: HIER ENTSTEHEN AUS IRGENDEINEM GRUND MEHR PVALUES, ALS GENE VORHANDEN??????????? 
+#-> es sind aber keine NA's, die entstehen
+
+#-----------------------------
+#Bonferroni-Adjustment, um alphafehlerkummulation zu vermeiden
+#-----------------------------
+n = nrow(thca.norm.va)
+bf = 1/n
+
+#adjusted significanzlevel: ehemals: alpha = 0.05
+alpha = 0.05
+alpha.kor = alpha*bf
+
+#gene, die sich signifikant (mit korrigiertem alpha) unterscheiden in tumor von normal tissue
+sign.p.values <- 
 
 
 
