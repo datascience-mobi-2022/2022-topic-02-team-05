@@ -3,70 +3,81 @@
 #---------------------
 
 tcga_tumor_norm = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_normal_datascience_proj_2022.RDS")
+thca.tumor <- tcga_tumor_norm$THCA$tumor
+thca.norm <- tcga_tumor_norm$THCA$normal
 
-#es muss noch die Verteilung der Gene ?berpr?ft werden, wir machen einen Shapiro-Wilk test
+#es muss noch die Verteilung der Gene ?berpr?ft werden, wir machen einen Shapiro-Wilk test -> Test auf normally distributed
 
-apply(luad.tumor, 1, function(x){
+apply(thca.tumor, 1, function(x){
   ks.test(x, pnorm)
 })
-y = as.numeric(unique(luad.tumor[1,]))
+y = as.numeric(unique(thca.tumor[1,]))
 
-x = as.numeric(unique(luad.norm[1,]))
+x = as.numeric(unique(thca.norm[1,]))
 
-ks.test(x, y)
+ks.test(x, y) # Kolmogorow-Smirnow-Test: Test auf Übereinstimmung zweier WK-Verteilungen
 
-#wenn der eraltene pWert gr??er gleich 0.05 ist, dann sind die Daten normalverteilt
+qqplot(thca.tumor,thca.norm)
+qqplot(x,y)
 
+#wenn der erhaltene pWert >= 0.05 ist, dann werden die Daten als normalverteilt angenommen
 
-#cleanen der Daten
+#--------------------------------------------------------------------------------
+#Preproscessing
+#--------------------------------------------------------------------------------
+#Na#s rauswerfen
 gc() #gibt arbeitsspeciher frei der f?r die gro?en datenmengen gebraucht wird
-tcga_tumor_norm = na.omit(tcga_tumor_norm)
+thca_tumor_normal <- tcga_tumor_norm$THCA
+thca.norm <- thca_tumor_normal$normal
+thca.tumor <- thca_tumor_normal$tumor
+thca.norm <- na.omit(thca.norm)
+thca.tumor <- na.omit(thca.tumor)
 
 #Berrechnen der Varianz
-luad.tumor.var = apply(luad.tumor, 1, var)
-luad.norm.var = apply(luad.norm, 1, var)
+thca.tumor.var = apply(thca.tumor, 1, var)
+thca.norm.var = apply(thca.norm, 1, var)
 
-#PLotten als Histogramm
-hist(log(luad.tumor.var), breaks = 50, probability = TRUE)
-hist(log(luad.norm.var), breaks = 50, probability = TRUE)
+#PLotten als Histogramm: Logarythmus, damit man was sieht: sonst alle sehr kleine Varianzen!
+hist(log(thca.tumor.var), breaks = 50, probability = TRUE)
+hist(log(thca.norm.var), breaks = 50, probability = TRUE)
 
 #cutting der gene mit sehr niedriger exression d.h. log(var) < -1
 #erstmal willk?rlich festgestzt 
 #die Werte d?rfen ja nur gel?scht werden wenn sie in beiden eine niedrige Varianz haben
 
-luad.tumor.v = luad.tumor[log(luad.tumor.var) > -1 | log(luad.norm.var) > -1, ]
-luad.norm.v = luad.norm[log(luad.tumor.var) > -1 | log(luad.norm.var) > -1, ]
-luad.tumor.va = na.omit(luad.tumor.v)
-luad.norm.va = na.omit(luad.norm.v)
+thca.tumor.v = thca.tumor[log(thca.tumor.var) > -1 | log(thca.norm.var) > -1, ]
+thca.norm.v = thca.norm[log(thca.tumor.var) > -1 | log(thca.norm.var) > -1, ]
+thca.tumor.va = na.omit(thca.tumor.v)
+thca.norm.va = na.omit(thca.norm.v)
   
   
 
 #a R object containing, for 5 tumor types, the expression data of matched tumor and normal tissue
-#Aufdr?seln der einzelnen Daten
-luad = tcga_tumor_norm[["LUAD"]]
-luad.tumor = luad[["tumor"]]
-luad.norm = luad[["normal"]]
-luad.annot = luad[["clinical"]]
+#Aufdroeseln der einzelnen Daten
+#luad = tcga_tumor_norm[["LUAD"]]
+#luad.tumor = luad[["tumor"]]
+#luad.norm = luad[["normal"]]
+#luad.annot = luad[["clinical"]]
 
-brca = tcga_tumor_norm[["BRCA"]]
-brca.tumor = luad[["tumor"]]
-brca.norm = luad[["normal"]]
-brca.annot = luad[["clinical"]]
+#brca = tcga_tumor_norm[["BRCA"]]
+#brca.tumor = luad[["tumor"]]
+#brca.norm = luad[["normal"]]
+#brca.annot = luad[["clinical"]]
 
-kirc = tcga_tumor_norm[["KIRC"]]
-kirc.tumor = luad[["tumor"]]
-kirc.norm = luad[["normal"]]
-kirc.annot = luad[["clinical"]]
+#kirc = tcga_tumor_norm[["KIRC"]]
+#kirc.tumor = luad[["tumor"]]
+#kirc.norm = luad[["normal"]]
+#kirc.annot = luad[["clinical"]]
 
-prad = tcga_tumor_norm[["PRAD"]]
-prad.tumor = luad[["tumor"]]
-prad.norm = luad[["normal"]]
-prad.annot = luad[["clinical"]]
+#prad = tcga_tumor_norm[["PRAD"]]
+#prad.tumor = luad[["tumor"]]
+#prad.norm = luad[["normal"]]
+#prad.annot = luad[["clinical"]]
 
-thca = tcga_tumor_norm[["THCA"]]
-thca.tumor = luad[["tumor"]]
-thca.norm = luad[["normal"]]
-thca.annot = luad[["clinical"]]
+#thca = tcga_tumor_norm[["THCA"]]
+#thca.tumor = luad[["tumor"]]
+#thca.norm = luad[["normal"]]
+#thca.annot = luad[["clinical"]]
 
 
 #berechnen des Mittelwertes f?r alle Gene
@@ -82,10 +93,14 @@ mean.kirc.norm = apply(kirc.norm, 1, mean)
 mean.prad.tumor = apply(prad.tumor, 1, mean)
 mean.prad.norm = apply(prad.norm, 1, mean)
 
-mean.thca.tumor = apply(thca.tumor, 1, mean)
-mean.thca.norm = apply(thca.norm, 1, mean)
+#Mean der gene von allen thcapatienten
+mean.thca.tumor = apply(thca.tumor.va, 1, mean)
+mean.thca.norm = apply(thca.norm.va, 1, mean)
 
+#-----------------------------------------------------------------------------------
+#Foldchange(FC) besrechnen!
 #den log2FC_gene bekommen wir durch mean(condition1) - mean(condition2) 
+#---------------------------------------------------------------------------------
 
 log2fc.thca = mean.thca.norm - mean.thca.tumor
 
@@ -114,14 +129,14 @@ kirc.tumor.t = as.data.frame(kirc.tumor.t)
 kirc.norm.t = t(kirc.norm)
 kirc.norm.t = as.data.frame(kirc.norm.t)
 
-thca.tumor.t = t(thca.tumor)
+thca.tumor.t = t(thca.tumor.va)
 thca.tumor.t = as.data.frame(thca.tumor.t)
-thca.norm.t = t(thca.norm)
+thca.norm.t = t(thca.norm.va)
 thca.norm.t = as.data.frame(thca.norm.t)
 
 luad.tumor.t = t(luad.tumor)
 luad.tumor.t = as.data.frame(luad.tumor.t)
-luad.norm.t = t(luad.norm)
+luad.norm.t = t(luad.norm.va)
 luad.norm.t = as.data.frame(luad.norm.t)
 
 #wir machen jetz einen paired, two-tailed t-test um die p-Werte zu bestimmen
