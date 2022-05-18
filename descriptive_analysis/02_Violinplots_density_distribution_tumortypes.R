@@ -37,7 +37,7 @@ THCA_mean <- apply(THCA_genes,1, median)
 #THCA_mean <- apply(THCA_genes,1, var)
 
 #Violinplots mit einzelnen Tumortypes:
-vioplot(BRCA_mean)
+vioplot(BRCA_mean, xlab = "Thyorid cancer: Geneexpression Density Plot", ylab = "gene expression")
 vioplot(KIRC_mean)
 vioplot(LUAD_mean)
 vioplot(PRAD_mean)
