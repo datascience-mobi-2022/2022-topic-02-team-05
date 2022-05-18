@@ -19,17 +19,17 @@ stand_var_clean <- scale(Var_clean)
 y = as.vector(stand_var_clean)
 
 #data frame out of Mea_clean and stand_var_clean
-data.frame(x, y) -> df_VoverM
+as.vector(row.names(tcga_exp_cleaned)) -> names
+data.frame(x, y, names) -> df_VoverM
 
-as.vector(row.names(tcga_exp_cleaned)) -> RownamesTCGA
 #plotten der Werte mit Varianz über Mittelwert 
 Var_over_Mean_plot = 
-  ggplot(df_VoverM, aes(x, y)) + 
+  ggplot(df_VoverM, aes(x, y, label = names)) + 
   geom_point(shape = 21, size = 1.5, fill = "red") +
+  geom_text(data = subset(df_VoverM, y > 5), size = 2) + 
   ggtitle("Variance over Mean") + 
   xlab("Mean") + 
-  ylab("Standardized Variance")
-  geom_text(check_overlap = TRUE)
+  ylab("Standardized Variance") 
  
   #annotate("text", x = -10:15, y = 5:10.5, label = RownamesTCGA)
   #ggplot(Mea_clean, stand_var_clean, "p", pch = 19, main = "Variance over mean", xlab = "Mean", ylab = "standardized_Variance") -> descriptiveMeanVar 
