@@ -102,6 +102,26 @@ plot(log2fc.thca, -log(p.values),
      xlab='log(foldchange)',
      ylab = '-log10(Pvalues)')
 
+data.thca = data.frame(log2fc.thca, p.values) #die 2 Vektoren f?r unseren Volcano PLot werden in einen df gepackt, damit daraus ein plot erstellt werden kann
+
+data.thca = data.frame(log2fc.thca, p.values) #die 2 Vektoren f?r unseren Volcano PLot werden in einen df gepackt, damit daraus ein plot erstellt werden kann
+with(data.thca, plot(data.thca$log2fc.thca, -log10(data.thca$p.values), main = "Volcano plot", xlab='log2(foldchange)',
+                     ylab = '-log10(Pvalues)', pch = 20))
+
+with(subset(data.thca, log2fc.thca>alpha.kor & p.values < alpha.kor), points(log2fc.thca, -log10(p.values), col="orange", pch = 20))
+with(subset(data.thca, log2fc.thca< -alpha.kor & p.values < alpha.kor), points(log2fc.thca, -log10(p.values), col="green", pch = 20))
+#with(subset(data.thca, abs(log2fc.thca) < alpha.kor | p.values > alpha.kor), points(log2fc.thca, -log10(p.values), pch=19, col="gray"))
+
+
+with(subset(data.thca, abs(log2fc.thca) < alpha.kor/100000000 & p.values < alpha.kor), points(log2fc.thca, -log10(p.values), pch=19, col="red"))
+
+#install.packages('calibrate')
+library(calibrate)
+
+
+#with(subset(data.thca, p.values < alpha.kor/10000000000000000 & abs(log2fc.thca)>alpha.kor/1000000, textxy(log2fc.thca, -log10(p.values)), labs=rownames(data.thca), cex=.8))
+#hiermit hätten wir das noch beschriften können, hab ich aber nicht hinbekommen
+
 
 #fc.pv.sig <- data.frame(fc.sig, pv.sig)
 
