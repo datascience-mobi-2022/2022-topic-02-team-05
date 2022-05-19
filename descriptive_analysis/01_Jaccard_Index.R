@@ -48,6 +48,7 @@ for (set_our in our_genesets){
   n <- n+1
 }
 
+
 # Darstellung des Jaccardindexes (Zahl zwischen 0 und 1) mithilfe einer Heatmap:
 
 #heatmap(as.matrix(data.jaccard), mar = c(12.5,10), main= 'Similarity of hallmark and our genesets', xlab = 'our genesets', ylab = 'hallmark genesets')
@@ -66,4 +67,67 @@ pheatmap(as.matrix(data.jaccard),
          legend_labels = c('unlike','same')
 )
 
-       
+
+#performing the same (jaccard index) for our-genesets against themselves and the hallmark genesets:
+
+data.jaccard.our <- data.frame(matrix(ncol=length(our_genesets), nrow = length(our_genesets)))
+data.jaccard.hm <- data.frame(matrix(ncol=length(genesets_ids), nrow = length(genesets_ids)))
+
+colnames(data.jaccard.our) <- names(our_genesets) #n
+rownames(data.jaccard.our) <- names(our_genesets) #m
+
+colnames(data.jaccard.hm) <- names(genesets_ids) #n
+rownames(data.jaccard.hm) <- names(genesets_ids) #m
+
+
+for (set_our in our_genesets){
+  for (set_our2 in our_genesets){
+    jacindex <- jaccard(set_our, set_our2)
+    data.jaccard.our[m,n] <- jacindex
+    m <- m+1
+  }
+  m <- 1
+  n <- n+1
+}
+
+n=1
+m=1
+
+for (set_hm1 in genesets_ids){
+  for (set_hm in genesets_ids){
+    jacindex <- jaccard(set_hm1, set_hm)
+    data.jaccard.hm[m,n] <- jacindex
+    m <- m+1
+  }
+  m <- 1
+  n <- n+1
+}
+
+#heatmaps:
+pheatmap(as.matrix(data.jaccard.our),
+         breaks = seq(0, max(data.jaccard.our), length.out = 51),
+         color = colorRampPalette(c('lightskyblue','lightcyan','white','yellow','orange', 'red'),
+                                  bias = 1,
+                                  space = 'rgb',
+                                  interpolate = 'linear'
+         )(50),
+         clustering_method = 'average', treeheight_row = 20, treeheight_col = 20,
+         cellwidth = 10, cellheight = 10,
+         fontsize = 8, border_color = 'lightcyan2',
+         legend_breaks = c(0, 1),
+         legend_labels = c('unlike','same')
+)
+
+pheatmap(as.matrix(data.jaccard.hm),
+         breaks = seq(0, max(data.jaccard.hm), length.out = 51),
+         color = colorRampPalette(c('lightskyblue','lightcyan','white','yellow','orange', 'red'),
+                                  bias = 1,
+                                  space = 'rgb',
+                                  interpolate = 'linear'
+         )(50),
+         clustering_method = 'average', treeheight_row = 20, treeheight_col = 20,
+         cellwidth = 9, cellheight = 9,
+         fontsize = 8, border_color = 'lightcyan2',
+         legend_breaks = c(0, 1),
+         legend_labels = c('unlike','same')
+)       
