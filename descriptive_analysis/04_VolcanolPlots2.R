@@ -1,6 +1,7 @@
 #-----------------------------------
 #f?r jedes gen p-ewrt berechnen vorher foldchange, log von foldchange xachse, y achse pwert, twosided ttest
 #---------------------
+library(ggplot2)
 
 tcga_tumor_norm = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_normal_datascience_proj_2022.RDS")
 thca.tumor <- tcga_tumor_norm$THCA$tumor
@@ -79,8 +80,6 @@ for (i in (1:nrow(thca.norm.va))){
   p.values <- append(p.values, x)
 }
 
-#ACHTUNG: HIER ENTSTEHEN AUS IRGENDEINEM GRUND MEHR PVALUES, ALS GENE VORHANDEN??????????? 
-#-> es sind aber keine NA's, die entstehen
 
 #-----------------------------
 #Bonferroni-Adjustment, um alphafehlerkummulation zu vermeiden
@@ -89,11 +88,43 @@ n = nrow(thca.norm.va)
 bf = 1/n
 
 #adjusted significanzlevel: ehemals: alpha = 0.05
-alpha = 0.05
+alpha = 0.025
 alpha.kor = alpha*bf
 
 #gene, die sich signifikant (mit korrigiertem alpha) unterscheiden in tumor von normal tissue
-sign.p.values <- 
+fc.sig <- log2fc.thca[p.values < alpha.kor]
+pv.sig <- p.values[p.values < alpha.kor]
+
+
+#Volcanoplot
+plot(fc.sig, -log(pv.sig))
+plot(log2fc.thca, -log(p.values), 
+     xlab='log(foldchange)',
+     ylab = '-log10(Pvalues)')
+
+
+#fc.pv.sig <- data.frame(fc.sig, pv.sig)
+
+#Volcano_logpvalues = 
+#  ggplot(fc.pv.sig, aes(x, y)) + 
+#  geom_point(shape = 21, size = 1.5, fill = "red") +
+#  ggtitle("Variance over Mean") + 
+#  xlab("Mean") + 
+#  ylab("Standardized Variance")
+#geom_text(check_overlap = TRUE)
+
+#annotate("text", x = -10:15, y = 5:10.5, label = RownamesTCGA)
+#ggplot(Mea_clean, stand_var_clean, "p", pch = 19, main = "Variance over mean", xlab = "Mean", ylab = "standardized_Variance") -> descriptiveMeanVar 
+
+#Punkte ab gewissem Schwellenwert benennen 
+#if (y > 5) {
+#  text(Mea_clean, stand_var_clean, labels = row.names(tcga_exp_cleaned), cex = 0.7, pos = 3)
+#}
+#Var_over_Mean_plot
+
+#Histogramm der p.values
+hist(-log(p.values), breaks = 100, xlim = c(0,30)); abline(v = -log(alpha.kor))
+
 
 
 
