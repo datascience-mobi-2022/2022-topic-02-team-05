@@ -15,7 +15,7 @@ y1 = as.vector(Var_clean)
 Mea_clean <- apply(tcga_exp_cleaned, 1, mean)
 x1 = as.vector(Mea_clean)
 
-#Standardisieren der Varianz
+#Standardisieren der Varianz!
 stand_var_clean <- scale(Var_clean)
 #y = as.vector(stand_var_clean)
 
