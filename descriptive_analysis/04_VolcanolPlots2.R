@@ -143,7 +143,8 @@ library(calibrate)
 #Var_over_Mean_plot
 
 #Histogramm der p.values
-hist(-log(p.values), breaks = 100, xlim = c(0,30)); abline(v = -log(alpha.kor))
+hist(p.values)
+abline(v =alpha.kor)
 
 
 
