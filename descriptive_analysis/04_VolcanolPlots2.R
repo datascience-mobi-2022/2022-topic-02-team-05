@@ -35,6 +35,9 @@ thca.norm.v = thca.norm[log(thca.tumor.var) > -1 | log(thca.norm.var) > -1, ]
 thca.tumor.va = na.omit(thca.tumor.v)
 thca.norm.va = na.omit(thca.norm.v)
 
+
+
+
 #-----------------------------
 #Mittelwert berechnen
 #--------------------------------
@@ -110,17 +113,50 @@ with(data.thca, plot(data.thca$log2fc.thca, -log10(data.thca$p.values), main = "
 
 with(subset(data.thca, log2fc.thca>alpha.kor & p.values < alpha.kor), points(log2fc.thca, -log10(p.values), col="orange", pch = 20))
 with(subset(data.thca, log2fc.thca< -alpha.kor & p.values < alpha.kor), points(log2fc.thca, -log10(p.values), col="green", pch = 20))
-#with(subset(data.thca, abs(log2fc.thca) < alpha.kor | p.values > alpha.kor), points(log2fc.thca, -log10(p.values), pch=19, col="gray"))
+with(subset(data.thca, abs(log2fc.thca) < alpha.kor | p.values > alpha.kor), points(log2fc.thca, -log10(p.values), pch=19, col="gray"))
+
+#-----------------------
+#noch mehr preprocessing, die rownames werden zu den Ids
+#-----------------------
+#extrhiren aller gene die in den Expressionsdaten vorkommen
+thca_genes = rownames(data.thca)
+
+#dieser vetor enth?lt sowohl enseblm id als auch genenamen und muss daher gespalten werden
+thca_genes = strsplit(thca_genes, split = '|', fixed = TRUE)
+
+#speicher der ensembl ids ohne versionsnummer als eigenen vektor
+thca_geneids = sapply(thca_genes, function(thca_genes){return(thca_genes[1])})
+thca_geneids = strsplit(thca_geneids, split = '.', fixed = TRUE)
+thca_geneids = sapply(thca_geneids, function(thca_geneids){return(thca_geneids[1])})
+
+#speicher der genenames ohne versionsnummer als eigenen vektor
+thca_genenames = sapply(thca_genes, function(thca_genes){return(thca_genes[2])})
+thca_genenames = strsplit(thca_genenames, split = '.', fixed = TRUE)
+thca_genenames = sapply(thca_genenames, function(thca_genenames){return(thca_genenames[1])})
+
+thca_genes = cbind.data.frame(thca_geneids,thca_genenames)
+
+rownames(data.thca) <- thca_geneids
+
+#vergleichen von dem pathway wo welche geneid vorkommt, den pathway kann man jetzt beliebig ersetzen
+random.pathway = match(genesets_ids$Prol_MAPK.ensembl_gene_id, rownames(data.thca))
+random.pathway.narm = na.omit(random.pathway)
+data.thca[random.pathway.narm,3] = "blue"
 
 
-with(subset(data.thca, abs(log2fc.thca) < alpha.kor/100000000 & p.values < alpha.kor), points(log2fc.thca, -log10(p.values), pch=19, col="red"))
+
+
+with(data.thca, plot(data.thca$log2fc.thca, -log10(data.thca$p.values), main = "Volcano plot", xlab='log2(foldchange)',
+                     ylab = '-log10(Pvalues)', pch = 20))
+
+with(subset(data.thca, data.thca$V3 == "blue" ), points(log2fc.thca, -log10(p.values), col="red", pch = 20))
 
 #install.packages('calibrate')
 library(calibrate)
 
 
 #with(subset(data.thca, p.values < alpha.kor/10000000000000000 & abs(log2fc.thca)>alpha.kor/1000000, textxy(log2fc.thca, -log10(p.values)), labs=rownames(data.thca), cex=.8))
-#hiermit hätten wir das noch beschriften können, hab ich aber nicht hinbekommen
+#hiermit h?tten wir das noch beschriften k?nnen, hab ich aber nicht hinbekommen
 
 
 #fc.pv.sig <- data.frame(fc.sig, pv.sig)
