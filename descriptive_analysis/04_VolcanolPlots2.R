@@ -139,20 +139,18 @@ thca_genes = cbind.data.frame(thca_geneids,thca_genenames)
 rownames(data.thca) <- thca_geneids
 
 #vergleichen von dem pathway wo welche geneid vorkommt, den pathway kann man jetzt beliebig ersetzen
-random.pathway = match(genesets_ids$Prol_MAPK.ensembl_gene_id, rownames(data.thca))
+random.pathway = match(genesets_ids$Apop_SURVIVAL.ensembl_gene_id, rownames(data.thca))
 random.pathway.narm = na.omit(random.pathway)
 data.thca[random.pathway.narm,3] = "blue"
 
-
-
-
 with(data.thca, plot(data.thca$log2fc.thca, -log10(data.thca$p.values), main = "Volcano plot", xlab='log2(foldchange)',
                      ylab = '-log10(Pvalues)', pch = 20))
+abline(h = -log10(alpha.kor))
 
 with(subset(data.thca, data.thca$V3 == "blue" ), points(log2fc.thca, -log10(p.values), col="red", pch = 20))
 
 #install.packages('calibrate')
-library(calibrate)
+#library(calibrate)
 
 
 #with(subset(data.thca, p.values < alpha.kor/10000000000000000 & abs(log2fc.thca)>alpha.kor/1000000, textxy(log2fc.thca, -log10(p.values)), labs=rownames(data.thca), cex=.8))
