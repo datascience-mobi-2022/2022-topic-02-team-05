@@ -108,10 +108,10 @@ GSEA = function(patientsorted, pathways = pathways){
 load('data/cancers_sorted.RData')
 load('data/our_genesets.RData')
 load('data/geneset_ids.RData')
-pathways = c(our_genesets, genesets_ids)
+pathways = c(our_genesets, genesets_ids);rm(genesets_ids);rm(our_genesets)
 
 #Durchführung der GSEA für die ersten drei patienten des ersten krebstyps
-GSEA_ACC = sapply(cancers_sorted[['ACC']], FUN = function(x){
+GSEA_ACC = sapply(cancers_sorted[['ACC']][1:20], FUN = function(x){
   return(GSEA(x, pathways))})
 
 save(GSEA_ACC, file = 'data/GSEA/GSEA_ACC.RData')
