@@ -112,8 +112,30 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #--------------------------------------------------------------------------
 tcga_exp_cleaned = tcga_exp_hvar[tcga_biotypes == 'protein_coding', ]
 tcga_exp_cleaned = na.omit(tcga_exp_cleaned)
-##hier geht sich das iwie nicht mit den zeilen aus wieso kommen wir von 1000 auf 800 auf 300 auf 140
 
+#--------------------------------
+#Extraktion aller ensembl ids und gennamen aus den cleanen exp daten und
+#Umbennen der expressionsdaten zeilennamen in nur ids
+#--------------------------------
+tcga_genes_cleaned = rownames(tcga_exp_cleaned)
+#dieser vetor enth?lt sowohl enseblm id als auch genenamen und muss daher gespalten werden
+tcga_genes_cleaned = strsplit(tcga_genes_cleaned, split = '|', fixed = TRUE)
+#speicher der ensembl ids ohne versionsnummer als eigenen vektor
+tcga_geneids = sapply(tcga_genes_cleaned, function(tcga_genes_cleaned){return(tcga_genes_cleaned[1])})
+tcga_geneids = strsplit(tcga_geneids, split = '.', fixed = TRUE)
+tcga_geneids = sapply(tcga_geneids, function(tcga_geneids){return(tcga_geneids[1])})
 
+#speicher der genenames ohne versionsnummer als eigenen vektor
+tcga_genenames = sapply(tcga_genes_cleaned, function(tcga_genes_cleaned){return(tcga_genes_cleaned[2])})
+tcga_genenames = strsplit(tcga_genenames, split = '.', fixed = TRUE)
+tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_genenames[1])})
+
+tcga_genes_cleaned = cbind.data.frame(tcga_geneids,tcga_genenames)
+#speichern eines datframes der der die Ensembl ids und genenamen aller genen der exp daten enth?lt
+save(tcga_genes_cleaned, file = 'data/tcga_genes_cleaned.RData')
+
+#umbennen der reihenname der expressionsdaten von ids und gennamen nur zu ids
+rownames(tcga_exp_cleaned) = tcga_geneids
 save(tcga_exp_cleaned, file = 'data/tcga_exp_cleaned.RData')
+
 
