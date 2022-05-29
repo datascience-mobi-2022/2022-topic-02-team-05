@@ -13,108 +13,111 @@ library(gage)
 library(fgsea)
 library(pheatmap)
 
-load('~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData')
-load('~/GitHub/2022-topic-02-team-05/data/our_genesets.RData')
-load("~/GitHub/2022-topic-02-team-05/data/geneset_ids.RData")
-tcga_anno = readRDS('~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS')
+load('data/tcga_exp_cleaned.RData')
+tcga_anno = readRDS('data/tcga_tumor_annotation.RDS')
 
+#-----------------------------------------------
+#Extrahieren aller patienten mit dem gleichem Krebstyp als ein Dataframe
+#-----------------------------------------------
+cancers_exp = list(); cancers_exp = vector('list',length(table(tcga_anno$cancer_type_abbreviation)))
+names(cancers_exp) = names(table(tcga_anno$cancer_type_abbreviation))
+i=1; for (i in 1:length(cancers_exp)){
+  cancers_exp[[i]] = tcga_exp_cleaned[,tcga_anno$cancer_type_abbreviation == names(cancers_exp)[i]]
+}
 
-#--------------------------------
-#Extraktion aller ensembl ids und gennamen aus den cleanen exp daten
-#--------------------------------
-tcga_genes_cleaned = rownames(tcga_exp_cleaned)
-#dieser vetor enth?lt sowohl enseblm id als auch genenamen und muss daher gespalten werden
-tcga_genes_cleaned = strsplit(tcga_genes_cleaned, split = '|', fixed = TRUE)
-#speicher der ensembl ids ohne versionsnummer als eigenen vektor
-tcga_geneids = sapply(tcga_genes_cleaned, function(tcga_genes_cleaned){return(tcga_genes_cleaned[1])})
-tcga_geneids = strsplit(tcga_geneids, split = '.', fixed = TRUE)
-tcga_geneids = sapply(tcga_geneids, function(tcga_geneids){return(tcga_geneids[1])})
+#------------------------------------------------
+#Durchführung einer einfachen Enrichment Analysis auf Basis von Wangs Vorschlag
+#------------------------------------------------
+#function die einen krebstypen df und genesets als input nimmt und ein df mit pvalues ausgibt
+enrichment = function(expressiondata, genesets = genesets_ids){
+  ESmatrix = sapply(genesets, FUN = function(x){
+    ins = na.omit(match(x,rownames(expressiondata)))#indices der gene im aktuellen set
+    outs = -ins#indices der gene nicht im aktuellen set
+    
+    #gibt einen vektor der für jeden patienten den pval für das aktuelle gene enthält
+    res = NULL
+    for (i in 1:ncol(expressiondata)){#testet für jeden patienten
+      res[i] = wilcox.test(expressiondata[ins,i],expressiondata[outs,i],'two.sided')$p.value
+    }
+    return(res)
+  })
+  row.names(ESmatrix) = colnames(expressiondata); return(ESmatrix)
+}
+#Anwendung der Analyse auf alle Dataframes der einzelen krebstypen
+#muss wahrscheinlich einzel für jeden df ausgeführt werden weils sonst zu lange dauert
+enrichment_matrix = lapply(cancers_exp, FUN = function(x){
+                      return(enrichment(x, c(geneset_ids, our_genesets)))
+                    })
+save(enrichment_matrix, file = 'data/GSEA_matrix.RData')
 
-#speicher der genenames ohne versionsnummer als eigenen vektor
-tcga_genenames = sapply(tcga_genes_cleaned, function(tcga_genes_cleaned){return(tcga_genes_cleaned[2])})
-tcga_genenames = strsplit(tcga_genenames, split = '.', fixed = TRUE)
-tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_genenames[1])})
-
-tcga_genes_cleaned = cbind.data.frame(tcga_geneids,tcga_genenames)
-#speichern eines datframes der der die Ensembl ids und genenamen aller genen der exp daten enth?lt
-save(tcga_genes_cleaned, file = '~/GitHub/2022-topic-02-team-05/data/tcga_genes_cleaned.RData')
+#-------------------------------------------
+#Z-Transformation der Expressionsdaten für die GSEA für jedes Gen in einem Krebs über alle Patienten
+#-------------------------------------------
+cancers_exp_scaled = lapply(cancers_exp, FUN = function(x){
+                        res = apply(x, 1, scale)
+                        res[is.nan(res)] = 0 # Setzt alle Gene null die eine sd von nul haben, und deswegen bei scalen unendlich werden
+                        return(t(res))
+                      })
+i=1; for (i in 1:length(cancers_exp_scaled)){
+  colnames(cancers_exp_scaled[[i]]) = colnames(cancers_exp[[i]])}
+#--------------------------------------------
+#Sortieren der Gene der einzelen patienten nach den Z-Transformierten Daten
+#jeder krebstyp wird als liste aller patienten ausgegeben mit den sortierten und benannten expdaten
+#--------------------------------------------
+sorting = function(expressiondata, scaleddata){
+  liste = list()
+  liste = vector('list', ncol(scaleddata))
+  names(liste) = colnames(scaleddata)
+  i=1; for (i in 1:length(liste)){
+    ord = scaleddata[,i]
+    ord = order(abs(ord), decreasing = TRUE)
+    res = expressiondata[,i]
+    names(res) = rownames(expressiondata)
+    patient_sorted = res[ord]
+    liste[[i]] = patient_sorted
+  }
+  return(liste)
+}  
+#durchführen des sortings für alle Krebstypen
+cancers_sorted = list(); cancers_sorted = vector('list',length(cancers_exp))
+names(cancers_sorted) = names(cancers_exp)
+i=1; for (i in 1:length(cancers_sorted)){
+  cancers_sorted[[i]] = sorting(cancers_exp[[i]], cancers_exp_scaled[[i]])
+}
+save(cancers_sorted, file = 'data/cancers_sorted.RData')
 
 #----------------------
-#versuch eine gsea zu implementieren
+#Funktion die unsere GSEA letztendlich durchführt
+#Input sind die Expressionsdaten eines sortierten patienten,
+#sowie alle zu analysierenden pathways als liste wie üblich
 #------------------------
-
-#function die eine gsea f?r einen beliebigen patienten durchf?hrt und nur den NES benannt ausgibt
-GSEA_NES = function(patient){
-  
-  #sorting and naming the exp data
-  names(patient) = tcga_genes_cleaned$tcga_geneids
-  patient = sort(patient, decreasing = TRUE) 
-  
-  #duarchf?hren der GSEA
+GSEA = function(patientsorted, pathways = pathways){
   res = fgseaMultilevel(pathways = pathways, 
-                        stats = patient,
+                        stats = patientsorted,
                         minSize=3)
-  #extrahieren der NES werte & nullsetzten aller nichtsiginifikanten
+  #extrahieren der NES werte & nullsetzten aller NAs
   ret = res$NES; names(ret) = res$pathway
-  #ret[res$padj > pvalue] = 0
   ret[is.na(ret)] = 0
   
   message('I?m still standing')
   return(ret)
 }
-
 #-------------------------------------------
-#Durchf?hrung der GSEA
-#-----------------------------------------------
-#pathways = gmtPathways("C:/Users/jakob/Desktop/c2.cp.v7.5.1.symbols.gmt") alle canonischen pathways msigr vllt als alternative
-pathways = c(genesets_ids, our_genesets)
-#pvalue = 0.05
+#Durchführung der GSEA
+#-------------------------------------------
+load('data/cancers_sorted.RData')
+load('data/our_genesets.RData')
+load('data/geneset_ids.RData')
+pathways = c(our_genesets, genesets_ids)
 
-#ztransforamtion der daten zur gsea analyse nach Peng et al.
-tcga_exp_ztrans = apply(as.matrix(tcga_exp_cleaned), 2, scale)
+#Durchführung der GSEA für die ersten drei patienten des ersten krebstyps
+GSEA_ACC = sapply(cancers_sorted[['ACC']], FUN = function(x){
+  return(GSEA(x, pathways))})
 
+save(GSEA_ACC, file = 'data/GSEA/GSEA_ACC.RData')
 
-#verbesserte Version
-# extraktion aller patienten mit einem tumortype
-tcga_anno = tcga_anno[order(tcga_anno$cancer_type_abbreviation),]
-
-cancers = list();cancers = vector('list',length(table(tcga_anno$cancer_type_abbreviation)))
-names(cancers) = names(table(tcga_anno$cancer_type_abbreviation))
-
-y = 1 ;z = 1;type = 'ACC'
-for (j in 1:length(tcga_anno$cancer_type_abbreviation)){
-  
-  if(tcga_anno$cancer_type_abbreviation[j] == type){
-      cancers[[y]][[z]] = tcga_anno$sample[j]
-      z = z+1
-  } else {
-      type = tcga_anno$cancer_type_abbreviation[j]
-      y = y+1
-      z = 1
-      cancers[[y]][[z]] = tcga_anno$sample[j]
-      
-  }
-  message(j)
-}
-#list mit allen patient mit einem cancertype
-canc = list()
-for(i in 1:length(cancers)){
-    canc[[i]] = (sapply(cancers[[i]], FUN = function(x){return(x)}))
-}
-names(canc) = names(table(tcga_anno$cancer_type_abbreviation))
-
-
-tcga_cancers = lapply(canc, FUN = function(x){
-  return(tcga_exp_cleaned[,tcga_exp_cleaned == x])
-})
-
-test = tcga_exp_cleaned[3,colnames(tcga_exp_cleaned) == canc[['ACC']]]
-
-GSEA_matrix = apply(tcga_exp_ztrans[,1:100], 2, GSEA_NES) %>% as.data.frame()
-save(GSEA_matrix, file = '~/GitHub/2022-topic-02-team-05/data/GSEA_matrix.RData')
 
 #darstellen der GSEA matrix als heatmap
-#rote sind ?berexpremierte pathways, blue unterexpremierte, wei? keine abweichung
 pheatmap(as.matrix(GSEA_matrix),
          breaks = seq(-max(GSEA_matrix), max(GSEA_matrix), length.out = 201),
          color = colorRampPalette(c('blue','lightskyblue','lightblue1', 'white','lightyellow','yellow', 'red'),
