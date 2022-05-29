@@ -201,6 +201,7 @@ genesets_ids = lapply(genesets[[1]], FUN = function(x){getBM(attributes = "ensem
                                            values = x,
                                            mart = mart )})
 genesets_ids = sapply(genesets_ids, FUN = function(genesets_ids){return(as.vector(genesets_ids))})
+names(genesets_ids) = names(genesets[[1]])
 save(genesets_ids, file = 'data/geneset_ids.RData')
     
 
