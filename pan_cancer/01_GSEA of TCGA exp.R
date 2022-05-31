@@ -85,6 +85,7 @@ i=1; for (i in 1:length(cancers_sorted)){
   cancers_sorted[[i]] = sorting(cancers_exp[[i]], cancers_exp_scaled[[i]])
 }
 save(cancers_sorted, file = 'data/cancers_sorted.RData')
+#hier environment löschen und dann einfach woeder cancers_sorted laden
 
 #----------------------
 #Funktion die unsere GSEA letztendlich durchführt
@@ -110,8 +111,8 @@ load('data/our_genesets.RData')
 load('data/geneset_ids.RData')
 pathways = c(our_genesets, genesets_ids);rm(genesets_ids);rm(our_genesets)
 
-#Durchführung der GSEA für die ersten drei patienten des ersten krebstyps
-GSEA_ACC = sapply(cancers_sorted[['ACC']][1:20], FUN = function(x){
+#Durchführung der GSEA für den ersten krebstyp
+GSEA_ACC = sapply(cancers_sorted[['ACC']], FUN = function(x){
   return(GSEA(x, pathways))})
 
 save(GSEA_ACC, file = 'data/GSEA/GSEA_ACC.RData')
