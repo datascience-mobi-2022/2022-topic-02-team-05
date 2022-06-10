@@ -18,7 +18,7 @@ load("data/our_genesets.RData")
 #checking for NAs
 #erstmal nur in den ersten dreitausend genen weil ich sonst fehler bei der varianz bekomm ):
 gc() #gibt arbeitsspeciher frei der f?r die gro?en datenmengen gebraucht wird
-tcga_exp_narm = na.omit(tcga_exp)
+tcga_exp_narm = na.omit(tcga_exp) #keine na's vorhanden!
 
 #Berrechnen der Varianz aller Gene
 tcga_exp_var = apply(tcga_exp_narm, 1, var)
@@ -34,7 +34,7 @@ hist(log(tcga_exp_var), breaks = 50, probability = TRUE)
 
 #cutting der gene mit sehr niedriger exression d.h. log(var) < -1
 #erstmal willk?rlich festgestzt
-tcga_exp_hvar = tcga_exp_narm[log(tcga_exp_var) > -1, ]
+tcga_exp_hvar = tcga_exp_narm[log(tcga_exp_var) > -1, ] #Expressionsdaten der hochvarianten Gene!
 save(tcga_exp_hvar, file = 'data/tcga_exp_hvar.RData')
 
 #-----------------------------------------------
@@ -96,10 +96,10 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #---------------------------------------------------------
 load('data/tcga_genes.RData')
 tcga_biotypes = checkbiotypes(tcga_genes$tcga_geneids)
-tcga_biotypes = tcga_biotypes$gene_biotype
+tcga_biotypes_only = tcga_biotypes$gene_biotype
 
 #darstellen aller biotypes im set
-x = as.data.frame(table(as.vector(tcga_biotypes)))
+x = as.data.frame(table(as.vector(tcga_biotypes_only)))
 colnames(x) = c('Biotype','Ammount')
 
 ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +  
@@ -110,32 +110,47 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #--------------------------------------------------------------------------
 #entfernen aller nicht proteincodierenden gene aus der tcga expressions matrix
 #--------------------------------------------------------------------------
-tcga_exp_cleaned = tcga_exp_hvar[tcga_biotypes == 'protein_coding', ]
-tcga_exp_cleaned = na.omit(tcga_exp_cleaned)
+load('data/tcga_exp_hvar.RData')
+
+#ensemleIDs aufrufen von allen proteincodierenden Genen
+#protein_genes = tcga_biotypes$ensembl_gene_id[tcga_biotypes$gene_biotype == 'protein_coding'] #dataframe-slicing (?)
+
+#Rownames von high variant genes in ensemble IDs umschreiben:
+tcga_genes_hvar = rownames(tcga_exp_hvar)
+tcga_genes_hvar = strsplit(tcga_genes_hvar, split = '|', fixed = TRUE)
+
+#speicher der ensembl ids ohne versionsnummer als eigenen vektor
+tcga_geneids_hvar = sapply(tcga_genes_hvar, function(tcga_genes_hvar){return(tcga_genes_hvar[1])})
+tcga_geneids_hvar = strsplit(tcga_geneids_hvar, split = '.', fixed = TRUE)
+tcga_geneids_hvar = sapply(tcga_geneids_hvar, function(tcga_geneids_hvar){return(tcga_geneids_hvar[1])})
+
+#IDs als rownames:
+rownames(tcga_exp_hvar) <- tcga_geneids_hvar
+
+#biotype-checking von den hochvarianten Genen über ID:
+tcga_biotypes_hvar = checkbiotypes(rownames(tcga_exp_hvar))
+tcga_protein_hvar = tcga_biotypes_hvar$ensembl_gene_id[tcga_biotypes_hvar$gene_biotype == 'protein_coding']
+
+#biotypes, die nicht proteincodierend sind, rauswerfen:
+tcga_exp_cleaned = tcga_exp_hvar[rownames(tcga_exp_hvar) %in% tcga_protein_hvar,]
+tcga_exp_hvar[sapply(rownames(tcga_exp_hvar), function(tcga_exp_hvar){isin(tcga_protein_hvar, tcga_exp_hvar)})]
+
+#checking for NA's
+sum(is.na(tcga_exp_cleaned)) #keine NAs waren vorhanden!
 
 #--------------------------------
 #Extraktion aller ensembl ids und gennamen aus den cleanen exp daten und
 #Umbennen der expressionsdaten zeilennamen in nur ids
 #--------------------------------
-tcga_genes_cleaned = rownames(tcga_exp_cleaned)
-#dieser vetor enth?lt sowohl enseblm id als auch genenamen und muss daher gespalten werden
-tcga_genes_cleaned = strsplit(tcga_genes_cleaned, split = '|', fixed = TRUE)
-#speicher der ensembl ids ohne versionsnummer als eigenen vektor
-tcga_geneids = sapply(tcga_genes_cleaned, function(tcga_genes_cleaned){return(tcga_genes_cleaned[1])})
-tcga_geneids = strsplit(tcga_geneids, split = '.', fixed = TRUE)
-tcga_geneids = sapply(tcga_geneids, function(tcga_geneids){return(tcga_geneids[1])})
+genes_cleaned_indexes =  tcga_genes$tcga_geneids %in% rownames(tcga_exp_cleaned)
+tcga_genes_cleaned = tcga_genes[genes_cleaned_indexes == TRUE,]
 
-#speicher der genenames ohne versionsnummer als eigenen vektor
-tcga_genenames = sapply(tcga_genes_cleaned, function(tcga_genes_cleaned){return(tcga_genes_cleaned[2])})
-tcga_genenames = strsplit(tcga_genenames, split = '.', fixed = TRUE)
-tcga_genenames = sapply(tcga_genenames, function(tcga_genenames){return(tcga_genenames[1])})
-
-tcga_genes_cleaned = cbind.data.frame(tcga_geneids,tcga_genenames)
 #speichern eines datframes der der die Ensembl ids und genenamen aller genen der exp daten enth?lt
 save(tcga_genes_cleaned, file = 'data/tcga_genes_cleaned.RData')
 
-#umbennen der reihenname der expressionsdaten von ids und gennamen nur zu ids
-rownames(tcga_exp_cleaned) = tcga_geneids
+#Speichern der gecleanten Expressionsdaten: mit Ensemble IDs als Zeilennamen
 save(tcga_exp_cleaned, file = 'data/tcga_exp_cleaned.RData')
+
+
 
 
