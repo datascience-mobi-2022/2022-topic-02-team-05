@@ -15,6 +15,8 @@ library(pheatmap)
 
 load('data/tcga_exp_cleaned.RData')
 tcga_anno = readRDS('data/tcga_tumor_annotation.RDS')
+load('data/geneset_ids.RData')
+load('data/our_genesets.RData')
 
 #-----------------------------------------------
 #Extrahieren aller patienten mit dem gleichem Krebstyp als ein Dataframe
