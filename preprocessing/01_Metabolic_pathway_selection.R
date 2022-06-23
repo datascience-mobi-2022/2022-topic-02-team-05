@@ -11,7 +11,12 @@
 library(msigdbr)
 
 #?ffnen der Datenbank
-gsea_pathways = msigdbr(species = "Homo sapiens")
+msigdbr_pathways = msigdbr(species = "Homo sapiens", category = "C2")
+pathway_list = list(); pathway_list = vector('list',length(table(msigdbr_pathways$gs_name)))
+names(pathway_list) = names(table(msigdbr_pathways$gs_name))
+i=1; for (i in 1:length(pathway_list)){
+  pathway_list[[i]] = msigdbr_pathways[msigdbr_pathways$gs_name == names(pathway_list)[i],6]
+};rm(i)
 
 #Auswahl der einzelnen pathways
 TERT_pathway = gsea_pathways[gsea_pathways$gs_name == "BIOCARTA_TEL_PATHWAY", ]
