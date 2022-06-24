@@ -32,11 +32,12 @@ thca_tumor_exp_var = apply(thca_tumor_exp, 1, var)
 #hist(thca_tumor_exp_var, breaks = 50, probability = TRUE) #man sieht keine schöne Verteilung!
 hist(log(thca_tumor_exp_var), breaks = 50, probability = TRUE)
 #---------------------------------------
-thca_tumor_exp_hvar = thca_tumor_exp[log(tcga_exp_var) > -1.25, ] #Expressionsdaten der hochvarianten Gene!??????????
-save(thca_tumor_exp_hvar, file = 'data/thca_tumor_exp_hvar.RData')
+thca_tumor_exp_hvar = thca_tumor_exp[log(thca_tumor_exp_var) > -1.25, ] #Expressionsdaten der hochvarianten Gene
+save(thca_tumor_exp_hvar, file = 'data/thca_tumor_exp_hvar.RData') #noch 15402 Gene
 
 #gleiche Gene Beim normal tissue rauswerfen:
-thca_normal_exp_hvar = thca_normal_exp[log(tcga_exp_var) > -1.25, ]
+thca_normal_exp_hvar = thca_normal_exp[log(thca_tumor_exp_var) > -1.25, ]
+save(thca_normal_exp_hvar, file = 'data/thca_normal_exp_hvar.RData') #noch 15402 Gene
 
 #-----------------------------------------------
 # Rownames in Ensemble/Ids umschreiben und Analyse der Biotypes der Gene:
@@ -57,7 +58,7 @@ checkbiotypes = function(pathway){
 
 #Rownames von high variant genes in ensemble IDs umschreiben:
 thca_tumor_genes_hvar = rownames(thca_tumor_exp_hvar)
-thca_tumor_genes_hvar = strsplit(thca_tumor_exp_hvar, split = '|', fixed = TRUE)
+thca_tumor_genes_hvar = strsplit(thca_tumor_genes_hvar, split = '|', fixed = TRUE)
 
 #speicher der ensembl ids ohne versionsnummer als eigenen vektor
 thca_geneids_hvar = sapply(thca_tumor_genes_hvar, function(thca_tumor_genes_hvar){return(thca_tumor_genes_hvar[1])})
@@ -87,13 +88,13 @@ thca_protein_hvar = thca_biotypes_hvar$ensembl_gene_id[thca_biotypes_hvar$gene_b
 thca_tumor_exp_cleaned = thca_tumor_exp_hvar[rownames(thca_tumor_exp_hvar) %in% thca_protein_hvar,]
 
 #Normal tissue Biotypes genauso rauswerfen:
-thca_normal_exp_cleaned <- thca_normal_exp_cleaned[rownames(thca_tumor_exp_hvar) %in% thca_protein_hvar,]
+thca_normal_exp_cleaned <- thca_normal_exp_hvar[rownames(thca_tumor_exp_hvar) %in% thca_protein_hvar,]
 
 thca_tumor_exp_hvar[sapply(rownames(thca_tumor_exp_hvar), function(thca_tumor_exp_hvar){isin(thca_protein_hvar, thca_tumor_exp_hvar)})] #Was macht diese Zeile(Anna)
 
 #checking for NA's
 sum(is.na(thca_tumor_exp_cleaned)) #keine NAs waren vorhanden!??????????????????????????
-
+sum(is.na(thca_normal_exp_cleaned))
 
 #Speichern der gecleanten Expressionsdaten: mit Ensemble IDs als Zeilennamen
 save(thca_tumor_exp_cleaned, file = 'data/thca_tumor_exp_cleaned.RData')
@@ -103,8 +104,8 @@ save(thca_normal_exp_cleaned, file = 'data/thca_normal_exp_cleaned.RData')
 # Extraktion aller ensembl ids und gennamen aus den gecleanen Expressionsdaten
 #--------------------------------
 
-genes_cleaned_indexes =  thca_tumor_genes_hvar$thca_geneids_hvar %in% rownames(thca_tumor_exp_cleaned)
-thca_genes_cleaned = thca_tumor_genes_hvar[genes_cleaned_indexes == TRUE,]
+genes_cleaned_indexes =  thca_genes_hvar$thca_geneids_hvar %in% rownames(thca_tumor_exp_cleaned)
+thca_genes_cleaned = thca_genes_hvar[genes_cleaned_indexes == TRUE,]
 
 #speichern eines dataframes, der die Ensembl ids und genenamen aller gene der exp daten enth?lt
 save(thca_genes_cleaned, file = 'data/tcga_genes_cleaned.RData')
