@@ -6,17 +6,50 @@
 library(ggplot2)
 library(metaplot)
 library(gridExtra)
-   
+library(umap)
 
-load('~/GitHub/2022-topic-02-team-05/data/tcga_gsva.RData')
+#install.packages("umap")
+library(umap)load('~/GitHub/2022-topic-02-team-05/data/tcga_gsva.RData')
 tcga_anno = readRDS('~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS')
 
 #--------------------------------------------
-#Durchf?hren der PCA
+#Durchf?hren der PCA und UMAP
 #---------------------------------------------
+set.seed(123)
 PCA = prcomp(t(tcga_gsva))
+PCA_data = as.data.frame(PCA$x)
+PCA_data$type = sapply(rownames(PCA_data), FUN = function(x){
+  return(tcga_anno$cancer_type_abbreviation[x == tcga_anno$sample])})
 
+UMAP = umap(PCA$x)
+UMAP_data = as.data.frame(UMAP$layout)  #UMAP der PCA-Daten
+UMAP_data$type = sapply(rownames(UMAP_data), FUN = function(x){
+  return(tcga_anno$cancer_type_abbreviation[x == tcga_anno$sample])})
+
+colours = c('blue4','dodgerblue4','deepskyblue','cyan',
+            'lightblue1','aquamarine','chartreuse4',
+            'aquamarine3','darkolivegreen','darkolivegreen4',
+            'chartreuse2','darkolivegreen2','lemonchiffon',
+            'yellow','peachpuff1','gold','orange','red',
+            'indianred3','orangered4','sienna4','tan3','salmon2',
+            'plum','rosybrown1','violetred','magenta','magenta4',
+            'maroon','wheat1','snow3','gray29','black')
+
+ggplot(PCA_data, aes(x = PC1, y = PC2, color = type)) + geom_point() +
+  scale_color_manual(values = colours)
+ggplot(UMAP_data, aes(x = V1, y = V2, color = type)) + geom_point() +
+  scale_color_manual(values = colours)
+
+
+
+
+#--------------------------------------------
+#Visualisierung von erklärt varianz und den Pathwaykomponenten
+#----------------------------------------------
+
+#--------------------------------
 #Varianz die erkl?rt wird
+#--------------------------------
 PCs = 1:658; var_prop = PCA$sdev^2/sum(PCA$sdev^2); var_cum = cumsum(var_prop)
 Var = cbind.data.frame(PCs, var_prop, var_cum)
 v1 = ggplot(Var[1:10,], aes(PCs, var_prop)) + geom_point()+
@@ -47,53 +80,6 @@ t3 = ggplot(pathways[1:10,], aes(names, PC3)) + geom_col()+
   labs(x = 'Pathway', y= 'Contribution to PC3')+
   theme(axis.text = element_text(angle = 90,))
 grid.arrange(grobs = list(t1, t2, t3), ncol = 3)
-
-
-#plotten der daten gef?rbt nach tumortype
-PCA_data = as.data.frame(PCA$x) 
-PCA_data = PCA_data[order(row.names(PCA_data)),]
-
-tcga_anno = tcga_anno[1:800,]
-tcga_anno = tcga_anno[order(tcga_anno$sample),]
-
-PCA_data$type = ifelse(tcga_anno$cancer_type_abbreviation == 'BRCA', 'BRCA',
-                 ifelse(tcga_anno$cancer_type_abbreviation == 'LUAD', 'LUAD',
-                  ifelse(tcga_anno$cancer_type_abbreviation == 'KIRC', 'KIRC',
-                   ifelse(tcga_anno$cancer_type_abbreviation == 'PRAD', 'PRAD',
-                    ifelse(tcga_anno$cancer_type_abbreviation == 'THCA', 'THCA','other')
-                    )
-                   )
-                  )
-                 )
-
-p1 = ggplot(PCA_data, aes(PC1, PC2)) + geom_point(size = 1,aes(colour = type)) +
-  scale_color_manual("Tumor type", values = c('BRCA'='red','LUAD'='blue','KIRC'='green','PRAD'='orange','THCA'='black','other'='grey'))+
-  theme(panel.background = element_rect(fill = 'white'),
-        panel.grid.major = element_line(colour = "darkgrey", size=0.25),
-        panel.grid.minor = element_line(colour = "darkgrey", size=0.25),
-        panel.border = element_rect(colour = 'black', fill = NA, size=0.25))
-        #aspect.ratio = c(1,1))
-  
-p2 = ggplot(PCA_data, aes(PC1, PC3)) + geom_point(size = 1,aes(colour = type)) +
-  scale_color_manual("Tumor type", values = c('BRCA'='red','LUAD'='blue','KIRC'='green','PRAD'='orange','THCA'='black','other'='grey'))+
-  theme(legend.position="none",
-        panel.background = element_rect(fill = 'white'),
-        panel.grid.major = element_line(colour = "darkgrey", size=0.25),
-        panel.grid.minor = element_line(colour = "darkgrey", size=0.25),
-        panel.border = element_rect(colour = 'black', fill = NA, size=0.25))
-        #aspect.ratio = c(1,1))
-
-p3 = ggplot(PCA_data, aes(PC2, PC3)) + geom_point(size = 1,aes(colour = type)) +
-  scale_color_manual("Tumor type", values = c('BRCA'='red','LUAD'='blue','KIRC'='green','PRAD'='orange','THCA'='black','other'='grey'))+
-  theme(legend.position="none",
-        panel.background = element_rect(fill = 'white'),
-        panel.grid.major = element_line(colour = "darkgrey", size=0.25),
-        panel.grid.minor = element_line(colour = "darkgrey", size=0.25),
-        panel.border = element_rect(colour = 'black', fill = NA, size=0.25))
-        #aspect.ratio = c(1,1))
-
-# grid.arrange(grobs = list(p1, p2, p3),ncol = 3,  top = 'PCA of GSEA data',
-#              widths = c(1,1,1.4))
 
 grid.arrange(p1, arrangeGrob(p2,p3, ncol=2), heights=c(2.5/4, 2.5/4), ncol=1,top = 'PCA of GSEA data')
 
