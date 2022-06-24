@@ -8,16 +8,16 @@ library(metaplot)
 library(gridExtra)
    
 
-load('~/GitHub/2022-topic-02-team-05/data/GSEA_matrix.RData')
+load('~/GitHub/2022-topic-02-team-05/data/tcga_gsva.RData')
 tcga_anno = readRDS('~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS')
 
 #--------------------------------------------
 #Durchf?hren der PCA
 #---------------------------------------------
-PCA = prcomp(t(GSEA_matrix))
+PCA = prcomp(t(tcga_gsva))
 
 #Varianz die erkl?rt wird
-PCs = 1:84; var_prop = PCA$sdev^2/sum(PCA$sdev^2); var_cum = cumsum(var_prop)
+PCs = 1:658; var_prop = PCA$sdev^2/sum(PCA$sdev^2); var_cum = cumsum(var_prop)
 Var = cbind.data.frame(PCs, var_prop, var_cum)
 v1 = ggplot(Var[1:10,], aes(PCs, var_prop)) + geom_point()+
   labs(y = "Proportion of Variance Explained")+
@@ -53,7 +53,7 @@ grid.arrange(grobs = list(t1, t2, t3), ncol = 3)
 PCA_data = as.data.frame(PCA$x) 
 PCA_data = PCA_data[order(row.names(PCA_data)),]
 
-tcga_anno = tcga_anno[1:100,]
+tcga_anno = tcga_anno[1:800,]
 tcga_anno = tcga_anno[order(tcga_anno$sample),]
 
 PCA_data$type = ifelse(tcga_anno$cancer_type_abbreviation == 'BRCA', 'BRCA',
@@ -66,7 +66,7 @@ PCA_data$type = ifelse(tcga_anno$cancer_type_abbreviation == 'BRCA', 'BRCA',
                   )
                  )
 
-p1 = ggplot(PCA_data, aes(PC1, PC2)) + geom_point(size = 2,aes(colour = type)) +
+p1 = ggplot(PCA_data, aes(PC1, PC2)) + geom_point(size = 1,aes(colour = type)) +
   scale_color_manual("Tumor type", values = c('BRCA'='red','LUAD'='blue','KIRC'='green','PRAD'='orange','THCA'='black','other'='grey'))+
   theme(panel.background = element_rect(fill = 'white'),
         panel.grid.major = element_line(colour = "darkgrey", size=0.25),
@@ -74,7 +74,7 @@ p1 = ggplot(PCA_data, aes(PC1, PC2)) + geom_point(size = 2,aes(colour = type)) +
         panel.border = element_rect(colour = 'black', fill = NA, size=0.25))
         #aspect.ratio = c(1,1))
   
-p2 = ggplot(PCA_data, aes(PC1, PC3)) + geom_point(size = 2,aes(colour = type)) +
+p2 = ggplot(PCA_data, aes(PC1, PC3)) + geom_point(size = 1,aes(colour = type)) +
   scale_color_manual("Tumor type", values = c('BRCA'='red','LUAD'='blue','KIRC'='green','PRAD'='orange','THCA'='black','other'='grey'))+
   theme(legend.position="none",
         panel.background = element_rect(fill = 'white'),
@@ -83,7 +83,7 @@ p2 = ggplot(PCA_data, aes(PC1, PC3)) + geom_point(size = 2,aes(colour = type)) +
         panel.border = element_rect(colour = 'black', fill = NA, size=0.25))
         #aspect.ratio = c(1,1))
 
-p3 = ggplot(PCA_data, aes(PC2, PC3)) + geom_point(size = 2,aes(colour = type)) +
+p3 = ggplot(PCA_data, aes(PC2, PC3)) + geom_point(size = 1,aes(colour = type)) +
   scale_color_manual("Tumor type", values = c('BRCA'='red','LUAD'='blue','KIRC'='green','PRAD'='orange','THCA'='black','other'='grey'))+
   theme(legend.position="none",
         panel.background = element_rect(fill = 'white'),
