@@ -27,7 +27,7 @@ pheatmap(tcga_gsva,
                                   interpolate = 'linear'
          )(200),
          clustering_method = 'complete',
-         treeheight_row = 0, treeheight_col = 0, cellwidth = 0.25, cellheight = 0.5,
+         treeheight_row = 0, treeheight_col = 0, cellwidth = 0.07, cellheight = 0.5,
          show_colnames = F, show_rownames = F, border_color = NA,
          legend_breaks = c(-max(tcga_gsva),0, max(tcga_gsva)),
          legend_labels = c('underexpressed', 'normal expression', 'overexpressed')

@@ -35,10 +35,21 @@ colours = c('blue4','dodgerblue4','deepskyblue','cyan',
             'plum','rosybrown1','violetred','magenta','magenta4',
             'maroon','wheat1','snow3','gray29','black')
 
-ggplot(PCA_data, aes(x = PC1, y = PC2, color = type)) + geom_point() +
-  scale_color_manual(values = colours)
-ggplot(UMAP_data, aes(x = V1, y = V2, color = type)) + geom_point() +
-  scale_color_manual(values = colours)
+#Plottet die PCA
+ggplot(PCA_data, aes(x = PC1, y = PC2, color = type)) + geom_point(size = 2) +
+  scale_color_manual(values = colours) +
+  labs(title = 'UMAP of TCGA expression data') +
+  theme(legend.key = element_rect(fill = 'white')) +
+  theme_minimal() +
+  guides(color = guide_legend(override.aes = list(size = 5)))
+#Plottet unserer UMAP
+ggplot(UMAP_data, aes(x = V1, y = V2, color = type)) + geom_point(size = 1) +
+  scale_color_manual(values = colours) +
+  labs(title = 'UMAP of TCGA expression data') +
+  theme(legend.key = element_rect(fill = 'white')) +
+  theme_minimal() +
+  guides(color = guide_legend(override.aes = list(size = 5)))
+
 
 
 
