@@ -9,7 +9,7 @@ library(gridExtra)
 library(umap)
 
 #install.packages("umap")
-library(umap)load('~/GitHub/2022-topic-02-team-05/data/tcga_gsva.RData')
+load('~/GitHub/2022-topic-02-team-05/data/tcga_gsva.RData')
 tcga_anno = readRDS('~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS')
 
 #--------------------------------------------
