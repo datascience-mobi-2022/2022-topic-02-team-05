@@ -10,13 +10,14 @@ library(ggplot2)
 #Extrahieren nur der für uns relevanten Daten in jeweils einem Vektor
 #------------------------------------------------
 
-load("data/tcga_tumor_normal_datascience_proj_2022")
+tcga_tumor_normal_datascience_proj_2022 = readRDS("data/tcga_tumor_normal_datascience_proj_2022.RDS")
 
 thca_tumor_exp <- tcga_tumor_normal_datascience_proj_2022$THCA$tumor
 thca_normal_exp <- tcga_tumor_normal_datascience_proj_2022$THCA$normal
 thca_anno <- tcga_tumor_normal_datascience_proj_2022$THCA$clinical
+rm(tcga_tumor_normal_datascience_proj_2022)
 
-save(thca_anno, file = 'data/thca_anno')
+save(thca_anno, file = 'data/thca_anno.RData')
 
 #------------------------------------------------
 # Generelles Preprocessing und nur die hochvarianten Gene behalten!

@@ -163,3 +163,7 @@ pheatmap(as.matrix(hallm.jaccard[hallm.selected,]),
 #Pathways sind hiermit fertig selektiert
 our_genesets_final = our_genesets_new[hallm.selected]
 save(our_genesets_final, file = 'data/our_genesets_final.RData')
+
+#Zusammenführen in ein Pathwayliste
+pathways = c(our_genesets_final, genesets_ids)
+save(pathways, file = 'data/pathways.RData')

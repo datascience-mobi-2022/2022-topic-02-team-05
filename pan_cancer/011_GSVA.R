@@ -8,11 +8,7 @@ library(GSVA)
 library(pheatmap)
 
 load('data/tcga_exp_cleaned.RData')     #Exp Daten
-load('data/our_genesets_final.RData')   #MSigDB pathways
-load('data/geneset_ids.RData')          #Hallmarkpathways
-
-pathways = c(our_genesets_final, genesets_ids)
-rm(our_genesets_final); rm(genesets_ids)
+load('data/pathways.RData')             #pathways
 
 tcga_gsva = gsva(as.matrix(tcga_exp_cleaned), pathways,
                  method = 'gsva',
