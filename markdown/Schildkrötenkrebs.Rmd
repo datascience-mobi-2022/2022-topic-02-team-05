@@ -9,7 +9,6 @@ output:
     number_sections: yes
     theme: journal
     toc: yes
-bibliography: Bibliography.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -18,4 +17,43 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-##
+## THCA
+
+## Hallmarks of cancer
+
+## Our data sets (including our metabolic pathways)
+
+For the analysis 4 data sets were provided.
+
+1)  Gene expression data frame: The Gene expression data frame contains 60,000 genes and and their expression in 10,000 patients, and derived from The Cancer Genome Atlas (TCGA). The expression of those genes was obtained by RNA-seq HIER KOMMT NOCH DIE EINHEIT HIN
+2)  Clinical annotations: The second data frame contains 37 clinical annotations like Tumor type, age, gender, etc. concerning the 10,000 patients fro the Gene expression data frame.
+3)  Data for focused analysis: The third object contains 5 lists, one for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA). For the focused analysis the THCA data was used. The list contains 3 data frames, each one with information about the same 60 patients. The first one with gene expression data from THCA tissue, the second one from normal tissue and the third one contains the clinical annotations like age and gender.
+4)  Hallmark gene sets: A R object containing 46 pathways involved in phenotypes partly included in the hallmarks of cancer and the genes involved in those pathways.
+
+Furthermore 600 pathways were selected from msigdbr and checked for compatibility with the provided Genes from TCGA. To be
+
+# Analysis
+
+## Preprocessing
+
+#### metabolic pathway selection
+
+#### deleting NAs
+
+For data cleaning the Gene expression data frame and the THCA expression data frame were checked for NAs, to delete them with the R-function na.omit(). There were no NAs found.
+
+#### Low-variance filtering
+
+The goal of the analysis was to intentify the genes that show a significantly different expression in certain tumor types (Pan cancer analysis) or in comparison from normal and tumor tissue (THCA Analysis). Therefore genes with a similar expression in all patients are not relevant.
+
+The next step was the filtering of the Gene expression data frame to obtain only those genes, that differ significantly in their expression. Therefore the Variances of all genes was calculated with the R-function var(). The logarithm of the obtained values were displayed in a histogram shown in Figure xxx. The genes with a lower variance than -1 were omitted. The number of genes was reduced from 60,000 to 19,000 genes.
+
+The low-variance filtering of the THCA dataset was done in a similar way. First the variance of each gene in tumor tissue was calculated and the logarithm was displayed in the histogram shown in figure xxx. Genes with a lower variance than -1.25 were deleted in the expression data of normal and tumor tissue. This resulted in a reduction from about 20,000 genes to 15,000 genes in the data frames for normal and tumor tissue.
+
+#### Biotype filtering
+
+Now the biotypes of the given genes were analysed to
+
+#### Jaccard Index
+
+## Descriptive Analysis
