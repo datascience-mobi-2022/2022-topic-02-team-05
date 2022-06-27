@@ -112,9 +112,6 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 #--------------------------------------------------------------------------
 load('data/tcga_exp_hvar.RData')
 
-#ensemleIDs aufrufen von allen proteincodierenden Genen
-#protein_genes = tcga_biotypes$ensembl_gene_id[tcga_biotypes$gene_biotype == 'protein_coding'] #dataframe-slicing (?)
-
 #Rownames von high variant genes in ensemble IDs umschreiben:
 tcga_genes_hvar = rownames(tcga_exp_hvar)
 tcga_genes_hvar = strsplit(tcga_genes_hvar, split = '|', fixed = TRUE)
