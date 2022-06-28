@@ -21,7 +21,7 @@ i=1; for (i in 1:length(pathway_list)){
   pathway_list[[i]] = msigdbr_pathways[msigdbr_pathways$gs_name == names(pathway_list)[i],6]
 };rm(i)
 
-#neuformatieren in die From der hallmarkpathways 
+#neuformatieren in die Formm der hallmarkpathways 
 pathway_list = lapply(pathway_list, FUN = function(x){res = unlist(unname(x))
   return(res)})
 rm(msigdbr_pathways)
