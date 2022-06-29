@@ -109,8 +109,61 @@ knitr::include_graphics("Similarity_of_selected_pathways.png")
 
 ```{r showheatmapaftercleaningmetabolic, echo=FALSE, eval=TRUE, out.width='70%', fig.align='center', fig.cap="Jaccard index of metabolic pathways against each other after cleaning"}
 
-knitr::include_graphics("Pathways_richtig_ gecleand.png")
+knitr::include_graphics("Pathways_richtig_gecleand.png")
 
 ```
 
 ## Descriptive Analysis
+
+After reducing the number of Genes of the Gene Expression data frame and the THCA data by data cleaning, a descriptive analysis was performed with a Mean-variance plot and five violin plots of the TGCA data frame. The descriptive analysis of the THCA data was performed with a volcano plot and the distribution of the Tumor-specific data was displayed with violin plots.
+
+#### Mean-variance Plot
+
+In the mean-variance plot, displayed in Figure \@ref(fig:showmeanvariance), wurde die Varianz der Expression der einzelnen Gene über deren Mittelwerte geplottet. Gene mit einer besonders hohen Varianz und non-zero mean wurden in Figure \@ref(fig:showmeanvariance) markiert. Für die weitere Analyse wäre es interessant, sich diese Gene und ihre Expression in Tumoren genauer anzuschauen.
+
+```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='70%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data"}
+
+knitr::include_graphics("Variance_over mean_cleaned_matrix.png")
+
+```
+
+![](http://127.0.0.1:26567/chunk_output/3DCC3289CACBD6C3/219AFA97/cc46yulwlpcl4/000003.png?fixed_size=1)
+
+#### Violin Plots
+
+Zur descriptive analysis wurde außerdem ein Violinplo für 5 verschieden Tumortypes aus der TCGA Matrix erstellt. Der Zweck dieser Plots ist es, die Verteilungen der GEnexpression der verschiedenen Tumortypen zu überprüfen. Dafür wurde zuerst der MEdian der einzelnen Tumortypen berechnet und im ncähsten Schritt ein Violinplot erstellt the violinplot can be seen in Figure \@ref(fig:showviolinplots). The distribution around the plot refers to the mean of the level of gene expression across all the patients from the same tumor type. One can immediately see that a high number of genes is a very low expression level, while only a small number of genese is at a very high expression level. Overall there is no great difference between the gene expression in those 5 cancer types.
+
+```{r showviolinplots, echo=FALSE, eval=TRUE, out.width='70%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data"}
+
+knitr::include_graphics("Vioplots cancer types.png")
+
+```
+
+#### Volcano plot
+
+To further investigate the cleaned THCA expression data a volcano plot was created. Das Ziel des volcanoplots ist es, zu zeigen, welche Gene in den THCA tissue signifikant anders eprimiert sind als in normale Gewebe. Dafür wurde der mean jedes Gens in normalem und tumorgewebe berechnet und daraus der Log2-Foldchange folgendermaßen berechnet:
+
+```{r calculate FC, eval=FALSE}
+log2fc.thca = mean.thca.norm - mean.thca.tumor
+
+```
+
+Im nächsten Schritt wurde ein zweiseitger t-test durchgeführt um die signifikanz des Expressionsunterscheids zu bestimmen.
+
+```{r  ttest, eval=FALSE}
+
+for (i in (1:nrow(thca.norm.va))){
+  x <- t.test(thca.norm.va[i,], thca.tumor.va[i,], alternative = 'two.sided')$p.value
+  p.values <- append(p.values, x)
+}
+```
+
+Um die Akkuulation von alpha-Fehlern zu vermeiden wurde eine Bonferroni-Korrektur durchgeführt:
+
+```{r Bonferroni, eval = F}
+
+alpha = 0.025
+alpha.kor = alpha*bf
+```
+
+Im Volcanoplot wurden die p-Werte vom ttest gegen den Log2 Foldchange geplottet. Dieser ist in Figure \@ref(fig:) dargestellt.
