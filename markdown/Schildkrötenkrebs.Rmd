@@ -107,7 +107,7 @@ knitr::include_graphics("Similarity_of_selected_pathways.png")
 
 ```
 
-```{r showheatmapaftercleaningmetabolic, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="Jaccard index of metabolic pathways against each other after cleaning"}
+```{r showheatmapaftercleaningmetabolic, echo=FALSE, eval=TRUE, out.width='70%', fig.align='center', fig.cap="Jaccard index of metabolic pathways against each other after cleaning"}
 
 knitr::include_graphics("Pathways_richtig_ gecleand.png")
 
