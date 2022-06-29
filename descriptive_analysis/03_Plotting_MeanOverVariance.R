@@ -34,8 +34,31 @@ Var_over_Mean_plot =
  
 Var_over_Mean_plot
 
+#Gennamen der hochvarianten (>33) Gene in einer Liste 
+highVariance_cleaned <- subset(df_VoverM, y1 > 33)
+highVariance_cleaned <- highVariance_cleaned$names1
+
+#BiocManager::install("AnnotationDbi")
+#BiocManager::install("org.Hs.eg.db")
+library("AnnotationDbi")
+library("org.Hs.eg.db")
+
+#columns(org.Hs.eg.db)
+
+MAPIDS1 <- mapIds(org.Hs.eg.db, keys = highVariance_cleaned, keytype = "ENSEMBL", column = "ALIAS")
+as.data.frame(MAPIDS1) -> highVariancegenes_cleaned
+
+
+#-------------------------------------------------------------
 #Laden der  ungecleanten Daten aus der großen tcga matrix 
+#-------------------------------------------------------------
+
 load('data/tcga_tumor_log2TPM.RDS')
+load("data/tcga_genes")
+
+tcga_genes$tcga_geneids -> col1
+rownames(tcga_tumor_log2TPM) <- col1
+tcga_tumor_log2TPM
 
 #Variance of every gene
 Var_clean_big <- apply(tcga_tumor_log2TPM, 1, var)
@@ -63,3 +86,16 @@ Var_over_Mean_plot_big =
 
 Var_over_Mean_plot_big
 
+#Gennamen der hochvarianten (>33) Gene in einer Liste 
+highVariance_uncleaned <- subset(df_VoverM_big, y1 > 33)
+highVariance_uncleaned <- highVariance_uncleaned$names2
+
+#BiocManager::install("AnnotationDbi")
+#BiocManager::install("org.Hs.eg.db")
+library("AnnotationDbi")
+library("org.Hs.eg.db")
+
+#columns(org.Hs.eg.db)
+
+MAPIDS2 <- mapIds(org.Hs.eg.db, keys = highVariance_uncleaned, keytype = "ENSEMBL", column = "ALIAS")
+as.data.frame(MAPIDS2) -> highVariancegenes_uncleaned
