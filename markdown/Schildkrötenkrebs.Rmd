@@ -30,13 +30,9 @@ For the analysis 4 data sets were provided.
 3)  Data for focused analysis: The third object contains 5 lists, one for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA). For the focused analysis the THCA data was used. The list contains 3 data frames, each one with information about the same 60 patients. The first one with gene expression data from THCA tissue, the second one from normal tissue and the third one contains the clinical annotations like age and gender.
 4)  Hallmark gene sets: A R object containing 46 pathways involved in phenotypes partly included in the hallmarks of cancer and the genes involved in those pathways.
 
-Furthermore 600 pathways were selected from msigdbr and checked for compatibility with the provided Genes from TCGA. To be
-
 # Analysis
 
 ## Preprocessing
-
-#### metabolic pathway selection
 
 #### deleting NAs
 
@@ -52,8 +48,69 @@ The low-variance filtering of the THCA dataset was done in a similar way. First 
 
 #### Biotype filtering
 
-Now the biotypes of the given genes were analysed to
+Der biotype von unseren pathways, den hallmarks und der genexpressionsmatrix wurde bestimmt, um Gene mit ähnlichen biotypes zu behalten. Zur Bestimmung des Biotypes wurde eine Funktion erstellt, die den Gennamen als Input nimmt und Die Biotypes wurde in 3 Histogrammen in Figure \@ref(fig:showbiotypeshallmarks), Figure \@ref(fig:showbiotypesexp) und Figure \@ref(fig:showbiotypesmetabolic) dargestellt. Da die meisten Gene aller Datensätze protein-codierend sind, wurden nur die proteincodierenden Gene behalten.
+
+```{r showbiotypeshallmarks, echo=FALSE, eval=TRUE, out.width = '50%', fig.align = "center", fig.cap="**Biotypes of Hallamrk genes**"}
+
+knitr::include_graphics("tcga_exp_biotypes.png")
+
+```
+
+```{r showbiotypesexp, echo=FALSE, eval=TRUE, out.width = '50%', fig.align = "center", fig.cap="**Biotypes of Gene expression Data frame**"}
+
+knitr::include_graphics("tcga_exp_biotypes.png")
+
+```
+
+```{r showbiotypesmetabolic, echo=FALSE, eval=TRUE, out.width = '50%', fig.align = "center", fig.cap="**Biotypes of metabolic pathways**"}
+
+knitr::include_graphics("tcga_exp_biotypes.png")
+
+```
 
 #### Jaccard Index
+
+#### metabolic pathway selection
+
+Furthermore 600 pathways were selected from the Molecular Signatur Database (MSigDB) (QUELLE)
+
+um die mit den HAllmark pathwayszu vergleichen und weiter wichtige pathways für cancer zu identifizieren
+
+dafür war es wichtig, dass die möglcihst viele gene aus den pathways in den hallmarks enthalten waren, um deren expression zu vergleichen
+
+um die relevaten pathways herauszusuchen wurde die uberschenidung der gene ausgerechnet und in einem histogramm dargestellt, das in Figure \@ref(fig:showhistcanonical) dargestellt ist. Pathways mit einer Überschneidung von mindestens 99% wurden für die weitere Analyse verwendet.
+
+```{r Selection of canonical pathways, echo=TRUE, eval=FALSE}
+load('data/tcga_genes_cleaned.RData')
+coverage = sapply(pathway_list, FUN = function(x){
+              enthalten = x %in% tcga_genes_cleaned$tcga_geneids
+              res = sum(enthalten)/length(enthalten)
+              return(res)
+            })
+our_genesets = pathway_list[which(unname(coverage >= 0.99))]
+
+```
+
+```{r showhistcanonical, echo=FALSE, eval=TRUE, out.width = '100%', fig.align = "center", fig.cap="**Mean gene expression split by tumour type.** Log2-transformed gene expression values, given in transcripts per million (TPM), were averaged per tumour type and visualised in a violin plot."}
+
+knitr::include_graphics("tcga_exp_biotypes.png")
+
+```
+
+Um dopplungen innerhalb der gewählten Pathways zu vermeiden wurden diese mithilfe vom Jaccard index auf Überschneidungen überprüft und in Figure \@ref(fig:showheatmapjaccardmetabolic) als heatmap dargestellt. Es ist zu sehen, dass sich einige pathways überschneiden. Um die Pathways mit den meisten Dopplungen zu entfernen, wurde die Summe der Jaccard-Indices der einzelnen pathways verglichen. Eine hohe SUmme bedeutet hier, dass es viele Dopplungen gibt und ist in der heatmap als weiß bis rotes Element dargestellt. Die Pathways, die im 1sigma Bereich liegen, wurden behalten, alle anderen entfernt. Der Erfolg des cleanings wurde mit einer Heatmap überprüft, die in Figure \@ref(fig:showheatmapaftercleaningmetabolic) zu sehen ist.
+
+Um Dopplungen von Hallmark Pathways und den gewählten pathways zu vermeiden wurde auch zwischen diesen Pathways jeweils der Jaccard-index erstellt und in Figure \@ref(fig:) als Heatmap dargestellt. Auch hier wurden nur die Pathways behalten, deren Ähnlichkeit innerhalb des 1-Siga-Bereichs liegt. Das Ergebnis wurde auch als Heatmap in Figure \@ref(fig:) dargestellt. Es sind keine Dopplungen mehr vorhanden, es wurden etwa 600 Pathways erhlten, die für die weitere Analyse verwendet werden können.
+
+```{r showheatmapjaccardmetabolic, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="Jaccard index of metabolic pathways against each other"}
+
+knitr::include_graphics("Similarity_of_selected_pathways.png")
+
+```
+
+```{r showheatmapaftercleaningmetabolic, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="Jaccard index of metabolic pathways against each other after cleaning"}
+
+knitr::include_graphics("Pathways_richtig_ gecleand.png")
+
+```
 
 ## Descriptive Analysis
