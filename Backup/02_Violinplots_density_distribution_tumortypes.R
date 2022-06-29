@@ -22,12 +22,19 @@ PRAD_genes <- tcga_exp_cleaned[,tcga_anno$cancer_type_abbreviation == 'PRAD']
 
 THCA_genes <- tcga_exp_cleaned[,tcga_anno$cancer_type_abbreviation == 'THCA']
 
+
 #Median der einzelnen Gene:
 BRCA_mean <- apply(BRCA_genes,1, median)
 KIRC_mean <- apply(KIRC_genes,1, median)
 LUAD_mean <- apply(LUAD_genes,1, median)
 PRAD_mean <- apply(PRAD_genes,1, median)
 THCA_mean <- apply(THCA_genes,1, median)
+
+#BRCA_mean <- apply(BRCA_genes,1, var)
+#KIRC_mean <- apply(KIRC_genes,1, var)
+#LUAD_mean <- apply(LUAD_genes,1, var)
+#PRAD_mean <- apply(PRAD_genes,1, var)
+#THCA_mean <- apply(THCA_genes,1, var)
 
 #Violinplots mit einzelnen Tumortypes:
 vioplot(BRCA_mean, xlab = "Thyorid cancer: Geneexpression Density Plot", ylab = "gene expression")
@@ -49,7 +56,7 @@ five_cancers_frame <- rbind(BRCA_mframe, KIRC_mframe, LUAD_mframe, PRAD_mframe, 
 
 #Nun Violinplot erstellen, sodass alle plots nebeneinander sind
 
-vioplot(five_cancers_frame$gene_mean ~ five_cancers_frame$cancer_type, col = "lightblue",
-        xlab = "cancer type", ylab = "gene expression", main = "Vioplots cancer types")
+vioplot(five_cancers_frame$gene_mean ~ five_cancers_frame$cancer_type, col = 2:length(levels(five_cancers_frame$cancer_type)),
+        xlab = "cancer type", ylab = "gene expression")
 
   
