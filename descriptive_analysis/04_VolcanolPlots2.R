@@ -3,7 +3,7 @@
 #---------------------
 library(ggplot2)
 
-tcga_tumor_norm = readRDS("~/GitHub/2022-topic-02-team-05/data/tcga_tumor_normal_datascience_proj_2022.RDS")
+tcga_tumor_norm = readRDS("data/tcga_tumor_normal_datascience_proj_2022.RDS")
 thca.tumor <- tcga_tumor_norm$THCA$tumor
 thca.norm <- tcga_tumor_norm$THCA$normal
 
