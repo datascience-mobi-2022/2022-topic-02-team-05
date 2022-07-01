@@ -71,4 +71,31 @@ Heatmap(tcga_gsva,
         left_annotation = path.anno
 )
 
+#--------------------------
+#Diese letzte Heatmap vergleicht nun die Durchschnittlichen expressionwerte für
+#einen Krebstyp mit dem Rest
+#--------------------------
 
+#Liste mit Df mit GSVA daten für jeden Krebs
+cancers_gsva = list(); cancers_gsva = vector('list',length(table(tcga_anno$cancer_type_abbreviation)))
+names(cancers_gsva) = names(table(tcga_anno$cancer_type_abbreviation))
+i=1; for (i in 1:length(cancers_gsva)){
+  cancers_gsva[[i]] = tcga_gsva[,tcga_anno$cancer_type_abbreviation == names(cancers_gsva)[i]]
+};rm(i)
+cancers_gsva_means = lapply(cancers_gsva, FUN = function(x){
+  apply(x, 1, median)
+})
+#Matrix mit den Mittlewerten der Pathway activity für jden Krebs
+means_data = matrix(unlist(cancers_gsva_means), ncol = 33, dimnames = list(
+  names(pathways), names(table(tcga_anno$cancer_type_abbreviation))
+))
+
+#Plotten der Heatmap
+Heatmap(means_data,
+        show_row_names = F, show_column_names = T, width = unit(20, 'cm'), height = unit(18, 'cm'),
+        heatmap_legend_param = list(
+          title = "Mean cancer pathway activity", at = c(-2, 2), 
+          labels = c("underexpressed", "overexpressed")),
+        row_dend_reorder = T, column_dend_reorder = T,
+        left_annotation = path.anno
+)
