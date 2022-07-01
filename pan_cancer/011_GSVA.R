@@ -34,20 +34,34 @@ tcga_gsva = gsva(as.matrix(tcga_exp_cleaned), pathways,
 
 save(tcga_gsva, file = 'data/tcga_gsva.RData')
 
+#-------------------------------------
+#Plotten der GSVA pathway activity mit complex Heatmap
+#-------------------------------------
+#Farben für Krebstypen definieren
+colours = c('blue4','dodgerblue4','deepskyblue','cyan',
+            'lightblue1','aquamarine','chartreuse4',
+            'aquamarine3','darkolivegreen','darkolivegreen4',
+            'chartreuse2','darkolivegreen2','lemonchiffon',
+            'yellow','peachpuff1','gold','orange','red',
+            'indianred3','orangered4','sienna4','tan3','salmon2',
+            'plum','rosybrown1','violetred','magenta','magenta4',
+            'maroon','wheat1','snow3','gray29','black')
+names(colours) = names(table(tcga_anno$cancer_type_abbreviation))
 
-#Plotten mit complex Heatmap
-patient.anno = HeatmapAnnotation(Cancer = tcga_anno$cancer_type_abbreviation[1:400],
+#Annotationen für die Krebstypen
+patient.anno = HeatmapAnnotation(Cancer = tcga_anno$cancer_type_abbreviation,
+                                 col = list(Cancer = colours),
                                  annotation_legend_param = list(title = 'Cancer type',
-                                   at = names(table(tcga_anno$cancer_type_abbreviation[1:400])),
-                                   labels = names(table(tcga_anno$cancer_type_abbreviation[1:400]))))
-                              
+                                   at = names(table(tcga_anno$cancer_type_abbreviation)),
+                                   labels = names(table(tcga_anno$cancer_type_abbreviation))))
+#Annotationen für die Pathways                              
 path.anno = rowAnnotation(Pathway = c(rep('met',612),rep('hall', 46)),
                             col = list(Pathway = c("met" = "deepskyblue", "hall" = "blue4")),
                             annotation_legend_param = list(title = 'Pathway type',
                                                            at = c('met', 'hall'),
                                                            labels = c('Metabolic', 'Hallmark')))
-
-Heatmap(tcga_gsva[, 1:400],
+#Plotten der Heatmap
+Heatmap(tcga_gsva,
         show_row_names = F, show_column_names = F, width = unit(25, 'cm'), height = unit(18, 'cm'),
         heatmap_legend_param = list(
           title = "TCGA pathway activity", at = c(-2, 2), 
