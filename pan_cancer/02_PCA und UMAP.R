@@ -9,8 +9,8 @@ library(gridExtra)
 library(umap)
 
 #install.packages("umap")
-load('~/GitHub/2022-topic-02-team-05/data/tcga_gsva.RData')
-tcga_anno = readRDS('~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS')
+load('data/tcga_gsva.RData')
+tcga_anno = readRDS('data/tcga_tumor_annotation.RDS')
 
 #--------------------------------------------
 #Durchf?hren der PCA und UMAP
@@ -38,7 +38,7 @@ colours = c('blue4','dodgerblue4','deepskyblue','cyan',
 #Plottet die PCA
 ggplot(PCA_data, aes(x = PC1, y = PC2, color = type)) + geom_point(size = 2) +
   scale_color_manual(values = colours) +
-  labs(title = 'UMAP of TCGA expression data') +
+  labs(title = 'PCA of TCGA expression data') +
   theme(legend.key = element_rect(fill = 'white')) +
   theme_minimal() +
   guides(color = guide_legend(override.aes = list(size = 5)))
@@ -49,8 +49,6 @@ ggplot(UMAP_data, aes(x = V1, y = V2, color = type)) + geom_point(size = 1) +
   theme(legend.key = element_rect(fill = 'white')) +
   theme_minimal() +
   guides(color = guide_legend(override.aes = list(size = 5)))
-
-
 
 
 
