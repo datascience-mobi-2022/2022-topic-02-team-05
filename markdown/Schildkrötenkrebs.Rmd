@@ -29,7 +29,9 @@ Normally the Thyroid gland controls the body temperature and the metabolism.
 
 ## Hallmarks of cancer
 
-Warum analysieren wir das überhaupt, was ist der Vorteil von transcriptomic profiling methods
+Hallarks:
+
+Warum analysieren wir das überhaupt, was ist der Vorteil von transcriptomic profiling methods:
 
 DAdurch kann der tumortyp identifiziert werden für geeignete behandlung weil geliches gewebe bedeutet nicht immer gleiche Bahndlung/gleiche Urasache
 
@@ -39,11 +41,16 @@ vllt wichtig weil todesraten generell hoch in Bevölkerung
 
 -   riesige datenmenge kann nicht mehr einfach so analysiert werden
 
--   
+RNA-seq = Reingen der RNA (weil 90% rRNA) fragmentierung, übersetzen der DNA in cDNA dann Sequenzierung imt DNA sequenzierungsmethoden danach müssen die einzelnen Genfragente noch de mReerenzgenom zugeordnet werden
+
+Vorteile: Enthält Informationen zur genexpression die bei Krebs besonders wichtig sind
+
+1.  Epigenetische Veränderungen werden erkannt (Silencing, etc. besonders wichtig für Krebsentstehung
+2.  Fusionsproteine
 
 Woher kommen die daten (RNA-seq, TGCA atlas consortium, pan cancer papers)
 
-Epigeentic profiles??
+Epigeentic profiles = auch epigenetische veränderungen werden in die Expressionsdate mit inebezogen
 
 Was ist unsere Fragestellung?? und warum ist genau die so interessant?? und wie haben wir das erreicht=
 
@@ -97,17 +104,9 @@ um die mit den HAllmark pathwayszu vergleichen und weiter wichtige pathways für
 
 dafür war es wichtig, dass die möglcihst viele gene aus den pathways in den hallmarks enthalten waren, um deren expression zu vergleichen
 
-um die relevaten pathways herauszusuchen wurde die uberschenidung der gene ausgerechnet und in einem histogramm dargestellt, das in Figure \@ref(fig:showhistcanonical) dargestellt ist. Pathways mit einer Überschneidung von mindestens 99% wurden für die weitere Analyse verwendet.
+um die relevaten pathways herauszusuchen wurde die uberschenidung der gene ausgerechnet Pathways mit einer Überschneidung von mindestens 99% wurden für die weitere Analyse verwendet.
 
-```{r Selection of canonical pathways, echo=TRUE, eval=FALSE}
-load('data/tcga_genes_cleaned.RData')
-coverage = sapply(pathway_list, FUN = function(x){
-              enthalten = x %in% tcga_genes_cleaned$tcga_geneids
-              res = sum(enthalten)/length(enthalten)
-              return(res)
-            })
-our_genesets = pathway_list[which(unname(coverage >= 0.99))]
-
+```{}
 ```
 
 ```{r showhistcanonical, echo=FALSE, eval=TRUE, out.width = '100%', fig.align = "center", fig.cap="**Mean gene expression split by tumour type.** Log2-transformed gene expression values, given in transcripts per million (TPM), were averaged per tumour type and visualised in a violin plot."}
@@ -116,9 +115,12 @@ knitr::include_graphics("tcga_exp_biotypes.png")
 
 ```
 
-Um dopplungen innerhalb der gewählten Pathways zu vermeiden wurden diese mithilfe vom Jaccard index auf Überschneidungen überprüft und als heatmap dargestellt. Es war zu sehen, dass sich einige pathways überschneiden. Um die Pathways mit den meisten Dopplungen zu entfernen, wurde die Summe der Jaccard-Indices der einzelnen pathways verglichen. Eine hohe SUmme bedeutet hier, dass es viele Dopplungen gibt und ist in der heatmap als weiß bis rotes Element dargestellt. Die Pathways, die im 1sigma Bereich liegen, wurden behalten, alle anderen entfernt. Der Erfolg des cleanings wurde mit einer Heatmap überprüft, da wenige Elemente eine andere Fabrbe als blau haben, wurde angenommen, dass das celaning erfolgreich war.
+Um dopplungen innerhalb von Pathways zu vermeiden werden diese mithilfe vom Jaccard index auf Überschneidungen überprüft. .Pathways, deren Überschneidungen außerhalb der 1 sigma Bereiches liege werden entfernt.
 
-Um Dopplungen von Hallmark Pathways und den gewählten pathways zu vermeiden wurde auch zwischen diesen Pathways jeweils der Jaccard-index erstellt als Heatmap dargestellt. Auch hier wurden nur die Pathways behalten, deren Ähnlichkeit innerhalb des 1-Siga-Bereichs liegt. Das Ergebnis wurde wieder als Heatmap in Figure dargestellt. Es sind keine Dopplungen mehr vorhanden, es wurden etwa 600 Pathways erhlten, die für die weitere Analyse verwendet werden können.
+Um Dopplungen von Hallmark Pathways und den gewählten pathways zu vermeiden wurde auch zwischen diesen Pathways jeweils der Jaccard-index erstellt als Heatmap dargestellt. Auch hier wurden nur die Pathways behalten, deren Ähnlichkeit innerhalb des 1-Sigma-Bereichs liegt., da eine hohe jaccard summe eine hohe überschneidung mit anderen pathways bedeutet. In einer heatmap sind hohe Jacccard indices weiß bis rot gefährbt. Ein niedriger Jaccard index ist blau gefärbt.
+
+```{}
+```
 
 ## Preprocessing
 
@@ -135,6 +137,12 @@ Bei der focussed analysis wurden nur die Varianz der Expression im Tumorgewebe b
 ### Biotype filtering
 
 Beim biotype filtering wird der Biotype von jedem Gen bestimt (Proteincodiernd, RNA, ...) und mit den Biotypes von anderen Datensätze verglichen. Um eine möglichst geeigneten Vergleich zwischen der Expressionsdaten zu ermöglichen, werden nur die Biotypes behalten, die in allen datensätzen zum Großteil vorhnanden sind. Der Biotype kann mit der R-Funktion checkbiotypes(x) asu dem Package biomaRt bestimmt werden.
+
+#### Selection of metabolic pathways
+
+Die Überprüfung von Überschenidungen zwischen den gewählten pathways untereinander und den gewählten pathways mit den hallmarks wurde mit dem Jaccard index durchgeführt. Ergebnisse sind in Figure \@ref(fig:) und Figure \@ref(fig:) zu sehen
+
+Es ist zu sehen, dass sich innerhalb der gewählten pathways und mit den Hallmark pathways einige pathways überschneiden. Um die Pathways mit den meisten Dopplungen zu entfernen, wurde die Summe der Jaccard-Indices der einzelnen pathways verglichen. Die Pathways mit einer großen Überschneidung wurden entfernt. Der Erfolg des cleanings wurde mit einer Heatmap überprüft, da wenige Elemente eine andere Fabrbe als blau haben, wurde angenommen, dass das celaning erfolgreich war. Die Anztahl der gewählten pathways konnnte so uf 600 reduziert werden
 
 ## Descriptive analysis
 
