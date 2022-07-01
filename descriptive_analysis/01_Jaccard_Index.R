@@ -5,8 +5,8 @@
 
 #loading data:
 
-load("~/GitHub/2022-topic-02-team-05/data/our_genesets.RData")
-load("~/GitHub/2022-topic-02-team-05/data/geneset_ids.RData")
+load("data/our_genesets_final.RData")
+load("data/geneset_ids.RData")
 
 
 # Jaccard-Index zwischen Genen:
@@ -15,9 +15,9 @@ load("~/GitHub/2022-topic-02-team-05/data/geneset_ids.RData")
 
 # leeren Data-frame erstellen:
 
-data.jaccard <- data.frame(matrix(ncol=length(our_genesets), nrow = length(genesets_ids)))
+data.jaccard <- data.frame(matrix(ncol=length(our_genesets_final), nrow = length(genesets_ids)))
 
-colnames(data.jaccard) <- names(our_genesets) #n
+colnames(data.jaccard) <- names(our_genesets_final) #n
 rownames(data.jaccard) <- names(genesets_ids) #m
 
 #jaccard_index:
@@ -34,10 +34,13 @@ jaccard <- function(a, b) {
   return (intersection/union)
 }
 
-# Jaccardindex f?r all unsere Pathways mit den Hallmarkpathways einzeln darstellen
-# --> herausfinden der ?hnlichkeit der Pathways
 
-for (set_our in our_genesets){
+#---------------------------------------------------------------------
+# Jaccardindex f?r all unsere Pathways vs die Hallmarkpathways einzeln darstellen
+# zum Herausfinden der ?hnlichkeit der Pathways
+#---------------------------------------------------------------------
+
+for (set_our in our_genesets_final){
   for (set_hm in genesets_ids){
     jacindex <- jaccard(set_our, set_hm)
     print(jacindex)
@@ -53,35 +56,38 @@ for (set_our in our_genesets){
 
 #heatmap(as.matrix(data.jaccard), mar = c(12.5,10), main= 'Similarity of hallmark and our genesets', xlab = 'our genesets', ylab = 'hallmark genesets')
 library(pheatmap)
+
 pheatmap(as.matrix(data.jaccard),
-         breaks = seq(0, max(data.jaccard), length.out = 51),
-         color = colorRampPalette(c('lightskyblue','lightcyan','white','yellow','orange', 'red'),
+         color = colorRampPalette(c("lightskyblue", "lightcyan", "white", "yellow", "orange", "red"),
                                   bias = 1,
-                                  space = 'rgb',
-                                  interpolate = 'linear'
-         )(50),
-         clustering_method = 'average', treeheight_row = 20, treeheight_col = 20,
-         cellwidth = 10, cellheight = 10,
-         fontsize = 8, border_color = 'lightcyan2',
-         legend_breaks = c(0, 1),
-         legend_labels = c('unlike','same')
+                                  space = "rgb",
+                                  interpolate = "linear"
+         ) (50), 
+         clustering_method = "average", treeheight_row = 20, treeheight_col = 20, 
+         labels_col = FALSE,  
+         fontsize = 5, border_color = "black", 
+         legend_breaks = c(0, 1), 
+         legend_labels = c("unlike", "same"),
+         main = "Jaccardindex - our pathways vs hallmark pathways",
 )
 
 
 #performing the same (jaccard index) for our-genesets against themselves and the hallmark genesets:
 
-data.jaccard.our <- data.frame(matrix(ncol=length(our_genesets), nrow = length(our_genesets)))
+data.jaccard.our <- data.frame(matrix(ncol=length(our_genesets_final), nrow = length(our_genesets_final)))
 data.jaccard.hm <- data.frame(matrix(ncol=length(genesets_ids), nrow = length(genesets_ids)))
 
-colnames(data.jaccard.our) <- names(our_genesets) #n
-rownames(data.jaccard.our) <- names(our_genesets) #m
+colnames(data.jaccard.our) <- names(our_genesets_final) #n
+rownames(data.jaccard.our) <- names(our_genesets_final) #m
 
 colnames(data.jaccard.hm) <- names(genesets_ids) #n
 rownames(data.jaccard.hm) <- names(genesets_ids) #m
 
+n=1
+m=1
 
-for (set_our in our_genesets){
-  for (set_our2 in our_genesets){
+for (set_our in our_genesets_final){
+  for (set_our2 in our_genesets_final){
     jacindex <- jaccard(set_our, set_our2)
     data.jaccard.our[m,n] <- jacindex
     m <- m+1
@@ -103,23 +109,26 @@ for (set_hm1 in genesets_ids){
   n <- n+1
 }
 
+
+#--------------
 #heatmaps:
+#--------------
+
+#our genesets vs themselves
 pheatmap(as.matrix(data.jaccard.our),
-         breaks = seq(0, max(data.jaccard.our), length.out = 51),
          color = colorRampPalette(c('lightskyblue','lightcyan','white','yellow','orange', 'red'),
                                   bias = 1,
                                   space = 'rgb',
                                   interpolate = 'linear'
          )(50),
          clustering_method = 'average', treeheight_row = 20, treeheight_col = 20,
-         cellwidth = 10, cellheight = 10,
-         fontsize = 8, border_color = 'lightcyan2',
          legend_breaks = c(0, 1),
-         legend_labels = c('unlike','same')
+         legend_labels = c('unlike','same'),
+         fontsize = 1, border_color = 'lightcyan2'
 )
 
+#hallmark genesets vs themselves
 pheatmap(as.matrix(data.jaccard.hm),
-         breaks = seq(0, max(data.jaccard.hm), length.out = 51),
          color = colorRampPalette(c('lightskyblue','lightcyan','white','yellow','orange', 'red'),
                                   bias = 1,
                                   space = 'rgb',
