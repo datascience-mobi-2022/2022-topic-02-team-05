@@ -90,6 +90,54 @@ means_data = matrix(unlist(cancers_gsva_means), ncol = 33, dimnames = list(
   names(pathways), names(table(tcga_anno$cancer_type_abbreviation))
 ))
 
+#Krebsformannotation für die Krebse
+canc_form = c('Adenocarcinoma', #ACC
+              'Transitional cell carcinoma', #BLCA
+              'Carcinoma', #BRCA
+              'Carcinoma', #CESC
+              'Adenocarcinoma', #CHOL
+              'Adenocarcinoma', #COAD
+              'Leucemia', #dlbc
+              'Carcinoma', #ESCA
+              'Glioblastoma', #GBM
+              'Squamous cell carcinoma', #HNSC
+              'Adenocarcinoma', #KICH
+              'Adenocarcinoma', #KIRC
+              'Adenocarcinoma', #KIRP
+              'Leucemia', #LAML
+              'Glioblastoma', #LGG
+              'Adenocarcinoma', #LIHC
+              'Adenocarcinoma', #LUAD
+              'Squamous cell carcinoma', #LUSC
+              'Sarcoma', #MESO
+              'Adenocarcinoma', #OV
+              'Adenocarcinoma', #PAAP
+              'Glioblastoma', #PCPG
+              'Adenocarcinoma', #PRAD
+              'Adenocarcinoma', #READ
+              'Sarcoma', #SARC
+              'Melanoma', #SKCM
+              'Adenocarcinoma', #STAD
+              'Carcinoma', #TGCT
+              'Carcinoma', #THCA
+              'Carcinoma', #THYM
+              'Adenocarcinoma', #UCEC
+              'Sarcoma', #UCS
+              'Melanoma') #UVM
+form.col = c('Adenocarcinoma' = 'deepskyblue3',
+            'Squamous cell carcinoma' = 'dodgerblue4',
+            'Transitional cell carcinoma' = 'deepskyblue',
+            'Melanoma'='cyan',
+            'Carcinoma'='azure3',
+            'Sarcoma'='darkolivegreen',
+            'Glioblastoma'='gold',
+            'Leucemia'='red')
+
+form.anno = HeatmapAnnotation(Type = canc_form,
+                              col = list(Type = form.col),
+                              annotation_legend_param = list(title = 'Cancer type',
+                                at = names(table(canc_form)),
+                                labels = names(table(canc_form))))
 #Plotten der Heatmap
 Heatmap(means_data,
         show_row_names = F, show_column_names = T, width = unit(20, 'cm'), height = unit(18, 'cm'),
@@ -97,5 +145,6 @@ Heatmap(means_data,
           title = "Mean cancer pathway activity", at = c(-2, 2), 
           labels = c("underexpressed", "overexpressed")),
         row_dend_reorder = T, column_dend_reorder = T,
-        left_annotation = path.anno
+        left_annotation = path.anno,
+        top_annotation = form.anno
 )
