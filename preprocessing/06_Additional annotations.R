@@ -40,12 +40,13 @@ canc_form = c('Adenocarcinoma', #ACC
               'Sarcoma', #UCS
               'Melanoma') #UVM
 #Erstelen eines df mit Krebs abbkürzung und der passenden Krebsform
-x = cbind.data.frame(names(table(tcga_anno$cancer_type_abbreviation)), canc_form)
-colnames(x) = c('Cancer_Abb', 'Cancer_form')
+Cancer_form_anno = cbind.data.frame(names(table(tcga_anno$cancer_type_abbreviation)), canc_form)
+colnames(Cancer_form_anno) = c('Cancer_Abb', 'Cancer_form')
 
 #Erweitern der Annotation um eine Spalte mit der Krebsform
 tcga_anno$cancer_form = sapply(tcga_anno$cancer_type_abbreviation, FUN = function(y){
-  x$Cancer_form[y == x$Cancer_Abb]
+  Cancer_form_anno$Cancer_form[y == Cancer_form_anno$Cancer_Abb]
 })
 
 save(tcga_anno, file = 'data/tcga_anno.RData')
+save(Cancer_form_anno, file = 'data/Cancer_form_anno.RData')

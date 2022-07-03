@@ -7,11 +7,12 @@
 #BiocManager::install("ComplexHeatmap")
 library(GSVA)
 library(ComplexHeatmap)
-library(pheatmap)
 
 load('data/tcga_exp_cleaned.RData')     #Exp Daten
 load('data/pathways.RData')             #pathways
-tcga_anno = readRDS('~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS')
+load('data/tcga_anno.RData')            #Annotationen für alle Daten
+load('data/Cancer_form_anno.RData')     #Annotation für die Krebsarten
+#load('data/tcga_gsva.RData') für den Fall das man den Code oben nicht nochmal ausführen möchte
 
 tcga_gsva = gsva(as.matrix(tcga_exp_cleaned), pathways,
                  method = 'gsva',
@@ -38,7 +39,7 @@ save(tcga_gsva, file = 'data/tcga_gsva.RData')
 #Plotten der GSVA pathway activity mit complex Heatmap
 #-------------------------------------
 #Farben für Krebstypen definieren
-colours = c('blue4','dodgerblue4','deepskyblue','cyan',
+patient.col = c('blue4','dodgerblue4','deepskyblue','cyan',
             'lightblue1','aquamarine','chartreuse4',
             'aquamarine3','darkolivegreen','darkolivegreen4',
             'chartreuse2','darkolivegreen2','lemonchiffon',
@@ -46,28 +47,52 @@ colours = c('blue4','dodgerblue4','deepskyblue','cyan',
             'indianred3','orangered4','sienna4','tan3','salmon2',
             'plum','rosybrown1','violetred','magenta','magenta4',
             'maroon','wheat1','snow3','gray29','black')
-names(colours) = names(table(tcga_anno$cancer_type_abbreviation))
+names(patient.col) = names(table(tcga_anno$cancer_type_abbreviation))
+
+#Fraben für die Art des Krebses definieren
+form.col = c('Adenocarcinoma' = 'deepskyblue3',
+             'Squamous cell carcinoma' = 'dodgerblue4',
+             'Transitional cell carcinoma' = 'deepskyblue',
+             'Melanoma'='cyan',
+             'Carcinoma'='azure3',
+             'Sarcoma'='darkolivegreen',
+             'Glioblastoma'='gold',
+             'Leukemia'='red')
 
 #Annotationen für die Krebstypen
-patient.anno = HeatmapAnnotation(Cancer = tcga_anno$cancer_type_abbreviation,
-                                 col = list(Cancer = colours),
-                                 annotation_legend_param = list(title = 'Cancer type',
-                                   at = names(table(tcga_anno$cancer_type_abbreviation)),
-                                   labels = names(table(tcga_anno$cancer_type_abbreviation))))
+top.anno = HeatmapAnnotation(Type = tcga_anno$cancer_type_abbreviation[1:500], #Krebsabkürzung als farbe
+                             Form = tcga_anno$cancer_form[1:500], #Krebsform als farbe
+                                 col = list(Type = patient.col, #Def der Farben
+                                            Form = form.col),
+                                 annotation_legend_param = list( #Def der Legende
+                                   list(title = 'Cancer type',
+                                        at = names(table(tcga_anno$cancer_type_abbreviation[1:500])),
+                                        labels = names(table(tcga_anno$cancer_type_abbreviation[1:500]))),
+                                   list(title = 'Cancer form',
+                                        at = names(table(tcga_anno$cancer_form[1:500])),
+                                        labels = names(table(tcga_anno$cancer_form[1:500])))
+                                   ))
+
+#Annotation für die Arte des Krebses
+# canc.anno = HeatmapAnnotation(Type = tcga_anno$cancer_form,
+#                                  col = list(Cancer = colours),
+#                                  annotation_legend_param = list(title = 'Cancer type',
+#                                     at = names(table(tcga_anno$cancer_type_abbreviation)),
+#                                     labels = names(table(tcga_anno$cancer_type_abbreviation))))
 #Annotationen für die Pathways                              
 path.anno = rowAnnotation(Pathway = c(rep('met',612),rep('hall', 46)),
                             col = list(Pathway = c("met" = "deepskyblue", "hall" = "blue4")),
                             annotation_legend_param = list(title = 'Pathway type',
-                                                           at = c('met', 'hall'),
-                                                           labels = c('Metabolic', 'Hallmark')))
+                              at = c('met', 'hall'),
+                              labels = c('Metabolic', 'Hallmark')))
 #Plotten der Heatmap
-Heatmap(tcga_gsva,
-        show_row_names = F, show_column_names = F, width = unit(25, 'cm'), height = unit(18, 'cm'),
+Heatmap(tcga_gsva[,1:500],
+        show_row_names = F, show_column_names = F, width = unit(22, 'cm'), height = unit(18, 'cm'),
         heatmap_legend_param = list(
           title = "TCGA pathway activity", at = c(-2, 2), 
           labels = c("underexpressed", "overexpressed")),
         row_dend_reorder = T, column_dend_reorder = T,
-        top_annotation = patient.anno,
+        top_annotation = top.anno,
         left_annotation = path.anno
 )
 
@@ -89,55 +114,14 @@ cancers_gsva_means = lapply(cancers_gsva, FUN = function(x){
 means_data = matrix(unlist(cancers_gsva_means), ncol = 33, dimnames = list(
   names(pathways), names(table(tcga_anno$cancer_type_abbreviation))
 ))
+rm(cancers_gsva);rm(cancers_gsva_means) #Environment aufräumen
 
-#Krebsformannotation für die Krebse
-canc_form = c('Adenocarcinoma', #ACC
-              'Transitional cell carcinoma', #BLCA
-              'Carcinoma', #BRCA
-              'Carcinoma', #CESC
-              'Adenocarcinoma', #CHOL
-              'Adenocarcinoma', #COAD
-              'Leucemia', #dlbc
-              'Carcinoma', #ESCA
-              'Glioblastoma', #GBM
-              'Squamous cell carcinoma', #HNSC
-              'Adenocarcinoma', #KICH
-              'Adenocarcinoma', #KIRC
-              'Adenocarcinoma', #KIRP
-              'Leucemia', #LAML
-              'Glioblastoma', #LGG
-              'Adenocarcinoma', #LIHC
-              'Adenocarcinoma', #LUAD
-              'Squamous cell carcinoma', #LUSC
-              'Sarcoma', #MESO
-              'Adenocarcinoma', #OV
-              'Adenocarcinoma', #PAAP
-              'Glioblastoma', #PCPG
-              'Adenocarcinoma', #PRAD
-              'Adenocarcinoma', #READ
-              'Sarcoma', #SARC
-              'Melanoma', #SKCM
-              'Adenocarcinoma', #STAD
-              'Carcinoma', #TGCT
-              'Carcinoma', #THCA
-              'Carcinoma', #THYM
-              'Adenocarcinoma', #UCEC
-              'Sarcoma', #UCS
-              'Melanoma') #UVM
-form.col = c('Adenocarcinoma' = 'deepskyblue3',
-            'Squamous cell carcinoma' = 'dodgerblue4',
-            'Transitional cell carcinoma' = 'deepskyblue',
-            'Melanoma'='cyan',
-            'Carcinoma'='azure3',
-            'Sarcoma'='darkolivegreen',
-            'Glioblastoma'='gold',
-            'Leucemia'='red')
-
-form.anno = HeatmapAnnotation(Type = canc_form,
+#Neue Annotation für die Krebsform definieren
+form.anno = HeatmapAnnotation(Type = Cancer_form_anno$Cancer_form,
                               col = list(Type = form.col),
                               annotation_legend_param = list(title = 'Cancer type',
-                                at = names(table(canc_form)),
-                                labels = names(table(canc_form))))
+                                at = names(table(Cancer_form_anno$Cancer_form)),
+                                labels = names(table(Cancer_form_anno$Cancer_form))))
 #Plotten der Heatmap
 Heatmap(means_data,
         show_row_names = F, show_column_names = T, width = unit(20, 'cm'), height = unit(18, 'cm'),
