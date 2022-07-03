@@ -7,46 +7,72 @@ library(metaplot)
 library(gridExtra)
 library(umap)
 library(ComplexHeatmap)
+library(cluster)
 
 #install.packages("umap")
 load('data/tcga_gsva.RData')
-tcga_anno = readRDS('data/tcga_tumor_annotation.RDS')
+load('data/tcga_anno.RData')
 set.seed(123)
 
+#----------------------------
 #slicen der Daten
+#----------------------------
 thca_gsva = tcga_gsva[,tcga_anno$cancer_type_abbreviation == 'THCA']
+thca_pan_anno = tcga_anno[tcga_anno$cancer_type_abbreviation == 'THCA',]
 
+#Umbennen der Histologischen stufe (entfernen der unnötigen vorsatzes THCA)
+thca_pan_anno$histological_type = sapply(thca_pan_anno$histological_type, FUN = function(x){
+  return(strsplit(x, split = '- ', fixed = TRUE)[[1]][2])})
+#Alle NAs werden other genannt
+thca_pan_anno$histological_type[is.na(thca_pan_anno$histological_type)] = 'other'
+
+#---------------------------
 #PCA
+#---------------------------
 PCA_thca = prcomp(t(thca_gsva))
 PCA_data_thca = as.data.frame(PCA_thca$x)
+PCA_data_thca$hist = thca_pan_anno$histological_type
 
+#---------------------------
 #UMAP
+#---------------------------
 UMAP_thca = umap(PCA_thca$x)
 UMAP_data_thca = as.data.frame(UMAP_thca$layout)  #UMAP der PCA-Daten
+UMAP_data_thca$hist = thca_pan_anno$histological_type
 
 #----------------------------------
 #kmeans clustering der Daten
 #----------------------------------
-#Beste clustering form:
+#Beste clustering form durch silhouette plot herausfinden
 set.seed(123)
-elbow_data = c()#leerer vektor für die Daten
-for (i in 1:10){
-  res = kmeans(UMAP_data_thca, centers = i)$tot.withinss
-  elbow_data = append(elbow_data, res)
-}; rm(i);rm(res)
-plot(elbow_data)
-#=> Der elbowplot zeigt, 3 Cluster sind die beste Anzahl für die Daten
-#Kmeans clustern mit 3 Zentren und zuordnug der Punkte
-km_data = kmeans(UMAP_data_thca, centers = 3)
-PCA_data_thca$Cluster = km_data$cluster
-UMAP_data_thca$Cluster = km_data$cluster
+silhouette_score = function(k){
+  km <- kmeans(t(thca_gsva), centers = k, nstart=25)
+  ss <- silhouette(km$cluster, dist(t(thca_gsva)))
+  mean(ss[, 3])
+}
+k = 2:10; avg_sil = sapply(k, silhouette_score)
+plot(k, type='b', avg_sil, xlab='Number of clusters', ylab='Average Silhouette Scores', frame=FALSE)
+#=> Der Silhouette plot zeigt, 2 Cluster sind die beste Anzahl für die Daten
+#Kmeans clustern mit 2 Zentren und zuordnug der Punkte
+km_data = kmeans(t(thca_gsva), centers = 2)
+cluster = sapply(km_data$cluster, FUN = function(x){
+  if (x == 1) return('A')
+  else return('B')
+})
+PCA_data_thca$Cluster = cluster
+UMAP_data_thca$Cluster = cluster
+
+#Wir sehen auch drei histologisch unterschiedliche subtypen in den annotationen
+
 
 #Plottet unserer PCA
-ggplot(PCA_data_thca, aes(x = PC1, y = PC2, col = Cluster)) + geom_point(size = 2) +
+ggplot(PCA_data_thca, aes(x = PC1, y = PC2, col = Cluster, shape = hist)) + 
+  geom_point(size = 2) +
   labs(title = 'PCA of THCA cacncer pathway activity') +
   theme_minimal()
 #Plottet unserer UMAP
-ggplot(UMAP_data_thca, aes(x = V1, y = V2, col = Cluster)) + geom_point(size = 1) +
+ggplot(UMAP_data_thca, aes(x = V1, y = V2, col = Cluster, shape = hist)) + 
+  geom_point(size = 1) +
   labs(title = 'UMAP of THCA cacncer pathway activity') +
   theme_minimal()
 
@@ -57,11 +83,22 @@ path.anno = rowAnnotation(Pathway = c(rep('met',612),rep('hall', 46)),
                           annotation_legend_param = list(title = 'Pathway type',
                                                          at = c('met', 'hall'),
                                                          labels = c('Metabolic', 'Hallmark')))
-#Annotation der kmeans cluster
-patient.anno = HeatmapAnnotation(Kmeans = km_data$cluster,
-                                 annotation_legend_param = list(title = 'Kmeans Cluster',
-                                                                at = c(1, 2, 3),
-                                                                labels = c('Cluster 1','Cluster 2','Cluster 3')))
+#Annotation der kmeans cluster und den Histological type
+top.anno = HeatmapAnnotation(Kmeans = cluster,
+                             Type = thca_pan_anno$histological_type,
+                             col = list(Kmeans = c('A' = 'darkgoldenrod1', 'B' = 'khaki1'),
+                                        Type = c('Classical/usual' = 'olivedrab4',
+                                                 'Follicular (>= 99% follicular patterned)' = 'darkolivegreen',
+                                                 'Tall Cell (>= 50% tall cell features)' = 'green3',
+                                                 'other' = 'honeydew3')),
+                             annotation_legend_param = list(
+                               list(title = 'Kmeans Cluster',
+                                    at = c('A', 'B'),
+                                    labels = c('Cluster A','Cluster B')),
+                               list(title = 'Histological type',
+                                    at = names(table(thca_pan_anno$histological_type)),
+                                    lables = names(table(thca_pan_anno$histological_type)))
+                               ))
 Heatmap(thca_gsva,
         show_row_names = F, show_column_names = F, width = unit(25, 'cm'), height = unit(18, 'cm'),
         heatmap_legend_param = list(
@@ -69,6 +106,6 @@ Heatmap(thca_gsva,
           labels = c("underexpressed", "overexpressed")),
         row_dend_reorder = T, column_dend_reorder = T,
         left_annotation = path.anno,
-        top_annotation = patient.anno,
-        column_split = km_data$cluster #Splitted unserer Heatmap in die drei Subtypen
+        top_annotation = top.anno,
+        column_split = km_data$cluster #Splitted unserer Heatmap in die 2 Subtypen
 )
