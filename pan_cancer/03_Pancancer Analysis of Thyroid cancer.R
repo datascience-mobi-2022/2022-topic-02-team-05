@@ -44,36 +44,37 @@ UMAP_data_thca$hist = thca_pan_anno$histological_type
 #kmeans clustering der Daten
 #----------------------------------
 #Beste clustering form durch silhouette plot herausfinden
-set.seed(123)
-silhouette_score = function(k){
-  km <- kmeans(t(thca_gsva), centers = k, nstart=25)
-  ss <- silhouette(km$cluster, dist(t(thca_gsva)))
-  mean(ss[, 3])
-}
-k = 2:10; avg_sil = sapply(k, silhouette_score)
-plot(k, type='b', avg_sil, xlab='Number of clusters', ylab='Average Silhouette Scores', frame=FALSE)
-#=> Der Silhouette plot zeigt, 2 Cluster sind die beste Anzahl für die Daten
-#Kmeans clustern mit 2 Zentren und zuordnug der Punkte
-km_data = kmeans(t(thca_gsva), centers = 2)
+# set.seed(123)
+# silhouette_score = function(k){
+#   km <- kmeans(t(thca_gsva), centers = k, nstart=25)
+#   ss <- silhouette(km$cluster, dist(t(thca_gsva)))
+#   mean(ss[, 3])
+# }
+# k = 2:10; avg_sil = sapply(k, silhouette_score)
+# plot(k, type='b', avg_sil, xlab='Number of clusters', ylab='Average Silhouette Scores', frame=FALSE)
+# #=> Der Silhouette plot zeigt, 2 Cluster sind die beste Anzahl für die Daten
+# #Kmeans clustern mit 2 Zentren und zuordnug der Punkte
+
+#In der großen pancancer Daten sehen wir drei Cluster
+km_data = kmeans(t(thca_gsva), centers = 3)
 cluster = sapply(km_data$cluster, FUN = function(x){
   if (x == 1) return('A')
-  else return('B')
+  else if (x == 2) return('B')
+       else return('C')
 })
 PCA_data_thca$Cluster = cluster
 UMAP_data_thca$Cluster = cluster
 
 #Wir sehen auch drei histologisch unterschiedliche subtypen in den annotationen
-
-
 #Plottet unserer PCA
 ggplot(PCA_data_thca, aes(x = PC1, y = PC2, col = Cluster, shape = hist)) + 
   geom_point(size = 2) +
-  labs(title = 'PCA of THCA cacncer pathway activity') +
+  labs(title = 'PCA of THCA cancer pathway activity') +
   theme_minimal()
 #Plottet unserer UMAP
 ggplot(UMAP_data_thca, aes(x = V1, y = V2, col = Cluster, shape = hist)) + 
   geom_point(size = 1) +
-  labs(title = 'UMAP of THCA cacncer pathway activity') +
+  labs(title = 'UMAP of THCA cancer pathway activity') +
   theme_minimal()
 
 #Plotten der Heatmap mit patienten in Drei Clustern
@@ -86,21 +87,21 @@ path.anno = rowAnnotation(Pathway = c(rep('met',612),rep('hall', 46)),
 #Annotation der kmeans cluster und den Histological type
 top.anno = HeatmapAnnotation(Kmeans = cluster,
                              Type = thca_pan_anno$histological_type,
-                             col = list(Kmeans = c('A' = 'darkgoldenrod1', 'B' = 'khaki1'),
+                             col = list(Kmeans = c('A' = 'darkgoldenrod1', 'B' = 'khaki1', 'C' = 'khaki3'),
                                         Type = c('Classical/usual' = 'olivedrab4',
                                                  'Follicular (>= 99% follicular patterned)' = 'darkolivegreen',
                                                  'Tall Cell (>= 50% tall cell features)' = 'green3',
                                                  'other' = 'honeydew3')),
                              annotation_legend_param = list(
                                list(title = 'Kmeans Cluster',
-                                    at = c('A', 'B'),
-                                    labels = c('Cluster A','Cluster B')),
+                                    at = c('A', 'B', 'C'),
+                                    labels = c('Cluster A','Cluster B', 'Cluster C')),
                                list(title = 'Histological type',
                                     at = names(table(thca_pan_anno$histological_type)),
                                     lables = names(table(thca_pan_anno$histological_type)))
                                ))
 Heatmap(thca_gsva,
-        show_row_names = F, show_column_names = F, width = unit(25, 'cm'), height = unit(18, 'cm'),
+        show_row_names = F, show_column_names = F, width = unit(21, 'cm'), height = unit(16, 'cm'),
         heatmap_legend_param = list(
           title = "Thyroid cancer pathway activity", at = c(-2, 2), 
           labels = c("underexpressed", "overexpressed")),
