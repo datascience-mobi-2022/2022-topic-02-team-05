@@ -106,9 +106,6 @@ dafür war es wichtig, dass die möglcihst viele gene aus den pathways in den ha
 
 um die relevaten pathways herauszusuchen wurde die uberschenidung der gene ausgerechnet Pathways mit einer Überschneidung von mindestens 99% wurden für die weitere Analyse verwendet.
 
-```{}
-```
-
 ```{r showhistcanonical, echo=FALSE, eval=TRUE, out.width = '100%', fig.align = "center", fig.cap="**Mean gene expression split by tumour type.** Log2-transformed gene expression values, given in transcripts per million (TPM), were averaged per tumour type and visualised in a violin plot."}
 
 knitr::include_graphics("tcga_exp_biotypes.png")
@@ -118,9 +115,6 @@ knitr::include_graphics("tcga_exp_biotypes.png")
 Um dopplungen innerhalb von Pathways zu vermeiden werden diese mithilfe vom Jaccard index auf Überschneidungen überprüft. .Pathways, deren Überschneidungen außerhalb der 1 sigma Bereiches liege werden entfernt.
 
 Um Dopplungen von Hallmark Pathways und den gewählten pathways zu vermeiden wurde auch zwischen diesen Pathways jeweils der Jaccard-index erstellt als Heatmap dargestellt. Auch hier wurden nur die Pathways behalten, deren Ähnlichkeit innerhalb des 1-Sigma-Bereichs liegt., da eine hohe jaccard summe eine hohe überschneidung mit anderen pathways bedeutet. In einer heatmap sind hohe Jacccard indices weiß bis rot gefährbt. Ein niedriger Jaccard index ist blau gefärbt.
-
-```{}
-```
 
 ## Preprocessing
 
@@ -195,8 +189,6 @@ knitr::include_graphics("tcga_exp_biotypes.png")
 knitr::include_graphics("tcga_exp_biotypes.png")
 
 ```
-
-#### Jaccard Index
 
 ### Descriptive analysis
 
