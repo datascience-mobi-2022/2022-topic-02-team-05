@@ -38,23 +38,25 @@ save(thca_gsea, file = 'data/thca_gsea.RData')
 
 
 #Darstellung als Heatmap
-library(pheatmap)
-#darstellen der GSEA matrix als heatmap
-pheatmap(thca_gsea,
-         breaks = seq(-max(thca_gsea), max(thca_gsea), length.out = 201),
-         color = colorRampPalette(c('blue','lightskyblue','lightblue1', 'white','lightyellow','yellow', 'red'),
-                                  bias = 1,
-                                  space = 'rgb',
-                                  interpolate = 'linear'
-         )(200),
-         clustering_method = 'average',
-         treeheight_row = 40, treeheight_col = 20, cellwidth = 9,cellheight = 0.75,
-         show_colnames = TRUE, show_rownames = FALSE, fontsize_col = 8, border_color = NA,
-         legend_breaks = c(-max(thca_gsea),0, max(thca_gsea)),
-         legend_labels = c('underexpressed', 'normal expression', 'overexpressed')
-)
+# library(pheatmap)
+# #darstellen der GSEA matrix als heatmap
+# pheatmap(thca_gsea,
+#          breaks = seq(-max(thca_gsea), max(thca_gsea), length.out = 201),
+#          color = colorRampPalette(c('blue','lightskyblue','lightblue1', 'white','lightyellow','yellow', 'red'),
+#                                   bias = 1,
+#                                   space = 'rgb',
+#                                   interpolate = 'linear'
+#          )(200),
+#          clustering_method = 'average',
+#          treeheight_row = 40, treeheight_col = 20, cellwidth = 9,cellheight = 0.75,
+#          show_colnames = TRUE, show_rownames = FALSE, fontsize_col = 8, border_color = NA,
+#          legend_breaks = c(-max(thca_gsea),0, max(thca_gsea)),
+#          legend_labels = c('underexpressed', 'normal expression', 'overexpressed')
+# )
 
+#---------------------------------------------
 #Analyse der Daten mittels GSVA
+#---------------------------------------------
 #Durchführen eine GSVA zuerst auf Normal und Tumorgewebe
 thca_norm_gsva = gsva(as.matrix(thca_normal_exp_cleaned), pathways,
                  method = 'gsva',
@@ -64,6 +66,11 @@ thca_tumor_gsva = gsva(as.matrix(thca_tumor_exp_cleaned), pathways,
                       method = 'gsva',
                       kcdf = 'Gaussian'  #Da wir kontinuierliche Daten haben
 )
+
+#--------------------------------------
+#Volcano plot
+#--------------------------------------
+
 #Berrechnen des Foldchanges zwischne beiden Daten
 thca_logFC_gsva = apply(thca_tumor_gsva, 1, mean) - apply(thca_norm_gsva, 1, mean)
 #pvalue berechen
