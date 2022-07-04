@@ -77,31 +77,21 @@ Analyse muss für froße, heterogene populationen mit komplexen phänotypischen 
 
 die GSEA wird mit dem glleichen Zielgenutzt wie die GSVA
 
-#### UMAP
+#### UMAP (**Uniform Manifold Approximation and Projection for Dimension Reduction)**
 
-auch eine Methode um Dimensionen zu reduzieren, vorteil: STrukturen werden beibehalten, alles was im höher dim zusmamen war, ist auch bei weniger dim zusammen
+The UMAP is a method to reduce the dimension of a multidimensional data set. Compared to the PCA, the structure of the data in higher dimensions is maintained. Thereby the UMAP keeps the overall structure of the data set.
 
-das ist bei PCA nicht so, weil nicht die gesamte VArianz in den betrachteten PCs dargestellt ist
-
-UMAP behält zusammenhängende Struktur
-
-Problem: das Bild am Ende ist etwas verzerrt, d.h. Längen zwischen PUnkten nicht mehr proportional zu der richtigen ENtfernung
+The problem of the UMAP is, that although the overall structure is conserved, the distance between the individual points is not proportional to the real distance in the data set.
 
 kleine KLumpen sind wahrscheinlcich auch im richtigen RAum zusammen
 
-#### PCA
+#### PCA (Principle component analysis)
 
-Methode um ANzahl der Dimesionen in Datensatz zu reduzieren = rausbekommen welche der vilen Pathways am wichtigsten sind
+The package xxx is used.
 
-PCA dreht Punkte in ein neues Koordinatensystem, alle koordinatenkomponenten = PCs sind komplett unabhängig voneinander = keine Korrelation
-
-Matrix transformation der Eigenwerte
-
-Daudurch dass man nur noch komponenten hat die nicht mehr korrelieren, steck in den ersten PCs die meiste INformation, man kann Dimensionen reduzieren
-
-Warum machen wir das? wir benutzen das als Grundlage für die UMAP weil die nur arbeiten kann, wenn die Datenpunkte nicht korrelieren
-
-## 
+Reduce the dimension of a given data set. The dimensions are summarized in principal components (PCs) which do not correlate.
+Because the PCs summarize the dimensions, the first PCs explain most of the variance of the data set and thereby can be selected to explain the data. Still, one has to keep in mind, that by reducing the dimensions, not all of the variance is explained and some of the information is lost in the process. The ideal number of PCs can be determined with an elbow-plot.
+In our analysis we use a PCA as a foundation for the UMAP, because the UMAP can not work with correlated dimensions. Furthermore it is used to detect the most important pathways, which explain most of the first PCs.
 
 # Material and Methods
 
@@ -167,6 +157,35 @@ In einem mean-variance plot wird die Varianz über den Mittelwert der Expression
 ### Violin plot
 
 Um die Verteilung von einer Datenmenge zu überprüfen und evtl. mit anderen zu vergleichen, werden Violinplots erstellt. Dazu wird der Median der Datenmenge berechnet und mithilfe der R-funktion violinplot(x) Violinpllots erstellt.
+
+Der Punkt in der Mitte gibt das 50% qunatil an und dadurch kann überprüft werden ob die Verteilung gleich
+
+#### Volcano plot
+
+Ein volcanoplot wird vrewendet um signifikant anders exprimierte Gene im gegensatz zu den zu erkennen. Das Ziel des volcanoplots ist es, zu zeigen, welche Gene in den THCA tissue signifikant anders eprimiert sind als in normale Gewebe. Dafür wurde der mean jedes Gens in normalem und tumorgewebe berechnet und daraus der Log2-Foldchange folgendermaßen berechnet:
+
+```{r calculate FC, eval=FALSE}
+log2fc.thca = mean.thca.norm - mean.thca.tumor
+
+```
+
+Im nächsten Schritt wurde ein zweiseitger t-test durchgeführt um die signifikanz des Expressionsunterscheids zu bestimmen.
+
+```{r  ttest, eval=FALSE}
+
+for (i in (1:nrow(thca.norm.va))){
+  x <- t.test(thca.norm.va[i,], thca.tumor.va[i,], alternative = 'two.sided')$p.value
+  p.values <- append(p.values, x)
+}
+```
+
+Um die Akkuulation von alpha-Fehlern zu vermeiden wurde eine Bonferroni-Korrektur durchgeführt:
+
+```{r Bonferroni, eval = F}
+
+alpha = 0.025
+alpha.kor = alpha*bf
+```
 
 ## Comparing of Pathways
 
@@ -236,36 +255,11 @@ knitr::include_graphics("Vioplots cancer types.png")
 
 #### Volcano plot
 
-To further investigate the cleaned THCA expression data a volcano plot was created. Das Ziel des volcanoplots ist es, zu zeigen, welche Gene in den THCA tissue signifikant anders eprimiert sind als in normale Gewebe. Dafür wurde der mean jedes Gens in normalem und tumorgewebe berechnet und daraus der Log2-Foldchange folgendermaßen berechnet:
-
-```{r calculate FC, eval=FALSE}
-log2fc.thca = mean.thca.norm - mean.thca.tumor
-
-```
-
-Im nächsten Schritt wurde ein zweiseitger t-test durchgeführt um die signifikanz des Expressionsunterscheids zu bestimmen.
-
-```{r  ttest, eval=FALSE}
-
-for (i in (1:nrow(thca.norm.va))){
-  x <- t.test(thca.norm.va[i,], thca.tumor.va[i,], alternative = 'two.sided')$p.value
-  p.values <- append(p.values, x)
-}
-```
-
-Um die Akkuulation von alpha-Fehlern zu vermeiden wurde eine Bonferroni-Korrektur durchgeführt:
-
-```{r Bonferroni, eval = F}
-
-alpha = 0.025
-alpha.kor = alpha*bf
-```
-
 Im Volcanoplot wurden die p-Werte vom ttest gegen den Log2 Foldchange geplottet. Dieser ist in Figure \@ref(fig:) dargestellt.
 
 ```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Volcano plot of THCA expression data"}
 
-knitr::include_graphics("Vioplots cancer types.png")
+knitr::include_graphics("Volcanoplot")
 
 ```
 

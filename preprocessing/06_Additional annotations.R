@@ -50,3 +50,19 @@ tcga_anno$cancer_form = sapply(tcga_anno$cancer_type_abbreviation, FUN = functio
 
 save(tcga_anno, file = 'data/tcga_anno.RData')
 save(Cancer_form_anno, file = 'data/Cancer_form_anno.RData')
+
+
+#-------------------------------------------------
+#Anschließend bennen wir die Histological grade für unsere THCA annotation um
+#sodass nicht Thyroid Papillary Carcinoma davor steht
+#-------------------------------------------------
+load('data/thca_anno.RData')
+
+#Umbennen der Histologischen stufe (entfernen der unnötigen vorsatzes THCA)
+thca_anno$histological_type = sapply(thca_anno$histological_type, FUN = function(x){
+  return(strsplit(x, split = '- ', fixed = TRUE)[[1]][2])})
+#Alle NAs werden other genannt
+thca_anno$histological_type[is.na(thca_anno$histological_type)] = 'other'
+
+save(thca_anno, file = 'data/thca_anno.RData')
+
