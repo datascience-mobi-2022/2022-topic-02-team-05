@@ -80,13 +80,13 @@ for (i in (1:nrow(thca_norm_gsva))){
   thca_pval_gsva = append(thca_pval_gsva, res)
 };rm(i);rm(res)
 
-#Volcanoplot
-alpha.kor = 0.1 #Siginfikanzniveau
-load('data/thca_genes_cleaned.RData')
-thca_volcano = data.frame(thca_logFC_gsva, thca_pval_gsva) #die 2 Vektoren f?r unseren Volcano PLot werden in einen df gepackt, damit daraus ein plot erstellt werden kann
-with(thca_volcano, plot(thca_volcano$thca_logFC_gsva, -log10(thca_volcano$thca_pval_gsva), main = "Volcano plot of THCA pathway activity", xlab='log2(foldchange)',
-                     ylab = '-log10(Pvalues)', pch = 20))
-
-with(subset(thca_volcano, thca_logFC_gsva>alpha.kor & thca_pval_gsva < alpha.kor), points(thca_logFC_gsva, -log10(thca_pval_gsva), col="orange", pch = 20))
-with(subset(thca_volcano, thca_logFC_gsva< -alpha.kor & thca_pval_gsva < alpha.kor), points(thca_logFC_gsva, -log10(thca_pval_gsva), col="green", pch = 20))
-with(subset(thca_volcano, abs(thca_logFC_gsva) < alpha.kor | thca_pval_gsva > alpha.kor), points(thca_logFC_gsva, -log10(thca_pval_gsva), pch=19, col="gray"))
+# #Volcanoplot
+# alpha.kor = 0.1 #Siginfikanzniveau
+# load('data/thca_genes_cleaned.RData')
+# thca_volcano = data.frame(thca_logFC_gsva, thca_pval_gsva) #die 2 Vektoren f?r unseren Volcano PLot werden in einen df gepackt, damit daraus ein plot erstellt werden kann
+# with(thca_volcano, plot(thca_volcano$thca_logFC_gsva, -log10(thca_volcano$thca_pval_gsva), main = "Volcano plot of THCA pathway activity", xlab='log2(foldchange)',
+#                      ylab = '-log10(Pvalues)', pch = 20))
+# 
+# with(subset(thca_volcano, thca_logFC_gsva>alpha.kor & thca_pval_gsva < alpha.kor), points(thca_logFC_gsva, -log10(thca_pval_gsva), col="orange", pch = 20))
+# with(subset(thca_volcano, thca_logFC_gsva< -alpha.kor & thca_pval_gsva < alpha.kor), points(thca_logFC_gsva, -log10(thca_pval_gsva), col="green", pch = 20))
+# with(subset(thca_volcano, abs(thca_logFC_gsva) < alpha.kor | thca_pval_gsva > alpha.kor), points(thca_logFC_gsva, -log10(thca_pval_gsva), pch=19, col="gray"))
