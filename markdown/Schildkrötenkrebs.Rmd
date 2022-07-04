@@ -79,7 +79,27 @@ die GSEA wird mit dem glleichen Zielgenutzt wie die GSVA
 
 #### UMAP
 
+auch eine Methode um Dimensionen zu reduzieren, vorteil: STrukturen werden beibehalten, alles was im höher dim zusmamen war, ist auch bei weniger dim zusammen
+
+das ist bei PCA nicht so, weil nicht die gesamte VArianz in den betrachteten PCs dargestellt ist
+
+UMAP behält zusammenhängende Struktur
+
+Problem: das Bild am Ende ist etwas verzerrt, d.h. Längen zwischen PUnkten nicht mehr proportional zu der richtigen ENtfernung
+
+kleine KLumpen sind wahrscheinlcich auch im richtigen RAum zusammen
+
 #### PCA
+
+Methode um ANzahl der Dimesionen in Datensatz zu reduzieren = rausbekommen welche der vilen Pathways am wichtigsten sind
+
+PCA dreht Punkte in ein neues Koordinatensystem, alle koordinatenkomponenten = PCs sind komplett unabhängig voneinander = keine Korrelation
+
+Matrix transformation der Eigenwerte
+
+Daudurch dass man nur noch komponenten hat die nicht mehr korrelieren, steck in den ersten PCs die meiste INformation, man kann Dimensionen reduzieren
+
+Warum machen wir das? wir benutzen das als Grundlage für die UMAP weil die nur arbeiten kann, wenn die Datenpunkte nicht korrelieren
 
 ## 
 
