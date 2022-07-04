@@ -107,10 +107,10 @@ cbind.data.frame(data.thca, thca_genenames) -> data.thca
 #hinzufügen einer Spalte, die sagt, ob das Gen up- oder downregulated wird
 #hinzufügen einer Spalte diffexpressed mit NOs 
 data.thca$diffexpressed <- "NO"
-#wenn log2Foldchange > 0.6 and pvalue < alpha.kor, set as "UP" 
-data.thca$diffexpressed[data.thca$log2fc.thca > 0.6 & data.thca$p.value < alpha.kor] <- "UP"
-# if log2Foldchange < -0.6 and pvalue < 0.05, set as "DOWN"
-data.thca$diffexpressed[data.thca$log2fc.thca < -0.6 & data.thca$p.value < alpha.kor] <- "DOWN"
+#wenn log2Foldchange > 0.1 and pvalue < alpha.kor, set as "UP" 
+data.thca$diffexpressed[data.thca$log2fc.thca > 0.1 & data.thca$p.value < alpha.kor] <- "UP"
+# if log2Foldchange < -0.1 and pvalue < 0.05, set as "DOWN"
+data.thca$diffexpressed[data.thca$log2fc.thca < -0.1 & data.thca$p.value < alpha.kor] <- "DOWN"
 
 
 #-----------------------------------------------
