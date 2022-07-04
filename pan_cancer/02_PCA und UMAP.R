@@ -10,7 +10,7 @@ library(umap)
 
 #install.packages("umap")
 load('data/tcga_gsva.RData')
-tcga_anno = readRDS('data/tcga_tumor_annotation.RDS')
+load('data/tcga_anno.RData')
 
 #--------------------------------------------
 #Durchf?hren der PCA und UMAP
@@ -18,13 +18,13 @@ tcga_anno = readRDS('data/tcga_tumor_annotation.RDS')
 set.seed(123)
 PCA = prcomp(t(tcga_gsva))
 PCA_data = as.data.frame(PCA$x)
-PCA_data$type = sapply(rownames(PCA_data), FUN = function(x){
-  return(tcga_anno$cancer_type_abbreviation[x == tcga_anno$sample])})
+PCA_data$type = tcga_anno$cancer_type_abbreviation
+PCA_data$form = tcga_anno$cancer_form
 
 UMAP = umap(PCA$x)
 UMAP_data = as.data.frame(UMAP$layout)  #UMAP der PCA-Daten
-UMAP_data$type = sapply(rownames(UMAP_data), FUN = function(x){
-  return(tcga_anno$cancer_type_abbreviation[x == tcga_anno$sample])})
+UMAP_data$type = tcga_anno$cancer_type_abbreviation
+UMAP_data$form = tcga_anno$cancer_form
 
 colours = c('blue4','dodgerblue4','deepskyblue','cyan',
             'lightblue1','aquamarine','chartreuse4',
@@ -35,20 +35,86 @@ colours = c('blue4','dodgerblue4','deepskyblue','cyan',
             'plum','rosybrown1','violetred','magenta','magenta4',
             'maroon','wheat1','snow3','gray29','black')
 
-#Plottet die PCA
+#Plottet die PCA mit Krebsarten nach Farbe
 ggplot(PCA_data, aes(x = PC1, y = PC2, color = type)) + geom_point(size = 2) +
   scale_color_manual(values = colours) +
-  labs(title = 'PCA of TCGA expression data') +
+  labs(title = 'PCA of TCGA pathway activity') +
   theme(legend.key = element_rect(fill = 'white')) +
   theme_minimal() +
   guides(color = guide_legend(override.aes = list(size = 5)))
-#Plottet unserer UMAP
+#Plottet unserer UMAP mit Krebsarten nach Farbe
 ggplot(UMAP_data, aes(x = V1, y = V2, color = type)) + geom_point(size = 1) +
   scale_color_manual(values = colours) +
-  labs(title = 'UMAP of TCGA expression data') +
+  labs(title = 'UMAP of TCGA pathway activity') +
   theme(legend.key = element_rect(fill = 'white')) +
   theme_minimal() +
   guides(color = guide_legend(override.aes = list(size = 5)))
+
+form.col = c('Adenocarcinoma' = 'deepskyblue3',
+             'Squamous cell carcinoma' = 'dodgerblue4',
+             'Transitional cell carcinoma' = 'deepskyblue',
+             'Melanoma'='cyan',
+             'Carcinoma'='azure3',
+             'Sarcoma'='darkolivegreen',
+             'Glioblastoma'='gold',
+             'Leukemia'='red')
+
+#Plottet die PCA mit Krebsüberformen nach Farbe
+ggplot(PCA_data, aes(x = PC1, y = PC2, color = form)) + geom_point(size = 2) +
+  scale_color_manual(values = form.col) +
+  labs(title = 'PCA of TCGA pathway activity') +
+  theme(legend.key = element_rect(fill = 'white')) +
+  theme_minimal() +
+  guides(color = guide_legend(override.aes = list(size = 5)))
+#Plottet unserer UMAP mit Krebsüberformen nach Farbe
+ggplot(UMAP_data, aes(x = V1, y = V2, color = form)) + geom_point(size = 1) +
+  scale_color_manual(values = form.col) +
+  labs(title = 'UMAP of TCGA pathway activity') +
+  theme(legend.key = element_rect(fill = 'white')) +
+  theme_minimal() +
+  guides(color = guide_legend(override.aes = list(size = 5)))
+
+
+#------------------------------------------------------------
+#zum Vergelich führen wir nun PCA und UMAP auf den Genen statt auf den Pathway
+#Aktivitäten durch
+#Problem normale PCA dauert zu lange => iterative factor analysis FA
+# => neues Package psych package
+#------------------------------------------------------------
+library(psych)
+set.seed(123)
+load('data/tcga_exp_cleaned.RData')
+
+FA = fa(tcga_exp_cleaned[1:2000,1:2000], fm = 'pa', #pa da wir die principle factors wollen
+       nfactors = 5, #Gibt uns nur die ersten 5 faktoren
+       rotate = 'varimax' #Rotiert die Matrix orthogonal sodass die Ergebnisse unkorr. sind
+       )
+FA_data = matrix(as.numeric(FA$loadings), ncol = 5,
+                 dimnames = list(colnames(tcga_exp_cleaned[1:2000]),
+                                 c('PA1','PA2','PA3','PA4','PA5')))
+#UMAP
+UMAP_genes = umap(FA_data)
+UMAP_genes_data = as.data.frame(UMAP_genes$layout)
+UMAP_genes_data$type = tcga_anno$cancer_type_abbreviation[1:2000]
+UMAP_genes_data$form = tcga_anno$cancer_form[1:2000]
+
+#Plottet unserer UMAP mit Krebsarten nach Farbe
+ggplot(UMAP_genes_data, aes(x = V1, y = V2, color = type)) + geom_point(size = 1) +
+  scale_color_manual(values = colours) +
+  labs(title = 'UMAP of TCGA gene expression') +
+  theme(legend.key = element_rect(fill = 'white')) +
+  theme_minimal() +
+  guides(color = guide_legend(override.aes = list(size = 5)))
+
+#Plottet unserer UMAP mit Krebsüberformen nach Farbe
+ggplot(UMAP_genes_data, aes(x = V1, y = V2, color = form)) + geom_point(size = 1) +
+  scale_color_manual(values = form.col) +
+  labs(title = 'UMAP of TCGA gene expression') +
+  theme(legend.key = element_rect(fill = 'white')) +
+  theme_minimal() +
+  guides(color = guide_legend(override.aes = list(size = 5)))
+
+
 
 
 
