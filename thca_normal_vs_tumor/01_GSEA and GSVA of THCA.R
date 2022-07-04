@@ -2,16 +2,18 @@
 #In diesem Dokument werden wir eine GSEA für THCA mit allen unseren Pathways durchführen
 #-------------------------------
 
-# if (!require("BiocManager", quietly = TRUE))
-#   install.packages("BiocManager")
-# BiocManager::install("phenoTest")
-# BiocManager::install("gage")
-# BiocManager::install("fgsea")
+#if (!require("BiocManager", quietly = TRUE))
+  #install.packages("BiocManager")
+#BiocManager::install("phenoTest")
+#BiocManager::install("gage")
+#BiocManager::install("fgsea")
+#BiocManager::install("GSVA")
 
 library(dplyr)
 library(fgsea)
 library(GSVA)
 library(ComplexHeatmap)
+library(ggplot2)
 
 load('data/thca_tumor_exp_cleaned.RData')
 load('data/thca_normal_exp_cleaned.RData')
@@ -71,14 +73,69 @@ thca_tumor_gsva = gsva(as.matrix(thca_tumor_exp_cleaned), pathways,
 #Volcano plot
 #--------------------------------------
 
-#Berrechnen des Foldchanges zwischne beiden Daten
+#Berrechnen des Foldchanges zwischen beiden Daten
 thca_logFC_gsva = apply(thca_tumor_gsva, 1, mean) - apply(thca_norm_gsva, 1, mean)
+
 #pvalue berechen
 thca_pval_gsva = c()
 for (i in (1:nrow(thca_norm_gsva))){
   res = wilcox.test(thca_tumor_gsva[i,], thca_norm_gsva[i,], alternative = 'two.sided')$p.value
   thca_pval_gsva = append(thca_pval_gsva, res)
 };rm(i);rm(res)
+
+#signifikanzlevel ohne bonferroni 
+alpha = 0.025
+
+#Erstellen dataframe
+data.thca = data.frame(thca_logFC_gsva, thca_pval_gsva)
+cbind(data.thca, rownames(data.thca)) -> data.thca
+colnames(data.thca) <- c("logFC", "Pvalues", "pathway_names")
+
+#hinzufügen einer Spalte, die sagt, ob das Gen up- oder downregulated wird
+#hinzufügen einer Spalte diffexpressed mit NOs 
+data.thca$diffexpressed <- "NO"
+#wenn log2Foldchange > 0.1 and pvalue < alpha.kor, set as "UP" 
+data.thca$diffexpressed[data.thca$logFC > 0.00001 & data.thca$Pvalue > alpha] <- "UP"
+# if log2Foldchange < -0.1 and pvalue < 0.05, set as "DOWN"
+data.thca$diffexpressed[data.thca$logFC < -0.00001 & data.thca$Pvalue > alpha] <- "DOWN"
+
+volcano2 = ggplot(data = data.thca, aes(x = logFC, y = -log10(Pvalues), color = diffexpressed, label = pathway_names)) +
+  geom_point() +
+  theme_minimal() +
+  ggtitle("Volcanoplot - GSVA of tumor tissue vs GSVA of normal tissue") +
+  geom_text(data = subset(data.thca, -log10(thca_pval_gsva) > 0.5) , size = 1.5, nudge_y = 0.03, check_overlap = TRUE)
+
+
+volcano2
+
+
+#---------------------------------------------
+#Plotten des P-Werts aller überexprimierten und aller unterexprimierten Gene 
+#---------------------------------------------
+
+upregulated <- as.data.frame(data.thca$Pvalues[data.thca$diffexpressed == "UP"])
+rownames(upregulated) <- data.thca$pathway_names[data.thca$diffexpressed == "UP"]
+colnames(upregulated) <- c("Pvalues")
+
+downregulated <- as.data.frame(data.thca$Pvalues[data.thca$diffexpressed == "DOWN"])
+rownames(downregulated) <- data.thca$pathway_names[data.thca$diffexpressed == "DOWN"]
+colnames(downregulated) <- c("Pvalues") 
+
+upregulated_geranked <- rank(upregulated$Pvalues)
+downregulated_geranked <- rank(downregulated$Pvalues)
+
+up_plot <- ggplot(data = upregulated, aes(y = Pvalues, x = rank(-Pvalues))) + 
+  geom_point() 
+
+up_plot
+
+
+#volcano <- ggplot(data = data.thca, aes(x = log2fc.thca, y = -log10(p.values), color = diffexpressed, label = thca_genenames)) +
+  #geom_point() + 
+  #theme_minimal() + 
+  #ggtitle("Volcanoplot") + 
+  #geom_hline(yintercept = -log10(alpha.kor), col = "black", show.legend = TRUE) + 
+  #geom_text(data = subset(data.thca, -log10(p.values) > 22), size = 2, check_overlap = TRUE, nudge_x = 0.1, nudge_y = 0.8, color = "black")
 
 # #Volcanoplot
 # alpha.kor = 0.1 #Siginfikanzniveau
