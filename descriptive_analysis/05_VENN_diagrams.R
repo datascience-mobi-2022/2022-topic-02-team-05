@@ -15,6 +15,7 @@ load("~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData")
 
 list <- rownames(tcga_exp_cleaned)
 ensemble_vector_tcga <- unlist(list)
+#identische müssen noch rausgeworfen werden
 
 #-----------------------------------------------------------------------
 # Gennamen aus unseren Pathways extrahieren und in einen Vektor packen
@@ -28,9 +29,9 @@ ensemble_vector_pathways <-
 #-----------------------------------------------------------------------  
 ensemble_vector_both <- c()
 
-for i in length(ensemble_vector_tcga){
+for (i in length(ensemble_vector_tcga)){
   a <- is.element(i, ensemble_vector_pathways)
-  if a == TRUE {
+  if (a == TRUE) {
     append(ensemble_vector_both, ensemble_vector[i])
   }
 }
