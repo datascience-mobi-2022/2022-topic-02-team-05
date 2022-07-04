@@ -125,3 +125,4 @@ volcano <- ggplot(data = data.thca, aes(x = log2fc.thca, y = -log10(p.values), c
   geom_text(data = subset(data.thca, -log10(p.values) > 22), size = 2, check_overlap = TRUE, nudge_x = 0.1, nudge_y = 0.8, color = "black")
 
 volcano
+

@@ -89,9 +89,7 @@ kleine KLumpen sind wahrscheinlcich auch im richtigen RAum zusammen
 
 The package xxx is used.
 
-Reduce the dimension of a given data set. The dimensions are summarized in principal components (PCs) which do not correlate.
-Because the PCs summarize the dimensions, the first PCs explain most of the variance of the data set and thereby can be selected to explain the data. Still, one has to keep in mind, that by reducing the dimensions, not all of the variance is explained and some of the information is lost in the process. The ideal number of PCs can be determined with an elbow-plot.
-In our analysis we use a PCA as a foundation for the UMAP, because the UMAP can not work with correlated dimensions. Furthermore it is used to detect the most important pathways, which explain most of the first PCs.
+Reduce the dimension of a given data set. The dimensions are summarized in principal components (PCs) which do not correlate. Because the PCs summarize the dimensions, the first PCs explain most of the variance of the data set and thereby can be selected to explain the data. Still, one has to keep in mind, that by reducing the dimensions, not all of the variance is explained and some of the information is lost in the process. The ideal number of PCs can be determined with an elbow-plot. In our analysis we use a PCA as a foundation for the UMAP, because the UMAP can not work with correlated dimensions. Furthermore it is used to detect the most important pathways, which explain most of the first PCs.
 
 # Material and Methods
 
@@ -130,17 +128,17 @@ Um Dopplungen von Hallmark Pathways und den gewählten pathways zu vermeiden wur
 
 ### Deleting NAs
 
-Deleting of NAs can be done with the R-function na.omit(x).
+Deleting of NAs was done with the R-function na.omit(x).
 
 ### Low-variance filtering
 
-Low-variance filtering wird gemacht, damit Daten mit einer niedrigen Varianz aus dem Datensatz entfernt werden können. Zur BErechnung der Varianz wird die R-Funktion var(x) verwendet und gene, deren Varianz unter einem bestimmten Schwellenwert liegen werden entfernt.
+Low variance filtering is performed to delete genes with a low variance from the data set. To calculate the variance the r-function var(x) is used and genes with a lower variance than a certain threshold value are removed.
 
-Bei der focussed analysis wurden nur die Varianz der Expression im Tumorgewebe bestimmt und die Gene mit einer niedrigen Varianz im Tumorgewebe aus beiden Datensätzen zur focussed Analysis gelöscht.
+For focused analysis the variance of each gene in tumor tissue was calculated and genes with a low variance were deleted from the data sets for tumor and normal tissue.
 
 ### Biotype filtering
 
-Beim biotype filtering wird der Biotype von jedem Gen bestimt (Proteincodiernd, RNA, ...) und mit den Biotypes von anderen Datensätze verglichen. Um eine möglichst geeigneten Vergleich zwischen der Expressionsdaten zu ermöglichen, werden nur die Biotypes behalten, die in allen datensätzen zum Großteil vorhnanden sind. Der Biotype kann mit der R-Funktion checkbiotypes(x) asu dem Package biomaRt bestimmt werden.
+For biotype filtering the biotype of each gene was determined (protein coding, RNA,...) and compared with the biotypes of other data sets. To allow an appropriate comparison of the expression data, only biotypes were kept, that are available in a big amount in all of the data sets. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt.
 
 #### Selection of metabolic pathways
 
@@ -156,20 +154,18 @@ In einem mean-variance plot wird die Varianz über den Mittelwert der Expression
 
 ### Violin plot
 
-Um die Verteilung von einer Datenmenge zu überprüfen und evtl. mit anderen zu vergleichen, werden Violinplots erstellt. Dazu wird der Median der Datenmenge berechnet und mithilfe der R-funktion violinplot(x) Violinpllots erstellt.
-
-Der Punkt in der Mitte gibt das 50% qunatil an und dadurch kann überprüft werden ob die Verteilung gleich
+To check the distribution of a data set and compare it with other data sets violin plots are used. Violin plots are tilted and mirrored density plots of gene expression values. The y-axis shows the gene expression value and the x-axis shows the amount of genes with a certain gene expression value.
 
 #### Volcano plot
 
-Ein volcanoplot wird vrewendet um signifikant anders exprimierte Gene im gegensatz zu den zu erkennen. Das Ziel des volcanoplots ist es, zu zeigen, welche Gene in den THCA tissue signifikant anders eprimiert sind als in normale Gewebe. Dafür wurde der mean jedes Gens in normalem und tumorgewebe berechnet und daraus der Log2-Foldchange folgendermaßen berechnet:
+A volcano plot is used to identify significantly differentially expressed genes. In the following analysis a volcano plot is used to identify which genes are significantly diferentially expressed in the analysed THCA tissue, compared to the analysed normal tissue. Therefore the mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way:
 
 ```{r calculate FC, eval=FALSE}
 log2fc.thca = mean.thca.norm - mean.thca.tumor
 
 ```
 
-Im nächsten Schritt wurde ein zweiseitger t-test durchgeführt um die signifikanz des Expressionsunterscheids zu bestimmen.
+In the next step, a two-sided t test was performed to determine the significance of a difference in expression:
 
 ```{r  ttest, eval=FALSE}
 
@@ -179,13 +175,15 @@ for (i in (1:nrow(thca.norm.va))){
 }
 ```
 
-Um die Akkuulation von alpha-Fehlern zu vermeiden wurde eine Bonferroni-Korrektur durchgeführt:
+To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis.
 
 ```{r Bonferroni, eval = F}
-
+bf = 1/n
 alpha = 0.025
 alpha.kor = alpha*bf
 ```
+
+In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentialy expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.
 
 ## Comparing of Pathways
 
@@ -201,7 +199,7 @@ Deletion of NAs was applied to the 2 gene expression data frames. Because the di
 
 #### Low-variance filtering
 
-The goal of the analysis was to intentify the genes that show a significantly different expression in certain tumor types (Pan cancer analysis) or in comparison from normal and tumor tissue (THCA Analysis). Therefore genes with a similar expression in all patients are not relevant.
+The goal of the analysis was to itentify the genes that show a significantly different expression in certain tumor types (Pan cancer analysis) or in comparison from normal and tumor tissue (THCA Analysis). Therefore genes with a similar expression in all patients are not relevant.
 
 The logarithm of the obtained values were displayed in a histogram shown in Figure xxx. The genes with a lower variance than -1 were omitted. The number of genes was reduced from 60,000 to 19,000 genes.
 
@@ -209,7 +207,7 @@ The low-variance filtering of the THCA dataset was done in a similar way. Genes 
 
 #### Biotype filtering
 
-Der biotype von unseren pathways, den hallmarks und der genexpressionsmatrix wurde bestimmt, um Gene mit gleichen biotypes zu behalten. Da die meisten Gene aller Datensätze protein-codierend sind, wurden nur die proteincodierenden Gene behalten.
+The biotype of the genes from the selected metabolic pathways, the genes of the hallmark pathways and the genes of the gene expression matrix was determined, to keep those genes with the same biotype. Because the most genes are protein-coding, only protein-coding genes were maintained.
 
 ```{r showbiotypeshallmarks, echo=FALSE, eval=TRUE, out.width = '20%', fig.align = "center", fig.cap="**Biotypes of Hallamrk genes**"}
 
@@ -233,9 +231,9 @@ knitr::include_graphics("tcga_exp_biotypes.png")
 
 #### Mean-variance Plot
 
-In the mean-variance plot, displayed in Figure \@ref(fig:showmeanvariance), wurden Gene mit einer besonders hohen Varianz und non-zero mean markiert. Für die weitere Analyse wäre es interessant, sich diese Gene und ihre Expression in Tumoren genauer anzuschauen.
+In the mean-variance plot, displayed in Figure \@ref(fig:showmeanvariance), genes with a very high variance and non-zero mean were annotated their ensemble ids.
 
-```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data"}
+```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a genes expression, x-axis shows mean of a genes expression"}
 
 knitr::include_graphics("Variance_over mean_cleaned_matrix.png")
 
@@ -245,7 +243,7 @@ knitr::include_graphics("Variance_over mean_cleaned_matrix.png")
 
 #### Violin Plots
 
-Zur descriptive analysis wurde ein Violinplo für 5 verschieden Tumortypes aus der TCGA Matrix erstellt, um die Verteilung der Genexpressionswerte von 5 tumortypen zu vergleichen. The violinplot can be seen in Figure \@ref(fig:showviolinplots). The distribution around the plot refers to the mean of the level of gene expression across all the patients from the same tumor type. One can immediately see that a high number of genes is a very low expression level, while only a small number of genes is at a very high expression level. Overall there is no great difference between the gene expression in those 5 cancer types.
+For descriptive analysis 5 violin plots were created for 5 different tumor types with the gene expression data from the TCGA Matrix, to compare the distribution of the data of 5 different tumor types. The violinplot can be seen in Figure \@ref(fig:showviolinplots). The white point in the middle of each plot shows the 50% quantile. For all tumor types it is located in the middle of the gene expression value 0 and 5. In this area is also the highest amount of genes for every tumor type. Going to the top or bottom the curve flattens because only a few genes are expression very high or very low. One can see, that the the distributions of all 5 tumor types are very similar. It can be concluded, that the other 28 tumor types of this data set are distributed in a similar way.
 
 ```{r showviolinplots, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data"}
 
@@ -255,16 +253,12 @@ knitr::include_graphics("Vioplots cancer types.png")
 
 #### Volcano plot
 
-Im Volcanoplot wurden die p-Werte vom ttest gegen den Log2 Foldchange geplottet. Dieser ist in Figure \@ref(fig:) dargestellt.
+For the construction of the volcano plot the data for THCA from the data set for the focused analysis was used. The volcano plot is displayed in Figure \@ref(fig:showvolcanoplot). Not significantly differentially expressed genes were marked green, significantly over expressed genes are marked blue and significantly under expressed genes are marked red. The gene with a very low p-value differ the most from tumor to normal tissue and are annotated with their name.
 
 ```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Volcano plot of THCA expression data"}
 
-knitr::include_graphics("Volcanoplot")
+knitr::include_graphics("Volcanoplot.png")
 
 ```
-
-Beschreibung vom Plot kann hier noch rein.
-
-WAS MACHT DIE GSVA/GSEA/UMAP/PCA
 
 ### Ergebnisse von der GSEA, GSVA, UMAP, PCA, Regression analysis
