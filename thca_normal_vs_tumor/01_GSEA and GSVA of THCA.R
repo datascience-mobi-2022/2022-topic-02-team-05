@@ -115,19 +115,30 @@ volcano2
 
 upregulated <- as.data.frame(data.thca$Pvalues[data.thca$diffexpressed == "UP"])
 rownames(upregulated) <- data.thca$pathway_names[data.thca$diffexpressed == "UP"]
-colnames(upregulated) <- c("Pvalues")
+colnames(upregulated) <- c("Pvalues_up")
+normalized_up <- (upregulated$Pvalues_up - mean(upregulated$Pvalues_up)) / var(upregulated$Pvalues_up)
+cbind(upregulated, normalized_up) -> upregulated
 
 downregulated <- as.data.frame(data.thca$Pvalues[data.thca$diffexpressed == "DOWN"])
 rownames(downregulated) <- data.thca$pathway_names[data.thca$diffexpressed == "DOWN"]
-colnames(downregulated) <- c("Pvalues") 
+colnames(downregulated) <- c("Pvalues_down") 
+normalized_down <- (downregulated$Pvalues_down - mean(downregulated$Pvalues_down)) / var(downregulated$Pvalues_down)
+cbind(downregulated, normalized_down) -> downregulated
 
-upregulated_geranked <- rank(upregulated$Pvalues)
-downregulated_geranked <- rank(downregulated$Pvalues)
+upregulated_geranked <- rank(upregulated$normalized_up)
+downregulated_geranked <- rank(downregulated$normalized_down)
 
-up_plot <- ggplot(data = upregulated, aes(y = Pvalues, x = rank(-Pvalues))) + 
-  geom_point() 
+up_plot <- ggplot(data = upregulated, aes(y = -log10(Pvalues_up), x = rank(log10(Pvalues_up)), label = rownames(upregulated))) + 
+  geom_point() + 
+  geom_text(size = 1, hjust = -0.1, check_overlap = TRUE)  
 
 up_plot
+
+down_plot <- ggplot(data = downregulated, aes(y = -log10(Pvalues_down), x = rank(log10(Pvalues_down)), label = rownames(downregulated))) + 
+  geom_point() + 
+  geom_text(size = 1, hjust = -0.1, check_overlap = TRUE)  
+
+down_plot
 
 
 #volcano <- ggplot(data = data.thca, aes(x = log2fc.thca, y = -log10(p.values), color = diffexpressed, label = thca_genenames)) +
