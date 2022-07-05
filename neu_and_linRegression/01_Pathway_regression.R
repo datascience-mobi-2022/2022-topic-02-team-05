@@ -30,7 +30,10 @@ linear.model = glm(formula = form, family = 'gaussian', data = train)
 
 #Test der Regression
 lm.prediction = predict(linear.model, test)
-lm.error = sum((lm.prediction - test[,pathway])^2)/nrow(test) #berrechnung des meansquared error als Guete für das Modell
+#berrechnung des meansquared error als Guete für das Modell
+lm.error = sum((lm.prediction - test[,pathway])^2)/nrow(test) 
+#Mittlerer Prozentualer fehler der Linearen Regression
+lm.procent.error = mean(abs(1-lm.prediction/test[,pathway]))
 
 #--------------------------------------------------------
 #3. Daten Präparation für Neuronales Netz
@@ -171,7 +174,10 @@ nn.test = test_sc[,pathway]*(max(thca_gsea[pathway,])-min(thca_gsea[pathway,]))+
 #mean sum squared error des neuralen netzes
 nn.error = sum((nn.test - nn.prediction)^2)/nrow(test_sc)
 
-#=> Der Fehler des Netzwerks ist mit 0.0057 deutlich kleiner als die Lin. Regression (4.42)
+#Mittlerer Prozentualer fehler des Netzes
+nn.procent.error = mean(abs(1-nn.prediction/nn.test))
+
+#=> Der Fehler des Netzwerks ist mit 8.8% deutlich kleiner als die Lin. Regression (240%)
 
 
 #---------------------------------------------------------
@@ -192,3 +198,19 @@ plot(test[,pathway], lm.prediction, col='blue', main='Linear model',pch=18, cex=
      ylab = 'prediction', xlab = 'true value',xlim=c(-1,0), ylim=c(-5,2))
 abline(0,1,lwd=2)
 legend('bottomright',legend= paste('MSE', round(lm.error, 2), sep = '='), bty='n')
+
+#----------------------------------------------------------
+#8. Funktion die auf neuen Daten die Pathwayaktivität vorhersagt
+#----------------------------------------------------------
+
+AI_predict = function(input_pathways, network = AI){
+  #Skalieren der Input pathways
+  maxs = max(input_pathways) 
+  mins = min(input_pathways)
+  input_scaled = as.data.frame(scale(input_pathways), center = mins, scale = maxs - mins)
+  #Vorhersage der Aktivität
+  prediction = compute(AI, t(input_scaled))
+  prediction = as.numeric(prediction$net.result*(maxs-mins) + mins)
+  return(prediction)
+}
+
