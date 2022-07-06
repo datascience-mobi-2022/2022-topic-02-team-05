@@ -3,12 +3,12 @@
 # all genes (19200x) is that is in our pathways (600x)
 #-----------------------------------------------------------------------
 
-install.packages("VennDiagram")                       # Install VennDiagram package
+#install.packages("VennDiagram")                       # Install VennDiagram package
 library("VennDiagram")                                # Load VennDiagram package
 
-load("~/GitHub/2022-topic-02-team-05/data/tcga_genes_cleaned.RData")
-load("~/GitHub/2022-topic-02-team-05/data/tcga_exp_cleaned.RData")
-load("~/GitHub/2022-topic-02-team-05/data/pathways.RData")
+load("data/tcga_genes_cleaned.RData")
+load("data/tcga_exp_cleaned.RData")
+load("data/pathways.RData")
 
 #------------------------------------------------------------------------
 # unlisting der Gennamen von Expressionsdaten
