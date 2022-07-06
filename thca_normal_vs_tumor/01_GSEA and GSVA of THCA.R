@@ -38,23 +38,38 @@ patient_sorted = apply(log2FC, 2, FUN = function(x){sort(x, decreasing = TRUE)},
 thca_gsea = sapply(patient_sorted, FUN = function(x){GSEA(x, pathways)})
 save(thca_gsea, file = 'data/thca_gsea.RData')
 
+#-----------------------------------------------
+#Darstellung der GSEA Ergebnisse als Heatmap
+#-----------------------------------------------
+#Annotationen für die Pathways                              
+path.anno = rowAnnotation(Pathway = c(rep('met',611),rep('hall', 46)),
+                          col = list(Pathway = c("met" = "deepskyblue", "hall" = "blue4")),
+                          annotation_legend_param = list(title = 'Pathway type',
+                                                         at = c('met', 'hall'),
+                                                         labels = c('Metabolic', 'Hallmark')))
 
-#Darstellung als Heatmap
-# library(pheatmap)
-# #darstellen der GSEA matrix als heatmap
-# pheatmap(thca_gsea,
-#          breaks = seq(-max(thca_gsea), max(thca_gsea), length.out = 201),
-#          color = colorRampPalette(c('blue','lightskyblue','lightblue1', 'white','lightyellow','yellow', 'red'),
-#                                   bias = 1,
-#                                   space = 'rgb',
-#                                   interpolate = 'linear'
-#          )(200),
-#          clustering_method = 'average',
-#          treeheight_row = 40, treeheight_col = 20, cellwidth = 9,cellheight = 0.75,
-#          show_colnames = TRUE, show_rownames = FALSE, fontsize_col = 8, border_color = NA,
-#          legend_breaks = c(-max(thca_gsea),0, max(thca_gsea)),
-#          legend_labels = c('underexpressed', 'normal expression', 'overexpressed')
-# )
+#Annotation der kmeans cluster und den Histological type
+top.anno = HeatmapAnnotation(Type = thca_anno$histological_type,
+                             col = list(Type = c('Classical/usual' = 'olivedrab4',
+                                                 'Follicular (>= 99% follicular patterned)' = 'darkolivegreen',
+                                                 'Tall Cell (>= 50% tall cell features)' = 'green3',
+                                                 'other' = 'honeydew3')),
+                             annotation_legend_param = list(
+                               title = 'Histological type',
+                               at = names(table(thca_anno$histological_type)),
+                               lables = names(table(thca_anno$histological_type)))
+)
+Heatmap(thca_gsea,
+        show_row_names = F, show_column_names = F, width = unit(21, 'cm'), height = unit(16, 'cm'),
+        heatmap_legend_param = list(
+          title = "Thyroid cancer pathway activity", at = c(-2, 2), 
+          labels = c("underexpressed", "overexpressed")),
+        row_dend_reorder = T, column_dend_reorder = T,
+        left_annotation = path.anno,
+        top_annotation = top.anno,
+        column_km = 3 #Splitted unserer Heatmap in die 3 Subtypen die wir in der PanCancer gefunden haben
+)
+
 
 #---------------------------------------------
 #Analyse der Daten mittels GSVA
@@ -115,19 +130,30 @@ volcano2
 
 upregulated <- as.data.frame(data.thca$Pvalues[data.thca$diffexpressed == "UP"])
 rownames(upregulated) <- data.thca$pathway_names[data.thca$diffexpressed == "UP"]
-colnames(upregulated) <- c("Pvalues")
+colnames(upregulated) <- c("Pvalues_up")
+normalized_up <- (upregulated$Pvalues_up - mean(upregulated$Pvalues_up)) / var(upregulated$Pvalues_up)
+cbind(upregulated, normalized_up) -> upregulated
 
 downregulated <- as.data.frame(data.thca$Pvalues[data.thca$diffexpressed == "DOWN"])
 rownames(downregulated) <- data.thca$pathway_names[data.thca$diffexpressed == "DOWN"]
-colnames(downregulated) <- c("Pvalues") 
+colnames(downregulated) <- c("Pvalues_down") 
+normalized_down <- (downregulated$Pvalues_down - mean(downregulated$Pvalues_down)) / var(downregulated$Pvalues_down)
+cbind(downregulated, normalized_down) -> downregulated
 
-upregulated_geranked <- rank(upregulated$Pvalues)
-downregulated_geranked <- rank(downregulated$Pvalues)
+upregulated_geranked <- rank(upregulated$normalized_up)
+downregulated_geranked <- rank(downregulated$normalized_down)
 
-up_plot <- ggplot(data = upregulated, aes(y = Pvalues, x = rank(-Pvalues))) + 
-  geom_point() 
+up_plot <- ggplot(data = upregulated, aes(y = -log10(Pvalues_up), x = rank(log10(Pvalues_up)), label = rownames(upregulated))) + 
+  geom_point() + 
+  geom_text(size = 1, hjust = -0.1, check_overlap = TRUE)  
 
 up_plot
+
+down_plot <- ggplot(data = downregulated, aes(y = -log10(Pvalues_down), x = rank(log10(Pvalues_down)), label = rownames(downregulated))) + 
+  geom_point() + 
+  geom_text(size = 1, hjust = -0.1, check_overlap = TRUE)  
+
+down_plot
 
 
 #volcano <- ggplot(data = data.thca, aes(x = log2fc.thca, y = -log10(p.values), color = diffexpressed, label = thca_genenames)) +
