@@ -68,7 +68,7 @@ die GSEA wird mit dem glleichen Zielgenutzt wie die GSVA
 
 #### UMAP (**Uniform Manifold Approximation and Projection for Dimension Reduction)**
 
-The UMAP is a method to reduce the dimension of a multidimensional data set. Compared to the PCA, the structure of the data in higher dimensions is maintained. Thereby the UMAP keeps the overall structure of the data set.
+The UMAP is a method to reduce the dimension of a multidimensional data set. Compared to the PCA, the structure of the data in higher dimensions is maintained. Thereby the UMAP keeps the overall structure of the data set, therefore clusters are easier to iddentify.
 
 The problem of the UMAP is, that although the overall structure is conserved, the distance between the individual points is not proportional to the real distance in the data set.
 
@@ -76,9 +76,9 @@ kleine KLumpen sind wahrscheinlcich auch im richtigen RAum zusammen
 
 #### PCA (Principle component analysis)
 
-The package xxx is used.
-
 Reduce the dimension of a given data set. The dimensions are summarized in principal components (PCs) which do not correlate. Because the PCs summarize the dimensions, the first PCs explain most of the variance of the data set and thereby can be selected to explain the data. Still, one has to keep in mind, that by reducing the dimensions, not all of the variance is explained and some of the information is lost in the process. The ideal number of PCs can be determined with an elbow-plot. In our analysis we use a PCA as a foundation for the UMAP, because the UMAP can not work with correlated dimensions. Furthermore it is used to detect the most important pathways, which explain most of the first PCs.
+
+In the analysis, a PCA is performed for the pan cancer analysis on the TCGA gene expression data, to find similarities and differences in pathway activity for each tumor type. Furthermore a PCA is performed for the focused analysis of THCA and normal tissue.
 
 ### Jaccard index
 
@@ -176,6 +176,14 @@ In the volcano plot the -log10 of the calculated p values is plotted against die
 
 After reducing the number of Genes of the Gene Expression data frame and the THCA data by data cleaning, a descriptive analysis was performed with a Mean-variance plot and five violin plots of the TGCA data frame. The descriptive analysis of the THCA data was performed with a volcano plot and the distribution of the Tumor-specific data was displayed with violin plots.
 
+### PCA
+
+The package xxx is used to perform the PCA. Therefore the data obtained from the GSEA was used. After performing the PCA, the results were plotted to visualize the different clusters.
+
+The PCA was performed for pathway and gene activity. For analysis of the gen activity the package xxx was used.
+
+Dazu wurde noch analysiert, wie die Pathways auf die PCs verteilt sind.
+
 # Results
 
 ## Preprocessing
@@ -249,3 +257,31 @@ knitr::include_graphics("Volcanoplot.png")
 ```
 
 ### Ergebnisse von der GSEA, GSVA, UMAP, PCA, Regression analysis
+
+#### PCA
+
+Die PCA wurde anhand der Pathway Aktivitäten durchgeführt und reduziert auf die ersten 2 PCs in Figure \@ref(fig:PCAPanType) dargestellt. Es sind ansatzweise cluster, aber keine eindeutigen Strukturen zu erkennen. Die zusammensetzung der PCs und die Erklärung der AVrianz durch die einzelnen VAriablen kann Figure \@ref(fig:) entnommen werden. BESCHREIBUNG DER PCA UND DER VARIANZVERTEILUNG. Der Plot wurde auch nach Form des Tumors angefärbt und in Figure \@ref(fig:) dargestellt. Hier ist eine klarere Struktur zu erkennen als bei Anfärbung nach Tumortyp. Daraus lässt sich schließen, dass zumindest PC1 und PC2 stark mit Um die Ergebnisse zu überprüfen wurde die PCA auch auf die Genaktivität angewendet, es war kein Unterschied zu erkennen.
+
+```{r PCAPanType, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
+
+knitr::include_graphics("Pan Cancer PCA PC1und2.png")
+```
+
+```{r PCAPanForm, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by form of tumor"}
+
+knitr::include_graphics("Pan Cancer PCA PC1und2 cancer form.png")
+```
+
+#### UMAP 
+
+DA durch die PCA keine eindeutigen Cluster erkennbar wurden, wurden die Ergebnisse der PCA genutzt, um eine UMAP zu erstellen. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanType) zu sehen. Hier sind eindeutige Cluser zu erkennen, auch wenn die Abstände zwischen den Clustern nicht proportional zu den wahren Unterschieden sind, kann daraus geschlossen werden, dass die einzelnen Tumortypen charakteristische Pathwayaktivitäten haben, wie zum Beispiel KIRC. Viele Tumortypen haben aber auch ähnliche Pathwayaktivitäten wie zum Beispiel GBM und SARC. Um die Ursache dafür zu finden wurde die UMAP erneut ausgeführt und nach Form des Tumors markiert/gefärbt. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanForm) zu sehen. Es ist eindeutig zu erkennen, dass die Pathwayaktivität auch mit der Form des Tumors zusammenhängt. Zum Beispiel sind Glioblastome eindeutig von Adenocarcinomen getrennt.
+
+```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by tumor type"}
+
+knitr::include_graphics("Pan Cancer UMAP.png")
+```
+
+```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by form of the tumor"}
+
+knitr::include_graphics("Pan Cancer UMAP cancer form.png")
+```
