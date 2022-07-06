@@ -129,7 +129,7 @@ tcga_protein_hvar = tcga_biotypes_hvar$ensembl_gene_id[tcga_biotypes_hvar$gene_b
 
 #biotypes, die nicht proteincodierend sind, rauswerfen:
 tcga_exp_cleaned = tcga_exp_hvar[rownames(tcga_exp_hvar) %in% tcga_protein_hvar,]
-tcga_exp_hvar[sapply(rownames(tcga_exp_hvar), function(tcga_exp_hvar){isin(tcga_protein_hvar, tcga_exp_hvar)})]
+#tcga_exp_hvar[sapply(rownames(tcga_exp_hvar), function(tcga_exp_hvar){isin(tcga_protein_hvar, tcga_exp_hvar)})]
 
 #checking for NA's
 sum(is.na(tcga_exp_cleaned)) #keine NAs waren vorhanden!
