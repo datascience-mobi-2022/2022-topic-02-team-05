@@ -1,0 +1,9 @@
+\renewcommand\abstractname{\Large Acknowledgments}
+\begin{abstract}
+Thank You
+\end{abstract}
+
+\renewcommand\abstractname{\Large Abstract}
+\begin{abstract}
+Thank You
+\end{abstract}

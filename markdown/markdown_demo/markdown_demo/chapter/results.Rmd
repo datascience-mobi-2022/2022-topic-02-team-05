@@ -1,0 +1,24 @@
+# Results
+
+## 33 tumor types are showing disting clusters in UMAP
+
+hello world!
+
+## blb alsdjflaskdf umap of some tumortypes
+
+Figure generation. You can do it with knitr or with latex formatting. This is knitr:
+
+```{r figure1, fig.cap="Title. Description",echo=FALSE}
+knitr::include_graphics("figures/figure1.png")
+```
+
+
+easier alternative: this is latex formatting. In Figure \ref{figure1} you can see an UMAP. (+ label your figures, equations etc and then reference with /\ref{})
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{figures/figure1.png}
+    \caption[\textbf{Title}.]{\textbf{Title}. Description.}
+    \label{figure1}
+\end{figure}
+
