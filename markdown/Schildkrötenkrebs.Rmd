@@ -49,6 +49,8 @@ GSE methods um gene zu analysieren die bei RNA- seq analyse´siert wurden (fange
 
 #### Gene Set Variation Analysis (GSVA)
 
+The GSVA is performed with the same intention as the GSEA, with the difference, that there is no reference expression data needed like in the GSEA. Because there was no expression data provided for comparison in the TCGA analysis, GSVA was used. There a various solutions to perform GSVA, one of them is to z-transform the provided expression data of the analysed tissue, so the mean over all patients of each gene is zero and the standard deviation is 1. The distribution of these z-transformed genes is like a t-distribution and can be used to calculate the log2FC and continue like in the GSEA.
+
 Eine Form von Gene set ebrichment analysis
 
 schätzt die veränderung Pathway aktivität eine Population, unsupervised = kleine Verönderung der ptahwayaktivität werden erkannt
@@ -62,13 +64,13 @@ Analyse muss für froße, heterogene populationen mit komplexen phänotypischen 
 3.  Ranke der gene expression statistics
 4.  Kolmogorov-Smirnov-like rank statistic wird für jedes gene set berechnet
 
-#### Gene Set Enrichment Analysis-
+#### Gene Set Enrichment Analysis (GSEA)
 
-die GSEA wird mit dem glleichen Zielgenutzt wie die GSVA
+To analyse and compare the activity of pathways a GSEA is performed. Therefore a reference is needed to compare the activity of certain pathways in tumor tissue with the activity in normal tissue. Therefore the log2FC is calculated for each gene and ranked in a vector for each patient, beginning with the highest log2FC. This resulted in a MATRIX/DATAFRAME/LIST. A high log2FC implies, that the the gene is higher expressed in tumor tissue than in normal tissue. In the next step the activity of each pathway in each patient is calculated. Therefore the ranked vectors of each patient containing the log2FCs are used. The function checks for each gen if it is included in the analysed pathway or not. If it is included, the log2FC of that gene is added to the cumulative function, if it is not included, the log2FC is subtracted. This results in a cumulative function, that has a peak at a certain place. In this place of the ranked vector is also a gene located, the expression value of that gene is saved as the enrichment score of the analysed pathway and the patient belonging to the used vector.
 
 #### UMAP (**Uniform Manifold Approximation and Projection for Dimension Reduction)**
 
-The UMAP is a method to reduce the dimension of a multidimensional data set. Compared to the PCA, the structure of the data in higher dimensions is maintained. Thereby the UMAP keeps the overall structure of the data set, therefore clusters are easier to iddentify.
+The UMAP is a method to reduce the dimension of a multidimensional data set. Compared to the PCA, the structure of the data in higher dimensions is maintained. Thereby the UMAP keeps the overall structure of the data set, therefore clusters are easier to identify.
 
 The problem of the UMAP is, that although the overall structure is conserved, the distance between the individual points is not proportional to the real distance in the data set.
 
@@ -170,7 +172,7 @@ alpha = 0.025
 alpha.kor = alpha*bf
 ```
 
-In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentialy expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.
+In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentially expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.
 
 ## Comparing of Pathways
 
@@ -202,7 +204,7 @@ The low-variance filtering of the THCA dataset was done in a similar way. Genes 
 
 #### Biotype filtering
 
-The biotype of the genes from the selected metabolic pathways, the genes of the hallmark pathways and the genes of the gene expression matrix was determined, to keep those genes with the same biotype. Because the most genes are protein-coding, only protein-coding genes were maintained.
+The biotype of the genes from the selected metabolic pathways, the genes of the hallmark pathways and the genes of the gene expression matrix was determined, to keep those genes with the same bio type. Because the most genes are protein-coding, only protein-coding genes were maintained.
 
 ```{r showbiotypeshallmarks, echo=FALSE, eval=TRUE, out.width = '20%', fig.align = "center", fig.cap="**Biotypes of Hallamrk genes**"}
 
@@ -256,11 +258,25 @@ knitr::include_graphics("Volcanoplot.png")
 
 ```
 
-### Ergebnisse von der GSEA, GSVA, UMAP, PCA, Regression analysis
+#### GSEA
+
+```{r GSEAHeat, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
+
+knitr::include_graphics("Pan Cancer PCA PC1und2.png")
+```
+
+#### GSVA
+
+```{r GSVAHeat, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
+
+knitr::include_graphics("Pan Cancer PCA PC1und2.png")
+```
 
 #### PCA
 
-Die PCA wurde anhand der Pathway Aktivitäten durchgeführt und reduziert auf die ersten 2 PCs in Figure \@ref(fig:PCAPanType) dargestellt. Es sind ansatzweise cluster, aber keine eindeutigen Strukturen zu erkennen. Die zusammensetzung der PCs und die Erklärung der AVrianz durch die einzelnen VAriablen kann Figure \@ref(fig:) entnommen werden. BESCHREIBUNG DER PCA UND DER VARIANZVERTEILUNG. Der Plot wurde auch nach Form des Tumors angefärbt und in Figure \@ref(fig:) dargestellt. Hier ist eine klarere Struktur zu erkennen als bei Anfärbung nach Tumortyp. Daraus lässt sich schließen, dass zumindest PC1 und PC2 stark mit Um die Ergebnisse zu überprüfen wurde die PCA auch auf die Genaktivität angewendet, es war kein Unterschied zu erkennen.
+Die PCA wurde anhand der Pathway Aktivitäten durchgeführt und reduziert auf die ersten 2 PCs in Figure \@ref(fig:PCAPanType) dargestellt. Es sind ansatzweise cluster, aber keine eindeutigen Strukturen zu erkennen. Die zusammensetzung der PCs und die Erklärung der AVrianz durch die einzelnen VAriablen kann Figure \@ref(fig:) entnommen werden. BESCHREIBUNG DER PCA UND DER VARIANZVERTEILUNG. Der Plot wurde auch nach Form des Tumors angefärbt und in Figure \@ref(fig:PCAPanForm) dargestellt. Hier ist eine klarere Struktur zu erkennen als bei Anfärbung nach Tumortyp. Daraus lässt sich schließen, dass zumindest die PC1 und PC2 inkludierten Pathways mit der Form des Tumors zusammenhängen. Dadurch lässt sich auch erkennen, warum die Clusterfindung innnerhalb der Tumore erschwert ist.
+
+Um die Ergebnisse zu überprüfen wurde die PCA auch auf die Genaktivität angewendet, es war kein Unterschied zu erkennen.
 
 ```{r PCAPanType, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
 
@@ -272,9 +288,11 @@ knitr::include_graphics("Pan Cancer PCA PC1und2.png")
 knitr::include_graphics("Pan Cancer PCA PC1und2 cancer form.png")
 ```
 
-#### UMAP 
+#### UMAP
 
-DA durch die PCA keine eindeutigen Cluster erkennbar wurden, wurden die Ergebnisse der PCA genutzt, um eine UMAP zu erstellen. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanType) zu sehen. Hier sind eindeutige Cluser zu erkennen, auch wenn die Abstände zwischen den Clustern nicht proportional zu den wahren Unterschieden sind, kann daraus geschlossen werden, dass die einzelnen Tumortypen charakteristische Pathwayaktivitäten haben, wie zum Beispiel KIRC. Viele Tumortypen haben aber auch ähnliche Pathwayaktivitäten wie zum Beispiel GBM und SARC. Um die Ursache dafür zu finden wurde die UMAP erneut ausgeführt und nach Form des Tumors markiert/gefärbt. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanForm) zu sehen. Es ist eindeutig zu erkennen, dass die Pathwayaktivität auch mit der Form des Tumors zusammenhängt. Zum Beispiel sind Glioblastome eindeutig von Adenocarcinomen getrennt.
+DA durch die PCA keine eindeutigen Cluster erkennbar wurden, wurden die Ergebnisse der PCA genutzt, um eine UMAP zu erstellen. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanType) zu sehen. Hier sind eindeutige Cluser zu erkennen, auch wenn die Abstände zwischen den Clustern nicht proportional zu den wahren Unterschieden sind, kann daraus geschlossen werden, dass die einzelnen Tumortypen charakteristische Pathwayaktivitäten haben, wie zum Beispiel KIRC. Viele Tumortypen haben aber auch ähnliche Pathwayaktivitäten wie zum Beispiel GBM und SARC.
+
+Um die Ursache dafür zu finden wurde auch hier die UMAP nach Form des Tumors markiert/gefärbt. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanForm) zu sehen. Es ist eindeutig zu erkennen, dass die Pathwayaktivität auch mit der Form des Tumors zusammenhängt. Zum Beispiel sind Glioblastome eindeutig von Adenocarcinomen getrennt. Allerdings ist auch hier das große Cluster in der Mitte nicht eindeutig einer Tumorform zuzuordnen.
 
 ```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by tumor type"}
 
@@ -285,3 +303,11 @@ knitr::include_graphics("Pan Cancer UMAP.png")
 
 knitr::include_graphics("Pan Cancer UMAP cancer form.png")
 ```
+
+#### Regression analysis
+
+### Focused analsis
+
+#### PCA 
+
+PCA was also performed for focused analysis, um Untergruppen, die mit der Pathwayaktivität oder Genaktivität zusammenhängen, innerhalb der Thyroid tumors zu finden. Dafür wurden zuerst die Ergebnisse der GSEA verwendet. Der Versuch Cluster zu finden gestaltete sich hier leider schwerer, da weder durch Betrachtung des Thyroid Tumortyps, noch durch Betrachtung der Stage ein eindeutiger Zusammenhang erkannt werden konnte.
