@@ -1,4 +1,5 @@
 # Results
+
 ## Preprocessing
 
 #### deleting NAs
@@ -56,6 +57,7 @@ For descriptive analysis 5 violin plots were created for 5 different tumor types
 knitr::include_graphics("Vioplots cancer types.png")
 
 ```
+
 #### Volcano plot
 
 For the construction of the volcano plot the data for THCA from the data set for the focused analysis was used. The volcano plot is displayed in Figure \@ref(fig:showvolcanoplot). Not significantly differentially expressed genes were marked green, significantly over expressed genes are marked blue and significantly under expressed genes are marked red. The gene with a very low p-value differ the most from tumor to normal tissue and are annotated with their name.
@@ -130,7 +132,6 @@ knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
 
 PCA was also performed for focused analysis, um Untergruppen, die mit der Pathwayaktivität oder Genaktivität zusammenhängen, innerhalb der Thyroid tumors zu finden. Dafür wurden zuerst die Ergebnisse der GSEA verwendet. Der Versuch Cluster zu finden gestaltete sich hier leider schwerer, da weder durch Betrachtung des Thyroid Tumortyps, noch durch Betrachtung der Stage ein eindeutiger Zusammenhang erkannt werden konnte.
 
-
 ## 33 tumor types are showing disting clusters in UMAP
 
 hello world!
@@ -143,13 +144,13 @@ Figure generation. You can do it with knitr or with latex formatting. This is kn
 knitr::include_graphics("figures/figure1.png")
 ```
 
-
 easier alternative: this is latex formatting. In Figure \ref{figure1} you can see an UMAP. (+ label your figures, equations etc and then reference with /\ref{})
 
+```{=tex}
 \begin{figure}[htbp]
     \centering
     \includegraphics{figures/figure1.png}
     \caption[\textbf{Title}.]{\textbf{Title}. Description.}
     \label{figure1}
 \end{figure}
-
+```

@@ -165,7 +165,7 @@ In the next step, a two-sided t test was performed to determine the significance
 To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis:
 
 $$
-A \alpha = \frac{0.025}{n}
+ \alpha = \frac{0.025}{n}
 $$
 
 In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentially expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.
