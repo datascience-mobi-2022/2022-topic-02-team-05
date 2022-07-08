@@ -80,15 +80,17 @@ The problem of the UMAP is, that although the overall structure is conserved, th
 
 kleine KLumpen sind wahrscheinlcich auch im richtigen RAum zusammen
 
-#### PCA (Principle component analysis)
+#### Principle component analysis
 
-Reduce the dimension of a given data set. The dimensions are summarized in principal components (PCs) which do not correlate. Because the PCs summarize the dimensions, the first PCs explain most of the variance of the data set and thereby can be selected to explain the data. Still, one has to keep in mind, that by reducing the dimensions, not all of the variance is explained and some of the information is lost in the process. The ideal number of PCs can be determined with an elbow-plot. In our analysis we use a PCA as a foundation for the UMAP, because the UMAP can not work with correlated dimensions. Furthermore it is used to detect the most important pathways, which explain most of the first PCs.
+The Principle component analysis (PCA) is used to reduce the dimension of a given data set. The dimensions are summarized in principal components (PCs) which do not correlate. Because the PCs summarize the dimensions, the first PCs explain most of the variance of the data set and thereby can be selected to explain the data. Still, one has to keep in mind, that by reducing the dimensions, not all of the variance is explained and some of the information is lost in the process.
+
+The ideal number of PCs can be determined with an elbow-plot. In our analysis we use a PCA as a foundation for the UMAP, because the UMAP can not work with correlated dimensions. Furthermore it is used to detect the most important pathways, which explain most of the first PCs.
 
 In the analysis, a PCA is performed for the pan cancer analysis on the TCGA gene expression data, to find similarities and differences in pathway activity for each tumor type. Furthermore a PCA is performed for the focused analysis of THCA and normal tissue.
 
 ### Jaccard index
 
-The Jaccard index is the Intersection, divided by the union of two sets.
+The Jaccard index is the Intersection, divided by the union of two sets. WARUM MACHEN WIR DAS
 
 # Material and Methods
 
@@ -104,7 +106,7 @@ The third object contains 5 lists for the focused analysis, one for each tumor t
 
 The fourth object contains 46 pathways involved in phenotypes partly included in the hallmarks of cancer and the genes involved in those pathways.
 
-SIND DIE DATEN NORMALISIERT ODER ALS COUNTS?
+Log2(TMP) = Transcripts per million
 
 ## Metabolic pathway selection
 
@@ -146,7 +148,7 @@ There were a few duplicates between the metabolic and Hallmark pathways. Those m
 
 ### Mean-variance plot
 
-In a mean-variance plot the variance is plotted against the mean of expression values of the single genes. Therefore, the variance and mean were calculated by the R-function var(x) and mean(x).
+In a mean-variance plot the variance is plotted against the mean of expression values of the single genes. Therefore, the variance and mean were calculated by the R-function var(x) and mean(x). WARUM MACHT MAN DAS
 
 ### Violin plot
 
