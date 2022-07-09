@@ -59,7 +59,6 @@ hist(cor_pca)
 #2. Lineare Regression ohne PCA
 #--------------------------------------------------------
 #Definieren der Formel für die vorhersage
-
 form = paste(c(pathway,
                paste(colnames(train)[!pathway == colnames(train)], collapse = " + ")),
              collapse = ' ~ '
@@ -78,6 +77,10 @@ lm.MSE = sum((lm.prediction - test[,pathway])^2)/nrow(test)
 #Anschauen der Residuals
 cor(train[, pathway], linear.model$residuals) #Korrelation ist sehr niedrig => gutes Modell
 qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model$residuals, seq(0,1,0.01))) #=> Residuals sind annähernd normalverteilt 
+
+#Speichern für Vergleich
+save(lm.prediction, file = 'data/regression/lm.prediction.RData')
+save(lm.MSE, file = 'data/regression/lm.MSE.RData')
 
 #--------------------------------------------------------
 #3. Lineare Regression mit PCA
@@ -103,33 +106,18 @@ lm.pca.MSE = sum((lm.pca.prediction - test_pca[,pathway])^2)/nrow(test_pca)
 cor(train_pca[, pathway], linear.model.pca$residuals) #Korrelation ist sehr niedrig => gutes Modell
 qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model.pca$residuals, seq(0,1,0.01))) #=> Residuals sind annähernd normalverteilt 
 
+#Speichern für Vergleich
+save(lm.pca.prediction, file = 'data/regression/lm.pca.prediction.RData')
+save(lm.pca.MSE, file = 'data/regression/lm.pca.MSE.RData')
+
 #--------------------------------------------------------
 #4. Testen eines Nullmodells zum Vergleich
 #--------------------------------------------------------
 #Wir nehmen als Vorhersage den Mittleren Aktivitätswert des Pathways
-null.prediction = mean(train[, pathway])
+null.prediction = rep(mean(train[, pathway]),nrow(test)) 
 #Nun berrechnen wir auch hier den MSE
-null.MSE = sum((rep(null.prediction, nrow(test)) - test[,pathway])^2)/nrow(test)
+null.MSE = sum((null.prediction - test[,pathway])^2)/nrow(test)
 
-par(mfrow=c(1,3))
-
-#Plotten der Neuronalen netzes
-plot(test[,pathway], lm.prediction, col='red',
-     main= 'LM',
-     pch=18,cex=0.7,
-     ylab = 'prediction', xlab = 'true value', xlim=c(-1,0), ylim=c(-5,2))
-abline(0,1,lwd=2)
-#legend('bottomright',legend= paste('MSE', round(nn.error, 2), sep = '='), bty='n')
-
-#Plotten des Linear models
-plot(test[,pathway], lm.pca.prediction, col='blue', main='Linear model PCA',pch=18, cex=0.7,
-     ylab = 'prediction', xlab = 'true value',xlim=c(-1,0), ylim=c(-5,2))
-abline(0,1,lwd=2)
-#legend('bottomright',legend= paste('MSE', round(lm.error, 2), sep = '='), bty='n')
-
-#Plotten des Linear models
-plot(test[,pathway], rep(null.prediction, nrow(test)), col='green', main='null model',pch=18, cex=0.7,
-     ylab = 'prediction', xlab = 'true value',xlim=c(-1,0), ylim=c(-5,2))
-abline(0,1,lwd=2)
-#legend('bottomright',legend= paste('MSE', round(lm.error, 2), sep = '='), bty='n')
-
+#Speichern für Vergleich
+save(null.prediction, file = 'data/regression/null.prediction.RData')
+save(null.MSE, file = 'data/regression/null.MSE.RData')

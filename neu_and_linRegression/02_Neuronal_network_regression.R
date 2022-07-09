@@ -7,15 +7,15 @@ pathway = 'REACTOME_THYROXINE_BIOSYNTHESIS' #Zu vorhersagender pathway
 
 load('data/regression/test_sc.RData')
 load('data/regression/train_sc.RData')
-
+load('data/thca_gsea.RData')
 
 
 #---------------------------------------------------------
-#4. Optimierung des Neuronalen Netzes
+#1. Implementatiin und Optimierung des Neuronalen Netzes
 #Hier testen wir welche internen Strukturen die Performance optimieren
 #und ob wir durch andere Anfangsweights/biases evtl. ein besseres Minimum finden
 #Das ist nötig, da das Netz mit Gradient decent arbeitet und so immer nur lokale
-#Minima findet allerdings kein globales Minimum
+#Minima findet allerdings kein Globales Minimum
 #---------------------------------------------------------
 
 #Erstellen eine Liste in die wir verschieden 25 neuronale Netze speichern
@@ -24,6 +24,12 @@ load('data/regression/train_sc.RData')
 #Wir testen layer mit jeweils 10, 20, 50, 100, 300 Neuronen
 library(neuralnet)
 set.seed(1)
+
+#Definieren der Formel für die vorhersage
+form = paste(c(pathway,
+               paste(colnames(train_sc)[!pathway == colnames(train_sc)], collapse = " + ")),
+             collapse = ' ~ '
+)
 
 first_layer = c(10, 20, 50, 100, 300)
 second_layer = c(10, 20, 50, 100, 300)
@@ -110,22 +116,24 @@ MSE_best = sapply(nn_list_best, FUN = function(x){
 })
 sort(MSE_best)[1:3]
 best_seed = as.numeric(strsplit(names(sort(MSE_best)[1]), split = '=')[[1]][2])
+best_architecture = as.numeric(
+  strsplit(
+    strsplit(names(sort(MSE_best)[1]), split = ',')[[1]][1], split = ':'
+  )[[1]])
 # Das Beste Netz bekomen wir mit einer Architektur von 100:10 und den
 #Anfangsbedingungen bei set.seed(12)
 
 #-------------------------------------------------------
-#5. Implementierung und Training des besten Netzes
+#2. Implementierung und Training des besten Netzes
 #-------------------------------------------------------
 set.seed(best_seed)
 AI = neuralnet(formula = form, #Die Gleichung die wir  vorhersagen möchten
                data = train_sc,
-               hidden = best_layers[[1]],
+               hidden = best_architecture,
                linear.output = TRUE)
-#Plotten des Netzwerks (grade noch sehr unübersichtlich)
-#plot(AI, rep = 'best', radius = 0.07, fontsize = 0)
 
 #--------------------------------------------------------
-#6. Testen des Neuronalen Netzes
+#3. Testen des Neuronalen Netzes
 #--------------------------------------------------------
 #predicted jetzt unseren pathway basierend auf denen der Testdaten
 nn.prediction_sc = compute(AI,test_sc[,!colnames(test_sc) == pathway])
@@ -137,12 +145,11 @@ nn.prediction = as.numeric(
 nn.test = test_sc[,pathway]*(max(thca_gsea[pathway,])-min(thca_gsea[pathway,]))+min(thca_gsea[pathway,])
 
 #mean sum squared error des neuralen netzes
-nn.error = sum((nn.test - nn.prediction)^2)/nrow(test_sc)
+nn.MSE = sum((nn.test - nn.prediction)^2)/nrow(test_sc)
 
-#Mittlerer Prozentualer fehler des Netzes
-nn.procent.error = mean(abs(1-nn.prediction/nn.test))
-
-#=> Der Fehler des Netzwerks ist mit 8.8% deutlich kleiner als die Lin. Regression (240%)
+#Speichern für Vergleich
+save(nn.prediction, file = 'data/regression/nn.prediction.RData')
+save(nn.MSE, file = 'data/regression/nn.MSE.RData')
 
 
 #---------------------------------------------------------

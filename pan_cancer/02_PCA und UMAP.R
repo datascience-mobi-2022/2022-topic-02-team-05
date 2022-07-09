@@ -85,10 +85,17 @@ library(psych)
 set.seed(123)
 load('data/tcga_exp_cleaned.RData')
 
-FA = fa(tcga_exp_cleaned[1:2000,1:2000], fm = 'pa', #pa da wir die principle factors wollen
+FA = fa(tcga_exp_cleaned, fm = 'pa', #pa da wir die principle factors wollen
        nfactors = 5, #Gibt uns nur die ersten 5 faktoren
        rotate = 'varimax' #Rotiert die Matrix orthogonal sodass die Ergebnisse unkorr. sind
        )
+# In cor.smooth(R) :
+#   I am sorry, there is something seriously wrong with the correlation matrix,
+# cor.smooth failed to  smooth it because some of the eigen values are NA.  
+# Are you sure you specified the data correctly?
+
+save(FA, file = 'data/FA.RData')
+
 FA_data = matrix(as.numeric(FA$loadings), ncol = 5,
                  dimnames = list(colnames(tcga_exp_cleaned[1:2000]),
                                  c('PA1','PA2','PA3','PA4','PA5')))
