@@ -5,45 +5,10 @@
 
 pathway = 'REACTOME_THYROXINE_BIOSYNTHESIS' #Zu vorhersagender pathway
 
-#--------------------------------------------------------
-#1. Präparation der Daten
-#--------------------------------------------------------
-load('data/thca_gsea.RData')
+load('data/regression/test_sc.RData')
+load('data/regression/train_sc.RData')
 
-#Splitten der Daten in eine Test und Trainingsgruppe (75% für Training)
-set.seed(1) #Für konsistente Indices da sample() random ist
-index = sample(1:ncol(thca_gsea), round(0.75*ncol(thca_gsea)))
-train = as.data.frame(t(thca_gsea[, index]))
-test = as.data.frame(t(thca_gsea[, -index]))
 
-#--------------------------------------------------------
-#2. Linear Model der Trainingsdaten
-#--------------------------------------------------------
-#Definieren der Formel für die vorhersage
-
-form = paste(c(pathway,
-               paste(rownames(thca_gsea)[!pathway == rownames(thca_gsea)], collapse = " + ")),
-             collapse = ' ~ '
-)
-#Durchführen der Regression
-linear.model = glm(formula = form, family = 'gaussian', data = train)
-
-#Test der Regression
-lm.prediction = predict(linear.model, test)
-#berrechnung des meansquared error als Guete für das Modell
-lm.error = sum((lm.prediction - test[,pathway])^2)/nrow(test) 
-#Mittlerer Prozentualer fehler der Linearen Regression
-lm.procent.error = mean(abs(1-lm.prediction/test[,pathway]))
-
-#--------------------------------------------------------
-#3. Daten Präparation für Neuronales Netz
-#--------------------------------------------------------
-#Skalieren der Daten nach mit einer Min/max skalierung sodass sie im Intervall [0,1] liegen
-maxs = apply(thca_gsea, 1, max) 
-mins = apply(thca_gsea, 1, min)
-thca_scaled = as.data.frame(scale(t(thca_gsea), center = mins, scale = maxs - mins))
-train_sc = thca_scaled[index,]
-test_sc = thca_scaled[-index,]
 
 #---------------------------------------------------------
 #4. Optimierung des Neuronalen Netzes
