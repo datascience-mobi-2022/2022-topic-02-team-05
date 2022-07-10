@@ -101,6 +101,10 @@ for (i in (1:nrow(thca_norm_gsva))){
   thca_pval_gsva = append(thca_pval_gsva, res)
 };rm(i);rm(res)
 
+#Speichern der Pvalues für die Regression zur Selektion eines pathways
+names(thca_pval_gsva) = rownames(thca_gsva_data)
+save(thca_pval_gsva, file = 'data/regression/thca_pval_gsva.RData')
+
 #signifikanzlevel ohne bonferroni 
 alpha = 0.025 #entspricht 5% für beidseitigen Test
 
