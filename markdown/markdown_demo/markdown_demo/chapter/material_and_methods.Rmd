@@ -18,12 +18,6 @@ SIND DIE DATEN NORMALISIERT ODER ALS COUNTS?
 
 Furthermore metabolic pathways had to be selected from the Molecular Signature Database (MSigDB) (QUELLE) to compare them with the given Hallmark-Pathways and identify more pathways, that are important for the development of cancer. Therefore it was important, that as many genes from the selected pathways as possible are also included in the provided Hallmark pathways. To identify the relevant pathways, the intersection of genes was calculated and the genes with an intersection of at least 99% were maintained for further analysis.
 
-```{r showhistcanonical, echo=FALSE, eval=TRUE, out.width = '100%', fig.align = "center", fig.cap="**Mean gene expression split by tumour type.** Log2-transformed gene expression values, given in transcripts per million (TPM), were averaged per tumour type and visualised in a violin plot."}
-
-knitr::include_graphics("tcga_exp_biotypes.png")
-
-```
-
 To avoid duplicates in between the metabolic pathways and between the Hallmark pathways and the metabolic pathways, the pathways were checked for duplicates with the Jaccard index. Pathways with a sum of Jaccard indices beyond the 1-sigma range were discarded.
 
 ## Preprocessing
@@ -64,8 +58,9 @@ To check the distribution of a data set and compare it with other data sets viol
 
 A volcano plot is used to identify significantly differentially expressed genes. In the following analysis a volcano plot is used to identify which genes are significantly diferentially expressed in the analysed THCA tissue, compared to the analysed normal tissue. Therefore the mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way:
 
+$$
 log2FC = mean(normal tissue) - mean(tumor tissue)
-
+$$
 In the next step, a two-sided t test was performed to determine the significance of a difference in expression.
 
 To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis:
@@ -90,7 +85,6 @@ Dazu wurde noch analysiert, wie die Pathways auf die PCs verteilt sind.
 
 ## TCGA data
 
-What kind of data do we have?
-## Used Packages
+What kind of data do we have? ## Used Packages
 
-show a table! 
+show a table!

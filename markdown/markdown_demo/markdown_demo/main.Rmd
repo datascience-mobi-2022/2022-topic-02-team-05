@@ -36,6 +36,7 @@ header-includes:
 - \usepackage{acronym}
 - \usepackage{lipsum}
 - \usepackage{scrhack}
+- \usepackage{amsmath}
 - \emergencystretch=50pt
 - \clubpenalty = 10000
 - \widowpenalty = 10000
