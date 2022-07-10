@@ -62,7 +62,7 @@ rm(cor.cleaned)
 
 #Hinzufügen unseres pathways zu den un korrelierten Daten
 train_cleaned = cbind(path.values, cor_cleaned_train)
-colnames(train_cleaned)[1] = pathway; rm(cor_cleaned_train)
+colnames(train_cleaned)[1] = pathway; rm(cor_cleaned_train, path.values)
 
 #--------------------------------------------------------
 #2. Lineare Regression ohne PCA
