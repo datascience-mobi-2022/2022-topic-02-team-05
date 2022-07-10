@@ -1,7 +1,7 @@
 ---
 title: "Schildkrötenkrebs"
 author: "Jakob Then, Anna Lange, Maren Schneider, David Matuschek"
-date: "20 07 2022"
+date: "18 07 2022"
 output:
   bookdown::html_document2:
     df_print: paged
@@ -35,6 +35,8 @@ Thyroid cancers werden in verschiedene Typen aufgeteilt, der häufigste Typ ist 
 
 Normally the Thyroid gland controls the body temperature and the metabolism.
 
+the 3 histological types, was bringt uns das, die 3 Typen zu kennen??
+
 ## Hallmarks of cancer
 
 Hallarks: was sind hallmarks? - Hallmarks sind Eigenschaften von TUmoren, die in jedem Tumor nachgewiesen werden können. Dazu gehören unter anderen die folgenden EIgenschaften: Resisting sell death, inducung angiogenesis, enabling replicative immortality, activating invasion and metastasis evading growth surpressors. Diese wurden zuerst von Hanahan und Weinberg 2011 veröffentlicht. Im laufe der Zeit kommen immer mehr hallmakrs dazu/es werden neue entdeckt. \[Quelle\]
@@ -49,6 +51,8 @@ GSE methods um gene zu analysieren die bei RNA- seq analyse´siert wurden (fange
 
 #### Gene Set Variation Analysis (GSVA)
 
+The GSVA is performed with the same intention as the GSEA, with the difference, that there is no reference expression data needed like in the GSEA. Because there was no expression data provided for comparison in the TCGA analysis, GSVA was used. There a various solutions to perform GSVA, one of them is to z-transform the provided expression data of the analysed tissue, so the mean over all patients of each gene is zero and the standard deviation is 1. The distribution of these z-transformed genes is like a t-distribution and can be used to calculate the log2FC and continue like in the GSEA.
+
 Eine Form von Gene set ebrichment analysis
 
 schätzt die veränderung Pathway aktivität eine Population, unsupervised = kleine Verönderung der ptahwayaktivität werden erkannt
@@ -62,40 +66,47 @@ Analyse muss für froße, heterogene populationen mit komplexen phänotypischen 
 3.  Ranke der gene expression statistics
 4.  Kolmogorov-Smirnov-like rank statistic wird für jedes gene set berechnet
 
-#### Gene Set Enrichment Analysis-
+#### Gene Set Enrichment Analysis (GSEA)
 
-die GSEA wird mit dem glleichen Zielgenutzt wie die GSVA
+To analyse and compare the activity of pathways a GSEA is performed. Therefore a reference is needed to compare the activity of certain pathways in tumor tissue with the activity in normal tissue. Therefore the log2FC is calculated for each gene and ranked in a vector for each patient, beginning with the highest log2FC. This resulted in a MATRIX/DATAFRAME/LIST. A high log2FC implies, that the the gene is higher expressed in tumor tissue than in normal tissue. In the next step the activity of each pathway in each patient is calculated. Therefore the ranked vectors of each patient containing the log2FCs are used. The function checks for each gen if it is included in the analysed pathway or not. If it is included, the log2FC of that gene is added to the cumulative function, if it is not included, the log2FC is subtracted. This results in a cumulative function, that has a peak at a certain place. In this place of the ranked vector is also a gene located, the expression value of that gene is saved as the enrichment score of the analysed pathway and the patient belonging to the used vector.
+
+GSEA was performed with the package xxx.
 
 #### UMAP (**Uniform Manifold Approximation and Projection for Dimension Reduction)**
 
-The UMAP is a method to reduce the dimension of a multidimensional data set. Compared to the PCA, the structure of the data in higher dimensions is maintained. Thereby the UMAP keeps the overall structure of the data set.
+The UMAP is a method to reduce the dimension of a multidimensional data set. Compared to the PCA, the structure of the data in higher dimensions is maintained. Thereby the UMAP keeps the overall structure of the data set, therefore clusters are easier to identify.
 
 The problem of the UMAP is, that although the overall structure is conserved, the distance between the individual points is not proportional to the real distance in the data set.
 
 kleine KLumpen sind wahrscheinlcich auch im richtigen RAum zusammen
 
-#### PCA (Principle component analysis)
+#### Principle component analysis
 
-The package xxx is used.
+The Principle component analysis (PCA) is used to reduce the dimension of a given data set. The dimensions are summarized in principal components (PCs) which do not correlate. Because the PCs summarize the dimensions, the first PCs explain most of the variance of the data set and thereby can be selected to explain the data. Still, one has to keep in mind, that by reducing the dimensions, not all of the variance is explained and some of the information is lost in the process.
 
-Reduce the dimension of a given data set. The dimensions are summarized in principal components (PCs) which do not correlate. Because the PCs summarize the dimensions, the first PCs explain most of the variance of the data set and thereby can be selected to explain the data. Still, one has to keep in mind, that by reducing the dimensions, not all of the variance is explained and some of the information is lost in the process. The ideal number of PCs can be determined with an elbow-plot. In our analysis we use a PCA as a foundation for the UMAP, because the UMAP can not work with correlated dimensions. Furthermore it is used to detect the most important pathways, which explain most of the first PCs.
+The ideal number of PCs can be determined with an elbow-plot. In our analysis we use a PCA as a foundation for the UMAP, because the UMAP can not work with correlated dimensions. Furthermore it is used to detect the most important pathways, which explain most of the first PCs.
+
+In the analysis, a PCA is performed for the pan cancer analysis on the TCGA gene expression data, to find similarities and differences in pathway activity for each tumor type. Furthermore a PCA is performed for the focused analysis of THCA and normal tissue.
 
 ### Jaccard index
 
-The Jaccard index is the Intersection, divided by the union of two sets.
+The Jaccard index is the Intersection, divided by the union of two sets. WARUM MACHEN WIR DAS
 
 # Material and Methods
 
-## Our data sets (including our metabolic pathways)
+## Our data sets
 
 For the analysis 4 data sets were provided.
 
-1)  Gene expression data frame: The Gene expression data frame contains 60,000 genes and and their expression in 10,000 patients, and derived from The Cancer Genome Atlas (TCGA). The expression of those genes was obtained by RNA-seq HIER KOMMT NOCH DIE EINHEIT HIN
-2)  Clinical annotations: The second data frame contains 37 clinical annotations like Tumor type, age, gender, etc. concerning the 10,000 patients fro the Gene expression data frame.
-3)  Data for focused analysis: The third object contains 5 lists, one for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA). For the focused analysis the THCA data was used. The list contains 3 data frames, each one with information about the same 60 patients. The first one with gene expression data from THCA tissue, the second one from normal tissue and the third one contains the clinical annotations like age and gender.
-4)  Hallmark gene sets: A R object containing 46 pathways involved in phenotypes partly included in the hallmarks of cancer and the genes involved in those pathways.
+The first data set is a Gene expression data frame. The Gene expression data frame contains 60,000 genes and and their expression in 10,000 patients, and derived from The Cancer Genome Atlas (TCGA). The expression of those genes was obtained by RNA-seq.
 
-SIND DIE DATEN NORMALISIERT ODER ALS COUNTS?
+The second data frame contains 37 clinical annotations like Tumor type, age, gender, etc. concerning the 10,000 patients from the Gene expression data frame.
+
+The third object contains 5 lists for the focused analysis, one for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA). For the focused analysis the THCA data was used. The THCA data contains 3 data frames, each one with information about the same 60 patients. The first one with gene expression data from THCA tissue, the second one from normal tissue and the third one contains the clinical annotations like age and gender. Gene expression data was obtained by RNA-seq.
+
+The fourth object contains 46 pathways involved in phenotypes partly included in the hallmarks of cancer and the genes involved in those pathways.
+
+Log2(TMP) = Transcripts per million
 
 ## Metabolic pathway selection
 
@@ -129,15 +140,15 @@ For biotype filtering the biotype of each gene was determined (protein coding, R
 
 da eine hohe jaccard summe eine hohe überschneidung mit anderen pathways bedeutet. In einer heatmap sind hohe Jacccard indices weiß bis rot gefährbt. Ein niedriger Jaccard index ist blau gefärbt.
 
-The test for duplicates in between the selected metabolic pathways and between the hallmark pathways and the metabolic pathways the Jaccard index and its sum was calculated. The results can be seen in Figure \@ref(fig:) and Figure \@ref(fig:).
+The test for duplicates in between the selected metabolic pathways and between the hallmark pathways and the metabolic pathways the Jaccard index and its sum were calculated.
 
-One can see, that there are a few duplicates between the metabolic and Hallmark pathways. Similar pathways have a red box, those metabolic pathways with a great sum of Jaccard indices were discarded. The success of cleaning was checked with another heatmap and new Jaccard indices. There are only a few elements with another color than blue. It can be assumed, that the selection of relevant pathways was successful. The number of metabolic pathways could be reduced from xxx to 600.
+There were a few duplicates between the metabolic and Hallmark pathways. Those metabolic pathways with a great sum of Jaccard indices were discarded. The success of cleaning was checked with another heatmap and new Jaccard indices. There are only a few elements with another color than blue. It can be assumed, that the selection of relevant pathways was successful. The number of metabolic pathways could be reduced from xxx to 600.
 
 ## Descriptive analysis
 
 ### Mean-variance plot
 
-In a mean-variance plot the variance is plotted against the mean of expression values of the single genes. Therefore, the variance and mean were calculated by the R-function var(x) and mean(x).
+In a mean-variance plot the variance is plotted against the mean of expression values of the single genes. Therefore, the variance and mean were calculated by the R-function var(x) and mean(x). WARUM MACHT MAN DAS
 
 ### Violin plot
 
@@ -147,34 +158,29 @@ To check the distribution of a data set and compare it with other data sets viol
 
 A volcano plot is used to identify significantly differentially expressed genes. In the following analysis a volcano plot is used to identify which genes are significantly diferentially expressed in the analysed THCA tissue, compared to the analysed normal tissue. Therefore the mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way:
 
-```{r calculate FC, eval=FALSE}
-log2fc.thca = mean.thca.norm - mean.thca.tumor
+log2FC = mean(normal tissue) - mean(tumor tissue)
 
-```
+In the next step, a two-sided t test was performed to determine the significance of a difference in expression.
 
-In the next step, a two-sided t test was performed to determine the significance of a difference in expression:
+To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis:
 
-```{r  ttest, eval=FALSE}
+$$
+ \alpha = \frac{0.025}{n}
+$$
 
-for (i in (1:nrow(thca.norm.va))){
-  x <- t.test(thca.norm.va[i,], thca.tumor.va[i,], alternative = 'two.sided')$p.value
-  p.values <- append(p.values, x)
-}
-```
-
-To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis.
-
-```{r Bonferroni, eval = F}
-bf = 1/n
-alpha = 0.025
-alpha.kor = alpha*bf
-```
-
-In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentialy expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.
+In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentially expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.
 
 ## Comparing of Pathways
 
 After reducing the number of Genes of the Gene Expression data frame and the THCA data by data cleaning, a descriptive analysis was performed with a Mean-variance plot and five violin plots of the TGCA data frame. The descriptive analysis of the THCA data was performed with a volcano plot and the distribution of the Tumor-specific data was displayed with violin plots.
+
+### PCA
+
+The package xxx is used to perform the PCA. Therefore the data obtained from the GSEA was used. After performing the PCA, the results were plotted to visualize the different clusters.
+
+The PCA was performed for pathway and gene activity. For analysis of the gen activity the package xxx was used.
+
+Dazu wurde noch analysiert, wie die Pathways auf die PCs verteilt sind.
 
 # Results
 
@@ -194,7 +200,7 @@ The low-variance filtering of the THCA dataset was done in a similar way. Genes 
 
 #### Biotype filtering
 
-The biotype of the genes from the selected metabolic pathways, the genes of the hallmark pathways and the genes of the gene expression matrix was determined, to keep those genes with the same biotype. Because the most genes are protein-coding, only protein-coding genes were maintained.
+The biotype of the genes from the selected metabolic pathways, the genes of the hallmark pathways and the genes of the gene expression matrix was determined, to keep those genes with the same bio type. Because the most genes are protein-coding, only protein-coding genes were maintained.
 
 ```{r showbiotypeshallmarks, echo=FALSE, eval=TRUE, out.width = '20%', fig.align = "center", fig.cap="**Biotypes of Hallamrk genes**"}
 
@@ -248,4 +254,66 @@ knitr::include_graphics("Volcanoplot.png")
 
 ```
 
-### Ergebnisse von der GSEA, GSVA, UMAP, PCA, Regression analysis
+#### GSEA
+
+The results of the GSEA for THCA tissue can be seen in Figure \@ref(fig:GSEAHeat)
+
+```{r GSEAHeat, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="GSEA performed on the THCA expression data, annotated with Pathway type, histoligical type and cluster."}
+
+knitr::include_graphics("THCA GSEA Heatmap fertig.png")
+```
+
+Horizontal sind die einzelnen Patienten angeordnet, vertikal die pathways, die Heatmap stellt die stärke der Expression der einzelnen pathways in den einzelnen Patienten dar. Rot markierte pathways sind überexprimiert, blaue sind unterexprimiert. Die Achsen wurden mit dem pathway typ, dem hiytological typ und dem cluster annotiert. Es bilden sich innnerhalb der Patienten 3 Cluster, die auf Gemiensamkeiten in der PAthwayaktivität zurückgeführt werden können. Vielleicht hängt die Clusterbildung mit dem histological type zusammen, da eindeutig erkennbar ist, dass in Cluster 3 nur der classical type vorhanden ist, während in Cluster 2 vermehrt Tall cell type auftritt und Folicular type vermehr in Cluster 1 auftritt.
+
+### pan cancer für THCA
+
+Um die Clusterbildung zu bestätigen wurde die gleiche Analyse für die THCA daten aus dem großen gene expression dataframe durchgeführt. Auch in dieser Analyse formten sich 3 Cluster, die in zum Teil auf die hiytological types zurückzuführen sind. xxx
+
+#### GSVA
+
+xxx Was wir aus der Heatmap sehen???
+
+```{r GSVAHeat, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
+
+knitr::include_graphics("GSVA Heatmap fertig.png")
+```
+
+#### PCA
+
+Die PCA wurde anhand der Pathway Aktivitäten durchgeführt und reduziert auf die ersten 2 PCs in Figure \@ref(fig:PCAPanType) dargestellt. Es sind ansatzweise cluster, aber keine eindeutigen Strukturen zu erkennen. Die zusammensetzung der PCs und die Erklärung der AVrianz durch die einzelnen VAriablen kann Figure \@ref(fig:) entnommen werden. BESCHREIBUNG DER PCA UND DER VARIANZVERTEILUNG. Der Plot wurde auch nach Form des Tumors angefärbt und in Figure \@ref(fig:PCAPanForm) dargestellt. Hier ist eine klarere Struktur zu erkennen als bei Anfärbung nach Tumortyp. Daraus lässt sich schließen, dass zumindest die PC1 und PC2 inkludierten Pathways mit der Form des Tumors zusammenhängen.
+
+Um die Ergebnisse zu überprüfen wurde die PCA auch auf die Genaktivität angewendet, es war kein Unterschied zu erkennen.
+
+```{r PCAPanType, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
+
+knitr::include_graphics("Pan Cancer PCA PC1und2.png")
+```
+
+```{r PCAPanForm, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by form of tumor"}
+
+knitr::include_graphics("Pan Cancer PCA PC1und2 cancer form.png")
+```
+
+#### UMAP
+
+DA durch die PCA keine eindeutigen Cluster erkennbar wurden, wurden die Ergebnisse der PCA genutzt, um eine UMAP zu erstellen. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanType) zu sehen. Hier sind eindeutige Cluser zu erkennen, auch wenn die Abstände zwischen den Clustern nicht proportional zu den wahren Unterschieden sind, kann daraus geschlossen werden, dass die einzelnen Tumortypen charakteristische Pathwayaktivitäten haben, wie zum Beispiel KIRC. Viele Tumortypen haben aber auch ähnliche Pathwayaktivitäten wie zum Beispiel GBM und SARC.
+
+Um die Ursache dafür zu finden wurde auch hier die UMAP nach Form des Tumors markiert/gefärbt. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanForm) zu sehen. Es ist eindeutig zu erkennen, dass die Pathwayaktivität auch mit der Form des Tumors zusammenhängt. Zum Beispiel sind Glioblastome eindeutig von Adenocarcinomen getrennt. Allerdings ist auch hier das große Cluster in der Mitte nicht eindeutig einer Tumorform zuzuordnen.
+
+```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by tumor type"}
+
+knitr::include_graphics("Pan Cancer UMAP.png")
+```
+
+```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by form of the tumor"}
+
+knitr::include_graphics("Pan Cancer UMAP cancer form.png")
+```
+
+#### Regression analysis
+
+### Focused analsis
+
+#### PCA
+
+PCA was also performed for focused analysis, um Untergruppen, die mit der Pathwayaktivität oder Genaktivität zusammenhängen, innerhalb der Thyroid tumors zu finden. Dafür wurden zuerst die Ergebnisse der GSEA verwendet. Der Versuch Cluster zu finden gestaltete sich hier leider schwerer, da weder durch Betrachtung des Thyroid Tumortyps, noch durch Betrachtung der Stage ein eindeutiger Zusammenhang erkannt werden konnte.

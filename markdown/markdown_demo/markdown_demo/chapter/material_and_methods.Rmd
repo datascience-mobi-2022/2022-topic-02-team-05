@@ -1,0 +1,90 @@
+# Material and Methods
+
+## Our data sets
+
+For the analysis 4 data sets were provided.
+
+The first data set is a Gene expression data frame. The Gene expression data frame contains 60,000 genes and and their expression in 10,000 patients, and derived from The Cancer Genome Atlas (TCGA). The expression of those genes was obtained by RNA-seq.
+
+The second data frame contains 37 clinical annotations like Tumor type, age, gender, etc. concerning the 10,000 patients from the Gene expression data frame.
+
+The third object contains 5 lists for the focused analysis, one for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA). For the focused analysis the THCA data was used. The THCA data contains 3 data frames, each one with information about the same 60 patients. The first one with gene expression data from THCA tissue, the second one from normal tissue and the third one contains the clinical annotations like age and gender. Gene expression data was obtained by RNA-seq.
+
+The fourth object contains 46 pathways involved in phenotypes partly included in the hallmarks of cancer and the genes involved in those pathways.
+
+SIND DIE DATEN NORMALISIERT ODER ALS COUNTS?
+
+## Metabolic pathway selection
+
+Furthermore metabolic pathways had to be selected from the Molecular Signature Database (MSigDB) (QUELLE) to compare them with the given Hallmark-Pathways and identify more pathways, that are important for the development of cancer. Therefore it was important, that as many genes from the selected pathways as possible are also included in the provided Hallmark pathways. To identify the relevant pathways, the intersection of genes was calculated and the genes with an intersection of at least 99% were maintained for further analysis.
+
+To avoid duplicates in between the metabolic pathways and between the Hallmark pathways and the metabolic pathways, the pathways were checked for duplicates with the Jaccard index. Pathways with a sum of Jaccard indices beyond the 1-sigma range were discarded.
+
+## Preprocessing
+
+### Deleting NAs
+
+Deleting of NAs was done with the R-function na.omit(x).
+
+### Low-variance filtering
+
+Low variance filtering is performed to delete genes with a low variance from the data set. To calculate the variance the r-function var(x) is used and genes with a lower variance than a certain threshold value are removed.
+
+For focused analysis the variance of each gene in tumor tissue was calculated and genes with a low variance were deleted from the data sets for tumor and normal tissue.
+
+### Biotype filtering
+
+For biotype filtering the biotype of each gene was determined (protein coding, RNA,...) and compared with the biotypes of other data sets. To allow an appropriate comparison of the expression data, only biotypes were kept, that are available in a big amount in all of the data sets. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt.
+
+#### Selection of metabolic pathways
+
+da eine hohe jaccard summe eine hohe überschneidung mit anderen pathways bedeutet. In einer heatmap sind hohe Jacccard indices weiß bis rot gefährbt. Ein niedriger Jaccard index ist blau gefärbt.
+
+The test for duplicates in between the selected metabolic pathways and between the hallmark pathways and the metabolic pathways the Jaccard index and its sum were calculated.
+
+There were a few duplicates between the metabolic and Hallmark pathways. Those metabolic pathways with a great sum of Jaccard indices were discarded. The success of cleaning was checked with another heatmap and new Jaccard indices. There are only a few elements with another color than blue. It can be assumed, that the selection of relevant pathways was successful. The number of metabolic pathways could be reduced from xxx to 600.
+
+## Descriptive analysis
+
+### Mean-variance plot
+
+In a mean-variance plot the variance is plotted against the mean of expression values of the single genes. Therefore, the variance and mean were calculated by the R-function var(x) and mean(x).
+
+### Violin plot
+
+To check the distribution of a data set and compare it with other data sets violin plots are used. Violin plots are tilted and mirrored density plots of gene expression values. The y-axis shows the gene expression value and the x-axis shows the amount of genes with a certain gene expression value.
+
+#### Volcano plot
+
+A volcano plot is used to identify significantly differentially expressed genes. In the following analysis a volcano plot is used to identify which genes are significantly diferentially expressed in the analysed THCA tissue, compared to the analysed normal tissue. Therefore the mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way:
+
+$$
+log2FC = mean(normal tissue) - mean(tumor tissue)
+$$
+In the next step, a two-sided t test was performed to determine the significance of a difference in expression.
+
+To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis:
+
+$$
+A \alpha = \frac{0.025}{n}
+$$
+
+In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentially expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.
+
+## Comparing of Pathways
+
+After reducing the number of Genes of the Gene Expression data frame and the THCA data by data cleaning, a descriptive analysis was performed with a Mean-variance plot and five violin plots of the TGCA data frame. The descriptive analysis of the THCA data was performed with a volcano plot and the distribution of the Tumor-specific data was displayed with violin plots.
+
+### PCA
+
+The package xxx is used to perform the PCA. Therefore the data obtained from the GSEA was used. After performing the PCA, the results were plotted to visualize the different clusters.
+
+The PCA was performed for pathway and gene activity. For analysis of the gen activity the package xxx was used.
+
+Dazu wurde noch analysiert, wie die Pathways auf die PCs verteilt sind.
+
+## TCGA data
+
+What kind of data do we have? ## Used Packages
+
+show a table!

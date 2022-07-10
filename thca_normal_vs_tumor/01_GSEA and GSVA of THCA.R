@@ -74,15 +74,18 @@ Heatmap(thca_gsea,
 #---------------------------------------------
 #Analyse der Daten mittels GSVA
 #---------------------------------------------
-#Durchführen eine GSVA zuerst auf Normal und Tumorgewebe
-thca_norm_gsva = gsva(as.matrix(thca_normal_exp_cleaned), pathways,
-                 method = 'gsva',
-                 kcdf = 'Gaussian'  #Da wir kontinuierliche Daten haben
-)
-thca_tumor_gsva = gsva(as.matrix(thca_tumor_exp_cleaned), pathways,
+#Zusammenfügen der Tumor und Normal Exp Daten in einen Df für die GSVA
+thca_exp_data = cbind.data.frame(thca_tumor_exp_cleaned, thca_normal_exp_cleaned)
+
+#Durchführen der GSVA
+thca_gsva_data = gsva(as.matrix(thca_exp_data), pathways,
                       method = 'gsva',
                       kcdf = 'Gaussian'  #Da wir kontinuierliche Daten haben
 )
+
+#Splitten des GSVA Dfs in Tumor und Normalgewebe
+thca_norm_gsva  = thca_gsva_data[, colnames(thca_normal_exp_cleaned) == colnames(thca_gsva_data)]
+thca_tumor_gsva = thca_gsva_data[, colnames(thca_tumor_exp_cleaned) == colnames(thca_gsva_data)]
 
 #--------------------------------------
 #Volcano plot
@@ -98,8 +101,12 @@ for (i in (1:nrow(thca_norm_gsva))){
   thca_pval_gsva = append(thca_pval_gsva, res)
 };rm(i);rm(res)
 
+#Speichern der Pvalues für die Regression zur Selektion eines pathways
+names(thca_pval_gsva) = rownames(thca_gsva_data)
+save(thca_pval_gsva, file = 'data/regression/thca_pval_gsva.RData')
+
 #signifikanzlevel ohne bonferroni 
-alpha = 0.025
+alpha = 0.025 #entspricht 5% für beidseitigen Test
 
 #Erstellen dataframe
 data.thca = data.frame(thca_logFC_gsva, thca_pval_gsva)
@@ -109,17 +116,18 @@ colnames(data.thca) <- c("logFC", "Pvalues", "pathway_names")
 #hinzufügen einer Spalte, die sagt, ob das Gen up- oder downregulated wird
 #hinzufügen einer Spalte diffexpressed mit NOs 
 data.thca$diffexpressed <- "NO"
-#wenn log2Foldchange > 0.1 and pvalue < alpha.kor, set as "UP" 
-data.thca$diffexpressed[data.thca$logFC > 0.00001 & data.thca$Pvalue > alpha] <- "UP"
-# if log2Foldchange < -0.1 and pvalue < 0.05, set as "DOWN"
-data.thca$diffexpressed[data.thca$logFC < -0.00001 & data.thca$Pvalue > alpha] <- "DOWN"
+#wenn log2Foldchange > 0 and pvalue < alpha.kor, set as "UP" 
+data.thca$diffexpressed[data.thca$logFC > 0 & data.thca$Pvalue < alpha] <- "UP"
+# if log2Foldchange < 0 and pvalue < 0.05, set as "DOWN"
+data.thca$diffexpressed[data.thca$logFC < 0 & data.thca$Pvalue < alpha] <- "DOWN"
 
 volcano2 = ggplot(data = data.thca, aes(x = logFC, y = -log10(Pvalues), color = diffexpressed, label = pathway_names)) +
   geom_point() +
   theme_minimal() +
-  ggtitle("Volcanoplot - GSVA of tumor tissue vs GSVA of normal tissue") +
-  geom_text(data = subset(data.thca, -log10(thca_pval_gsva) > 0.5) , size = 1.5, nudge_y = 0.03, check_overlap = TRUE)
-
+  xlab("log2 foldchange") +
+  ylab("-log(P-value)") +
+  ggtitle("Volcanoplot - GSVA of tumor tissue vs normal tissue") +
+  geom_text(data = subset(data.thca, -log10(thca_pval_gsva) > 11) , size = 1.5, nudge_y = 0.03, check_overlap = TRUE)
 
 volcano2
 
@@ -145,13 +153,21 @@ downregulated_geranked <- rank(downregulated$normalized_down)
 
 up_plot <- ggplot(data = upregulated, aes(y = -log10(Pvalues_up), x = rank(log10(Pvalues_up)), label = rownames(upregulated))) + 
   geom_point() + 
-  geom_text(size = 1, hjust = -0.1, check_overlap = TRUE)  
+  geom_text(size = 1, hjust = -0.1, check_overlap = TRUE) +
+  xlab("P-value ranks") +
+  ylab("-log(P-value)") +
+  ggtitle("Pathways upregulated in THCA") +
+  theme_light()
 
 up_plot
 
 down_plot <- ggplot(data = downregulated, aes(y = -log10(Pvalues_down), x = rank(log10(Pvalues_down)), label = rownames(downregulated))) + 
   geom_point() + 
-  geom_text(size = 1, hjust = -0.1, check_overlap = TRUE)  
+  geom_text(data = downregulated, size = 1, hjust = -0.1, check_overlap = TRUE) +
+  xlab("P-value ranks") +
+  ylab("-log(P-value)") +
+  ggtitle("Pathways downregulated in THCA") +
+  theme_light()
 
 down_plot
 
