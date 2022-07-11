@@ -1,11 +1,11 @@
 #--------------------------
-#In diesem Dokument fügen wir unseren Krebsannotationsdaten weitere hinzu,
-#zB Art des Krebs
+#In diesem Dokument fügen wir unseren Krebsannotationsdaten weitere Annotationen hinzu
+#z.B. Art des Krebses
 #--------------------------
 
-tcga_anno = readRDS('~/GitHub/2022-topic-02-team-05/data/tcga_tumor_annotation.RDS')
+tcga_anno = readRDS('data/tcga_tumor_annotation.RDS')
 
-#Data frame der Jedenkrebstyp mit der Foorm des Krebs verbindet
+#Data frame der jeden Krebstyp mit der Foorm des Krebs verbindet
 canc_form = c('Adenocarcinoma', #ACC
               'Transitional cell carcinoma', #BLCA
               'Carcinoma', #BRCA
@@ -39,7 +39,8 @@ canc_form = c('Adenocarcinoma', #ACC
               'Adenocarcinoma', #UCEC
               'Sarcoma', #UCS
               'Melanoma') #UVM
-#Erstelen eines df mit Krebs abbkürzung und der passenden Krebsform
+
+#Erstelen eines dataframes mit Krebsabbkürzungen und der entsprechenden Krebsform
 Cancer_form_anno = cbind.data.frame(names(table(tcga_anno$cancer_type_abbreviation)), canc_form)
 colnames(Cancer_form_anno) = c('Cancer_Abb', 'Cancer_form')
 
@@ -53,14 +54,14 @@ save(Cancer_form_anno, file = 'data/Cancer_form_anno.RData')
 
 
 #-------------------------------------------------
-#Anschließend bennen wir die Histological grade für unsere THCA annotation um
-#sodass nicht Thyroid Papillary Carcinoma davor steht
+#Hinzufügen der histological grade zu den THCA Annotationsdaten
 #-------------------------------------------------
 load('data/thca_anno.RData')
 
-#Umbennen der Histologischen stufe (entfernen der unnötigen vorsatzes THCA)
+#Umbennen der Histologischen Stufe (entfernen der unnötigen Vorsatzes THCA)
 thca_anno$histological_type = sapply(thca_anno$histological_type, FUN = function(x){
   return(strsplit(x, split = '- ', fixed = TRUE)[[1]][2])})
+
 #Alle NAs werden other genannt
 thca_anno$histological_type[is.na(thca_anno$histological_type)] = 'other'
 

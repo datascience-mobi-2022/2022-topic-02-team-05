@@ -1,8 +1,9 @@
 #--------------------------------------
-# In diesem Dkument nehemn wir die GSEA Daten und f?hren eine PCA sowie wie
-# ein clustering der transformierten Daten durch so k?nnen wir hoffentlich verschiedenen
-# unterschiedliche Pathway activt?ten zuordnen
+#In diesem Dokument nehmen wir die GSEA Daten und führen eine PCA, sowie 
+#ein clustering der transformierten Daten durch. So können wir verschiedene
+#unterschiedliche Pathwayaktivitäten zuordnen
 #------------------------------------------
+
 library(ggplot2)
 library(metaplot)
 library(gridExtra)
@@ -12,9 +13,11 @@ library(umap)
 load('data/tcga_gsva.RData')
 load('data/tcga_anno.RData')
 
+
 #--------------------------------------------
-#Durchf?hren der PCA und UMAP
+#Durchführen der PCA und UMAP
 #---------------------------------------------
+
 set.seed(123)
 PCA = prcomp(t(tcga_gsva))
 PCA_data = as.data.frame(PCA$x)
@@ -42,7 +45,8 @@ ggplot(PCA_data, aes(x = PC1, y = PC2, color = type)) + geom_point(size = 2) +
   theme(legend.key = element_rect(fill = 'white')) +
   theme_minimal() +
   guides(color = guide_legend(override.aes = list(size = 5)))
-#Plottet unserer UMAP mit Krebsarten nach Farbe
+
+#Plottet die UMAP mit Krebsarten nach Farbe
 ggplot(UMAP_data, aes(x = V1, y = V2, color = type)) + geom_point(size = 1) +
   scale_color_manual(values = colours) +
   labs(title = 'UMAP of TCGA pathway activity') +
@@ -78,21 +82,18 @@ ggplot(UMAP_data, aes(x = V1, y = V2, color = form)) + geom_point(size = 1) +
 #------------------------------------------------------------
 #zum Vergelich führen wir nun PCA und UMAP auf den Genen statt auf den Pathway
 #Aktivitäten durch
-#Problem normale PCA dauert zu lange => iterative factor analysis FA
+#Problem: normale PCA dauert zu lange => iterative factor analysis FA
 # => neues Package psych package
 #------------------------------------------------------------
+
 library(psych)
 set.seed(123)
 load('data/tcga_exp_cleaned.RData')
 
 FA = fa(tcga_exp_cleaned, fm = 'pa', #pa da wir die principle factors wollen
-       nfactors = 5, #Gibt uns nur die ersten 5 faktoren
-       rotate = 'varimax' #Rotiert die Matrix orthogonal sodass die Ergebnisse unkorr. sind
+       nfactors = 5, #Gibt uns nur die ersten 5 Faktoren
+       rotate = 'varimax' #Rotiert die Matrix orthogonal sodass die Ergebnisse unkorreliert sind
        )
-# In cor.smooth(R) :
-#   I am sorry, there is something seriously wrong with the correlation matrix,
-# cor.smooth failed to  smooth it because some of the eigen values are NA.  
-# Are you sure you specified the data correctly?
 
 save(FA, file = 'data/FA.RData')
 
@@ -122,16 +123,11 @@ ggplot(UMAP_genes_data, aes(x = V1, y = V2, color = form)) + geom_point(size = 1
   guides(color = guide_legend(override.aes = list(size = 5)))
 
 
-
-
-
 #--------------------------------------------
-#Visualisierung von erklärt varianz und den Pathwaykomponenten
+#Visualisierung von der durch die PCs erklärten Varianz und den Pathwaykomponenten
 #----------------------------------------------
 
-#--------------------------------
-#Varianz die erkl?rt wird
-#--------------------------------
+#Varianz die erklärt wird
 PCs = 1:658; var_prop = PCA$sdev^2/sum(PCA$sdev^2); var_cum = cumsum(var_prop)
 Var = cbind.data.frame(PCs, var_prop, var_cum)
 v1 = ggplot(Var[1:10,], aes(PCs, var_prop)) + geom_point()+
@@ -143,7 +139,7 @@ v2 = ggplot(Var[1:10,], aes(PCs, var_cum)) + geom_point()+
   scale_x_continuous(name = 'Principle Components', breaks = 1:10)
 grid.arrange(grobs = list(v1,v2), ncol= 2)
 
-#visualisierung der pathways die in einer PC stecken
+#visualisierung der pathways, die in einer PC stecken
 pathways = as.data.frame(PCA$rotation)
 pathways$names = row.names(pathways)
 

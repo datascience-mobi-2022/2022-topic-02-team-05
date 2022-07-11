@@ -7,9 +7,12 @@ library(umap)
 load('data/thca_gsea.RData')
 load('data/thca_anno.RData')
 
+
 #--------------------------------------------
-#Durchf?hren der PCA und UMAP
+#Durchführen der PCA und UMAP auf die GSEA Werte
 #---------------------------------------------
+
+#PCA
 set.seed(123)
 PCA = prcomp(t(thca_gsea))
 PCA_data = as.data.frame(PCA$x)
@@ -17,6 +20,7 @@ PCA_data$stage = thca_anno$ajcc_pathologic_tumor_stage
 PCA_data$gender = thca_anno$gender
 PCA_data$type = sapply(thca_anno$histological_type, FUN = function(x){return(strsplit(x, split = '-', fixed = TRUE)[[1]][2])})
 
+#UMAP
 UMAP = umap(PCA$x)
 UMAP_data = as.data.frame(UMAP$layout)  #UMAP der PCA-Daten
 UMAP_data$stage = thca_anno$ajcc_pathologic_tumor_stage
@@ -33,7 +37,8 @@ ggplot(PCA_data, aes(x = PC1, y = PC2, color = stage, shape = type)) + geom_poin
   theme(legend.key = element_rect(fill = 'white')) +
   theme_minimal() +
   guides(color = guide_legend(override.aes = list(size = 5)))
-#Plottet unserer UMAP
+
+#Plottet die UMAP
 ggplot(UMAP_data, aes(x = V1, y = V2, color = stage, shape = type)) + geom_point(size = 2) +
   scale_color_manual(values = colours) +
   labs(title = 'UMAP of THCA Pathway activity') +
@@ -43,9 +48,10 @@ ggplot(UMAP_data, aes(x = V1, y = V2, color = stage, shape = type)) + geom_point
 
 
 #--------------------------------------
-#Zum Vergleichen führen wir nun auch PCA und UMAP auf die reinen Exp Daten durch
-#Dau verwenden wir den log2FC
+#Zum Vergleichen führen wir nun auch PCA und UMAP auf die reinen Expressionsdaten durch
+#Dazu verwenden wir den log2FoldChange
 #--------------------------------------
+
 set.seed(123)
 load('data/thca_normal_exp_cleaned.RData')
 load('data/thca_tumor_exp_cleaned.RData')
@@ -75,7 +81,8 @@ ggplot(PCA_genes_data, aes(x = PC1, y = PC2, color = type)) + geom_point(size = 
   theme(legend.key = element_rect(fill = 'white')) +
   theme_minimal() +
   guides(color = guide_legend(override.aes = list(size = 5)))
-#Plottet unserer UMAP
+
+#Plottet die UMAP
 ggplot(UMAP_genes_data, aes(x = V1, y = V2, color = type)) + geom_point(size = 2) +
   scale_color_manual(values = type.col) +
   labs(title = 'UMAP of THCA expression data') +
