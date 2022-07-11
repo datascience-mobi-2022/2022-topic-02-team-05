@@ -1,5 +1,5 @@
 #-----------------------------------
-#f?r jedes gen p-ewrt berechnen vorher foldchange, log von foldchange xachse, y achse pwert, twosided ttest
+#Für jedes Gen foldchange berechnen und p-Wert via two-sided t-Test 
 #---------------------
 library(ggplot2)
 
@@ -12,26 +12,24 @@ thca.norm <- tcga_tumor_norm$THCA$normal
 #Preproscessing
 #--------------------------------------------------------------------------------
 
-#Na#s rauswerfen
-gc() #gibt arbeitsspeciher frei der f?r die gro?en datenmengen gebraucht wird
+#Nass rauswerfen
+gc() #gibt Arbeitsspeicher frei
 thca_tumor_normal <- tcga_tumor_norm$THCA
 thca.norm <- thca_tumor_normal$normal
 thca.tumor <- thca_tumor_normal$tumor
 thca.norm <- na.omit(thca.norm)
 thca.tumor <- na.omit(thca.tumor)
 
-#Berrechnen der Varianz
+#Berechnen der Varianz
 thca.tumor.var = apply(thca.tumor, 1, var)
 thca.norm.var = apply(thca.norm, 1, var)
 
-#PLotten als Histogramm: Logarythmus, damit man was sieht: sonst alle sehr kleine Varianzen!
+#Plotten als Histogramm: logarithmisch, da sehr kleine Varianzen
 hist(log(thca.tumor.var), breaks = 50, probability = TRUE)
 hist(log(thca.norm.var), breaks = 50, probability = TRUE)
 
-#cutting der gene mit sehr niedriger exression d.h. log(var) < -1
-#erstmal willk?rlich festgestzt 
-#die Werte d?rfen ja nur gel?scht werden wenn sie in beiden eine niedrige Varianz haben
-
+#cutting der Gene mit sehr niedriger Expression d.h. log(var) < -1
+#die Werte werden nur gelöscht, wenn die Varianz in tumor tissue und normal tissue niedrig ist
 thca.tumor.v = thca.tumor[log(thca.tumor.var) > -1 | log(thca.norm.var) > -1, ]
 thca.norm.v = thca.norm[log(thca.tumor.var) > -1 | log(thca.norm.var) > -1, ]
 thca.tumor.va = na.omit(thca.tumor.v)
@@ -47,7 +45,7 @@ mean.thca.norm = apply(thca.norm.va, 1, mean)
 
 
 #-----------------------------------------------------------------------------------
-#Foldchange(FC) besrechnen!
+#Foldchange(FC) berechnen
 #den log2FC_gene bekommen wir durch mean(condition1) - mean(condition2) 
 #-----------------------------------------------------------------------------------
 
@@ -62,8 +60,9 @@ for (i in (1:nrow(thca.norm.va))){
   p.values <- append(p.values, x)
 }
 
+
 #-----------------------------
-#Bonferroni-Adjustment, um alphafehlerkummulation zu vermeiden
+#Bonferroni-Adjustment, um Alphafehlerkummulation zu vermeiden
 #-----------------------------
 
 n = nrow(thca.norm.va)
@@ -101,15 +100,16 @@ thca_genes = cbind.data.frame(thca_geneids,thca_genenames)
 
 rownames(data.thca) <- thca_geneids 
 
-#neue spalte mit Genenames
+#neue Spalte mit Gennamen
 cbind.data.frame(data.thca, thca_genenames) -> data.thca
 
-#hinzufügen einer Spalte, die sagt, ob das Gen up- oder downregulated wird
-#hinzufügen einer Spalte diffexpressed mit NOs 
+#Hinzufügen einer Spalte, die sagt, ob das Gen up- oder downregulated wird
+#Hinzufügen einer Spalte diffexpressed mit NOs 
 data.thca$diffexpressed <- "NO"
-#wenn log2Foldchange > 0.1 and pvalue < alpha.kor, set as "UP" 
+
+#wenn log2Foldchange > 0.1 und pvalue < alpha.kor, als "UP" definiert
 data.thca$diffexpressed[data.thca$log2fc.thca > 0.1 & data.thca$p.value < alpha.kor] <- "UP"
-# if log2Foldchange < -0.1 and pvalue < 0.05, set as "DOWN"
+#wenn log2Foldchange < -0.1 und pvalue < 0.05, als "DOWN" definiert
 data.thca$diffexpressed[data.thca$log2fc.thca < -0.1 & data.thca$p.value < alpha.kor] <- "DOWN"
 
 

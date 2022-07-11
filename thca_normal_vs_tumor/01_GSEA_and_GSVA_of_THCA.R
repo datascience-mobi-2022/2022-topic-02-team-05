@@ -1,5 +1,5 @@
 #-------------------------------
-#In diesem Dokument werden wir eine GSEA für THCA mit allen unseren Pathways durchführen
+#In diesem Dokument werden wir eine GSEA und GSVA für THCA mit allen unseren pathways durchführen
 #-------------------------------
 
 #if (!require("BiocManager", quietly = TRUE))
@@ -23,13 +23,14 @@ load('data/pathways.RData')
 GSEA = function(patientsorted, pathways){
   res = fgseaMultilevel(pathways = pathways, 
                         stats = patientsorted)
-  #extrahieren der NES werte & nullsetzten aller NAs
+  #extrahieren der NES werte & Nullsetzten aller NAs
   ret = res$ES; names(ret) = res$pathway
   message('I?m still standing')
   return(ret)
 }
-#Liste mit nach Sortierten patienten erstellen
-#hierzu wird zuerst der FC zw tumor und normalgewebe berrechnet und dann jeder patient
+
+#Liste mit sortierten Patienten erstellen
+#hierzu wird zuerst der foldchange zwischen Tumor- und Normalgewebe berechnet und dann jeder Patient
 #danach sortiert
 log2FC = thca_tumor_exp_cleaned - thca_normal_exp_cleaned
 patient_sorted = apply(log2FC, 2, FUN = function(x){sort(x, decreasing = TRUE)}, simplify = F)
@@ -38,9 +39,11 @@ patient_sorted = apply(log2FC, 2, FUN = function(x){sort(x, decreasing = TRUE)},
 thca_gsea = sapply(patient_sorted, FUN = function(x){GSEA(x, pathways)})
 save(thca_gsea, file = 'data/thca_gsea.RData')
 
+
 #-----------------------------------------------
 #Darstellung der GSEA Ergebnisse als Heatmap
 #-----------------------------------------------
+
 #Annotationen für die Pathways                              
 path.anno = rowAnnotation(Pathway = c(rep('met',611),rep('hall', 46)),
                           col = list(Pathway = c("met" = "deepskyblue", "hall" = "blue4")),
@@ -74,6 +77,7 @@ Heatmap(thca_gsea,
 #---------------------------------------------
 #Analyse der Daten mittels GSVA
 #---------------------------------------------
+
 #Zusammenfügen der Tumor und Normal Exp Daten in einen Df für die GSVA
 thca_exp_data = cbind.data.frame(thca_tumor_exp_cleaned, thca_normal_exp_cleaned)
 
@@ -87,26 +91,27 @@ thca_gsva_data = gsva(as.matrix(thca_exp_data), pathways,
 thca_norm_gsva  = thca_gsva_data[, colnames(thca_normal_exp_cleaned) == colnames(thca_gsva_data)]
 thca_tumor_gsva = thca_gsva_data[, colnames(thca_tumor_exp_cleaned) == colnames(thca_gsva_data)]
 
+
 #--------------------------------------
-#Volcano plot
+#Volcano plot erstellen
 #--------------------------------------
 
-#Berrechnen des Foldchanges zwischen beiden Daten
+#Berechnen des foldchanges zwischen beiden Daten
 thca_logFC_gsva = apply(thca_tumor_gsva, 1, mean) - apply(thca_norm_gsva, 1, mean)
 
-#pvalue berechen
+#p-Value berechen
 thca_pval_gsva = c()
 for (i in (1:nrow(thca_norm_gsva))){
   res = wilcox.test(thca_tumor_gsva[i,], thca_norm_gsva[i,], alternative = 'two.sided')$p.value
   thca_pval_gsva = append(thca_pval_gsva, res)
 };rm(i);rm(res)
 
-#Speichern der Pvalues für die Regression zur Selektion eines pathways
+#Speichern der p-Values für die Regression zur Selektion eines pathways
 names(thca_pval_gsva) = rownames(thca_gsva_data)
 save(thca_pval_gsva, file = 'data/regression/thca_pval_gsva.RData')
 
-#signifikanzlevel ohne bonferroni 
-alpha = 0.025 #entspricht 5% für beidseitigen Test
+#Signifikanzlevel ohne bonferroni 
+alpha = 0.025 #,da beidseitiger Test
 
 #Erstellen dataframe
 data.thca = data.frame(thca_logFC_gsva, thca_pval_gsva)
@@ -116,9 +121,10 @@ colnames(data.thca) <- c("logFC", "Pvalues", "pathway_names")
 #hinzufügen einer Spalte, die sagt, ob das Gen up- oder downregulated wird
 #hinzufügen einer Spalte diffexpressed mit NOs 
 data.thca$diffexpressed <- "NO"
-#wenn log2Foldchange > 0 and pvalue < alpha.kor, set as "UP" 
+
+#wenn log2Foldchange > 0 und pvalue < alpha.kor, als "UP" definieren
 data.thca$diffexpressed[data.thca$logFC > 0 & data.thca$Pvalue < alpha] <- "UP"
-# if log2Foldchange < 0 and pvalue < 0.05, set as "DOWN"
+# if log2Foldchange < 0 and pvalue < 0.05, als "DOWN" definieren
 data.thca$diffexpressed[data.thca$logFC < 0 & data.thca$Pvalue < alpha] <- "DOWN"
 
 volcano2 = ggplot(data = data.thca, aes(x = logFC, y = -log10(Pvalues), color = diffexpressed, label = pathway_names)) +
@@ -133,7 +139,7 @@ volcano2
 
 
 #---------------------------------------------
-#Plotten des P-Werts aller überexprimierten und aller unterexprimierten Gene 
+#Plotten der P-Werte aller überexprimierten und aller unterexprimierten Gene 
 #---------------------------------------------
 
 upregulated <- as.data.frame(data.thca$Pvalues[data.thca$diffexpressed == "UP"])
@@ -151,6 +157,7 @@ cbind(downregulated, normalized_down) -> downregulated
 upregulated_geranked <- rank(upregulated$normalized_up)
 downregulated_geranked <- rank(downregulated$normalized_down)
 
+#plotten der pathways, die in THCA upregulated sind
 up_plot <- ggplot(data = upregulated, aes(y = -log10(Pvalues_up), x = rank(log10(Pvalues_up)), label = rownames(upregulated))) + 
   geom_point() + 
   geom_text(size = 1, hjust = -0.1, check_overlap = TRUE) +
@@ -161,6 +168,7 @@ up_plot <- ggplot(data = upregulated, aes(y = -log10(Pvalues_up), x = rank(log10
 
 up_plot
 
+#plotten der pathways, die in THCA downregulated sind
 down_plot <- ggplot(data = downregulated, aes(y = -log10(Pvalues_down), x = rank(log10(Pvalues_down)), label = rownames(downregulated))) + 
   geom_point() + 
   geom_text(data = downregulated, size = 1, hjust = -0.1, check_overlap = TRUE) +
@@ -170,22 +178,3 @@ down_plot <- ggplot(data = downregulated, aes(y = -log10(Pvalues_down), x = rank
   theme_light()
 
 down_plot
-
-
-#volcano <- ggplot(data = data.thca, aes(x = log2fc.thca, y = -log10(p.values), color = diffexpressed, label = thca_genenames)) +
-  #geom_point() + 
-  #theme_minimal() + 
-  #ggtitle("Volcanoplot") + 
-  #geom_hline(yintercept = -log10(alpha.kor), col = "black", show.legend = TRUE) + 
-  #geom_text(data = subset(data.thca, -log10(p.values) > 22), size = 2, check_overlap = TRUE, nudge_x = 0.1, nudge_y = 0.8, color = "black")
-
-# #Volcanoplot
-# alpha.kor = 0.1 #Siginfikanzniveau
-# load('data/thca_genes_cleaned.RData')
-# thca_volcano = data.frame(thca_logFC_gsva, thca_pval_gsva) #die 2 Vektoren f?r unseren Volcano PLot werden in einen df gepackt, damit daraus ein plot erstellt werden kann
-# with(thca_volcano, plot(thca_volcano$thca_logFC_gsva, -log10(thca_volcano$thca_pval_gsva), main = "Volcano plot of THCA pathway activity", xlab='log2(foldchange)',
-#                      ylab = '-log10(Pvalues)', pch = 20))
-# 
-# with(subset(thca_volcano, thca_logFC_gsva>alpha.kor & thca_pval_gsva < alpha.kor), points(thca_logFC_gsva, -log10(thca_pval_gsva), col="orange", pch = 20))
-# with(subset(thca_volcano, thca_logFC_gsva< -alpha.kor & thca_pval_gsva < alpha.kor), points(thca_logFC_gsva, -log10(thca_pval_gsva), col="green", pch = 20))
-# with(subset(thca_volcano, abs(thca_logFC_gsva) < alpha.kor | thca_pval_gsva > alpha.kor), points(thca_logFC_gsva, -log10(thca_pval_gsva), pch=19, col="gray"))

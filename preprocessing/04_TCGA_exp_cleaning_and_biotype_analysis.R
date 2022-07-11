@@ -16,9 +16,9 @@ load("data/our_genesets_final.RData")
 #Cleaning der TCGA Expressionsdaten nach Varianz
 #----------------------------------------------
 
-#checking for NAs
-gc() #gibt arbeitsspeciher frei
-tcga_exp_narm = na.omit(tcga_exp) #keine na's vorhanden!
+#Überprüfen, ob es NAs gibt
+gc() #gibt Arbeitsspeicher frei
+tcga_exp_narm = na.omit(tcga_exp) #keine NAs vorhanden!
 
 #Berrechnen der Varianz aller Gene
 tcga_exp_var = apply(tcga_exp_narm, 1, var)
@@ -26,15 +26,16 @@ tcga_exp_var = apply(tcga_exp_narm, 1, var)
 #Plotten als Histogramm
 hist(log(tcga_exp_var), breaks = 50, probability = TRUE)
 
-#cutting der Gene mit sehr niedriger Expression d.h. log(var) < -1
+#Herausschneiden der Gene mit sehr niedriger Expression d.h. log(var) < -1
 tcga_exp_hvar = tcga_exp_narm[log(tcga_exp_var) > -1, ] #Expressionsdaten der hochvarianten Gene!
 save(tcga_exp_hvar, file = 'data/tcga_exp_hvar.RData')
 
+
 #-----------------------------------------------
-# Analyse der Biotypes unserer pathways, Dr. Herrmanns pathways und den tcga expressionsdaten
+#Analyse der Biotypes unserer pathways, Dr. Herrmanns pathways und der TCGA Expressionsdaten
 #-----------------------------------------------
 
-#function die Gennamen nimmt und daf?r den gentypen gibt
+#Funktion, die Gennamen nimmt und dafür den Gentypen gibt
 mart = useEnsembl(dataset = "hsapiens_gene_ensembl", biomart='ensembl')
 checkbiotypes = function(pathway){
 
@@ -47,14 +48,15 @@ message('Let me check that for you :D')
 return(res)
 }
 
+
 #-----------------------------------------
-#gene biotypes unserer Metabolic pathways bestimmen
+#gene biotypes unserer metabolic pathways bestimmen
 #-----------------------------------------
 
 our_genesets_biotypes = sapply(our_genesets_final, checkbiotypes)
 our_genesets_biotypes = our_genesets_biotypes[2,]
 
-#plotten einer gesamt?bersicht ?ber die biotypes aller unserer pathways
+#plotten einer Gesamtübersicht über die biotypes aller unserer pathways
 res = NULL
 for (i in 1:length(our_genesets_biotypes)){
   res = c(res, our_genesets_biotypes[[i]])
@@ -68,14 +70,13 @@ ggplot(x, aes(Biotype, Ammount)) + geom_bar(stat = 'identity') +
 
 
 #----------------------------------
-#gene biotypes von carls pathways bestimmen
+#gene biotypes von Dr. Herrmanns pathways bestimmen
 #----------------------------------
 
 genesets_biotypes = sapply(genesets_ids, checkbiotypes)
 genesets_biotypes = genesets_biotypes[2,]
 
-
-#plotten einer ?bersicht ?ber die biotypes von carls hallmark pathways
+#plotten einer Übersicht über die biotypes von carls hallmark pathways
 res = NULL
 for (i in 1:length(genesets_biotypes)){
   res = c(res, genesets_biotypes[[i]])

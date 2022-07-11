@@ -1,6 +1,6 @@
-#In diesem Dokument werden wir einen GSVA für unserer Pancancer Analyse
-#durchführen um diese Daten dann mit der Z-Transformierten GSEA zu vergleichen
 #--------------------------------------------------------
+#In diesem Dokument werden wir eine GSVA für unserer Pancancer Analyse
+#durchführen um diese Daten dann mit der z-transformierten GSEA zu vergleichen
 #--------------------------------------------------------
 
 #BiocManager::install("GSVA")
@@ -21,9 +21,11 @@ tcga_gsva = gsva(as.matrix(tcga_exp_cleaned), pathways,
 
 save(tcga_gsva, file = 'data/tcga_gsva.RData')
 
+
 #-------------------------------------
 #Plotten der GSVA pathway activity mit complex Heatmap
 #-------------------------------------
+
 #Farben für Krebstypen definieren
 patient.col = c('blue4','dodgerblue4','deepskyblue','cyan',
             'lightblue1','aquamarine','chartreuse4',
@@ -35,7 +37,7 @@ patient.col = c('blue4','dodgerblue4','deepskyblue','cyan',
             'maroon','wheat1','snow3','gray29','black')
 names(patient.col) = names(table(tcga_anno$cancer_type_abbreviation))
 
-#Fraben für die Art des Krebses definieren
+#Farben für die Art des Krebses definieren
 form.col = c('Adenocarcinoma' = 'deepskyblue3',
              'Squamous cell carcinoma' = 'dodgerblue4',
              'Transitional cell carcinoma' = 'deepskyblue',
@@ -82,12 +84,13 @@ Heatmap(tcga_gsva[,1:500],
         left_annotation = path.anno
 )
 
+
 #--------------------------
-#Diese letzte Heatmap vergleicht nun die Durchschnittlichen expressionwerte für
+#Diese letzte heatmap vergleicht nun die durchschnittlichen Expressionwerte für
 #einen Krebstyp mit dem Rest
 #--------------------------
 
-#Liste mit Df mit GSVA daten für jeden Krebs
+#Liste mit dataframe mit GSVA daten für jeden Krebs
 cancers_gsva = list(); cancers_gsva = vector('list',length(table(tcga_anno$cancer_type_abbreviation)))
 names(cancers_gsva) = names(table(tcga_anno$cancer_type_abbreviation))
 i=1; for (i in 1:length(cancers_gsva)){
@@ -96,7 +99,7 @@ i=1; for (i in 1:length(cancers_gsva)){
 cancers_gsva_means = lapply(cancers_gsva, FUN = function(x){
   apply(x, 1, median)
 })
-#Matrix mit den Mittlewerten der Pathway activity für jden Krebs
+#Matrix mit den Mittelwerten der Pathwayaktivität für jeden Krebs
 means_data = matrix(unlist(cancers_gsva_means), ncol = 33, dimnames = list(
   names(pathways), names(table(tcga_anno$cancer_type_abbreviation))
 ))

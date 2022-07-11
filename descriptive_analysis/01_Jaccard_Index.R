@@ -1,6 +1,6 @@
 #----------------------------------------------
-# In diesem Dokument suchen wir Gemeinsamkeiten zwischen den Hallmarkgenen und unseren Pathways
-# Verwendung des Jaccard-Indexes (Schnittmenge im Verh?ltnis zur Vereinigungsmeng)
+#In diesem Dokument suchen wir Gemeinsamkeiten zwischen den Hallmarkgenen und unseren Pathways
+#Verwendung des Jaccard-Indexes (Schnittmenge im Verh?ltnis zur Vereinigungsmeng)
 #----------------------------------------------
 
 #loading data:
@@ -9,9 +9,12 @@ load("data/our_genesets_final.RData")
 load("data/geneset_ids.RData")
 
 
-# Jaccard-Index zwischen Genen:
-# f?r jedes Listenelement aus our_genesets(Vektor mit Gennamen) schauen ob es in Hallmark_geneset 1 drinnen ist
-# wenn es drinnen ist: count+1 in Matrix; dann n?chstes Gen
+#----------------------------------------------
+#Jaccard Index zwischen den Genen
+#----------------------------------------------
+
+#für jedes Listenelement aus our_genesets(Vektor mit Gennamen) schauen, ob es in Hallmark_geneset 1 drinnen ist
+#wenn es drinnen ist: count+1 in Matrix; dann n?chstes Gen
 
 # leeren Data-frame erstellen:
 
@@ -20,8 +23,7 @@ data.jaccard <- data.frame(matrix(ncol=length(our_genesets_final), nrow = length
 colnames(data.jaccard) <- names(our_genesets_final) #n
 rownames(data.jaccard) <- names(genesets_ids) #m
 
-#jaccard_index:
-
+#jaccard_index berechnen
 n = 1
 m = 1
 
@@ -36,8 +38,8 @@ jaccard <- function(a, b) {
 
 
 #---------------------------------------------------------------------
-# Jaccardindex f?r all unsere Pathways vs die Hallmarkpathways einzeln darstellen
-# zum Herausfinden der ?hnlichkeit der Pathways
+#Jaccardindex für all unsere Pathways vs die Hallmarkpathways einzeln darstellen
+#um die Ähnlichkeit der Pathways zu bestimmen
 #---------------------------------------------------------------------
 
 for (set_our in our_genesets_final){
@@ -51,12 +53,7 @@ for (set_our in our_genesets_final){
   n <- n+1
 }
 
-
-# Darstellung des Jaccardindexes (Zahl zwischen 0 und 1) mithilfe einer Heatmap:
-
-#heatmap(as.matrix(data.jaccard), mar = c(12.5,10), main= 'Similarity of hallmark and our genesets', xlab = 'our genesets', ylab = 'hallmark genesets')
-library(pheatmap)
-
+# Darstellung des Jaccardindices (Zahl zwischen 0 und 1) mithilfe einer Heatmap
 pheatmap(as.matrix(data.jaccard),
          color = colorRampPalette(c("lightskyblue", "lightcyan", "white", "yellow", "orange", "red"),
                                   bias = 1,
@@ -72,8 +69,7 @@ pheatmap(as.matrix(data.jaccard),
 )
 
 
-#performing the same (jaccard index) for our-genesets against themselves and the hallmark genesets:
-
+#performing the same (jaccard index) for our-genesets against themselves and the hallmark genesets
 data.jaccard.our <- data.frame(matrix(ncol=length(our_genesets_final), nrow = length(our_genesets_final)))
 data.jaccard.hm <- data.frame(matrix(ncol=length(genesets_ids), nrow = length(genesets_ids)))
 
@@ -111,7 +107,7 @@ for (set_hm1 in genesets_ids){
 
 
 #--------------
-#heatmaps:
+#heatmaps
 #--------------
 
 #our genesets vs themselves

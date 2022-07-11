@@ -1,7 +1,9 @@
 #-----------------------------------------
-#im folgenden extrahieren wir aus der heatmap nur den THCA Datensatz um eventuell subtypen in 
-#unserem tuor zu finden dazu wie sonst auch PCA UMAP und dann Heatmap
+#im Folgenden extrahieren wir aus der heatmap nur den THCA Datensatz um eventuell Subtypen in 
+#unserem Tumor zu finden
+#Außerdem PCA und UMAP und dann beide als heatmap
 #-----------------------------------------
+
 library(ggplot2)
 library(metaplot)
 library(gridExtra)
@@ -14,46 +16,38 @@ load('data/tcga_gsva.RData')
 load('data/tcga_anno.RData')
 set.seed(123)
 
+
 #----------------------------
 #slicen der Daten
 #----------------------------
+
 thca_gsva = tcga_gsva[,tcga_anno$cancer_type_abbreviation == 'THCA']
 thca_pan_anno = tcga_anno[tcga_anno$cancer_type_abbreviation == 'THCA',]
 
 #Umbennen der Histologischen stufe (entfernen der unnötigen vorsatzes THCA)
 thca_pan_anno$histological_type = sapply(thca_pan_anno$histological_type, FUN = function(x){
   return(strsplit(x, split = '- ', fixed = TRUE)[[1]][2])})
+
 #Alle NAs werden other genannt
 thca_pan_anno$histological_type[is.na(thca_pan_anno$histological_type)] = 'other'
+
 
 #---------------------------
 #PCA
 #---------------------------
+
 PCA_thca = prcomp(t(thca_gsva))
 PCA_data_thca = as.data.frame(PCA_thca$x)
 PCA_data_thca$hist = thca_pan_anno$histological_type
 
+
 #---------------------------
 #UMAP
 #---------------------------
+
 UMAP_thca = umap(PCA_thca$x)
 UMAP_data_thca = as.data.frame(UMAP_thca$layout)  #UMAP der PCA-Daten
 UMAP_data_thca$hist = thca_pan_anno$histological_type
-
-#----------------------------------
-#kmeans clustering der Daten
-#----------------------------------
-#Beste clustering form durch silhouette plot herausfinden
-# set.seed(123)
-# silhouette_score = function(k){
-#   km <- kmeans(t(thca_gsva), centers = k, nstart=25)
-#   ss <- silhouette(km$cluster, dist(t(thca_gsva)))
-#   mean(ss[, 3])
-# }
-# k = 2:10; avg_sil = sapply(k, silhouette_score)
-# plot(k, type='b', avg_sil, xlab='Number of clusters', ylab='Average Silhouette Scores', frame=FALSE)
-# #=> Der Silhouette plot zeigt, 2 Cluster sind die beste Anzahl für die Daten
-# #Kmeans clustern mit 2 Zentren und zuordnug der Punkte
 
 #In der großen pancancer Daten sehen wir drei Cluster
 km_data = kmeans(t(thca_gsva), centers = 3)
@@ -65,26 +59,28 @@ cluster = sapply(km_data$cluster, FUN = function(x){
 PCA_data_thca$Cluster = cluster
 UMAP_data_thca$Cluster = cluster
 
-#Wir sehen auch drei histologisch unterschiedliche subtypen in den annotationen
-#Plottet unserer PCA
+#Wir sehen auch drei histologisch unterschiedliche Subtypen in den Annotationen
+
+#Plottet unsere PCA
 ggplot(PCA_data_thca, aes(x = PC1, y = PC2, col = Cluster, shape = hist)) + 
   geom_point(size = 2) +
   labs(title = 'PCA of THCA cancer pathway activity') +
   theme_minimal()
-#Plottet unserer UMAP
+
+#Plottet unsere UMAP
 ggplot(UMAP_data_thca, aes(x = V1, y = V2, col = Cluster, shape = hist)) + 
   geom_point(size = 1) +
   labs(title = 'UMAP of THCA cancer pathway activity') +
   theme_minimal()
 
-#Plotten der Heatmap mit patienten in Drei Clustern
+#Plotten der Heatmap mit Patienten in Drei Clustern
 #Annotationen für die Pathways                              
 path.anno = rowAnnotation(Pathway = c(rep('met',612),rep('hall', 46)),
                           col = list(Pathway = c("met" = "deepskyblue", "hall" = "blue4")),
                           annotation_legend_param = list(title = 'Pathway type',
                                                          at = c('met', 'hall'),
                                                          labels = c('Metabolic', 'Hallmark')))
-#Annotation der kmeans cluster und den Histological type
+#Annotation der k-means cluster und des histological types
 top.anno = HeatmapAnnotation(Kmeans = cluster,
                              Type = thca_pan_anno$histological_type,
                              col = list(Kmeans = c('A' = 'darkgoldenrod1', 'B' = 'khaki1', 'C' = 'khaki3'),
