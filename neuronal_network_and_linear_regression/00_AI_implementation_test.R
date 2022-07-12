@@ -31,9 +31,11 @@ summary(lm.fit)
 pr.lm <- predict(lm.fit, test)
 MSE.lm <- sum((pr.lm - test$medv)^2)/nrow(test) #berrechnung des meansquared error als Guete für das Modell
 
+
 #---------------------------
 #Datenpräpartion für Deep leraning
 #---------------------------
+
 #Skalieren der Daten sodass die im [0,1] Intervall liegen (hier mit min, max scaling)
 maxs <- apply(data, 2, max) 
 mins <- apply(data, 2, min)
@@ -56,9 +58,11 @@ nn <- neuralnet(f, #Regressionsformel die wr vorhersagen wollen
 plot(nn) #black sind weights und blue biases des Modells
 #=> das neu.net ist jetzt traine
 
+
 #--------------------------------
 #Testen des Netzes
 #--------------------------------
+
 pr.nn <- compute(nn,test_[,1:13]) #predicted jetzt mdev basierend auf den ersten13 Var der testdaten
 #predictete Werte sind noch im Intervall[0,1] => hochscalieren mit min und max
 pr.nn_ <- pr.nn$net.result*(max(data$medv)-min(data$medv))+min(data$medv)

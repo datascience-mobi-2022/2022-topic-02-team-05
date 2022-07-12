@@ -1,13 +1,15 @@
 #-----------------------------------------
-#In diesem Dokument pärparieren wir unsere THCA GSEA DAten um damit lineare
+#In diesem Dokument pärparieren wir unsere THCA GSEA Daten um damit lineare
 #Regression druchzuführen und ein Neuronales Netz zu trainieren
 #-----------------------------------------
 
 load('data/thca_gsea.RData')
 
+
 #--------------------------------------------------------
 #0. Selektion eines geeigneten Pathways
 #--------------------------------------------------------
+
 #Eine Regression ist nur dann sinnvoll wenn der Pathway überhaupt eine ausreichend
 #hohe varianz hat (sonst kann man auch ein null model mit Mittelwert benutzen)
 #=> Wir suchen Pathways die sich signifikant in Tumor und Normalgewebe unterscheiden
@@ -26,10 +28,10 @@ path.selection; rm(thca_pval_gsva, path.sig, path.var, path.topvar)
 
 pathway = 'RODRIGUES_DCC_TARGETS_UP' #Ein set von Oncogenen gefunden in Colonkarzinomen
 
+
 #--------------------------------------------------------
 #1. Split in Trainings und Testdaten
 #--------------------------------------------------------
-
 
 #Splitten der Daten in eine Test und Trainingsgruppe (75% für Training)
 set.seed(1) #Für konsistente Indices da sample() random ist
@@ -39,6 +41,7 @@ test = as.data.frame(t(thca_gsea[, -index]))
 
 save(train, file = 'data/regression/train.RData')
 save(test, file = 'data/regression/test.RData')
+
 
 # #--------------------------------------------------------
 # #2.PCA transformation für unkorrelierte Werte für die Regression
@@ -55,9 +58,11 @@ save(test, file = 'data/regression/test.RData')
 # save(train_pca, file = 'data/regression/train_pca.RData')
 # save(test_pca, file = 'data/regression/test_pca.RData')
 
+
 #--------------------------------------------------------
 #3. Daten Präparation für Neuronales Netz
 #--------------------------------------------------------
+
 #Skalieren der Daten nach mit einer Min/max skalierung sodass sie im Intervall [0,1] liegen
 maxs = apply(thca_gsea, 1, max) 
 mins = apply(thca_gsea, 1, min)

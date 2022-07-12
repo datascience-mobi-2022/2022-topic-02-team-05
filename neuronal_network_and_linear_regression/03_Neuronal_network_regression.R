@@ -123,18 +123,22 @@ best_architecture = as.numeric(
 # Das Beste Netz bekomen wir mit einer Architektur von 50:10 und den
 #Anfangsbedingungen bei set.seed(22)
 
+
 #-------------------------------------------------------
 #2. Implementierung und Training des besten Netzes
 #-------------------------------------------------------
+
 set.seed(best_seed)
 AI = neuralnet(formula = form, #Die Gleichung die wir  vorhersagen möchten
                data = train_sc,
                hidden = best_architecture,
                linear.output = TRUE)
 
+
 #--------------------------------------------------------
 #3. Testen des Neuronalen Netzes
 #--------------------------------------------------------
+
 #predicted jetzt unseren pathway basierend auf denen der Testdaten
 nn.prediction_sc = compute(AI,test_sc[,!colnames(test_sc) == pathway])
 
