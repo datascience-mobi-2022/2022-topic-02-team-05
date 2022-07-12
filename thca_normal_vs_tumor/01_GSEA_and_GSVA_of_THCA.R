@@ -18,6 +18,7 @@ library(ggplot2)
 load('data/thca_tumor_exp_cleaned.RData')
 load('data/thca_normal_exp_cleaned.RData')
 load('data/pathways.RData')
+load('data/thca_anno.RData')
 
 #GSEA Funktion definieren
 GSEA = function(patientsorted, pathways){
@@ -178,3 +179,10 @@ down_plot <- ggplot(data = downregulated, aes(y = -log10(Pvalues_down), x = rank
   theme_light()
 
 down_plot
+
+#Ausgabe der Namen der 10 am signifikantesten Hoch/runterregulierten pathways
+names_dn = rownames(downregulated)[match(sort(downregulated$Pvalues_down), downregulated$Pvalues_down)]
+names_dn[1:10]
+
+names_up = rownames(upregulated)[match(sort(upregulated$Pvalues_up), upregulated$Pvalues_up)]
+names_up[1:10]
