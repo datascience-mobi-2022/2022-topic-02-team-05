@@ -94,6 +94,41 @@ qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model$residuals, seq(0,1,0.01))) #=
 save(lm.prediction, file = 'data/regression/lm.prediction.RData')
 save(lm.MSE, file = 'data/regression/lm.MSE.RData')
 
+#--------------------------------------------------------
+#3. Lineare Regression mit nur signifikanten Pathways
+#--------------------------------------------------------
+
+#Verbessern des Modells durch entfernen der nicht signifikanten Pathways
+lm.summary = summary(linear.model)$coefficients
+
+#Behalten der signifikantesten 20% der Pathways die zum Modell beitragen
+regression.path = names(which(lm.summary[,4] < quantile(lm.summary[,4], probs = 0.2)))
+form.new = formula(paste(c(pathway,
+                           paste(regression.path, collapse = " + ")),
+                         collapse = ' ~ '
+))
+
+linear.model.new = lm(formula = form.new, data = train)
+
+#Test der Regression
+lm.new.prediction = predict(linear.model.new, test)
+cor(train[, pathway], linear.model.new$fitted.values)
+#=> Cor zwischen Testwerten und Prediction ist nicht annähernd 1
+
+#berrechnung des meansquared error als Guete für das Modell
+lm.new.MSE = sum((lm.new.prediction - test[,pathway])^2)/nrow(test) 
+
+#Anschauen der Residuals
+cor(train[, pathway], linear.model.new$residuals)
+#Korrelation ist nicht besonders niedrig => schlechtes Modell
+qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model.new$residuals, seq(0,1,0.01)))
+#=> Residuals sind annähernd normalverteilt 
+
+#Speichern für Vergleich
+save(lm.new.prediction, file = 'data/regression/lm.new.prediction.RData')
+save(lm.new.MSE, file = 'data/regression/lm.new.MSE.RData')
+
+
 # #--------------------------------------------------------
 # #3. Lineare Regression mit PCA
 # #--------------------------------------------------------
