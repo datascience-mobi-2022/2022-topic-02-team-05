@@ -26,12 +26,12 @@ To avoid duplicates in between the metabolic pathways and between the Hallmark p
 
 ### Deleting Not Available Values (NA's)
 
-Deleting of NA's was done with the R-function na.omit(x). But none of the gene expression matrices contained any NA's.
+Deleting of NA's was done with the R-function na.omit(x).
 
 ### Low-Variance Filtering
 
 Low variance filtering is performed to delete genes with a low variance in gene expression from the data set.
-It is performed to delete genes that are expressed the same in all cancer types (pancancer analysis) or the same in normal cells. Probably, these would be mostly housekeeping genes.
+It is performed to delete genes that are expressed the same in all cancer types (pancancer analysis) or the same in normal cells.
 To calculate the variance of the gene expression of a gene, the r-function var(x) is used and genes with a lower variance than a certain threshold value are removed.\\
 For the focused analysis the variance of the gene expression for each gene in tumor tissue was calculated. Genes with a variance beneath a certain threshold were deleted in the data sets of tumor and normal tissue.
 
