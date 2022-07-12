@@ -186,3 +186,16 @@ names_dn[1:10]
 
 names_up = rownames(upregulated)[match(sort(upregulated$Pvalues_up), upregulated$Pvalues_up)]
 names_up[1:10]
+
+#-------------------------------------------------
+# Vergleich der GSEA und GSVA ergebnisse
+#Dazu wird die Corealtion zwischen beiden Methoden für jeden Pathway bestimmt
+#-------------------------------------------------
+GSVA_act = thca_tumor_gsva - thca_norm_gsva
+cor = vector(length = nrow(GSVA_act))
+i = 1; for (i in 1:nrow(GSVA_act)){
+  res = cor(thca_gsea[i,], GSVA_act[i,])
+  cor[i] = res
+ 
+}; rm(i, res); names(cor) = rownames(GSVA_act)
+boxplot(cor)
