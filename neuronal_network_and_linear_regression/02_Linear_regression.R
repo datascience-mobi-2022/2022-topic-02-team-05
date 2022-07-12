@@ -11,6 +11,7 @@ pathway = 'RODRIGUES_DCC_TARGETS_UP'
 load('data/regression/test.RData')
 load('data/regression/train.RData')
 
+
 #--------------------------------------------------------
 #1. Correlation der Pathways überprüfen
 #--------------------------------------------------------
@@ -64,9 +65,11 @@ rm(cor.cleaned)
 train_cleaned = cbind(path.values, cor_cleaned_train)
 colnames(train_cleaned)[1] = pathway; rm(cor_cleaned_train, path.values)
 
+
 #--------------------------------------------------------
 #2. Lineare Regression ohne PCA
 #--------------------------------------------------------
+
 #Definieren der Formel für die vorhersage
 form = formula(paste(c(pathway,
                        paste(colnames(train_cleaned)[!pathway == colnames(train_cleaned)], collapse = " + ")),
@@ -119,9 +122,11 @@ save(lm.MSE, file = 'data/regression/lm.MSE.RData')
 # save(lm.pca.prediction, file = 'data/regression/lm.pca.prediction.RData')
 # save(lm.pca.MSE, file = 'data/regression/lm.pca.MSE.RData')
 
+
 #--------------------------------------------------------
 #4. Testen eines Nullmodells zum Vergleich
 #--------------------------------------------------------
+
 #Wir nehmen als Vorhersage den Mittleren Aktivitätswert des Pathways
 null.prediction = rep(mean(train[, pathway]),nrow(test)) 
 #Nun berrechnen wir auch hier den MSE

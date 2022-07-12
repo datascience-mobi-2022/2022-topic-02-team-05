@@ -22,10 +22,13 @@ load('data/regression/null.MSE.RData')
 #Laden der Testdaten
 load('data/regression/test.RData')
 test = test[,pathway]
+
+
 #---------------------------------------------------
 #1. Graphischer Vergleich
 #Wir plotten echte Werte gegen die Vorhergesagten des Modells
 #---------------------------------------------------
+
 par(mfrow=c(1,3))
 
 #Plotten der Neuronalen netzes
@@ -55,6 +58,7 @@ legend('bottomright',legend= paste('MSE', round(lm.MSE, 3), sep = '='), bty='n')
 #      ylab = 'prediction', xlab = 'true value',xlim=c(-1,1), ylim=c(-1,1))
 # abline(0,1,lwd=2)
 # legend('bottomright',legend= paste('MSE', round(lm.pca.MSE, 3), sep = '='), bty='n')
+
 
 #---------------------------------------------------
 #2. Vergleich ob sich die Modelle signifikant unterscheiden
