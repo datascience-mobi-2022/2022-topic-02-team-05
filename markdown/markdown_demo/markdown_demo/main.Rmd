@@ -1,16 +1,17 @@
 ---
 title: 'Schildkrötenkrebs'
 output:
-  html_document:
-    code_folding: hide
   pdf_document:
     number_sections: yes
+  html_document:
+    code_folding: hide
   word_document: default
 documentclass: scrreprt
 classoption:
 - parskip
 - oneside
 header-includes:
+- \usepackage[miktex]
 - \usepackage[greek, ngerman, main=english]{babel}
 - \usepackage[utf8]{inputenc}
 - \usepackage[T1]{fontenc}
@@ -114,7 +115,9 @@ bibliography:
 
 ```{r child = "chapter/discussion.Rmd"}
 ```
-
+/ref{RNAseq}
+/ref{histological_types}
+[@RNAseq]
 # References
 
 ::: {#refs}

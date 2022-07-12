@@ -176,15 +176,15 @@ pre code {
 <div id="our-data-sets" class="section level2">
 <h2>Our data sets</h2>
 <p>For the analysis four data sets were provided.</p>
-<p>The first data set is a Gene expression data frame. The Gene expression data frame contains 60,000 genes and and their expression in 10,000 patients. It is derived from The Cancer Genome Atlas (TCGA). The expression of the genes was obtained by RNA-seq, a sequencing method to evaluate the activity of the genes *<span class="citation">@ref</span>(RNAseq)</p>
-<p>The second data frame contains 37 clinical annotations like Tumor type, age, gender, etc. concerning the 10,000 patients from the Gene expression data frame.</p>
-<p>The third object contains 5 lists for the focused analysis, one for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA). For the focused analysis the THCA data was used. The THCA data contains 3 data frames, each one with information about the same 60 patients. The first one with gene expression data from THCA tissue, the second one from normal tissue and the third one contains the clinical annotations like age and gender. Gene expression data was obtained by RNA-seq.</p>
+<p>The first data set is a Gene expression data frame. The Gene expression data frame contains 60,000 genes and and their expression in 10,000 patients. It is derived from The Cancer Genome Atlas (TCGA). The expression of the genes was obtained by RNA-seq.</p>
+<p>The second data frame contains 37 clinical annotations like Tumor type, age, gender, etc. for each of the 10,000 patients from the Gene expression data frame.</p>
+<p>The third object is a list that contains five lists for the focused analysis, one list for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA). For the focused analysis, the THCA data was used. The THCA data contains 3 data frames, each one with information about the same 60 patients. The first data is a gene expression matrix from THCA tissue, the second data contains the gene expression from normal tissue and the third data frame contains the clinical annotations like age and gender. Gene expression data was obtained by RNA-seq.</p>
 <p>The fourth object contains 46 pathways involved in phenotypes partly included in the hallmarks of cancer and the genes involved in those pathways.</p>
-<p>SIND DIE DATEN NORMALISIERT ODER ALS COUNTS?</p>
+<p>SIND DIE DATEN NORMALISIERT –&gt; Normalisiert glaub ich (Anna) ODER ALS COUNTS? . –&gt; test-Zitate</p>
 </div>
 <div id="metabolic-pathway-selection" class="section level2">
 <h2>Metabolic pathway selection</h2>
-<p>Furthermore metabolic pathways had to be selected from the Molecular Signature Database (MSigDB) (QUELLE) to compare them with the given Hallmark-Pathways and identify more pathways, that are important for the development of cancer. Therefore it was important, that as many genes from the selected pathways as possible are also included in the provided Hallmark pathways. To identify the relevant pathways, the intersection of genes was calculated and the genes with an intersection of at least 99% were maintained for further analysis.</p>
+<p>From the Molecular Signature Database (MSigDB)  metabolic pathways were selected to compare them with the given Hallmark-Pathways and identify more pathways, that are important for the development of cancer. Therefore it was important, that as many genes from the selected pathways as possible are also included in the provided Hallmark pathways. To identify the relevant pathways, the intersection of genes was calculated and the genes with an intersection of at least 99% were maintained for further analysis.</p>
 <p>To avoid duplicates in between the metabolic pathways and between the Hallmark pathways and the metabolic pathways, the pathways were checked for duplicates with the Jaccard index. Pathways with a sum of Jaccard indices beyond the 1-sigma range were discarded.</p>
 </div>
 <div id="preprocessing" class="section level2">
