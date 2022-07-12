@@ -37,7 +37,7 @@ For the focused analysis the variance of the gene expression for each gene in tu
 
 ### Biotype Filtering
 
-The biotype filtering was conducted for the pancancer data and the focussed analysis data. The biotype of each gene was determined (protein coding, RNA,...) and compared with the biotypes of pathways. To allow an appropriate comparison of the expression data and further reduce the data, only biotypes were kept that are available in the pathways. The hallmark pathways and our own pathways were almost all proteincoding, so the pathways with only protein coding genes and the protein coding genes of the expression matrices were kept. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt \ref{biomaRt}.
+The biotype filtering was conducted for the pancancer data and the focussed analysis data. The biotype of each gene was determined (protein coding, RNA,...) and compared with the biotypes of pathways. To allow an appropriate comparison of the expression data and further reduce the data, only biotypes were kept that are available in the pathways. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt \ref{biomaRt}.
 
 #### Selection of metabolic pathways
 
