@@ -101,7 +101,7 @@ bibliography:
 
 \tableofcontents
 
-``#`{r child = "chapter/abstract.Rmd"}
+```{r child = "chapter/abstract.Rmd"}
 ```
 
 ```{r child = "chapter/introduction.Rmd"}
@@ -110,10 +110,10 @@ bibliography:
 ```{r child = "chapter/material_and_methods.Rmd"}
 ```
 
-`#``{r child = "chapter/results.Rmd"}
+```{r child = "chapter/results.Rmd"}
 ```
 
-``#`{r child = "chapter/discussion.Rmd"}
+```{r child = "chapter/discussion.Rmd"}
 ```
 /ref{RNAseq}
 /ref{histological_types}
