@@ -3,7 +3,7 @@
 #basierend auf allen anderen pathways in THCA GSEA Daten vorherzusagen
 #--------------------------------------------------------
 
-pathway = 'REACTOME_THYROXINE_BIOSYNTHESIS' #Zu vorhersagender pathway
+pathway = 'RODRIGUES_DCC_TARGETS_UP' #Zu vorhersagender pathway
 
 load('data/regression/test_sc.RData')
 load('data/regression/train_sc.RData')
@@ -120,21 +120,25 @@ best_architecture = as.numeric(
   strsplit(
     strsplit(names(sort(MSE_best)[1]), split = ',')[[1]][1], split = ':'
   )[[1]])
-# Das Beste Netz bekomen wir mit einer Architektur von 100:10 und den
-#Anfangsbedingungen bei set.seed(12)
+# Das Beste Netz bekomen wir mit einer Architektur von 50:10 und den
+#Anfangsbedingungen bei set.seed(22)
+
 
 #-------------------------------------------------------
 #2. Implementierung und Training des besten Netzes
 #-------------------------------------------------------
+
 set.seed(best_seed)
 AI = neuralnet(formula = form, #Die Gleichung die wir  vorhersagen möchten
                data = train_sc,
                hidden = best_architecture,
                linear.output = TRUE)
 
+
 #--------------------------------------------------------
 #3. Testen des Neuronalen Netzes
 #--------------------------------------------------------
+
 #predicted jetzt unseren pathway basierend auf denen der Testdaten
 nn.prediction_sc = compute(AI,test_sc[,!colnames(test_sc) == pathway])
 
@@ -150,39 +154,3 @@ nn.MSE = sum((nn.test - nn.prediction)^2)/nrow(test_sc)
 #Speichern für Vergleich
 save(nn.prediction, file = 'data/regression/nn.prediction.RData')
 save(nn.MSE, file = 'data/regression/nn.MSE.RData')
-
-
-#---------------------------------------------------------
-#7. Vergleich beider Modelle
-#---------------------------------------------------------
-par(mfrow=c(1,2))
-
-#Plotten der Neuronalen netzes
-plot(test[,pathway], nn.prediction, col='red',
-     main=paste('Neuronal network',paste(best_layers[[1]][1], best_layers[[1]][2], sep = ':'), sep = ' '),
-     pch=18,cex=0.7,
-     ylab = 'prediction', xlab = 'true value', xlim=c(-1,0), ylim=c(-5,2))
-abline(0,1,lwd=2)
-legend('bottomright',legend= paste('MSE', round(nn.error, 2), sep = '='), bty='n')
-
-#Plotten des Linear models
-plot(test[,pathway], lm.prediction, col='blue', main='Linear model',pch=18, cex=0.7,
-     ylab = 'prediction', xlab = 'true value',xlim=c(-1,0), ylim=c(-5,2))
-abline(0,1,lwd=2)
-legend('bottomright',legend= paste('MSE', round(lm.error, 2), sep = '='), bty='n')
-
-#----------------------------------------------------------
-#8. Funktion die auf neuen Daten die Pathwayaktivität vorhersagt
-#----------------------------------------------------------
-
-AI_predict = function(input_pathways, network = AI){
-  #Skalieren der Input pathways
-  maxs = max(input_pathways) 
-  mins = min(input_pathways)
-  input_scaled = as.data.frame(scale(input_pathways), center = mins, scale = maxs - mins)
-  #Vorhersage der Aktivität
-  prediction = compute(AI, t(input_scaled))
-  prediction = as.numeric(prediction$net.result*(maxs-mins) + mins)
-  return(prediction)
-}
-

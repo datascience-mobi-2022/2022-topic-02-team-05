@@ -1,13 +1,13 @@
 #--------------------------------------------------
-# In diesem Dukoment versuchen wir die Gereinigten expressionsdaten mittels gsea zu
-#pathway activit?ten zusammenzufassen un din einer matrix mit patienten als spalten und 
-# enrichment scores als zeilen zusammenzufassen
+#In diesem Dokument versuchen wir die gereinigten Expressionsdaten mittels GSEA zu
+#Pathway-Aktivitätswerten zusammenzufassen und in einer Matrix mit patienten als Spalten und 
+#enrichment scores als zeilen aufzutragen
 #--------------------------------------------------
 
-if (!require("BiocManager", quietly = TRUE))
+#if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
-BiocManager::install("gage")
-BiocManager::install("fgsea")
+#BiocManager::install("gage")
+#BiocManager::install("fgsea")
 library(dplyr)
 library(gage)
 library(fgsea)
@@ -18,9 +18,11 @@ tcga_anno = readRDS('data/tcga_tumor_annotation.RDS')
 load('data/geneset_ids.RData')
 load('data/our_genesets.RData')
 
+
 #-----------------------------------------------
-#Extrahieren aller patienten mit dem gleichem Krebstyp als ein Dataframe
+#Extrahieren aller Patienten mit dem gleichem Krebstyp in einen Dataframe
 #-----------------------------------------------
+
 cancers_exp = list(); cancers_exp = vector('list',length(table(tcga_anno$cancer_type_abbreviation)))
 names(cancers_exp) = names(table(tcga_anno$cancer_type_abbreviation))
 i=1; for (i in 1:length(cancers_exp)){
@@ -30,13 +32,14 @@ i=1; for (i in 1:length(cancers_exp)){
 #------------------------------------------------
 #Durchführung einer einfachen Enrichment Analysis auf Basis von Wangs Vorschlag
 #------------------------------------------------
-#function die einen krebstypen df und genesets als input nimmt und ein df mit pvalues ausgibt
+
+#Funktion, die den Krebstypen dataframe und genesets als input nimmt und einen dataframe mit p-Werten ausgibt
 enrichment = function(expressiondata, genesets = genesets_ids){
   ESmatrix = sapply(genesets, FUN = function(x){
-    ins = na.omit(match(x,rownames(expressiondata)))#indices der gene im aktuellen set
-    outs = -ins#indices der gene nicht im aktuellen set
+    ins = na.omit(match(x,rownames(expressiondata)))#indices der Gene im aktuellen set
+    outs = -ins#indices der ene nicht im aktuellen set
     
-    #gibt einen vektor der für jeden patienten den pval für das aktuelle gene enthält
+    #gibt einen Vektor, der für jeden Patienten den p-Wert für das aktuelle Gen enthält
     res = NULL
     for (i in 1:ncol(expressiondata)){#testet für jeden patienten
       res[i] = wilcox.test(expressiondata[ins,i],expressiondata[outs,i],'two.sided')$p.value
@@ -45,16 +48,18 @@ enrichment = function(expressiondata, genesets = genesets_ids){
   })
   row.names(ESmatrix) = colnames(expressiondata); return(ESmatrix)
 }
-#Anwendung der Analyse auf alle Dataframes der einzelen krebstypen
-#muss wahrscheinlich einzel für jeden df ausgeführt werden weils sonst zu lange dauert
+
+#Anwendung der Analyse auf alle dataframes der einzelen Krebstypen 
 enrichment_matrix = lapply(cancers_exp, FUN = function(x){
                       return(enrichment(x, c(geneset_ids, our_genesets)))
                     })
 save(enrichment_matrix, file = 'data/GSEA_matrix.RData')
 
+
 #-------------------------------------------
 #Z-Transformation der Expressionsdaten für die GSEA für jedes Gen in einem Krebs über alle Patienten
 #-------------------------------------------
+
 cancers_exp_scaled = lapply(cancers_exp, FUN = function(x){
                         res = apply(x, 1, scale)
                         res[is.nan(res)] = 0 # Setzt alle Gene null die eine sd von nul haben, und deswegen bei scalen unendlich werden
@@ -62,10 +67,13 @@ cancers_exp_scaled = lapply(cancers_exp, FUN = function(x){
                       })
 i=1; for (i in 1:length(cancers_exp_scaled)){
   colnames(cancers_exp_scaled[[i]]) = colnames(cancers_exp[[i]])}
+
+
 #--------------------------------------------
-#Sortieren der Gene der einzelen patienten nach den Z-Transformierten Daten
-#jeder krebstyp wird als liste aller patienten ausgegeben mit den sortierten und benannten expdaten
+#Sortieren der Gene der einzelnen Patienten nach den z-transformierten Daten
+#jeder Krebstyp wird als Liste aller Patienten ausgegeben mit den sortierten und benannten Expressionsdaten
 #--------------------------------------------
+
 sorting = function(expressiondata, scaleddata){
   liste = list()
   liste = vector('list', ncol(scaleddata))
@@ -80,20 +88,21 @@ sorting = function(expressiondata, scaleddata){
   }
   return(liste)
 }  
-#durchführen des sortings für alle Krebstypen
+#ausführen des sortings für alle Krebstypen
 cancers_sorted = list(); cancers_sorted = vector('list',length(cancers_exp))
 names(cancers_sorted) = names(cancers_exp)
 i=1; for (i in 1:length(cancers_sorted)){
   cancers_sorted[[i]] = sorting(cancers_exp[[i]], cancers_exp_scaled[[i]])
 }
 save(cancers_sorted, file = 'data/cancers_sorted.RData')
-#hier environment löschen und dann einfach woeder cancers_sorted laden
+
 
 #----------------------
-#Funktion die unsere GSEA letztendlich durchführt
-#Input sind die Expressionsdaten eines sortierten patienten,
-#sowie alle zu analysierenden pathways als liste wie üblich
+#Funktion die unsere GSEA durchführt
+#Input sind die Expressionsdaten der sortierten Patienten,
+#sowie alle zu analysierenden pathways als Liste
 #------------------------
+
 GSEA = function(patientsorted, pathways = pathways){
   res = fgseaMultilevel(pathways = pathways, 
                         stats = patientsorted,
@@ -105,9 +114,12 @@ GSEA = function(patientsorted, pathways = pathways){
   message('I?m still standing')
   return(ret)
 }
+
+
 #-------------------------------------------
 #Durchführung der GSEA
 #-------------------------------------------
+
 load('data/cancers_sorted.RData')
 load('data/our_genesets.RData')
 load('data/geneset_ids.RData')
@@ -119,8 +131,7 @@ GSEA_ACC = sapply(cancers_sorted[['ACC']], FUN = function(x){
 
 save(GSEA_ACC, file = 'data/GSEA/GSEA_ACC.RData')
 
-
-#darstellen der GSEA matrix als heatmap
+#darstellen der GSEA Matrix als heatmap
 pheatmap(as.matrix(GSEA_matrix),
          breaks = seq(-max(GSEA_matrix), max(GSEA_matrix), length.out = 201),
          color = colorRampPalette(c('blue','lightskyblue','lightblue1', 'white','lightyellow','yellow', 'red'),

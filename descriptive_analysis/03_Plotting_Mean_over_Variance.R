@@ -2,7 +2,7 @@
 #In diesem Dokument wird die Varianz und der Mean für jedes Gen für jeden Tumortype geplotted
 #----------------------------------------------
 
-#Laden der bereits gecleanten Daten aus der großen tcga matrix 
+#Laden der bereits gecleanten Daten aus der großen TCGA matrix 
 load('data/tcga_exp_cleaned.RData')
 
 #load ggplot2 
@@ -11,13 +11,10 @@ library(ggplot2)
 #Variance of every gene
 Var_clean <- apply(tcga_exp_cleaned, 1, var)
 y1 = as.vector(Var_clean)
+
 #mean of every gene 
 Mea_clean <- apply(tcga_exp_cleaned, 1, mean)
 x1 = as.vector(Mea_clean)
-
-#Standardisieren der Varianz!
-stand_var_clean <- scale(Var_clean)
-#y = as.vector(stand_var_clean)
 
 #data frame out of Mea_clean and stand_var_clean
 as.vector(row.names(tcga_exp_cleaned)) -> names1
@@ -43,14 +40,12 @@ highVariance_cleaned <- highVariance_cleaned$names1
 library("AnnotationDbi")
 library("org.Hs.eg.db")
 
-#columns(org.Hs.eg.db)
-
 MAPIDS1 <- mapIds(org.Hs.eg.db, keys = highVariance_cleaned, keytype = "ENSEMBL", column = "ALIAS")
 as.data.frame(MAPIDS1) -> highVariancegenes_cleaned
 
 
 #-------------------------------------------------------------
-#Laden der  ungecleanten Daten aus der großen tcga matrix 
+#Plotten der ungecleanten Daten aus der großen TCGA matrix 
 #-------------------------------------------------------------
 
 load('data/tcga_tumor_log2TPM.RDS')
@@ -66,10 +61,6 @@ y2 = as.vector(Var_clean_big)
 #mean of every gene 
 Mea_clean_big <- apply(tcga_tumor_log2TPM, 1, mean)
 x2 = as.vector(Mea_clean_big)
-
-#Standardisieren der Varianz
-stand_var_clean <- scale(Var_clean_big)
-#y = as.vector(stand_var_clean)
 
 #data frame out of Mea_clean and stand_var_clean
 as.vector(row.names(tcga_tumor_log2TPM)) -> names2
@@ -94,8 +85,6 @@ highVariance_uncleaned <- highVariance_uncleaned$names2
 #BiocManager::install("org.Hs.eg.db")
 library("AnnotationDbi")
 library("org.Hs.eg.db")
-
-#columns(org.Hs.eg.db)
 
 MAPIDS2 <- mapIds(org.Hs.eg.db, keys = highVariance_uncleaned, keytype = "ENSEMBL", column = "ALIAS")
 as.data.frame(MAPIDS2) -> highVariancegenes_uncleaned

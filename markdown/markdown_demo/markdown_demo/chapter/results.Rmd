@@ -2,17 +2,17 @@
 
 ## Preprocessing
 
-#### deleting NAs
+#### Deleting NA's
 
-Deletion of NAs was applied to the 2 gene expression data frames. Because the dimension of our data frames did not change during this process it was assumed, that there were no NAs in the data sets.
+Deletion of NA's was applied to the three gene expression data frames (pan cancer and tumor and normal tissue data). Because the dimension of our data frames did not change during this process, it was assumed that there were no NA's in the data sets.
 
 #### Low-variance filtering
 
-The goal of the analysis was to itentify the genes that show a significantly different expression in certain tumor types (Pan cancer analysis) or in comparison from normal and tumor tissue (THCA Analysis). Therefore genes with a similar expression in all patients are not relevant.
+The goal of the analysis was to identify the genes that show a significantly different expression in certain tumor types (Pan cancer analysis) or in comparison from normal and tumor tissue (THCA Analysis). Therefore genes with a similar expression in all patients are not relevant. Probably, these would be mostly housekeeping genes.
 
-The logarithm of the obtained values were displayed in a histogram shown in Figure xxx. The genes with a lower variance than -1 were omitted. The number of genes was reduced from 60,000 to 19,000 genes.
+The histogram of the logarithmised variances of the pancancer data is displayed in \ref{xxx welche figure --> noch keine Überschrift}. The threshold of -1 was fixed and all genes with a lower variance were omitted. Doing so, the number of genes reduced from 60,000 to 19,000 genes.
 
-The low-variance filtering of the THCA dataset was done in a similar way. Genes with a lower variance than -1.25 were deleted. This resulted in a reduction from about 20,000 genes to 15,000 genes in the data frames for normal and tumor tissue.
+The low-variance filtering of the THCA dataset was done in a similar way. The gene expression data of the cancer tissue was used to obtain the logarithmised variances of each gene. Genes with a lower variance than -1.25 were deleted in the tumor tissue and the normal tissue data. This resulted in a reduction from about 20,000 genes to 15,000 genes in both data frames.
 
 #### Biotype filtering
 
