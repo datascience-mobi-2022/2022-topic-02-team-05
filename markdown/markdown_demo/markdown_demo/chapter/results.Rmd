@@ -40,7 +40,7 @@ knitr::include_graphics("tcga_exp_biotypes.png")
 
 #### Mean-variance Plot
 
-In the mean-variance plot, displayed in Figure \@ref(fig:showmeanvariance), genes with a very high variance and non-zero mean were annotated their ensemble ids.
+To determine the genes from the TCGA expression data with a high variance, the variance was plotted over the mean (Figure \@ref(fig:showmeanvariance)). Additionally those genes with a variance higher than 33 were labeled with their EnsembleID. The distribution of genes in this plot shows that the highly variant genes are around a mean expression level of 0. The plot also shows, that very few genes are at a low mean expression level like -10 or at a ver high mean expression level like 10. Most genes are expressed across all at a mean expression level around 0. Via this plot we were able to determine which genes differ a lot in their expression level across all cancer patients.
 
 ```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a genes expression, x-axis shows mean of a genes expression"}
 
@@ -50,7 +50,7 @@ knitr::include_graphics("Variance_over mean_cleaned_matrix.png")
 
 #### Violin Plots
 
-For descriptive analysis 5 violin plots were created for 5 different tumor types with the gene expression data from the TCGA Matrix, to compare the distribution of the data of 5 different tumor types. The violinplot can be seen in Figure \@ref(fig:showviolinplots). The white point in the middle of each plot shows the 50% quantile. For all tumor types it is located in the middle of the gene expression value 0 and 5. In this area is also the highest amount of genes for every tumor type. Going to the top or bottom the curve flattens because only a few genes are expression very high or very low. One can see, that the the distributions of all 5 tumor types are very similar. It can be concluded, that the other 28 tumor types of this data set are distributed in a similar way.
+Five violin plots were created for five different tumor types with the gene expression data from the TCGA. This was done to compare the distribution of the data of five different tumor types (Figure \@ref(fig:showviolinplots)). The white point in the middle of each plot shows the median. The median gene expression is at around 2.5 across the five cancer types. The upper and lowe a border of the box plot, which show the 25% and 75% quantile are at rougly the same level across all five tumor types. The distribution flattens at around the very high and very low expression leves, because only a few genes are expressed at a very high or very low level. One can see, that the the distributions of all five tumor types are similar. This implies, that the other 28 tumor types of this data set are distributed in a similar way and the data is normalized. 
 
 ```{r showviolinplots, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data"}
 
@@ -60,7 +60,7 @@ knitr::include_graphics("Vioplots cancer types.png")
 
 #### Volcano plot
 
-For the construction of the volcano plot the data for THCA from the data set for the focused analysis was used. The volcano plot is displayed in Figure \@ref(fig:showvolcanoplot). Not significantly differentially expressed genes were marked green, significantly over expressed genes are marked blue and significantly under expressed genes are marked red. The gene with a very low p-value differ the most from tumor to normal tissue and are annotated with their name.
+For the construction of the volcano plot the data for THCA from the data set for the focused analysis was used. We used the expression data from tumor tissue and compared it to the data from normal tissue. This was done to determine those genes, which are up- or downregulated in Thyroid carcinoma (Figure \@ref(fig:showvolcanoplot)). The significance level was determinated at 1.755e-06. We then colored those genes, which are not up- or down-regulated at a significant level green. Based on their foldchange we were able to determine those genes, which were up-regulated in THCA tumor tissue (blue) and, which were down-regulated in tumor tissue (red). The genes with a very low p-value differ the most from tumor vs. normal tissue and were annotated with their name. 
 
 ```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Volcano plot of THCA expression data"}
 
