@@ -19,6 +19,7 @@ PCA_data = as.data.frame(PCA$x)
 PCA_data$stage = thca_anno$ajcc_pathologic_tumor_stage
 PCA_data$gender = thca_anno$gender
 PCA_data$type = sapply(thca_anno$histological_type, FUN = function(x){return(strsplit(x, split = '-', fixed = TRUE)[[1]][2])})
+PCA_data$beta4 = thca_gsea["PID_INTEGRIN4_PATHWAY", ]
 
 #UMAP
 UMAP = umap(PCA$x)
@@ -27,6 +28,7 @@ UMAP_data$stage = thca_anno$ajcc_pathologic_tumor_stage
 UMAP_data$gender = thca_anno$gender
 UMAP_data$type = sapply(thca_anno$histological_type, FUN = function(x)
                     {return(strsplit(x, split = '-', fixed = TRUE)[[1]][2])})
+PCA_data$beta4 = thca_gsea["PID_INTEGRIN4_PATHWAY", ]
 
 colours = c('darkgreen','yellow3','yellow2','dodgerblue','blue4')
 
