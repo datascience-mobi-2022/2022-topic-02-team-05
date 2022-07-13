@@ -60,13 +60,12 @@ A volcano plot is used to identify significantly differentially expressed genes.
 
 $$
 log2FC = mean(normal tissue) - mean(tumor tissue)
-$$
-In the next step, a two-sided t test was performed to determine the significance of a difference in expression.
+$$ In the next step, a two-sided t test was performed to determine the significance of a difference in expression.
 
 To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis:
 
 $$
-A \alpha = \frac{0.025}{n}
+\alpha = \frac{0.025}{n}
 $$
 
 In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentially expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.
@@ -83,8 +82,8 @@ The PCA was performed for pathway and gene activity. For analysis of the gen act
 
 Dazu wurde noch analysiert, wie die Pathways auf die PCs verteilt sind.
 
-## TCGA data
+### Figure X
 
-What kind of data do we have? ## Used Packages
+To identify pathways with the highest p-Value, obtained from GSVA and t-testing, a figure x is generated.
 
-show a table!
+For generating figure x, the data from generating a volcano plot is used to identify the pathways, that are significantly over- or underexpressed based on the p-value. Pathways with a p-value smaller than 0.025 and a log2FC bigger than zero are significantly overexpressed, if the log2FC is smaller than zero, the pathways are significantly underexpressed. In the next step, the pathways are ranked based on their p-value and the -log10(p-value) of each pathways is plotted against its rank. One plot is generated for overexpressed pathways and the other one for under expressed pathways.

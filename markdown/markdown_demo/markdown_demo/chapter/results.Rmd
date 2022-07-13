@@ -16,25 +16,7 @@ The low-variance filtering of the THCA dataset was done in a similar way. Genes 
 
 #### Biotype filtering
 
-The biotype of the genes from the selected metabolic pathways, the genes of the hallmark pathways and the genes of the gene expression matrix was determined, to keep those genes with the same bio type. Because the most genes are protein-coding, only protein-coding genes were maintained.
-
-```{r showbiotypeshallmarks, echo=FALSE, eval=TRUE, out.width = '20%', fig.align = "center", fig.cap="**Biotypes of Hallamrk genes**"}
-
-knitr::include_graphics("tcga_exp_biotypes.png")
-
-```
-
-```{r showbiotypesexp, echo=FALSE, eval=TRUE, out.width = '20%', fig.align = "center", fig.cap="**Biotypes of Gene expression Data frame**"}
-
-knitr::include_graphics("tcga_exp_biotypes.png")
-
-```
-
-```{r showbiotypesmetabolic, echo=FALSE, eval=TRUE, out.width = '20%', fig.align = "center", fig.cap="**Biotypes of metabolic pathways**"}
-
-knitr::include_graphics("tcga_exp_biotypes.png")
-
-```
+The biotype of the genes from the selected metabolic pathways, the genes of the hallmark pathways and the genes of the gene expression matrix was determined, to keep those genes with the same biotype. Because the most genes are protein-coding, only protein-coding genes were maintained.
 
 ### Descriptive analysis
 
@@ -44,7 +26,7 @@ In the mean-variance plot, displayed in Figure \@ref(fig:showmeanvariance), gene
 
 ```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a genes expression, x-axis shows mean of a genes expression"}
 
-knitr::include_graphics("Variance_over mean_cleaned_matrix.png")
+knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
 
 ```
 
@@ -54,7 +36,7 @@ For descriptive analysis 5 violin plots were created for 5 different tumor types
 
 ```{r showviolinplots, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data"}
 
-knitr::include_graphics("Vioplots cancer types.png")
+knitr::include_graphics("figures/Vioplots cancer types.png")
 
 ```
 
@@ -64,7 +46,7 @@ For the construction of the volcano plot the data for THCA from the data set for
 
 ```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Volcano plot of THCA expression data"}
 
-knitr::include_graphics("Volcanoplot.png")
+knitr::include_graphics("figures/Volcanoplot.png")
 
 ```
 
@@ -72,14 +54,14 @@ knitr::include_graphics("Volcanoplot.png")
 
 The results of the GSEA for THCA tissue can be seen in Figure \@ref(fig:GSEAHeat)
 
-```{r GSEAHeat, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="GSEA performed on the THCA expression data, annotated with Pathway type, histoligical type and cluster."}
+```{r GSEAHeat, echo=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.cap="GSEA performed on the THCA expression data, annotated with Pathway type, histoligical type and cluster."}
 
-knitr::include_graphics("THCA GSEA Heatmap fertig.png")
+knitr::include_graphics("figures/THCA GSEA Heatmap fertig.png")
 ```
 
 Horizontal sind die einzelnen Patienten angeordnet, vertikal die pathways, die Heatmap stellt die stärke der Expression der einzelnen pathways in den einzelnen Patienten dar. Rot markierte pathways sind überexprimiert, blaue sind unterexprimiert. Die Achsen wurden mit dem pathway typ, dem hiytological typ und dem cluster annotiert. Es bilden sich innnerhalb der Patienten 3 Cluster, die auf Gemiensamkeiten in der PAthwayaktivität zurückgeführt werden können. Vielleicht hängt die Clusterbildung mit dem histological type zusammen, da eindeutig erkennbar ist, dass in Cluster 3 nur der classical type vorhanden ist, während in Cluster 2 vermehrt Tall cell type auftritt und Folicular type vermehr in Cluster 1 auftritt.
 
-### pan cancer für THCA
+### !!! pan cancer für THCA - Jakob
 
 Um die Clusterbildung zu bestätigen wurde die gleiche Analyse für die THCA daten aus dem großen gene expression dataframe durchgeführt. Auch in dieser Analyse formten sich 3 Cluster, die in zum Teil auf die hiytological types zurückzuführen sind. xxx
 
@@ -87,9 +69,18 @@ Um die Clusterbildung zu bestätigen wurde die gleiche Analyse für die THCA dat
 
 xxx Was wir aus der Heatmap sehen???
 
-```{r GSVAHeat, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
+man sieht nicht welcher pathway was ist weil keine annotationen, was man sieht: Patienten sind nach Ähnlichkiet geclustert: man kann sagen, ob sich bestimmte patienten und krebse im expressionprofil ähnlich sind --> wenn man sich die ganz groß matrix anschaut kann man sich denken:
 
-knitr::include_graphics("GSVA Heatmap fertig.png")
+1.  man sieht hier schon 3 cluster von THCA --> deswegen schauen wir uns das nochmal genau nur mit den THCA daten an
+2.  was man auch in der UMAP sieht: manche krebse sehr gut geclustert, andere in dem großen mittleren cluster --> histological type
+
+CArcinoma = die Mischformen
+
+Die mittleren Expressionswerte: große MAtrix mit 10,000 Patienten : mitteln der Expression enines pathways über alle patienten die einen Krebstyp haben : im durchschnitt ist xy in der krebs runterreguliert: die sind dann auch in der kleineren Hetamap dargestellt --> daraus kann mann dann sagen, dass alle glibalstome zb ähnlich aussehen --> unterschiedliche Genexpressionprofile hängen nicht von dem Patienten ab, sondern nur von dem histological type + da sind die hallmark genes weißlicher weil die in allen Krebs ca. gleich stark exprimiert sind --> Bestätigung der Hallmrks (hier noch die ABbildung dazu zeigen)
+
+```{r GSVAHeat, echo=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
+
+knitr::include_graphics("figures/GSVA Heatmap fertig.png")
 ```
 
 #### PCA
@@ -98,21 +89,21 @@ Die PCA wurde anhand der Pathway Aktivitäten durchgeführt und reduziert auf di
 
 Um die Ergebnisse zu überprüfen wurde die PCA auch auf die Genaktivität angewendet, es war kein Unterschied zu erkennen.
 
-```{r PCAPanType, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
+```{r PCAPanType, echo=FALSE, eval=TRUE, out.width='75%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
 
-knitr::include_graphics("Pan Cancer PCA PC1und2.png")
+knitr::include_graphics("figures/Pan Cancer PCA PC1und2.png")
 ```
 
-```{r PCAPanForm, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by form of tumor"}
+```{r PCAPanForm, echo=FALSE, eval=TRUE, out.width='75%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by form of tumor"}
 
-knitr::include_graphics("Pan Cancer PCA PC1und2 cancer form.png")
+knitr::include_graphics("figures/Pan Cancer PCA PC1und2 cancer form.png")
 ```
 
 #### UMAP
 
-DA durch die PCA keine eindeutigen Cluster erkennbar wurden, wurden die Ergebnisse der PCA genutzt, um eine UMAP zu erstellen. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanType) zu sehen. Hier sind eindeutige Cluser zu erkennen, auch wenn die Abstände zwischen den Clustern nicht proportional zu den wahren Unterschieden sind, kann daraus geschlossen werden, dass die einzelnen Tumortypen charakteristische Pathwayaktivitäten haben, wie zum Beispiel KIRC. Viele Tumortypen haben aber auch ähnliche Pathwayaktivitäten wie zum Beispiel GBM und SARC.
+DA durch die PCA keine eindeutigen Cluster erkennbar wurden, wurden die Ergebnisse der PCA genutzt, um eine UMAP zu erstellen. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanType) zu sehen. Hier sind eindeutige Cluser zu erkennen, auch wenn die Abstände zwischen den Clustern nicht proportional zu den wahren Unterschieden sind, kann daraus geschlossen werden, dass die einzelnen Tumortypen charakteristische Pathwayaktivitäten haben. In der Mitte ist ein großes Cluster zu erkennen, das keinem Tumortyp eindeutig zugeordnet werden kann. Deswegen wurde eine UMAP nach der Form markiert.
 
-Um die Ursache dafür zu finden wurde auch hier die UMAP nach Form des Tumors markiert/gefärbt. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanForm) zu sehen. Es ist eindeutig zu erkennen, dass die Pathwayaktivität auch mit der Form des Tumors zusammenhängt. Zum Beispiel sind Glioblastome eindeutig von Adenocarcinomen getrennt. Allerdings ist auch hier das große Cluster in der Mitte nicht eindeutig einer Tumorform zuzuordnen.
+Die Ergebnisse sind in Figure \@ref(fig:UMAPPanForm) zu sehen. Das mittlere Cluster konnte zwar nicht einem bestimmten histological type zugeornet werden, allerdings besteht das mittlere Cluster größtenteils aus Squamous cell carcinoma, transitional cell carnimoa und anderen Carcinomas. Es kann erkannt werden, dass verschiedenen hystological types teilweise ein verschiedenes expressionmuster haben, die verschiedenen types der carcinoma haben ähnliche expressionsmuster.
 
 ```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by tumor type"}
 
@@ -126,31 +117,17 @@ knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
 
 #### Regression analysis
 
-### Focused analsis
+#### Focused analsis
 
 #### PCA
 
 PCA was also performed for focused analysis, um Untergruppen, die mit der Pathwayaktivität oder Genaktivität zusammenhängen, innerhalb der Thyroid tumors zu finden. Dafür wurden zuerst die Ergebnisse der GSEA verwendet. Der Versuch Cluster zu finden gestaltete sich hier leider schwerer, da weder durch Betrachtung des Thyroid Tumortyps, noch durch Betrachtung der Stage ein eindeutiger Zusammenhang erkannt werden konnte.
 
-## 33 tumor types are showing disting clusters in UMAP
+#### Figure X
 
-hello world!
+A figure x was generated for THCA gene expression data obtained from the gene expression data frame. The obtained figure x can be seen in Figure \@ref(fig:figurex). Thereby pathways with the lowest p-value could be identified. The pathway for thyroxine biosynthesis is a downregulated pathway with a low p-value and is going to be predicted by linear regression analysis and the neuronal network.
 
-## blb alsdjflaskdf umap of some tumortypes
+```{r figurex, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Figure X. -log10(p-values) plotted against ranked p-values, obtained from GSVA on THCA expression data from gene expression data frame. Left: downregulated pathways, right: upregulated pathways"}
 
-Figure generation. You can do it with knitr or with latex formatting. This is knitr:
-
-```{r figure1, fig.cap="Title. Description",echo=FALSE}
-knitr::include_graphics("figures/figure1.png")
-```
-
-easier alternative: this is latex formatting. In Figure \ref{figure1} you can see an UMAP. (+ label your figures, equations etc and then reference with /\ref{})
-
-```{=tex}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics{figures/figure1.png}
-    \caption[\textbf{Title}.]{\textbf{Title}. Description.}
-    \label{figure1}
-\end{figure}
+knitr::include_graphics("figures/2figurexTHCA.png")
 ```

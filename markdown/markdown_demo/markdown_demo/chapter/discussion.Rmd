@@ -1,3 +1,5 @@
 # Discussion
 
-## Immune pathways are significantly upregulated in X
+In der PCA war vermutlich nicht so ein gutes ergebnis zu erkennen, weil nur die ersten 2 PCs verwendet wurden und dadurch nicht die gesamte Varianz erklärt wurde. Bei verwendung aller PCs in der UMAP waren eindeutige Cluster zu erkennen.
+
+Die Ergebnisse der UMAPs entsprechen der Erwartungen. Carcinomas haben alle ähnliche Expressionsmuster, da sie alle epithelialen Zellen entspringen und deshalb ähnliche Mechanismen brauchen, um zu einer Tumorzelle zu werden. Die expressionsmuster zu anderen hiytological tumor types unterscheiden sich. Das liegt daran, dass verschiedene genetische Mechanismen zur Tumorentstehung führen.

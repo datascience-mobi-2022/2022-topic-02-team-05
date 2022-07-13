@@ -156,11 +156,7 @@ To check the distribution of a data set and compare it with other data sets viol
 
 #### Volcano plot
 
-A volcano plot is used to identify significantly differentially expressed genes. In the following analysis a volcano plot is used to identify which genes are significantly diferentially expressed in the analysed THCA tissue, compared to the analysed normal tissue. Therefore the mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way:
-
-log2FC = mean(normal tissue) - mean(tumor tissue)
-
-In the next step, a two-sided t test was performed to determine the significance of a difference in expression.
+A volcano plot is used to identify significantly differentially expressed genes. In the following analysis a volcano plot is used to identify which genes are significantly diferentially expressed in the analysed THCA tissue, compared to the analysed normal tissue. Therefore the mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following wIn the next step, a two-sided t test was performed to determine the significance of a difference in expression.
 
 To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis:
 
