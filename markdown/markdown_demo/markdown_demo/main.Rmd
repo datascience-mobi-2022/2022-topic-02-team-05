@@ -72,9 +72,9 @@ bibliography:
     {\vspace{\stretch{2}}}
     {\usekomafont{title}
 
-        {\Huge ksdflsdjf}
+        {\Huge Titel}
 
-        {\Huge sfdsfd}
+        {\Huge untertitel}
 
         {\Huge sfsf}
 

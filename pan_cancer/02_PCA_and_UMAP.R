@@ -13,7 +13,6 @@ library(umap)
 load('data/tcga_gsva.RData')
 load('data/tcga_anno.RData')
 
-
 #--------------------------------------------
 #Durchführen der PCA und UMAP
 #---------------------------------------------
@@ -82,29 +81,18 @@ ggplot(UMAP_data, aes(x = V1, y = V2, color = form)) + geom_point(size = 1) +
 #------------------------------------------------------------
 #zum Vergelich führen wir nun PCA und UMAP auf den Genen statt auf den Pathway
 #Aktivitäten durch
-#Problem: normale PCA dauert zu lange => iterative factor analysis FA
-# => neues Package psych package
 #------------------------------------------------------------
-
-library(psych)
+library(Seurat) #package für schnelle PCA
 set.seed(123)
-load('data/tcga_exp_cleaned.RData')
+load('data/tcga_exp_cleaned.RData') 
 
-FA = fa(tcga_exp_cleaned, fm = 'pa', #pa da wir die principle factors wollen
-       nfactors = 5, #Gibt uns nur die ersten 5 Faktoren
-       rotate = 'varimax' #Rotiert die Matrix orthogonal sodass die Ergebnisse unkorreliert sind
-       )
+PCA_genes = RunPCA(t(tcga_exp_cleaned), npcs = 10)
 
-save(FA, file = 'data/FA.RData')
-
-FA_data = matrix(as.numeric(FA$loadings), ncol = 5,
-                 dimnames = list(colnames(tcga_exp_cleaned[1:2000]),
-                                 c('PA1','PA2','PA3','PA4','PA5')))
 #UMAP
-UMAP_genes = umap(FA_data)
+UMAP_genes = umap(PCA_genes@feature.loadings)
 UMAP_genes_data = as.data.frame(UMAP_genes$layout)
-UMAP_genes_data$type = tcga_anno$cancer_type_abbreviation[1:2000]
-UMAP_genes_data$form = tcga_anno$cancer_form[1:2000]
+UMAP_genes_data$type = tcga_anno$cancer_type_abbreviation
+UMAP_genes_data$form = tcga_anno$cancer_form
 
 #Plottet unserer UMAP mit Krebsarten nach Farbe
 ggplot(UMAP_genes_data, aes(x = V1, y = V2, color = type)) + geom_point(size = 1) +
@@ -158,10 +146,3 @@ t3 = ggplot(pathways[1:10,], aes(names, PC3)) + geom_col()+
   labs(x = 'Pathway', y= 'Contribution to PC3')+
   theme(axis.text = element_text(angle = 90,))
 grid.arrange(grobs = list(t1, t2, t3), ncol = 3)
-
-grid.arrange(p1, arrangeGrob(p2,p3, ncol=2), heights=c(2.5/4, 2.5/4), ncol=1,top = 'PCA of GSEA data')
-
-grid.arrange(arrangeGrob(v1, v2, ncol = 2),
-             arrangeGrob(t1,t2,t3, ncol = 3),
-             arrangeGrob(p1,p2,p3, ncol = 3),
-             ncol=1)

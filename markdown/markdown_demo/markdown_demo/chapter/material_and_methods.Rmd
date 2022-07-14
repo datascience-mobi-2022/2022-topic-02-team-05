@@ -26,18 +26,18 @@ To avoid duplicates in between the metabolic pathways and between the Hallmark p
 
 ### Deleting Not Available Values (NA's)
 
-Deleting of NA's was done with the R-function na.omit(x). But none of the gene expression matrices contained any NA's.
+Deleting of NA's was done with the R-function na.omit(x).
 
 ### Low-Variance Filtering
 
 Low variance filtering is performed to delete genes with a low variance in gene expression from the data set.
-It is performed to delete genes that are expressed the same in all cancer types (pancancer analysis) or the same in normal cells. Probably, these would be mostly housekeeping genes.
+It is performed to delete genes that are expressed the same in all cancer types (pancancer analysis) or the same in normal cells.
 To calculate the variance of the gene expression of a gene, the r-function var(x) is used and genes with a lower variance than a certain threshold value are removed.\\
 For the focused analysis the variance of the gene expression for each gene in tumor tissue was calculated. Genes with a variance beneath a certain threshold were deleted in the data sets of tumor and normal tissue.
 
 ### Biotype Filtering
 
-The biotype filtering was conducted for the pancancer data and the focussed analysis data. The biotype of each gene was determined (protein coding, RNA,...) and compared with the biotypes of pathways. To allow an appropriate comparison of the expression data and further reduce the data, only biotypes were kept that are available in the pathways. The hallmark pathways and our own pathways were almost all proteincoding, so the pathways with only protein coding genes and the protein coding genes of the expression matrices were kept. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt \ref{biomaRt}.
+The biotype filtering was conducted for the pancancer data and the focussed analysis data. The biotype of each gene was determined (protein coding, RNA,...) and compared with the biotypes of pathways. To allow an appropriate comparison of the expression data and further reduce the data, only biotypes were kept that are available in the pathways. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt \ref{biomaRt}.
 
 #### Selection of metabolic pathways
 
@@ -68,11 +68,12 @@ $$
 log2FC = mean(normal tissue) - mean(tumor tissue)
 $$
 In the next step, a two-sided t-test was performed to determine the significance of a difference in expression.
+$$ In the next step, a two-sided t test was performed to determine the significance of a difference in expression.
 
 To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis:
 
 $$
-A \alpha = \frac{0.025}{n}
+\alpha = \frac{0.025}{n}
 $$
 
 In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentially expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.
@@ -89,8 +90,8 @@ The PCA was performed for pathway and gene activity. For analysis of the gen act
 
 Dazu wurde noch analysiert, wie die Pathways auf die PCs verteilt sind.
 
-## TCGA data
+### Figure X
 
-What kind of data do we have? ## Used Packages
+To identify pathways with the highest p-Value, obtained from GSVA and t-testing, a figure x is generated.
 
-show a table!
+For generating figure x, the data from generating a volcano plot is used to identify the pathways, that are significantly over- or underexpressed based on the p-value. Pathways with a p-value smaller than 0.025 and a log2FC bigger than zero are significantly overexpressed, if the log2FC is smaller than zero, the pathways are significantly underexpressed. In the next step, the pathways are ranked based on their p-value and the -log10(p-value) of each pathways is plotted against its rank. One plot is generated for overexpressed pathways and the other one for under expressed pathways.

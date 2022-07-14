@@ -10,26 +10,23 @@ pathway = 'RODRIGUES_DCC_TARGETS_UP'
 #Laden der Vorhersagen
 load('data/regression/nn.prediction.RData')
 load('data/regression/lm.prediction.RData')
-#load('data/regression/lm.pca.prediction.RData')
+load('data/regression/lm.new.prediction.RData')
 load('data/regression/null.prediction.RData')
 
 #Laden der MSEs
 load('data/regression/nn.MSE.RData')
 load('data/regression/lm.MSE.RData')
-#load('data/regression/lm.pca.MSE.RData')
+load('data/regression/lm.new.MSE.RData')
 load('data/regression/null.MSE.RData')
 
 #Laden der Testdaten
 load('data/regression/test.RData')
 test = test[,pathway]
-
-
 #---------------------------------------------------
 #1. Graphischer Vergleich
 #Wir plotten echte Werte gegen die Vorhergesagten des Modells
 #---------------------------------------------------
-
-par(mfrow=c(1,3))
+par(mfrow=c(2,2))
 
 #Plotten der Neuronalen netzes
 plot(test, nn.prediction, col='red',
@@ -53,12 +50,11 @@ plot(test, lm.prediction, col='blue',
 abline(0,1,lwd=2)
 legend('bottomright',legend= paste('MSE', round(lm.MSE, 3), sep = '='), bty='n')
 
-# #Plotten des Linear models mit PCA
-# plot(test, lm.pca.prediction, col='green', main='Linear model with PCA',pch=18, cex=1,
-#      ylab = 'prediction', xlab = 'true value',xlim=c(-1,1), ylim=c(-1,1))
-# abline(0,1,lwd=2)
-# legend('bottomright',legend= paste('MSE', round(lm.pca.MSE, 3), sep = '='), bty='n')
-
+#Plotten des Linear models mit signifikanten Pathways
+plot(test, lm.new.prediction, col='lightblue', main='Lin. model with sig. Pathways',pch=18, cex=1,
+     ylab = 'prediction', xlab = 'true value',xlim=c(-1,1), ylim=c(-1,1))
+abline(0,1,lwd=2)
+legend('bottomright',legend= paste('MSE', round(lm.new.MSE, 3), sep = '='), bty='n')
 
 #---------------------------------------------------
 #2. Vergleich ob sich die Modelle signifikant unterscheiden
@@ -66,8 +62,8 @@ legend('bottomright',legend= paste('MSE', round(lm.MSE, 3), sep = '='), bty='n')
 #---------------------------------------------------
 #F-test testen ob sich die Varianzen signifikant unterscheiden
 #in diesem Fall betrechten wir die Varianzen der Residuals => je näher an null desto besser
-predictions = matrix(c(nn.prediction, lm.prediction,  null.prediction), ncol = 3,
-                     dimnames = list(seq(1,15,1), c('nn','lm','null')))
+predictions = matrix(c(nn.prediction, lm.prediction, lm.new.prediction,  null.prediction), ncol = 4,
+                     dimnames = list(seq(1,15,1), c('nn','lm','lmsp','null')))
 residuals = apply(predictions, 2, FUN = function(x){x-test})
 
 #Da der F-test sehr anfällig gegen nicht normalverteilte Daten ist machen wir Shapiro-wilk tests
@@ -84,19 +80,21 @@ ftest = apply(residuals, 2, FUN = function(x){
 
 #Visualisierung der Pvalues mit pheatmap
 library(pheatmap)
-pheatmap(ftest, main = 'Pvalue comparison of regression models',
+res = ftest; res[lower.tri(res)] = NA; 
+pheatmap(res,
+         main = 'Pvalue comparison of regression models',
          breaks = seq(0, 0.5, length.out = 21),
          color = colorRampPalette(c('red','black'),
                                   bias = 1,
                                   space = 'rgb',
                                   interpolate = 'linear'
          )(20),
-         clustering_method = 'average', treeheight_row = 0, treeheight_col = 0,
+         cluster_rows = F, cluster_cols = F, treeheight_row = 0, treeheight_col = 0,
          cellwidth = 40, cellheight = 40,
          show_colnames = TRUE,show_rownames = TRUE, border_color = NA,
          legend_breaks = c(0,0.05, 0.5),
          legend = FALSE,
          display_numbers = TRUE, number_color = 'white',
          legend_labels = c('significant','alpha', 'non significant')
-)
+);rm(res)
 
