@@ -114,10 +114,6 @@ To identify pathways with the highest p-Value, obtained from GSVA and t-testing,
 
 For generating figure x, the data from generating a volcano plot is used to identify the pathways, that are significantly over- or underexpressed based on the p-value. Pathways with a p-value smaller than 0.025 and a log2FC bigger than zero are significantly overexpressed, if the log2FC is smaller than zero, the pathways are significantly underexpressed. In the next step, the pathways are ranked based on their p-value and the -log10(p-value) of each pathways is plotted against its rank. One plot is generated for overexpressed pathways and the other one for under expressed pathways.
 
-```{r table}
-
-knitr::kable(PackagesRProjekt,format = "simple" ,caption = "*Packages used in the analysis*")
-```
 
 ### Linear Regression
 
@@ -125,4 +121,4 @@ knitr::kable(PackagesRProjekt,format = "simple" ,caption = "*Packages used in th
 ### Neuronal Network
 
 
-
+Packages Tabelle einfügen! --> sorry: habe leider die zeile gelöscht, hoffe du weißt noch, was du gemacht hast :(

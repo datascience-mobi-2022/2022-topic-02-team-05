@@ -8,11 +8,11 @@ The provided data in the following analysis originates from transcriptomic profi
 
 The Hallmarks of Cancer are properties of tumors, that can be detected in each tumor. Among others resisting cell death, inducing angiogenesis, enabling replicative immortality, activating invasion and metastasis evading growth suppressors were the first detected hallmarks [@cancer_hallmarks].
 
-### Histological tumor types
+## Histological tumor types
 
 The observed tumors can be classified into different histological types. Carcinomas contain adenocarcinomas, Squamous cell carcinoma, transitional cell carcinoma and carcinomas in general, which include all of the mixed carcinomas. Carciomas derive from epithelial cells. Melanoma is a tumor of the skin, a sarcoma derives from connective or supportive tissue cells. A glioblastoma is a tumor in the brain and leukemia affects the blood [@cell].
 
-#### RNA-sequencing xxx
+## RNA-sequencing xxx
 
 RNA-sequencing (RNA-seq) is performed by cleaning of RNA, fragmentation, translation of RNA to cDNA, sequencing of cDNA and comparing with the reference genome. The advantage of RNA-seq is that it includes information about gene expression that is especially important in the analysis of tumors such as epigenetic changes (e.g. epigenetic gene silencing) or fusion proteins [@cell]. 
 
@@ -35,15 +35,14 @@ xxx
 
 #### Gene Set Enrichment Analysis
 
-To analyse and compare the activity of pathways of gene expression data, a Gene Set Enrichment Analysis (GSEA) is performed. The aim of the GSEA is to analyse and to identify highly expressed pathways \cite{GSEAxxx}. For this, two conditions with replicates are compared, so a reference of normal expression data is needed.\\
+To analyse and compare the activity of pathways of gene expression data, a Gene Set Enrichment Analysis (GSEA) is performed. The aim of the GSEA is to analyse and to identify highly expressed pathways [@GSEA]. For this, two conditions with replicates are compared, so a reference of normal expression data is needed.\\
 First, a gene list is defined. Then the statistically enriched pathways are identified and lastly, the results are visualized.\\
 GSEA is performed with the package 'fgsea' ref(xxx).
 
-Korotkevich, Gennady, Vladimir Sukhov, and Alexey Sergushichev. 2019. "Fast Gene Set Enrichment Analysis." Journal Article. bioRxiv, 060012. <https://doi.org/10.1101/060012> xxx
 
 #### Gene Set Variation Analysis
 
-The Gene Set Variation Analysis (GSVA) is performed with the same intention as the GSEA, so to analyse the pathway activities from gene expression data. Like the GSEA, the approach helps to reduce noise, to further reduce dimensions and to improve the interpretation process [@GSVA]. The difference to the GSEA is that there no reference expression data is to perfom the GSVA.
+The Gene Set Variation Analysis (GSVA) is performed with the same intention as the GSEA, so to analyse the pathway activities from gene expression data. Like the GSEA, the approach helps to reduce noise, to further reduce dimensions and to improve the interpretation process [@GSVA]. The difference to the GSEA is that there no reference expression data is to perform the GSVA.
 
 GSVA is performed with the package xxx.
 
