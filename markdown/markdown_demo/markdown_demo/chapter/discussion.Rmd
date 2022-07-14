@@ -4,11 +4,15 @@
 
 # Discussion
 
-In der PCA war vermutlich nicht so ein gutes ergebnis zu erkennen, weil nur die ersten 2 PCs verwendet wurden und dadurch nicht die gesamte Varianz erklärt wurde. Bei verwendung aller PCs in der UMAP waren eindeutige Cluster zu erkennen.
+In der PCA war nicht so ein gutes Ergebnis zu erkennen, weil nur die ersten 2 PCs verwendet wurden und dadurch nicht die gesamte Varianz erklärt wurde, durch die Verwendung von mehr PCs oder von anderen PCs (zB 2 und 3) könnte man evtl. eine bessere Darstellung erhalten. Bei verwendung aller PCs in der UMAP waren eindeutige Cluster zu erkennen allerdings ist UMAP auch nicht die optimale Methode, weil da die Abstände innerhalb der Cluster nicht proportional zu den tatsächlichen Abständen sind weil die mehrdimensionalen Daten irgendwie auf 2 Dimensionen runtergebrochen werden mussten.
 
-Die Ergebnisse der UMAPs entsprechen der Erwartungen. Carcinomas haben alle ähnliche Expressionsmuster, da sie alle epithelialen Zellen entspringen und deshalb ähnliche Mechanismen brauchen, um zu einer Tumorzelle zu werden. Die expressionsmuster zu anderen hiytological tumor types unterscheiden sich. Das liegt daran, dass verschiedene genetische Mechanismen zur Tumorentstehung führen.
+Die Ergebnisse der UMAPs entsprechen der Erwartungen. Carcinomas haben alle ähnliche Expressionsmuster, da sie alle epithelialen Zellen entspringen und deshalb ähnliche genetische Mechanismen brauchen, um zu einer Tumorzelle zu werden. Die expressionsmuster zu anderen histological tumor types unterscheiden sich. Das liegt daran, dass verschiedene genetische Mechanismen zur Tumorentstehung führen, da sie anderen Zellen entspringen. Dadurch ist auch die unterschiedliche Genexpression zwischen den einzelnen Tumortypen, die zwar den gleichen histological type haben, aber sich in ihrem Tumortyp unterscheiden, wie zB die Adenocarcionma.
+
+Die Ergebnisse der GSVA ...
 
 GSVA mittlerer expressionswerte: dass hallmark pathways alle weiß sind entspricht unseren erwartungen
+
+Outlook:
 
 Epigeentic profiles = auch epigenetische veränderungen werden in die Expressionsdate mit inebezogen, das wäre sehr sinnvol für die ANalyse, wird hier aber nicht beachetet
 
