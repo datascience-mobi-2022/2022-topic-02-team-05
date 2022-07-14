@@ -21,11 +21,9 @@ The results from RNA-seq used for the analysis originate from the cancer genome 
 ## Thyroid carcinoma
 
 Thyroid carcinoma (THCA) incidence increased dramatically over the past few years [@THCA]. To enlarge the understanding of THCA and thereby hopefully improve patients prognosis, this project focuses on finding genes that have a significantly different expression in THCA compared to other cancers and especially to normal tissue.\\
-The main tasks of the thyroid gland are synthesizing hormones and regulating body temperate and metabolism [@THgland1]. A lack of thyroid hormones can cause symptoms like headaches, nausea and depression. Most THCAs derive from thyroid cells and thereby the thyroid gland loses their function, resulting in a lack of thyroid hormones.
-
-Thyroid cancer can occur in two different types, differentiated and undifferentiated thyroid cancer. Those two types again have histological subtypes. Papillary thyroid cancer (PTC), the most common THCA, follicular thyroid cancer (FTC) and tall cell variant cancer (TCV) are subtypes of differentiated thyroid cancer (DTC) while medullary and anaplastic thyroid cancer are subtypes of undifferentiated thyroid cancer (UTC). Prevalence of DTCs is clearly higher than of UTCs. That is, why only the DTCs occur in the following analysis. xxx [Update on Fundamental Mechanisms of Thyroid Cancer - PubMed (nih.gov)](https://pubmed.ncbi.nlm.nih.gov/32231639/)
-
-Regarding the presented DTCs, PTCs have the best clinical prognosis ( [Risk Patterns of Distant Metastases in Follicular, Papillary and Medullary Thyroid Cancer-BIOSIS Previews (webofscience.com)](https://www.webofscience.com/wos/biosis/full-record/BIOSIS:PREV202200394234)) xxx, while TCV cancers have the worst clinical outcome xxx ([Papillary Thyroid Cancer-Aggressive Variants and Impact on Management: A Narrative Review-BIOSIS Previews (webofscience.com](https://www.webofscience.com/wos/biosis/full-record/BIOSIS:PREV202000606704)). Therefore, the detection of the tumor type would be important and for more specific therapy options. Even though, all thyroid cancers are treated with thyroidectomy and radioactive iodine, the additional therapy differs for each histological type ([New therapeutic advances in the management of progressive thyroid cancer-BIOSIS Previews (webofscience.com)](https://www.webofscience.com/wos/biosis/full-record/BIOSIS:PREV201000061254)) xxx.
+The main tasks of the thyroid gland are synthesizing hormones and regulating body temperate and metabolism [@THgland1]. A lack of thyroid hormones can cause symptoms like headaches, nausea and depression. Most THCAs derive from thyroid cells and thereby the thyroid gland loses their function, resulting in a lack of thyroid hormones.\\
+Thyroid cancer can occur in two different types, differentiated and undifferentiated thyroid cancer. Those two types again have histological subtypes. Papillary thyroid cancer (PTC), the most common THCA, follicular thyroid cancer (FTC) and tall cell variant cancer (TCV) are subtypes of differentiated thyroid cancer (DTC) while medullary and anaplastic thyroid cancer are subtypes of undifferentiated thyroid cancer (UTC). Prevalence of DTCs is clearly higher than of UTCs [@THCA2].\\
+Regarding the presented DTCs, PTCs have the best clinical prognosis [@PCA1], while TCV cancers have the worst clinical outcome [@PCA_aggressive]. Therefore, the detection of the tumor type would be important and for more specific therapy options. Even though, all thyroid cancers are treated with thyroidectomy and radioactive iodine, the additional therapy differs for each histological type [@PCA3].
 
 RODRIGUES_DCC_TARGETS_UP is a gene set containing oncogenes found in colon cancer. Those genes are upregulated in colon cancer cells and thereby promote metastasis, tumor cell survival and invasion. By identifying the upregulation of those genes in a cancer, additional therapies can be started to suppress tumor survival, tumor growth and invasion. xxx ([Opposing roles of netrin-1 and the dependence receptor DCC in cancer cell invasion, tumor growth and metastasis - PubMed (nih.gov)](https://pubmed.ncbi.nlm.nih.gov/17334389/)) If this upregulation can also be detected in THCA, therapies, that are used in colon cancer may be useful for therapy of THCA.
 
@@ -45,22 +43,19 @@ Korotkevich, Gennady, Vladimir Sukhov, and Alexey Sergushichev. 2019. "Fast Gene
 
 #### Gene Set Variation Analysis
 
-The Gene Set Variation Analysis (GSVA) is performed with the same intention as the GSEA, so to analyse the pathway activities from gene expression data. Like the GSEA, the approach helps to reduce noise, to further reduce dimensions and to improve the interpretation process \cite{GSVA xxx}. The difference to the GSEA is that there no reference expression data is to perfom the GSVA.
-
-Hänzelmann, Sonja, Robert Castelo, and Justin Guinney. 2013. "GSVA: Gene Set Variation Analysis for Microarray and Rna-Seq Data." Journal Article. BMC Bioinformatics 14 (1): 7. <https://doi.org/10.1186/1471-2105-14-7.>
+The Gene Set Variation Analysis (GSVA) is performed with the same intention as the GSEA, so to analyse the pathway activities from gene expression data. Like the GSEA, the approach helps to reduce noise, to further reduce dimensions and to improve the interpretation process [@GSVA]. The difference to the GSEA is that there no reference expression data is to perfom the GSVA.
 
 GSVA is performed with the package xxx.
 
-#### **Uniform Manifold Approximation and Projection for Dimension Reduction**
+#### Uniform Manifold Approximation and Projection for Dimension Reduction
 
 The Uniform manifold approximation and projection for dimension reduction (UMAP) is a method to reduce the dimension of a multidimensional data set. 
-In comparison to the PCA, UMAP can reduce dimensions where the data is not linear \cite{UMAP xxx}. Thereby, the high dimensional structure of the data is maintained. In further visualization, the structure can be represented in clusters that would not be visible using PCA. Therefore, the identification of the clusters is a lot easier. is  Thereby the UMAP keeps the overall structure of the data set, therefore clusters are easier.\\
+In comparison to the PCA, UMAP can reduce dimensions where the data is not linear [@UMAP xxx]. Thereby, the high dimensional structure of the data is maintained. In further visualization, the structure can be represented in clusters that would not be visible using PCA. Therefore, the identification of the clusters is a lot easier. is  Thereby the UMAP keeps the overall structure of the data set, therefore clusters are easier.\\
 The problem of the UMAP is, that although the overall structure is conserved, the distance between the individual points is not proportional to the real distance in the data set. This arises from the non-linear dimensional reduction.
 
 UMAP is performed with the package xxx.
-https://link.springer.com/article/10.1007/s11899-020-00602-4 xxx
 
-#### Principal component analysis
+#### Principal component analysis xxx QUELLE
 
 A Principal component analysis (PCA) is used to reduce the dimension of a given data set. The dimensions are summarized in principal components (PCs) which do not correlate. Because the PCs summarize the dimensions, the first PCs explain most of the variance of the data set and thereby can be selected to explain the data. Still, one has to keep in mind, that by reducing the dimensions, not all of the variance is explained and some of the information is lost in the process. The ideal number of PCs can be determined with an elbow-plot. In our analysis we use a PCA as a foundation for the UMAP, because the UMAP can not work with correlated dimensions. Furthermore it is used to detect the most important pathways, which explain most of the first PCs.
 
@@ -94,10 +89,3 @@ For the regression analysis only 20% of the pathways were used, to only use sign
 
 The regression analysis was tested by
 
-## Cancer
-
-You can cite one or multiple authors. One author \[@kumar_multiple_2017\] and multiple authors \[@kumar_multiple_2017; @zavidij_single-cell_2020\]. Write in **bold** or in *italic* or in both ***bolditalic***. You can also write inline code, e.g. `Seurat::RunUMAP`.
-
-## LUAD
-
-Some information @kumar_multiple_2017
