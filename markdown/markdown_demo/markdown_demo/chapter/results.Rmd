@@ -95,7 +95,7 @@ An up-regulation of all of these pathways may lead to cell growth and proliferat
 knitr::include_graphics("figures/Pan Cancer mean expression.png")
 ```
 
-#### PCA 
+#### PCA
 
 The PCA was performed with the basis of the calculated pathway activities and displayed in Figure \@ref(fig:PCAPanType), reduced to the first 2 PCs.
 Even though, clusters were formed in the analysis, they can not be clearly identified, in the figure.
