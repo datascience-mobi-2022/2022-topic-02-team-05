@@ -38,17 +38,15 @@ RODRIGUES_DCC_TARGETS_UP is a gene set containing oncogenes found in colon cance
 
 #### Gene Set Enrichment Analysis
 
-To analyse and compare the activity of pathways a Gene Set Enrichment Analysis (GSEA) is performed. Therefore a reference is needed to compare the activity of certain pathways in tumor tissue with the activity in normal tissue.
-
-First, the log2FC is calculated for each gene and ranked in a vector for each patient, beginning with the highest log2FC. This resulted in a MATRIX/DATAFRAME/LIST. A high log2FC implies, that the the gene is higher expressed in tumor tissue than in normal tissue. In the next step the activity of each pathway in each patient is calculated. Therefore the ranked vectors of each patient containing the log2FCs are used. The function checks for each gen if it is included in the analysed pathway or not. If it is included, the log2FC of that gene is added to the cumulative function, if it is not included, the log2FC is subtracted. This results in a cumulative function, that has a peak at a certain place. In this place of the ranked vector is also a gene located, the expression value of that gene is saved as the enrichment score of the analysed pathway and the patient belonging to the used vector.
-
-GSEA is performed with the package xxx. Whang meinte das hier noch was dazu soll, finde das aber eig ganz gut...
+To analyse and compare the activity of pathways of gene expression data, a Gene Set Enrichment Analysis (GSEA) is performed. The aim of the GSEA is to analyse and to identify highly expressed pathways \cite{GSEAxxx}. For this, two conditions with replicates are compared, so a reference of normal expression data is needed.\\
+First, a gene list is defined. Then the statistically enriched pathways are identified and lastly, the results are visualized.\\
+GSEA is performed with the package 'fgsea' ref(xxx).
 
 Korotkevich, Gennady, Vladimir Sukhov, and Alexey Sergushichev. 2019. "Fast Gene Set Enrichment Analysis." Journal Article. bioRxiv, 060012. <https://doi.org/10.1101/060012> xxx
 
 #### Gene Set Variation Analysis
 
-The Gene Set Variation Analysis (GSVA) is performed with the same intention as the GSEA, with the difference, that there is no reference expression data needed like in the GSEA. Because there was no expression data provided for comparison in the TCGA analysis, GSVA was used. There a various solutions to perform GSVA, one of them is performed by Hänzelmann et al xxx by following those five steps.
+The Gene Set Variation Analysis (GSVA) is performed with the same intention as the GSEA, with the difference, that there is no reference expression data needed like in the GSEA. Because there was no expression data provided for comparison in the TCGA analysis, GSVA was used. There are various solutions to perform GSVA, one of them is performed by Hänzelmann et al xxx by following those five steps.
 
 For performing a GSVA, firstly the cumulative density distribution of a gene over all samples is estimated. Then the expression statistic of a gene in a sample based on the cumulative density distribution is calculated to bring all of the expression values to the same level. The third step is to rank the genes based on the expression statistic and the normalize the ranks with z-transformation. The last step is to compute the enrichment score based on the obtained ranked list. Therefore the Kolmogorov-Smirnov-like rank statistic is calculated for each gene set. That is used to calculate the enrichment score for each pathway in each patient, which is shown a a heatmap. (Hänzelmann, Castelo, and Guinney 2013) xxx Hänzelmann, Sonja, Robert Castelo, and Justin Guinney. 2013. "GSVA: Gene Set Variation Analysis for Microarray and Rna-Seq Data." Journal Article. BMC Bioinformatics 14 (1): 7. <https://doi.org/10.1186/1471-2105-14-7.>
 
