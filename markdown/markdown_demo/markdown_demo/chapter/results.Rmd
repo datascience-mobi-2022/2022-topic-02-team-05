@@ -29,7 +29,7 @@ The pathways from the MSigDB database were first aligned with the genes in our e
 Only pathways with a coverage of over 99% were kept.
 To avoid biases during enrichment analysis jaccard indices between hallmark pathways and MSigDB pathways were computed and pathways with a high similarity were removed.
 
-### Descriptive analysis
+## Descriptive analysis
 
 #### Mean-variance plot of TCGA expression data shows highly variant genes
 
@@ -52,7 +52,7 @@ To determine those genes that are up- or down-regulated in THCA, the expression 
 Associated p-Values were comuted with a Wilcoxon rank sum test.
 (Figure \@ref(fig:showvolcanoplot)).
 The significance level adjusted to 1.755e-06 with a Bonferrioni adjustment.
-(!!!!! WICHTIG Welche sind up-regulated, welche down-regulated???)
+(!!!!! WICHTIG Welche sind up-regulated, welche down-regulated???)xxx
 
 ```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Volcano plot of THCA expression data"}
 
@@ -95,31 +95,17 @@ An up-regulation of all of these pathways may lead to cell growth and proliferat
 knitr::include_graphics("figures/Pan Cancer mean expression.png")
 ```
 
-#### PCA 
+#### Dimension reduction of GSVA pan-cancer data reveals clusters in pathway activity
 
-The PCA was performed with the basis of the calculated pathway activities and displayed in Figure \@ref(fig:PCAPanType), reduced to the first 2 PCs.
-Even though, clusters were formed in the analysis, they can not be clearly identified, in the figure.
-The samples were parked by tumor type and all patients of one tumor type occur in the same region, but they do not form individual clusters.
-The same plot was colored by histological type, showing, that patients with the same histological type occur close to each other.
-The results from the PCA confirm the results from the GSVA, pathways, that are included in th first two PCs, seem to cohere with the histological type.
-
-```{r PCAPanType, echo=FALSE, eval=TRUE, out.width='75%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
-
-knitr::include_graphics("figures/Pan Cancer PCA PC1und2.png")
-```
-
-```{r PCAPanForm, echo=FALSE, eval=TRUE, out.width='75%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by form of tumor"}
-
-knitr::include_graphics("figures/Pan Cancer PCA PC1und2 cancer form.png")
-```
-
-#### UMAP
-
-Because the cluster structure displayed by the PCA was not as expected, the results from the PCA were used to create a UMAP.
-In Figure \@ref(fig:UMAPPanType) clear clusters can be seen, what reassures, that the tumor types have characteristic pathway activities.
-In the middle a big cluster can be seen, that can not be assigned to a certain tumor type.
-To detect the cause for this cluster, the UMAP was colored by histological types (Figure \@ref(fig:UMAPPanForm)), showing, that the big cluster in the middle mainly contains various carcinoma types like squamous cell carcinoma and transitional cell carcinoma.
-The UMAP confirmed again the assumption, that the histological type of a tumor has a mayor impact on the patients gene expression profile.
+PCA was performed on GSVA pan-cacner data to provide uncorrelted varibales for better UMAP analysis.
+No apparent clustering was observed only in PCA data (compare Figure xxx supplementray materail).
+Subsequent UMAP analysis however, showed clear clusters for most cancer types.
+\@ref(fig:UMAPPanType) \@ref(fig:UMAPPanForm).
+This complemetns the results obtained from our heatmap and reassures, that the tumor types have characteristic pathway activities.
+However, some cancers cluster better with their histological type rather than tumor type.
+This was observed mainly for carcinomas like squamous cell carcinoma and transitional cell carcinoma, as well as sarcoma, lung adenocarcinoma and ovarian cancer.
+These are the same histological types that proofed difficult to cluster in the mean GSVA of TCGA expression.
+The UMAP confirmed the assumption, that the histological type of a tumor has a major impact on the patients gene expression profile.
 
 ```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by tumor type"}
 
@@ -131,14 +117,13 @@ knitr::include_graphics("figures/Pan Cancer UMAP.png")
 knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
 ```
 
-The same analysis was performed for gene activity instead of pathway activity to check for reliability of the results.
-No differences could be detected,
+The same analysis was performed for gene expression activity instead of pathway activity to check for reliability of the results.
+Similar clusters were observed, which confirms our results (see Fig. appendix)xxx.
 
-#### Regression analysis
+## Focused analysis
 
-#### Focused analsis
+#### GSVA on THCA expression data reveals pathways driving thyroid carcinogenesis.
 
-####GSVA on THCA expression data reveals pathways driving thyroid carcinogenesis.
 To grasp a general overview of the differences in pathway activity between THCA and homeostatic thyroid tissue, GSVA was performed for the THCA expression data.
 Then, changes in pathway activity were computed by log2 fold change and the respective p-values were computed by a Wilcoxon rank-sum test.
 The most significantly altered pathways were then characterized.
@@ -166,7 +151,8 @@ Nat Rev Mol Cell Biol 16, 5--17 (2015).
 <https://doi.org/10.1038/nrm3915> Together these findings give a general overview of mechanisms driving carcinogenesis in THCA.
 However, no information about possible THCA subtypes or differences in patway activity between patients can be obtained from this data.
 
-####Pan-cancer data GSVA reveals three subtypes of THCA altering in proliferative signaling.
+#### Pan-cancer data GSVA reveals three subtypes of THCA altering in proliferative signaling.
+
 To investigate potential subtypes of THCA, the respective samples were taken from the pan-cancer GSVA data.
 The optimal number of clusters was determined by an elbow plot and subsequent K-means clustering revealed a total of three subtypes in THCA.
 This is consistent with the three clusters of THCA observed in the full pan-cancer GSVA data.
@@ -181,7 +167,8 @@ Regarding immune response, cluster C showed no significant alterations in the re
 With this data, we can identify two seemingly different forms of proliferative signaling driving carcinogenesis in THCA.
 These forms can either occur separately as in the case of clusters A and B or combined as for cluster C.
 
-####THCA subtypes do not differ in their metabolism.
+#### THCA subtypes do not differ in their metabolism.
+
 To investigate how the identified subtypes compare to homeostatic thyroid tissue, GSEA was performed for the THCA data.
 Consistent with the pan-cancer analysis of THCA data, k-means clustering obtained three different clusters in pathway activity -- verified as the optimal number of clusters via an elbow plot.
 All clusters showed a similar change in metabolism.
@@ -192,3 +179,5 @@ Alpha6beta4, RAS, JAK/STAT, and EWSR1/FL1-fusion mediated signaling is upregulat
 However, the expected upregulation of mTOR, MAPK, PI3K, and EGFR signaling in clusters two and three was observed only in some samples.
 Regarding, immune response the expression profiles are again consistent with differences observed in the GSVA pan-cancer data: Both clusters one and two show a lower immune response compared to cluster three.
 From these GSEA results, we can conclude that the three subtypes of THCA differ in carcinogenesis and associated immune response but share a similar metabolism consistent with the Warburg effect.
+
+## Regression analysis
