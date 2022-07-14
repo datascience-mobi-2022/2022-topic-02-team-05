@@ -1,61 +1,53 @@
 ---
-title: 'Schildkrötenkrebs'
+title: " "
 output:
   pdf_document:
-    number_sections: yes
+    number_sections: TRUE
   html_document:
     code_folding: hide
-  word_document: default
 documentclass: scrreprt
-classoption:
-- parskip
-- oneside
+classoption: [parskip, oneside] # für drucken twoside
 header-includes:
-- \usepackage[miktex]
-- \usepackage[greek, ngerman, main=english]{babel}
-- \usepackage[utf8]{inputenc}
-- \usepackage[T1]{fontenc}
-- \usepackage{lmodern}
-- \usepackage[onehalfspacing]{setspace}
-- \usepackage[left=2.50cm, right=2.50cm, top=2.50cm, bottom=2.50cm, bindingoffset=10mm,
-  includehead, includefoot]{geometry}
-- \usepackage[headsepline]{scrlayer-scrpage}
-- \usepackage{url}
-- \usepackage[backend=biber, style=authoryear, giveninits=true, maxbibnames=99, uniquename=init,
-  maxcitenames=2, hyperref=true, date=year]{biblatex}
-- \usepackage{xpatch}
-- \usepackage{csquotes}
-- \usepackage{amsmath}
-- \usepackage{listings}
-- \usepackage{booktabs}
-- \usepackage{longtable}
-- \usepackage{multirow}
-- \usepackage{rotating}
-- \usepackage{subfigure}
-- \usepackage{graphicx}
-- \usepackage{float}
-- \usepackage{acronym}
-- \usepackage{lipsum}
-- \usepackage{scrhack}
-- \usepackage{amsmath}
-- \emergencystretch=50pt
-- \clubpenalty = 10000
-- \widowpenalty = 10000
-- \displaywidowpenalty = 10000
-- \automark[section]{chapter}
-- \renewcommand*{\chaptermarkformat}{}
-- \renewcommand*{\sectionmarkformat}{}
-- \setkomafont{title}{\sffamily}
-- \setkomafont{disposition}{\usekomafont{title}}
-- \setkomafont{author}{\usekomafont{title}}
-- \setkomafont{date}{\usekomafont{title}}
-- \setkomafont{caption}{\sffamily\small}
-- \setkomafont{captionlabel}{\usekomafont{caption}\bfseries\small}
-- \setkomafont{pagehead}{\normalfont\scshape}
+  #- \usepackage[greek, ngerman, main=english]{babel}
+  - \usepackage[utf8]{inputenc}
+  - \usepackage[T1]{fontenc}
+  - \usepackage{lmodern}
+  - \usepackage[onehalfspacing]{setspace}
+  - \usepackage[left=2.50cm, right=2.50cm, top=2.50cm, bottom=2.50cm, bindingoffset=10mm, includehead, includefoot]{geometry}
+  - \usepackage[headsepline]{scrlayer-scrpage}
+  - \usepackage{url}
+  - \usepackage[backend=biber, style=authoryear, giveninits=true, maxbibnames=99, uniquename=init, maxcitenames=2, hyperref=true, date=year]{biblatex}
+  #- \usepackage{bib/cellstyle_it}
+  - \usepackage{xpatch}
+  - \usepackage{csquotes}
+  - \usepackage{amsmath}
+  - \usepackage{listings}
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{multirow}
+  - \usepackage{rotating}
+  - \usepackage{subfigure}
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{acronym}
+  - \usepackage{lipsum}
+  - \usepackage{scrhack}
+  - \emergencystretch=50pt
+  - \clubpenalty = 10000
+  - \widowpenalty = 10000
+  - \displaywidowpenalty = 10000
+  - \automark[section]{chapter}
+  - \renewcommand*{\chaptermarkformat}{}
+  - \renewcommand*{\sectionmarkformat}{}
+  - \setkomafont{title}{\sffamily}
+  - \setkomafont{disposition}{\usekomafont{title}}
+  - \setkomafont{author}{\usekomafont{title}}
+  - \setkomafont{date}{\usekomafont{title}}
+  - \setkomafont{caption}{\sffamily\small}
+  - \setkomafont{captionlabel}{\usekomafont{caption}\bfseries\small}
+  - \setkomafont{pagehead}{\normalfont\scshape}
 csl: bib/molecular-biology-of-the-cell.csl
-bibliography:
-- bib/packages.bib
-- bib/test.bib
+bibliography: [bib/packages.bib, bib/test.bib]
 ---
 
 <!-- Based on Nicolas Peschkes LaTeX Template for MoBis, if you want further information on the packages just check it here: https://gitlab.com/npeschke/LaTeX-Template-IPMB -->
@@ -65,16 +57,16 @@ bibliography:
 ```{=tex}
 \begin{titlepage}
 \centering
-    {\Large Ruprecht-Karls-Universität Heidelberg\\
-        Fakultät für Biowissenschaften\\
-        Bachelorstudiengang Molekulare Biotechnologie\\}
+    {\Large Ruprecht-Karls-University Heidelberg\\
+        Faculty for Life Sciences\\
+        Molecular Biotechnology\\}
 
     {\vspace{\stretch{2}}}
     {\usekomafont{title}
 
-        {\Huge Titel}
+        {\Huge Thyorid cancer: Comparison of linar model and neuronal network (xxx)}
 
-        {\Huge untertitel}
+        {\Huge 3-Sätze-Zusammenfassung}
 
         {\Huge sfsf}
 
@@ -99,7 +91,6 @@ bibliography:
 ```
 <!-- add your chapters here -->
 
-@ggplot2
 
 \tableofcontents
 
@@ -109,13 +100,16 @@ bibliography:
 ```{r child = "chapter/introduction.Rmd"}
 ```
 
+```{r child = "chapter/material_and_methods.Rmd"}
+```
+
 ```{r child = "chapter/results.Rmd"}
 ```
 
 ```{r child = "chapter/discussion.Rmd"}
 ```
 
-/ref{RNAseq} /ref{histological_types} [@RNAseq] \# References
+# References
 
 ::: {#refs}
 :::
