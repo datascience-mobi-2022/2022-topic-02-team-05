@@ -11,3 +11,5 @@ Die Ergebnisse der UMAPs entsprechen der Erwartungen. Carcinomas haben alle ähn
 GSVA mittlerer expressionswerte: dass hallmark pathways alle weiß sind entspricht unseren erwartungen
 
 Epigeentic profiles = auch epigenetische veränderungen werden in die Expressionsdate mit inebezogen, das wäre sehr sinnvol für die ANalyse, wird hier aber nicht beachetet
+
+Vergleich zwischen GSVA und GSEA --> weil einmal Vergleich mit tumor und normal

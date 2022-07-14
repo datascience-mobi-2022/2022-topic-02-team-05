@@ -48,10 +48,6 @@ To test for duplicate pathways in the selected metabolic pathways compared to th
 
 In a mean-variance plot the variance is plotted against the mean of expression values of the single genes. Therefore, the variance and mean were calculated by the R-function var(x) and mean(x).
 
-### Violin plot
-
-To check the distribution of a data set and compare it with other data sets violin plots are used. Violin plots are tilted and mirrored density plots of gene expression values. The y-axis shows the gene expression value and the x-axis shows the amount of genes with a certain gene expression value.
-
 #### Volcano plot
 
 A volcano plot is used to identify significantly differentially expressed genes. In the following analysis a volcano plot is used to identify which genes are significantly diferentially expressed in the analysed THCA tissue, compared to the analysed normal tissue. Therefore the mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way:
@@ -88,6 +84,7 @@ For generating figure x, the data from generating a volcano plot is used to iden
 
 ```{r table}
 
-knitr::kable(Packages_RProjekt, longtable = TRUE ,caption = "Packages used in the analysis")
-
+knitr::kable(PackagesRProjekt,format = "simple" ,caption = "*Packages used in the analysis*")
 ```
+
+### 
