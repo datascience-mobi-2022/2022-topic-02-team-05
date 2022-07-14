@@ -65,7 +65,7 @@ knitr::include_graphics("figures/Volcanoplot.png")
 #### GSVA of TCGA expression data reveals four clusters of cancer types
 
 To find general clusters a heatmap with the mean expression of each gene in each tumor type was generated and clustered hierarchically.
-Figure \@ref(fig:)
+Figure \@ref(fig:meanexp)
 
 The tumor types were clustered based on their mean pathway activity and formed four clusters correlating with their histological type.
 The first cluster contains mainly adenocarcinamas, while the second one contains predominately glioblastomas.
@@ -77,7 +77,7 @@ Furthermore, three observations were made regarding specific information about p
 Pathways, which are important for nucleus import and export like Nasopharygeal carcinoma (NPC) and Ran shuttle pathways, as well as pathways for transcription regulaturs in embryonic stem cells are down-regulated in glioblastoma and adenocarcinoma.
 However, these pathways are up-regulated in all other histological types.
 This seperation into two clusters is in line with the research of Ben-Porath et al., that shows an embryonic stem cell-like gene expression only in poorly differentiated tumors, such as leukemia [An embryonic stem cell-like gene expression signature in poorly differentiated aggressive human tumors - PubMed (nih.gov)](https://pubmed.ncbi.nlm.nih.gov/18443585/).
-In that way we conlude taht the differentation stage of a tumor correlates with pathway activty specific to certain histological types \@ref(fig:)
+In that way it could be conluded that the differentation stage of a tumor correlates with pathway activty specific to certain histological types \@ref(fig:meanexp).
 
 Another observation is the clustering of glioblastoma.
 Pathways initiating neurogenesis <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8330525/> xxx and pathways linked to differentiation of the neural crest are up-regulated only in glioblastoma.
@@ -96,6 +96,7 @@ knitr::include_graphics("figures/Pan Cancer mean expression.png")
 ```
 
 #### PCA
+
 #### Dimension reduction of GSVA pan-cancer data reveals clusters in pathway activity
 
 PCA was performed on GSVA pan-cacner data to provide uncorrelted varibales for better UMAP analysis.
