@@ -26,7 +26,7 @@ path.selection = path.topvar[na.omit(match(names(path.sig), names(path.topvar)))
 path.selection; rm(thca_pval_gsva, path.sig, path.var, path.topvar)
 
 
-pathway = 'RODRIGUES_DCC_TARGETS_UP' #Ein set von Oncogenen gefunden in Colonkarzinomen
+pathway = 'REACTOME_INTERLEUKIN_36_PATHWAY' #Ein set von Oncogenen gefunden in Colonkarzinomen
 
 
 #--------------------------------------------------------
@@ -43,24 +43,8 @@ save(train, file = 'data/regression/train.RData')
 save(test, file = 'data/regression/test.RData')
 
 
-# #--------------------------------------------------------
-# #2.PCA transformation für unkorrelierte Werte für die Regression
-# #--------------------------------------------------------
-# 
-# thca_pathway = thca_gsea[pathway, ] #Werte für unseren Pathway
-# thca_pca_data = prcomp(t(thca_gsea[!rownames(thca_gsea) == pathway, ]))$x #PCA für alle Werte ohne pathway
-# 
-# train_pca = cbind.data.frame(thca_pathway[index], thca_pca_data[index, ])  
-#   colnames(train_pca)[1] = pathway
-# test_pca = cbind.data.frame(thca_pathway[-index], thca_pca_data[-index, ])
-#   colnames(test_pca)[1] = pathway
-#   
-# save(train_pca, file = 'data/regression/train_pca.RData')
-# save(test_pca, file = 'data/regression/test_pca.RData')
-
-
 #--------------------------------------------------------
-#3. Daten Präparation für Neuronales Netz
+#2. Daten Präparation für Neuronales Netz
 #--------------------------------------------------------
 
 #Skalieren der Daten nach mit einer Min/max skalierung sodass sie im Intervall [0,1] liegen
