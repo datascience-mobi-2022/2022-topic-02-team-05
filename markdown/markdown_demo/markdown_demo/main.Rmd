@@ -57,16 +57,16 @@ bibliography: [bib/packages.bib, bib/test.bib]
 ```{=tex}
 \begin{titlepage}
 \centering
-    {\Large Ruprecht-Karls-Universität Heidelberg\\
-        Fakultät für Biowissenschaften\\
-        Bachelorstudiengang Molekulare Biotechnologie\\}
+    {\Large Ruprecht-Karls-University Heidelberg\\
+        Faculty for Life Sciences\\
+        Molecular Biotechnology\\}
 
     {\vspace{\stretch{2}}}
     {\usekomafont{title}
 
-        {\Huge Titel}
+        {\Huge Thyorid cancer: Comparison of linar model and neuronal network (xxx)}
 
-        {\Huge untertitel}
+        {\Huge 3-Sätze-Zusammenfassung}
 
         {\Huge sfsf}
 
@@ -91,7 +91,6 @@ bibliography: [bib/packages.bib, bib/test.bib]
 ```
 <!-- add your chapters here -->
 
-@ggplot2
 
 \tableofcontents
 
@@ -101,13 +100,16 @@ bibliography: [bib/packages.bib, bib/test.bib]
 ```{r child = "chapter/introduction.Rmd"}
 ```
 
+```{r child = "chapter/material_and_methods.Rmd"}
+```
+
 ```{r child = "chapter/results.Rmd"}
 ```
 
 ```{r child = "chapter/discussion.Rmd"}
 ```
 
-/ref{RNAseq} /ref{histological_types} [@RNAseq] \# References
+# References
 
 ::: {#refs}
 :::
