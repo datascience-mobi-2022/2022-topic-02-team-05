@@ -1,4 +1,3 @@
-# Introduction
 
 # Introduction
 
@@ -16,7 +15,7 @@ The observed tumors can be classified into different histological types. Carcino
 
 #### RNA-seq
 
-RNA-seq is performed by cleaning of RNA, fragmentation, translation of RNA to cDNA, sequencing of cNDA and comparing with the reference genome. The advantage of RNA-seq is that it includes information about gene expression, that is especially important in the analysis of tumors such as epigenetic changes (e.g. epigenetic gene silencing) or fusion proteins. Quelle: The Cell (KP wie man das zitiert sorry :/)
+RNA-seq is performed by cleaning of RNA, fragmentation, translation of RNA to cDNA, sequencing of cNDA and comparing with the reference genome. The advantage of RNA-seq is that it includes information about gene expression, that is especially important in the analysis of tumors such as epigenetic changes (e.g. epigenetic gene silencing) or fusion proteins [@cell]. 
 
 The results from RNA-seq used for the analysis originate from the cancer genome atlas (TCGA)
 
