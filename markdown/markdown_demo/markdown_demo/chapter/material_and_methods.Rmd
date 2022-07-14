@@ -86,6 +86,7 @@ Dazu wurde noch analysiert, wie die Pathways auf die PCs verteilt sind.
 
 
 
+
 ### GSEA
 
 The GSEA is used to identify enriched pathways in tumor tissue. Next to the tumor tissue data, the THCA data includes also a normal tissue gene expression data frame which is used as a reference for activity comparison.
