@@ -46,14 +46,25 @@ To test for duplicate pathways in the selected metabolic pathways compared to th
 
 ### Mean-variance plot
 
-In a mean-variance plot the variance is plotted against the mean of expression values of the single genes. Therefore, the variance and mean were calculated by the R-function var(x) and mean(x).
+In a mean-variance plot the variance is plotted over the mean of expression values of the single genes across all patients. Thus, the variance and mean were calculated by the R-functions var(x) and mean(x). This is done to determine genes, which differ a lot in their expression levels across all patients. The plot is created with the package \ref{ggplot2}
 
 #### Volcano plot
+### Violin plot
 
-A volcano plot is used to identify significantly differentially expressed genes. In the following analysis a volcano plot is used to identify which genes are significantly diferentially expressed in the analysed THCA tissue, compared to the analysed normal tissue. Therefore the mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way:
+To check the distribution of a data set and compare it with other data sets violin plots are used. Based on how similar the violin plots are, it can be implied that the data is normalized. Violin plots are tilted and mirrored density plots of gene expression values. The y-axis shows the gene expression value and the x-axis shows the amount of genes with a certain gene expression value.
+
+### Jaccard-Index
+
+The Jaccard-Index is a method to describe the similarity between two quantities. It is computed via dividing the union by the intersection. This is used to determine the degree in which metabolic pathways are similar to each other. 
+
+### Volcano plot
+
+A volcano plot is used to identify significantly differentially expressed genes. This is done to determine genes or pathways, which are up- or down- regulated in tumor tissue vs. normal tissue.  The mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way, since the provided expression data is already log2 data:
 
 $$
 log2FC = mean(normal tissue) - mean(tumor tissue)
+$$
+In the next step, a two-sided t-test was performed to determine the significance of a difference in expression.
 $$ In the next step, a two-sided t test was performed to determine the significance of a difference in expression.
 
 To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis:

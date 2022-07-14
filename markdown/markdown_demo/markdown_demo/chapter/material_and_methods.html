@@ -184,28 +184,27 @@ pre code {
 </div>
 <div id="metabolic-pathway-selection" class="section level2">
 <h2>Metabolic pathway selection</h2>
-<p>From the Molecular Signature Database (MSigDB)  metabolic pathways were selected to compare them with the given Hallmark-Pathways and identify more pathways, that are important for the development of cancer. Therefore it was important, that as many genes from the selected pathways as possible are also included in the provided Hallmark pathways. To identify the relevant pathways, the intersection of genes was calculated and the genes with an intersection of at least 99% were maintained for further analysis.</p>
+<p>From the Molecular Signature Database (MSigDB)  metabolic pathways were selected. First, they were compared to the given Hallmark-Pathways in order to select pathways that differ to the Hallmark-Pathways. The goal was to identify more pathways, that are important for the development of cancer. Therefore it was important that as many genes from the selected pathways as possible are also included in the provided Hallmark pathways. To identify the relevant pathways, the intersection of genes was calculated and the genes with an intersection of at least 99% were maintained for further analysis.</p>
+<p>xxx??????????????????????</p>
 <p>To avoid duplicates in between the metabolic pathways and between the Hallmark pathways and the metabolic pathways, the pathways were checked for duplicates with the Jaccard index. Pathways with a sum of Jaccard indices beyond the 1-sigma range were discarded.</p>
 </div>
 <div id="preprocessing" class="section level2">
 <h2>Preprocessing</h2>
-<div id="deleting-nas" class="section level3">
-<h3>Deleting NAs</h3>
-<p>Deleting of NAs was done with the R-function na.omit(x).</p>
+<div id="deleting-not-available-values-nas" class="section level3">
+<h3>Deleting Not Available Values (NA’s)</h3>
+<p>Deleting of NA’s was done with the R-function na.omit(x). But none of the gene expression matrices contained any NA’s.</p>
 </div>
 <div id="low-variance-filtering" class="section level3">
-<h3>Low-variance filtering</h3>
-<p>Low variance filtering is performed to delete genes with a low variance from the data set. To calculate the variance the r-function var(x) is used and genes with a lower variance than a certain threshold value are removed.</p>
-<p>For focused analysis the variance of each gene in tumor tissue was calculated and genes with a low variance were deleted from the data sets for tumor and normal tissue.</p>
+<h3>Low-Variance Filtering</h3>
+<p>Low variance filtering is performed to delete genes with a low variance in gene expression from the data set. It is performed to delete genes that are expressed the same in all cancer types (pancancer analysis) or the same in normal cells. Probably, these would be mostly housekeeping genes. To calculate the variance of the gene expression of a gene, the r-function var(x) is used and genes with a lower variance than a certain threshold value are removed.\ For the focused analysis the variance of the gene expression for each gene in tumor tissue was calculated. Genes with a variance beneath a certain threshold were deleted in the data sets of tumor and normal tissue.</p>
 </div>
 <div id="biotype-filtering" class="section level3">
-<h3>Biotype filtering</h3>
-<p>For biotype filtering the biotype of each gene was determined (protein coding, RNA,…) and compared with the biotypes of other data sets. To allow an appropriate comparison of the expression data, only biotypes were kept, that are available in a big amount in all of the data sets. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt.</p>
+<h3>Biotype Filtering</h3>
+<p>The biotype filtering was conducted for the pancancer data and the focussed analysis data. The biotype of each gene was determined (protein coding, RNA,…) and compared with the biotypes of pathways. To allow an appropriate comparison of the expression data and further reduce the data, only biotypes were kept that are available in the pathways. The hallmark pathways and our own pathways were almost all proteincoding, so the pathways with only protein coding genes and the protein coding genes of the expression matrices were kept. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt .</p>
 <div id="selection-of-metabolic-pathways" class="section level4">
 <h4>Selection of metabolic pathways</h4>
-<p>da eine hohe jaccard summe eine hohe überschneidung mit anderen pathways bedeutet. In einer heatmap sind hohe Jacccard indices weiß bis rot gefährbt. Ein niedriger Jaccard index ist blau gefärbt.</p>
-<p>The test for duplicates in between the selected metabolic pathways and between the hallmark pathways and the metabolic pathways the Jaccard index and its sum were calculated.</p>
-<p>There were a few duplicates between the metabolic and Hallmark pathways. Those metabolic pathways with a great sum of Jaccard indices were discarded. The success of cleaning was checked with another heatmap and new Jaccard indices. There are only a few elements with another color than blue. It can be assumed, that the selection of relevant pathways was successful. The number of metabolic pathways could be reduced from xxx to 600.</p>
+<p>(da eine hohe jaccard summe eine hohe überschneidung mit anderen pathways bedeutet. In einer heatmap sind hohe Jacccard indices weiß bis rot gefährbt. Ein niedriger Jaccard index ist blau gefärbt.)</p>
+<p>To test for duplicate pathways in the selected metabolic pathways compared to the hallmark pathways and the compared tp the metabolic pathways themselves, the Jaccard index between to pathways were calculated.\ There were a few duplicates between the metabolic and Hallmark pathways. Those metabolic pathways with a high Jaccard index were discarded. The success of the cleaning was checked by again calculating the Jaccard index between the metabolic and the hallmark pathways. The values of the Jaccard index were then illustrated in a heatmap . It can be assumed, that the selection of relevant pathways was successful because the pathways differ between each other. The number of metabolic pathways could be reduced from xxx to 600.</p>
 </div>
 </div>
 </div>
