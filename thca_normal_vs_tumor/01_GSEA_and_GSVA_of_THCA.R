@@ -19,6 +19,7 @@ load('data/thca_tumor_exp_cleaned.RData')
 load('data/thca_normal_exp_cleaned.RData')
 load('data/pathways.RData')
 load('data/thca_anno.RData')
+#load('data/thca_gsea.RData')
 
 #GSEA Funktion definieren
 GSEA = function(patientsorted, pathways){
@@ -44,13 +45,52 @@ save(thca_gsea, file = 'data/thca_gsea.RData')
 #-----------------------------------------------
 #Darstellung der GSEA Ergebnisse als Heatmap
 #-----------------------------------------------
+#markierung der pathways
+path.type = rep('other',657)
+#markieren der Hallmark pathways             
+load('data/geneset_ids.RData')
+path.type[match(names(genesets_ids),rownames(thca_gsea))] = 'hall'
+#Markieren der pathways für beta 4 intergrin abh carcinogenese
+path.type[match(c("REACTOME_INTERLEUKIN_36_PATHWAY",
+                  "REACTOME_TYPE_I_HEMIDESMOSOME_ASSEMBLY",
+                  "PID_INTEGRIN4_PATHWAY"),
+                rownames(thca_gsea))] = 'beta4'
+#Markieren der sig. geänderteten DNA Reperatur und instabilität
+path.type[match(c("KAUFFMANN_MELANOMA_RELAPSE_DN",
+                  "SESTO_RESPONSE_TO_UV_C4"),
+                rownames(thca_gsea))] = 'CIN'
+#Markieren von THCA assozierten TSGs und Oncogenes plus prolif signaling
+path.type[match(c("RAMPON_ENRICHED_LEARNING_ENVIRONMENT_EARLY_UP",
+                  "ROVERSI_GLIOMA_LOH_REGIONS",
+                  "REACTOME_GLI_PROTEINS_BIND_PROMOTERS_OF_HH_RESPONSIVE_GENES_TO_PROMOTE_TRANSCRIPTION",
+                  "REACTOME_PROTEIN_METHYLATION",    
+                  "JONES_TCOF1_TARGETS",  
+                  "TORCHIA_TARGETS_OF_EWSR1_FLI1_FUSION_TOP20_DN",
+                  "FARMER_BREAST_CANCER_CLUSTER_8",      
+                  "REACTOME_SIGNALING_BY_MST1",   
+                  "OKAWA_NEUROBLASTOMA_1P36_31_DELETION"),
+                rownames(thca_gsea))] = 'prolif' 
+#Markieren der sig. geänderteten metabolischen pathways
+path.type[match(c("REACTOME_ETHANOL_OXIDATION",            
+                  "REACTOME_ABACAVIR_METABOLISM",                     
+                  "REACTOME_SYNTHESIS_OF_BILE_ACIDS_AND_BILE_SALTS_VIA_27_HYDROXYCHOLESTEROL",  
+                  "REACTOME_PYRIMIDINE_CATABOLISM"),
+                rownames(thca_gsea))] = 'met'
 
-#Annotationen für die Pathways                              
-path.anno = rowAnnotation(Pathway = c(rep('met',611),rep('hall', 46)),
-                          col = list(Pathway = c("met" = "deepskyblue", "hall" = "blue4")),
-                          annotation_legend_param = list(title = 'Pathway type',
-                                                         at = c('met', 'hall'),
-                                                         labels = c('Metabolic', 'Hallmark')))
+#Annotationen für die Pathways
+path.anno = rowAnnotation(Pathway = path.type,
+              col = list(Pathway = c("other" = "deepskyblue",
+                                     "hall" = "blue4",
+                                     "beta4" = 'gold',
+                                     'CIN' = 'green',
+                                     'prolif' = 'red',
+                                     'met' = 'black'
+              )),
+              annotation_legend_param = list(title = 'Pathway type',
+                                             at = c('other', 'hall', 'beta4', 'CIN', 'prolif', 'met'),
+                                             labels = c('other', 'Hallmark', 'Integrin carcinogenesis', 
+                                                        'genomic instability', 'altered proliferative signaling',
+                                                        'altered metabolism')))
 
 #Annotation der kmeans cluster und den Histological type
 top.anno = HeatmapAnnotation(Type = thca_anno$histological_type,
@@ -63,6 +103,9 @@ top.anno = HeatmapAnnotation(Type = thca_anno$histological_type,
                                at = names(table(thca_anno$histological_type)),
                                lables = names(table(thca_anno$histological_type)))
 )
+#Clustern in die drei Cluster
+km_data = kmeans(t(thca_gsea), centers = 3)
+
 Heatmap(thca_gsea,
         show_row_names = F, show_column_names = F, width = unit(21, 'cm'), height = unit(16, 'cm'),
         heatmap_legend_param = list(
@@ -71,9 +114,74 @@ Heatmap(thca_gsea,
         row_dend_reorder = T, column_dend_reorder = T,
         left_annotation = path.anno,
         top_annotation = top.anno,
-        column_km = 3 #Splitted unserer Heatmap in die 3 Subtypen die wir in der PanCancer gefunden haben
+        column_split = km_data$cluster #Splitted unserer Heatmap in die 3 Subtypen die wir in der PanCancer gefunden haben
 )
+#-----------------------------------------------
+#Darstellung der GSEA Ergebnisse als Heatmap
+#Allerding nur mit den top 50 var other pathways
+#-----------------------------------------------
+path.var = apply(thca_gsea[which(path.type == 'other'),], 1, var)
+thca_gsea_topvar = thca_gsea[order(path.var, decreasing = T)[1:50],]
+thca_gsea_topvar = rbind(thca_gsea[which(!path.type == 'other'),], thca_gsea_topvar)
 
+#markieren der Hallmark pathways    
+path.top = rep('other',114)
+path.top[match(names(genesets_ids),rownames(thca_gsea_topvar))] = 'hall'
+#Markieren der pathways für beta 4 intergrin abh carcinogenese
+path.top[match(c("REACTOME_INTERLEUKIN_36_PATHWAY",
+                 "REACTOME_TYPE_I_HEMIDESMOSOME_ASSEMBLY",
+                 "PID_INTEGRIN4_PATHWAY"),
+               rownames(thca_gsea_topvar))] = 'beta4'
+#Markieren der sig. geänderteten DNA Reperatur und instabilität
+path.top[match(c("KAUFFMANN_MELANOMA_RELAPSE_DN",
+                 "SESTO_RESPONSE_TO_UV_C4"),
+               rownames(thca_gsea_topvar))] = 'CIN'
+#Markieren von THCA assozierten TSGs und Oncogenes plus prolif signaling
+path.top[match(c("RAMPON_ENRICHED_LEARNING_ENVIRONMENT_EARLY_UP",
+                 "ROVERSI_GLIOMA_LOH_REGIONS",
+                 "REACTOME_GLI_PROTEINS_BIND_PROMOTERS_OF_HH_RESPONSIVE_GENES_TO_PROMOTE_TRANSCRIPTION",
+                 "REACTOME_PROTEIN_METHYLATION",    
+                 "JONES_TCOF1_TARGETS",  
+                 "TORCHIA_TARGETS_OF_EWSR1_FLI1_FUSION_TOP20_DN",
+                 "FARMER_BREAST_CANCER_CLUSTER_8",      
+                 "REACTOME_SIGNALING_BY_MST1",   
+                 "OKAWA_NEUROBLASTOMA_1P36_31_DELETION"),
+               rownames(thca_gsea_topvar))] = 'prolif' 
+#Markieren der sig. geänderteten metabolischen pathways
+path.top[match(c("REACTOME_ETHANOL_OXIDATION",            
+                 "REACTOME_ABACAVIR_METABOLISM",                     
+                 "REACTOME_SYNTHESIS_OF_BILE_ACIDS_AND_BILE_SALTS_VIA_27_HYDROXYCHOLESTEROL",  
+                 "REACTOME_PYRIMIDINE_CATABOLISM"),
+               rownames(thca_gsea_topvar))] = 'met'
+
+#Annotationen für die Pathways
+path50.anno = rowAnnotation(Pathway = path.top,
+                col = list(Pathway = c("other" = "deepskyblue",
+                                       "hall" = "blue3",
+                                       "beta4" = 'gold',
+                                       'CIN' = 'green',
+                                       'prolif' = 'red',
+                                       'met' = 'black'
+                )),
+                annotation_legend_param = list(title = 'Pathway type', nrow = 1,
+                                               at = c('other', 'hall', 'beta4', 'CIN', 'prolif', 'met'),
+                                               labels = c('other', 'Hallmark', 'Integrin carcinogenesis', 
+                                                          'genomic instability', 'altered proliferative signaling',
+                                                          'altered metabolism')))
+
+hm = Heatmap(thca_gsea_topvar,
+             show_row_names = T, show_column_names = F, width = unit(22, 'cm'), height = unit(14, 'cm'),
+             row_names_gp = gpar(fontsize = 4),
+             heatmap_legend_param = list(direction = 'horizontal',
+                                         title = "Thyroid cancer pathway activity", at = c(-2, 2), 
+                                         labels = c("underexpressed", "overexpressed")),
+             row_dend_reorder = T, column_dend_reorder = T,
+             left_annotation = path50.anno,
+             top_annotation = top.anno,
+             column_split = km_data$cluster #Splitted unserer Heatmap in die 3 Subtypen
+)
+draw(hm,merge_legend = F, heatmap_legend_side = "bottom",
+     annotation_legend_side = "bottom")
 
 #---------------------------------------------
 #Analyse der Daten mittels GSVA
@@ -198,4 +306,4 @@ i = 1; for (i in 1:nrow(GSVA_act)){
   cor[i] = res
  
 }; rm(i, res); names(cor) = rownames(GSVA_act)
-boxplot(cor)
+hist(cor)
