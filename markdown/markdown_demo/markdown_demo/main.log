@@ -1,0 +1,14 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.3) (preloaded format=pdflatex 2022.7.13)  13 JUL 2022 18:17
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**./main.tex
+(main.tex
+LaTeX2e <2022-06-01> patch level 3
+L3 programming layer <2022-06-16>
+
+! Entschuldigung, aber C:\Users\maren\AppData\Local\Programs\MiKTeX\miktex\bin\x64\pdflatex.exe schlug fehl.
+
+! Die Log-Datei enthält hoffentlich alle Informationen, um MiKTeX wieder in Gang zu bringen.
+
+!   C:\Users\maren\AppData\Local\MiKTeX\miktex\log\pdflatex.log

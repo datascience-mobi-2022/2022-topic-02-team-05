@@ -99,6 +99,8 @@ bibliography:
 ```
 <!-- add your chapters here -->
 
+@ggplot2
+
 \tableofcontents
 
 ```{r child = "chapter/abstract.Rmd"}
@@ -107,18 +109,13 @@ bibliography:
 ```{r child = "chapter/introduction.Rmd"}
 ```
 
-```{r child = "chapter/material_and_methods.Rmd"}
-```
-
 ```{r child = "chapter/results.Rmd"}
 ```
 
 ```{r child = "chapter/discussion.Rmd"}
 ```
-/ref{RNAseq}
-/ref{histological_types}
-[@RNAseq]
-# References
+
+/ref{RNAseq} /ref{histological_types} [@RNAseq] \# References
 
 ::: {#refs}
 :::

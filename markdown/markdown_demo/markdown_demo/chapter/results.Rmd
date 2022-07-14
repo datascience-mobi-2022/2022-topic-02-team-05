@@ -59,7 +59,7 @@ The results of the GSEA for THCA tissue can be seen in Figure \@ref(fig:GSEAHeat
 knitr::include_graphics("figures/THCA GSEA Heatmap fertig.png")
 ```
 
-Horizontal sind die einzelnen Patienten angeordnet, vertikal die pathways, die Heatmap stellt die stärke der Expression der einzelnen pathways in den einzelnen Patienten dar. Rot markierte pathways sind überexprimiert, blaue sind unterexprimiert. Die Achsen wurden mit dem pathway typ, dem hiytological typ und dem cluster annotiert. Es bilden sich innnerhalb der Patienten 3 Cluster, die auf Gemiensamkeiten in der PAthwayaktivität zurückgeführt werden können. Vielleicht hängt die Clusterbildung mit dem histological type zusammen, da eindeutig erkennbar ist, dass in Cluster 3 nur der classical type vorhanden ist, während in Cluster 2 vermehrt Tall cell type auftritt und Folicular type vermehr in Cluster 1 auftritt.
+The patients are arranged horizontally, the pathways vertically. The heatmap shows the intensity of expression of each pathway in each patient. Red pathways are overexpressed, blue pathways are underexpressed. The axes were annotated with the pathways type (hallmark or metabolic), the histological type of the tumor and the cluster. Three main clusters form within the patients, that can be explained by similarities in pathway activity. It is possible, that the formation of clusters is caused by different pathways activity of each tumor type, because in cluster 3, only the classical type occurs, while tall cell thyroid cancer mainly occur in cluster 2 and folicular thyroid cancers mainly occur in cluster 1.
 
 ### !!! pan cancer für THCA - Jakob
 
@@ -67,27 +67,23 @@ Um die Clusterbildung zu bestätigen wurde die gleiche Analyse für die THCA dat
 
 #### GSVA
 
-xxx Was wir aus der Heatmap sehen???
+To display the results of GSVA, obtained by analysis of metabolic and hallmark pathways and their expression in the gene expression data frame, a heat map, annotated with cancer type, histological type and pathway type was created. Even though, the individual pathways are not annotated, two observations were made, because it is possible to see similarities in pathway activity within groups of patients and tumor types. Firstly 3 clusters in THCA expression were detected to analyse them further in the next steps. Secondly, most tumor types were clustered clearly, while others did not see to form explicit clusters regarding the tumor type, but regarding the histological type. An observation, that is going to be analysed further.
 
-man sieht nicht welcher pathway was ist weil keine annotationen, was man sieht: Patienten sind nach Ähnlichkiet geclustert: man kann sagen, ob sich bestimmte patienten und krebse im expressionprofil ähnlich sind --> wenn man sich die ganz groß matrix anschaut kann man sich denken:
-
-1.  man sieht hier schon 3 cluster von THCA --> deswegen schauen wir uns das nochmal genau nur mit den THCA daten an
-2.  was man auch in der UMAP sieht: manche krebse sehr gut geclustert, andere in dem großen mittleren cluster --> histological type
-
-CArcinoma = die Mischformen
-
-Die mittleren Expressionswerte: große MAtrix mit 10,000 Patienten : mitteln der Expression enines pathways über alle patienten die einen Krebstyp haben : im durchschnitt ist xy in der krebs runterreguliert: die sind dann auch in der kleineren Hetamap dargestellt --> daraus kann mann dann sagen, dass alle glibalstome zb ähnlich aussehen --> unterschiedliche Genexpressionprofile hängen nicht von dem Patienten ab, sondern nur von dem histological type + da sind die hallmark genes weißlicher weil die in allen Krebs ca. gleich stark exprimiert sind --> Bestätigung der Hallmrks (hier noch die ABbildung dazu zeigen)
-
-```{r GSVAHeat, echo=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
+```{r GSVAHeat, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Results of GSVA, annotated with histological type, cancer type, pathway type and clusters"}
 
 knitr::include_graphics("figures/GSVA Heatmap fertig.png")
 ```
 
+The observations, obtained from GSVA and the generated heatmap were checked with a heat map, displaying the mean expression of each pathway in each tumor type, annotated with histological type and pathway type. The tumor types were clustered based on their mean pathway activity. The results confirm the formation of clusters based on the histological type, therefore gene expression pattern is not dependent from each individual or their tumor type but by the histological type. Another observation is, that, the hallmark genes are mostly marked in a lighter colour.
+
+```{r meanexp, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="Mean expression of each pathway in each tumot type, annotated with pathway type, histological cancer type and clusters."}
+
+knitr::include_graphics("figures/Pan Cancer mean expression.png")
+```
+
 #### PCA
 
-Die PCA wurde anhand der Pathway Aktivitäten durchgeführt und reduziert auf die ersten 2 PCs in Figure \@ref(fig:PCAPanType) dargestellt. Es sind ansatzweise cluster, aber keine eindeutigen Strukturen zu erkennen. Die zusammensetzung der PCs und die Erklärung der AVrianz durch die einzelnen VAriablen kann Figure \@ref(fig:) entnommen werden. BESCHREIBUNG DER PCA UND DER VARIANZVERTEILUNG. Der Plot wurde auch nach Form des Tumors angefärbt und in Figure \@ref(fig:PCAPanForm) dargestellt. Hier ist eine klarere Struktur zu erkennen als bei Anfärbung nach Tumortyp. Daraus lässt sich schließen, dass zumindest die PC1 und PC2 inkludierten Pathways mit der Form des Tumors zusammenhängen.
-
-Um die Ergebnisse zu überprüfen wurde die PCA auch auf die Genaktivität angewendet, es war kein Unterschied zu erkennen.
+The PCA was performed with the basis of the calculated pathway activities and displayed in Figure \@ref(fig:PCAPanType), reduced to the first 2 PCs. Even though, clusters were formed in the analysis, they can not be clearly identified, in the figure. The samples were parked by tumor type and all patients of one tumor type occur in the same region, but they do not form individual clusters. The same plot was colored by histological type, showing, that patients with the same histological type occur close to each other. The results from the PCA confirm the results from the GSVA, pathways, that are included in th first two PCs, seem to cohere with the histological type.
 
 ```{r PCAPanType, echo=FALSE, eval=TRUE, out.width='75%', fig.align='center', fig.cap="PCA of TCGA expression data, colored by tumor type"}
 
@@ -101,9 +97,7 @@ knitr::include_graphics("figures/Pan Cancer PCA PC1und2 cancer form.png")
 
 #### UMAP
 
-DA durch die PCA keine eindeutigen Cluster erkennbar wurden, wurden die Ergebnisse der PCA genutzt, um eine UMAP zu erstellen. Die Ergebnisse sind in Figure \@ref(fig:UMAPPanType) zu sehen. Hier sind eindeutige Cluser zu erkennen, auch wenn die Abstände zwischen den Clustern nicht proportional zu den wahren Unterschieden sind, kann daraus geschlossen werden, dass die einzelnen Tumortypen charakteristische Pathwayaktivitäten haben. In der Mitte ist ein großes Cluster zu erkennen, das keinem Tumortyp eindeutig zugeordnet werden kann. Deswegen wurde eine UMAP nach der Form markiert.
-
-Die Ergebnisse sind in Figure \@ref(fig:UMAPPanForm) zu sehen. Das mittlere Cluster konnte zwar nicht einem bestimmten histological type zugeornet werden, allerdings besteht das mittlere Cluster größtenteils aus Squamous cell carcinoma, transitional cell carnimoa und anderen Carcinomas. Es kann erkannt werden, dass verschiedenen hystological types teilweise ein verschiedenes expressionmuster haben, die verschiedenen types der carcinoma haben ähnliche expressionsmuster.
+Because the cluster structure displayed by the PCA was not as expected, the results from the PCA were used to create a UMAP. In Figure \@ref(fig:UMAPPanType) clear clusters can be seen, what reassures, that the tumor types have characteristic pathway activities. In the middle a big cluster can be seen, that can not be assigned to a certain tumor type. To detect the cause for this cluster, the UMAP was colored by histological types (Figure \@ref(fig:UMAPPanForm)), showing, that the big cluster in the middle mainly contains various carcinoma types like squamous cell carcinoma and transitional cell carcinoma. The UMAP confirmed again the assumption, that the histological type of a tumor has a mayor impact on the patients gene expression profile.
 
 ```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by tumor type"}
 
@@ -114,6 +108,8 @@ knitr::include_graphics("figures/Pan Cancer UMAP.png")
 
 knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
 ```
+
+The same analysis was performed for gene activity instead of pathway activity to check for reliability of the results. No differences could be detected,
 
 #### Regression analysis
 

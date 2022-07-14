@@ -1,5 +1,13 @@
+---
+---
+---
+
 # Discussion
 
 In der PCA war vermutlich nicht so ein gutes ergebnis zu erkennen, weil nur die ersten 2 PCs verwendet wurden und dadurch nicht die gesamte Varianz erklärt wurde. Bei verwendung aller PCs in der UMAP waren eindeutige Cluster zu erkennen.
 
 Die Ergebnisse der UMAPs entsprechen der Erwartungen. Carcinomas haben alle ähnliche Expressionsmuster, da sie alle epithelialen Zellen entspringen und deshalb ähnliche Mechanismen brauchen, um zu einer Tumorzelle zu werden. Die expressionsmuster zu anderen hiytological tumor types unterscheiden sich. Das liegt daran, dass verschiedene genetische Mechanismen zur Tumorentstehung führen.
+
+GSVA mittlerer expressionswerte: dass hallmark pathways alle weiß sind entspricht unseren erwartungen
+
+Epigeentic profiles = auch epigenetische veränderungen werden in die Expressionsdate mit inebezogen, das wäre sehr sinnvol für die ANalyse, wird hier aber nicht beachetet
