@@ -54,11 +54,12 @@ GSVA is performed with the package xxx.
 
 #### **Uniform Manifold Approximation and Projection for Dimension Reduction**
 
-The Uniform manifold approximation and projection for dimension reduction (UMAP) is a method to reduce the dimension of a multidimensional data set. Compared to the PCA, the structure of the data in higher dimensions is maintained. Thereby the UMAP keeps the overall structure of the data set, therefore clusters are easier to identify.
-
-The problem of the UMAP is, that although the overall structure is conserved, the distance between the individual points is not proportional to the real distance in the data set.
+The Uniform manifold approximation and projection for dimension reduction (UMAP) is a method to reduce the dimension of a multidimensional data set. 
+In comparison to the PCA, UMAP can reduce dimensions where the data is not linear \cite{UMAP xxx}. Thereby, the high dimensional structure of the data is maintained. In further visualization, the structure can be represented in clusters that would not be visible using PCA. Therefore, the identification of the clusters is a lot easier. is  Thereby the UMAP keeps the overall structure of the data set, therefore clusters are easier.\\
+The problem of the UMAP is, that although the overall structure is conserved, the distance between the individual points is not proportional to the real distance in the data set. This arises from the non-linear dimensional reduction.
 
 UMAP is performed with the package xxx.
+https://link.springer.com/article/10.1007/s11899-020-00602-4 xxx
 
 #### Principal component analysis
 
@@ -68,13 +69,13 @@ In the analysis, a PCA is performed for the pan cancer analysis on the TCGA gene
 
 PCA is performed with xxx.
 
-### Jaccard index
+#### Jaccard index
 
-The Jaccard index is the Intersection, divided by the union of two sets.
+The Jaccard index is the intersection, divided by the union of two sets. Therefore, it can be used to identify the similarity of the sets.
 
 ### Our Analysis
 
-In the following 2 analyses are performed, a pan cancer analysis and a focused analysis about THCA.
+In the following, two analyses are performed: a pan cancer analysis and a focused analysis about THCA.
 
 #### Pan Cancer Analysis
 
