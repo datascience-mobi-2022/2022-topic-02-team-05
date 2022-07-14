@@ -48,25 +48,21 @@ form.col = c('Adenocarcinoma' = 'deepskyblue3',
              'Leukemia'='red')
 
 #Annotationen für die Krebstypen
-top.anno = HeatmapAnnotation(Type = tcga_anno$cancer_type_abbreviation[1:500], #Krebsabkürzung als farbe
-                             Form = tcga_anno$cancer_form[1:500], #Krebsform als farbe
+top.anno = HeatmapAnnotation(Type = tcga_anno$cancer_type_abbreviation, #Krebsabkürzung als farbe
+                             Form = tcga_anno$cancer_form, #Krebsform als farbe
                                  col = list(Type = patient.col, #Def der Farben
                                             Form = form.col),
                                  annotation_legend_param = list( #Def der Legende
-                                   list(title = 'Cancer type',
-                                        at = names(table(tcga_anno$cancer_type_abbreviation[1:500])),
-                                        labels = names(table(tcga_anno$cancer_type_abbreviation[1:500]))),
-                                   list(title = 'Cancer form',
-                                        at = names(table(tcga_anno$cancer_form[1:500])),
-                                        labels = names(table(tcga_anno$cancer_form[1:500])))
+                                   Type = list(nrow = 2,
+                                        title = 'Cancer type',
+                                        at = names(table(tcga_anno$cancer_type_abbreviation)),
+                                        labels = names(table(tcga_anno$cancer_type_abbreviation))),
+                                   Form = list(nrow = 1,
+                                        title = 'Cancer form',
+                                        at = names(table(tcga_anno$cancer_form)),
+                                        labels = names(table(tcga_anno$cancer_form)))
                                    ))
 
-#Annotation für die Arte des Krebses
-# canc.anno = HeatmapAnnotation(Type = tcga_anno$cancer_form,
-#                                  col = list(Cancer = colours),
-#                                  annotation_legend_param = list(title = 'Cancer type',
-#                                     at = names(table(tcga_anno$cancer_type_abbreviation)),
-#                                     labels = names(table(tcga_anno$cancer_type_abbreviation))))
 #Annotationen für die Pathways                              
 path.anno = rowAnnotation(Pathway = c(rep('met',612),rep('hall', 46)),
                             col = list(Pathway = c("met" = "deepskyblue", "hall" = "blue4")),
@@ -74,7 +70,7 @@ path.anno = rowAnnotation(Pathway = c(rep('met',612),rep('hall', 46)),
                               at = c('met', 'hall'),
                               labels = c('Metabolic', 'Hallmark')))
 #Plotten der Heatmap
-Heatmap(tcga_gsva[,1:500],
+Heatmap(tcga_gsva,
         show_row_names = F, show_column_names = F, width = unit(22, 'cm'), height = unit(18, 'cm'),
         heatmap_legend_param = list(
           title = "TCGA pathway activity", at = c(-2, 2), 
@@ -84,7 +80,24 @@ Heatmap(tcga_gsva[,1:500],
         left_annotation = path.anno
 )
 
-
+#-------------------------------------
+#Plotten der GSVA pathway activity mit complex Heatmap 
+#allerdings nur mit den 100 höchstvarainten pathways
+#-------------------------------------
+path.var = apply(tcga_gsva, 1, var)
+tcga_gsva_topvar = tcga_gsva[order(path.var, decreasing = T)[1:100],]
+hm2 = Heatmap(tcga_gsva_topvar,
+        show_row_names = T, show_column_names = F, width = unit(20, 'cm'), height = unit(15, 'cm'),
+        row_names_gp = gpar(fontsize = 4),
+        heatmap_legend_param = list(
+          direction = "horizontal",
+          title = "TCGA pathway activity", at = c(-2, 2), 
+          labels = c("underexpressed", "overexpressed")),
+        row_dend_reorder = T, column_dend_reorder = T,
+        top_annotation = top.anno
+)
+draw(hm2,merge_legend = T, heatmap_legend_side = "bottom",
+     annotation_legend_side = "bottom")
 #--------------------------
 #Diese letzte heatmap vergleicht nun die durchschnittlichen Expressionwerte für
 #einen Krebstyp mit dem Rest
@@ -109,8 +122,13 @@ rm(cancers_gsva);rm(cancers_gsva_means) #Environment aufräumen
 form.anno = HeatmapAnnotation(Type = Cancer_form_anno$Cancer_form,
                               col = list(Type = form.col),
                               annotation_legend_param = list(title = 'Cancer type',
+                                nrow = 1, 
                                 at = names(table(Cancer_form_anno$Cancer_form)),
                                 labels = names(table(Cancer_form_anno$Cancer_form))))
+
+#Clustern der Daten in vier Cluster
+cluster_data = hclust(dist(t(means_data)), method = 'complete')
+
 #Plotten der Heatmap
 Heatmap(means_data,
         show_row_names = F, show_column_names = T, width = unit(20, 'cm'), height = unit(18, 'cm'),
@@ -120,5 +138,27 @@ Heatmap(means_data,
         row_dend_reorder = T, column_dend_reorder = T,
         left_annotation = path.anno,
         top_annotation = form.anno,
-        column_split = 4
+        column_split = cutree(cluster_data, k = 4 )
 )
+
+#--------------------------
+#Diese heatmap vergleicht nun die durchschnittlichen Expressionwerte für
+#einen Krebstyp mit dem Rest aber ernuet nehemn wir dann hierfür nur die 
+#100 Variantesen pathways
+#--------------------------
+
+means_data_topvar = means_data[order(path.var, decreasing = T)[1:100],]
+hm4 = Heatmap(means_data_topvar,
+        show_row_names = T, show_column_names = T, width = unit(22, 'cm'), height = unit(15, 'cm'),
+        row_names_gp = gpar(fontsize = 4),
+        heatmap_legend_param = list(
+          direction = 'horizontal',
+          title = "Mean cancer pathway activity", at = c(-2, 2), 
+          labels = c("underexpressed", "overexpressed")),
+        row_dend_reorder = T, column_dend_reorder = T,
+        #left_annotation = path.anno,
+        top_annotation = form.anno,
+        column_split = cutree(cluster_data, k = 4 )
+)
+draw(hm4,merge_legend = T, heatmap_legend_side = "bottom",
+     annotation_legend_side = "bottom")
