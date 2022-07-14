@@ -4,7 +4,7 @@
 #--------------------------------------------
 
 #Zu vorhersagender pathway
-pathway = 'RODRIGUES_DCC_TARGETS_UP' 
+pathway = 'REACTOME_INTERLEUKIN_36_PATHWAY' 
 
 # load('data/regression/test_pca.RData')
 # load('data/regression/train_pca.RData')
@@ -67,7 +67,7 @@ colnames(train_cleaned)[1] = pathway; rm(cor_cleaned_train, path.values)
 
 
 #--------------------------------------------------------
-#2. Lineare Regression ohne PCA
+#2. Lineare Regression
 #--------------------------------------------------------
 
 #Definieren der Formel für die vorhersage
@@ -87,8 +87,10 @@ cor(train[, pathway], linear.model$y) #=> Cor zwischen Testwerten und Prediction
 lm.MSE = sum((lm.prediction - test[,pathway])^2)/nrow(test) 
 
 #Anschauen der Residuals
-cor(train[, pathway], linear.model$residuals) #Korrelation ist sehr niedrig => gutes Modell
-qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model$residuals, seq(0,1,0.01))) #=> Residuals sind annähernd normalverteilt 
+cor(train[, pathway], linear.model$residuals)
+#Korrelation ist nicht weit weg vom MSE => nicht übertrainert
+qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model$residuals, seq(0,1,0.01)))
+#=> Residuals sind annähernd normalverteilt 
 
 #Speichern für Vergleich
 save(lm.prediction, file = 'data/regression/lm.prediction.RData')
@@ -120,43 +122,14 @@ lm.new.MSE = sum((lm.new.prediction - test[,pathway])^2)/nrow(test)
 
 #Anschauen der Residuals
 cor(train[, pathway], linear.model.new$residuals)
-#Korrelation ist nicht besonders niedrig => schlechtes Modell
+#Korrelation ist nicht besonders niedrig und weicht vom MSE ab
+#=> schlechtes Modell evtl overtrained
 qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model.new$residuals, seq(0,1,0.01)))
-#=> Residuals sind annähernd normalverteilt 
+#=> Residuals sind nicht wirklich  normalverteilt 
 
 #Speichern für Vergleich
 save(lm.new.prediction, file = 'data/regression/lm.new.prediction.RData')
 save(lm.new.MSE, file = 'data/regression/lm.new.MSE.RData')
-
-
-# #--------------------------------------------------------
-# #3. Lineare Regression mit PCA
-# #--------------------------------------------------------
-# #Definieren der Formel für die vorhersage
-# 
-# form.pca = paste(c(pathway,
-#              paste(colnames(train_pca)[!pathway == colnames(train_pca)], collapse = " + ")),
-#              collapse = ' ~ '
-# )
-# 
-# #Durchführen der Regression
-# linear.model.pca = glm(formula = form.pca, family = 'gaussian', data = train_pca)
-# 
-# #Test der Regression
-# lm.pca.prediction = predict(linear.model.pca, test_pca)
-# cor(train_pca[, pathway], linear.model.pca$y) #=> Cor zwischen Testwerten und Prediction ist wie erwartet 1
-# 
-# #berrechnung des meansquared error als Guete für das Modell
-# lm.pca.MSE = sum((lm.pca.prediction - test_pca[,pathway])^2)/nrow(test_pca) 
-# 
-# #Anschauen der Residuals
-# cor(train_pca[, pathway], linear.model.pca$residuals) #Korrelation ist sehr niedrig => gutes Modell
-# qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model.pca$residuals, seq(0,1,0.01))) #=> Residuals sind annähernd normalverteilt 
-# 
-# #Speichern für Vergleich
-# save(lm.pca.prediction, file = 'data/regression/lm.pca.prediction.RData')
-# save(lm.pca.MSE, file = 'data/regression/lm.pca.MSE.RData')
-
 
 #--------------------------------------------------------
 #4. Testen eines Nullmodells zum Vergleich

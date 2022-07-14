@@ -3,7 +3,7 @@
 #basierend auf allen anderen pathways in THCA GSEA Daten vorherzusagen
 #--------------------------------------------------------
 
-pathway = 'RODRIGUES_DCC_TARGETS_UP' #Zu vorhersagender pathway
+pathway = 'REACTOME_INTERLEUKIN_36_PATHWAY' #Zu vorhersagender pathway
 
 load('data/regression/test_sc.RData')
 load('data/regression/train_sc.RData')
@@ -72,7 +72,7 @@ MSE = sapply(nn_list, FUN = function(x){
       })
 #Ausgeben der Besten drei Architekturen
 sort(MSE)[1:3]
-#=> eine 100:10 Architektur scheint am besten zu sein
+#=> eine 20:20 Architektur scheint am besten zu sein
 
 #Nun testen wir wie die Anfangs weights and biases das Netz beeinflussen
 #dazu teste wir die besten 3 Netze mit jeweils 100 Anfangsbedingungen (seeds)
