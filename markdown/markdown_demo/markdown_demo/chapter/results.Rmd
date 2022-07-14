@@ -22,7 +22,7 @@ The biotype of the genes from the selected metabolic pathways, the genes of the 
 
 #### Mean-variance Plot
 
-To determine the genes from the TCGA expression data with a high variance, the variance was plotted over the mean (Figure \@ref(fig:showmeanvariance)). Additionally those genes with a variance higher than 33 were labeled with their EnsembleID. The distribution of genes in this plot shows that the highly variant genes are around a mean expression level of 0. The plot also shows, that very few genes are at a low mean expression level like -10 or at a ver high mean expression level like 10. Most genes are expressed across all at a mean expression level around 0. Via this plot we were able to determine which genes differ a lot in their expression level across all cancer patients.
+In the mean-variance plot, displayed in Figure \@ref(fig:showmeanvariance), genes with a very high variance and non-zero mean were annotated their ensemble ids.
 
 ```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a genes expression, x-axis shows mean of a genes expression"}
 
@@ -32,17 +32,11 @@ knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
 
 #### Violin Plots
 
-Five violin plots were created for five different tumor types with the gene expression data from the TCGA. This was done to compare the distribution of the data of five different tumor types (Figure \@ref(fig:showviolinplots)). The white point in the middle of each plot shows the median. The median gene expression is at around 2.5 across the five cancer types. The upper and lowe a border of the box plot, which show the 25% and 75% quantile are at rougly the same level across all five tumor types. The distribution flattens at around the very high and very low expression leves, because only a few genes are expressed at a very high or very low level. One can see, that the the distributions of all five tumor types are similar. This implies, that the other 28 tumor types of this data set are distributed in a similar way and the data is normalized. 
-
-```{r showviolinplots, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data"}
-
-knitr::include_graphics("figures/Vioplots cancer types.png")
-
-```
+For descriptive analysis 5 violin plots were created for 5 different tumor types with the gene expression data from the TCGA Matrix, to compare the distribution of the data of 5 different tumor types. It can be concluded, that the other 28 tumor types of this data set are distributed in a similar way. Violinplots can be seen in the appendix.
 
 #### Volcano plot
 
-For the construction of the volcano plot the data for THCA from the data set for the focused analysis was used. We used the expression data from tumor tissue and compared it to the data from normal tissue. This was done to determine those genes, which are up- or downregulated in Thyroid carcinoma (Figure \@ref(fig:showvolcanoplot)). The significance level was determinated at 1.755e-06. We then colored those genes, which are not up- or down-regulated at a significant level green. Based on their foldchange we were able to determine those genes, which were up-regulated in THCA tumor tissue (blue) and, which were down-regulated in tumor tissue (red). The genes with a very low p-value differ the most from tumor vs. normal tissue and were annotated with their name. 
+For the construction of the volcano plot the data for THCA from the data set for the focused analysis was used. The volcano plot is displayed in Figure \@ref(fig:showvolcanoplot). Not significantly differentially expressed genes were marked green, significantly over expressed genes are marked blue and significantly under expressed genes are marked red. The gene with a very low p-value differ the most from tumor to normal tissue and are annotated with their name.
 
 ```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Volcano plot of THCA expression data"}
 
@@ -67,14 +61,26 @@ Um die Clusterbildung zu bestätigen wurde die gleiche Analyse für die THCA dat
 
 #### GSVA
 
-To display the results of GSVA, obtained by analysis of metabolic and hallmark pathways and their expression in the gene expression data frame, a heat map, annotated with cancer type, histological type and pathway type was created. Even though, the individual pathways are not annotated, two observations were made, because it is possible to see similarities in pathway activity within groups of patients and tumor types. Firstly 3 clusters in THCA expression were detected to analyse them further in the next steps. Secondly, most tumor types were clustered clearly, while others did not see to form explicit clusters regarding the tumor type, but regarding the histological type. An observation, that is going to be analysed further.
+To display the results of GSVA, obtained by analysis of metabolic and hallmark pathways and their expression in the gene expression data frame, a heat map, annotated with cancer type, histological type and pathway type was created.
 
 ```{r GSVAHeat, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Results of GSVA, annotated with histological type, cancer type, pathway type and clusters"}
 
 knitr::include_graphics("figures/GSVA Heatmap fertig.png")
 ```
 
-The observations, obtained from GSVA and the generated heatmap were checked with a heat map, displaying the mean expression of each pathway in each tumor type, annotated with histological type and pathway type. The tumor types were clustered based on their mean pathway activity. The results confirm the formation of clusters based on the histological type, therefore gene expression pattern is not dependent from each individual or their tumor type but by the histological type. Another observation is, that, the hallmark genes are mostly marked in a lighter colour.
+To see general clusters a heatmap with the mean expression of each gene in each tumor type was generated and clustered hierarchically. Figure \@ref(fig:) only shows the 100 most variant pathways. A heatmap with all of the pathways can be seen in the appendix.
+
+The tumor types were clustered based on their mean pathway activity and formed 4 clusters, that can be linked to the histological type. The first cluster contains mostly adenocarcinamas, while the second one contains mostly Glioblastomas. Leukemia is only found in the third cluster and the last cluster contains sarcomas and carcinomas. Melanomas occur in the second an fourth cluster.
+
+Furthermore, four observations were made regarding specific information about pathway activity. On the bottom of Figure \@ref(fig:) 2 big clusters can be seen. One of them is mostly downregulated and mostly Adenocarcinomas, Glioblastomas and carcinomas in general. The upregulated cluster contains various hiytological and tumor types, which is why no tendencies in those types could be seen.
+
+These two clusters contain mostly pathways that are important for nucleus import and export like Nasopharygeal carcinoma (NPC) and Ran pathways. Furthermore they contain a pathway for transcription regulaturs in embryonic stem cells. Both mechanisms, transcription regulators and nucleus transport, regulate gene expression. A possible explanation for those two clusters was shown by Ittai Ben-Porath .... xxx. The Expression of transcription regulators depend on the stage of differentiation. [An embryonic stem cell-like gene expression signature in poorly differentiated aggressive human tumors - PubMed (nih.gov)](https://pubmed.ncbi.nlm.nih.gov/18443585/) xxx
+
+Another observation is the clustering of glioblastoma due to highly upregulated pathways. The highest regulated pathway initiates neurogenesis <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8330525/> xxx. Another upregulated pathways are linked to differentiation of the neural crest. The neural crest forms stem cells which are used for development of glia and nervous cells. It can be assumed, that the upregulation of differentiation of stem cells is used to form more tumor cells in the brain and thereby promote proliferation.Two other pathways, that are upregulated in glioblastoma cells are pathways linked to the activity of tyrosine kinases. The upregulation of tyrosine kinases promote cell growth and proliferation. (Quelle: the cell) xxx
+
+To summarize the findings regarding upregulated pathways in glioblastomas, one can say, that most pathways concern the cell growth and differentiation of the affected tumor cells in the brain. Regarding, that a glioblastoma is a highly aggressive cancer, the extreme upregulation can be explained.
+
+The third cluster, that could be identified mainly related to adenocarcinomas, more specific Liver hepatocellular carcinoma (LIHC), Kidney renal papillary cell carcinoma (KICH) and Kidney renal clear cell carcinoma (KIRC). The upregulated pathways are involved in metabolism of carbohydrates, synthesis of lipids, synthesis of amino acids and detoxification. An upregulation of all of these pathways may lead to cell growth and proliferation, due to higher metabolic activity, providing more biomass and energy.
 
 ```{r meanexp, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="Mean expression of each pathway in each tumot type, annotated with pathway type, histological cancer type and clusters."}
 

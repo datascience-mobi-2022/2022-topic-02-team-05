@@ -1,7 +1,15 @@
 # Appendix
 
+
+
 ## Plots
-hello
+```{r showviolinplots, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data"}
+
+knitr::include_graphics("figures/Vioplots cancer types.png")
+
+```
+
+
 ## Code
 world
 
