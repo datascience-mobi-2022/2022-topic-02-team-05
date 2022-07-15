@@ -5,7 +5,7 @@
 #---------------------------------------------------
 
 #Zu vorhersagender pathway
-pathway = 'RODRIGUES_DCC_TARGETS_UP'
+pathway = 'REACTOME_INTERLEUKIN_36_PATHWAY'
 
 #Laden der Vorhersagen
 load('data/regression/nn.prediction.RData')
