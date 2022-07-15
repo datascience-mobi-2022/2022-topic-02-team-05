@@ -239,15 +239,12 @@ output.
 
 Quelle für das ganze: (\@inproceedings{Riedmiller1994RpropD,
 
-  title={Rprop
-- Description and Implementation Details},
+  title={Rprop - Description and Implementation Details},
 
- 
-author={Martin A. Riedmiller},
+  author={Martin A. Riedmiller},
 
   year={1994}
 
-}) [Rprop - Description and
-Implementation Details \| Semantic
+}) [Rprop - Description and Implementation Details \| Semantic
 Scholar](https://www.semanticscholar.org/paper/Rprop-Description-and-Implementation-Details-Riedmiller/a8815421205d3a8938d78db974db1d4f3584ffb6)
 xxx
