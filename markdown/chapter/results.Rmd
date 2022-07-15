@@ -3,7 +3,7 @@ editor_options:
   markdown:
     wrap: 72
 output:
-  html_document:
+  pdf_document:
     df_print: paged
 ---
 
@@ -58,7 +58,7 @@ level of approximately 0. With this plot we were able to determine which
 genes differ significantly in their expression level across all cancer
 patients.
 
-```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
+```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
 
 knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
 
@@ -154,12 +154,12 @@ difficult to cluster in the mean GSVA of TCGA expression. The UMAP
 confirmed the assumption, that the histological type of a tumor has a
 major impact on the patients gene expression profile.
 
-```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by tumor type"}
+```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by tumor type"}
 
 knitr::include_graphics("figures/Pan Cancer UMAP.png")
 ```
 
-```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by histological type"}
+```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by histological type"}
 
 knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
 ```
@@ -309,7 +309,7 @@ From this data, we can conclude that a neuronal network is the best
 choice for most accurately predicting IL-36 pathway activity in our test
 data.
 
-```{r reg, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Regression results for various models on THCA GSEA test data. True values are plotted against predicted values, black slope indicate a perfect prediction."}
+```{r reg, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="Regression results for various models on THCA GSEA test data. True values are plotted against predicted values, black slope indicate a perfect prediction."}
 
 knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
 ```
