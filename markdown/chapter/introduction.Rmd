@@ -194,7 +194,7 @@ $$
 \sum_{i=1} ^{n} w_i x_i + bias
 $$
 
-n is the number of input neurons and *w* the weight.
+*n* is the number of input neurons and *w* the weight.
 
 To obtain numbers in the range of 0 and 1, a min max scaling is
 performed on the input data. Furthermore, the optimal number of neurons
