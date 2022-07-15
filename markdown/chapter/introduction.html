@@ -243,13 +243,23 @@ Krebs-Sterberate in Deutschland
 <h3>Neural network</h3>
 <p>Implementing a neural network was performed with the package neuralnet.</p>
 <p>In general, a deep learning network consists of a input layer, multiple hidden layers and an output layer. Each one consisting of various neurons. The input layer contains as much neurons as input numbers are given for each sample. The output layer contains as much neurons as possible outputs. The number of neurons in each hidden layer and the number of hidden layers vary and will be determined for the best results.</p>
+<p>Based on the input numbers in the input layer, the number of each neuron of the next layer is determined, based a linear regression model composed of the input data, weights, and bias.</p>
+<p><span class="math display">\[
+\sum_{i=1} ^{m} w_i x_i + bias
+\]</span></p>
+<p><em>m</em> is the number of samples and <em>w</em> the weight.</p>
 <p>To obtain numbers in the range of 0 and 1, a min max scaling is performed on the input data. Furthermore, the optimal number of neurons per layer and the best random weights and biases for the first sample must be determined, because some weights and biases may result in finding a local, but not global minimum of the cost function.</p>
 <p>After determining the random weights and bias, which resulted in a random output for the first sample, the cost function is calculated. To minimize the cost, resilient backpropagation with weight backtracking is used. Therefore, the gradient function of the cost function is determined. In resilient backpropagation, only the sign of the derivate is used, to avoid harmful effects of its magnitude. For minimizing the cost function, the ideal weights and biases are determined, based on the input and the expected output. (Theoretisch kann man hier ja noch schreiben, dass nicht nur das Erreichen des Minimums, sondern auch die Geschwindigkeit für das Erreichen des Minimums relevant sind).</p>
 <p>For the next samples those steps are repeated to reach the minimum of the cost function.</p>
 <p><span class="math display">\[
-Cost function = \frac {1}{2m} \sum_{i=1} ^{m} (\mu - y)^2
+Cost function = \frac {1}{2m} \sum_{i=1} ^{m} (x - y)^2
 \]</span></p>
-<p><em>m</em> is the number of samples, y the output and $$ the expected output.</p>
+<p><em>m</em> is the number of samples, <em>y</em> the output and <em>x</em> the expected output.</p>
+<p>Quelle für das ganze: (@inproceedings{Riedmiller1994RpropD,</p>
+<p>  title={Rprop - Description and Implementation Details},</p>
+<p>  author={Martin A. Riedmiller},</p>
+<p>  year={1994}</p>
+<p>}) <a href="https://www.semanticscholar.org/paper/Rprop-Description-and-Implementation-Details-Riedmiller/a8815421205d3a8938d78db974db1d4f3584ffb6">Rprop - Description and Implementation Details | Semantic Scholar</a> xxx</p>
 </div>
 </div>
 </div>
