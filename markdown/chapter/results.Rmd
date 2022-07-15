@@ -292,31 +292,27 @@ a mean squared error (MSE) of 0.06. However, the linear regression model
 failed to predict the data accurately (MSE = 0.62). Repeated linear
 regression with just pathways contributing significantly to the result
 the performance was enhanced (MSE = 0.40), however, remained worse than
-a null model (MSE = +0.22). (Fig. xxx). Comparison of the MSE on test an
-training data reveals, that linear model is highly overfitted
+a null model (MSE = +0.22). \@ref(fig:reg) Comparison of the MSE on test
+an training data reveals, that linear model is highly overfitted
 (ΔMSE = +0.55) with the linear model with significant pathways fitting
 slightly better (ΔMSE = +0.23) to the data. Our null model displayed an
 good, yet slightly underfitted performance with ΔMSE = -0.08. With a
-ΔMSE = +0.009 the neuronal network shows a perfect fit. (Fig. xxx)
+ΔMSE = +0.009 the neuronal network shows a perfect fit.
 
 A comparison of the four regression models via the F-test function
 `var.test()` showed a significant improvement of the neuronal network
 compared to all other models. All other models showed no significant
-differences in their performance (Fig. xxx) compared to each other. From
-this data, we can conclude that a neuronal network is the best choice
-for most accurately predicting IL-36 pathway activity in our test data.
+differences in their performance \@ref(fig:reg) compared to each other.
+From this data, we can conclude that a neuronal network is the best
+choice for most accurately predicting IL-36 pathway activity in our test
+data.
 
-```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+```{r reg, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="True values "}
 
 knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
 ```
 
-```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+```{r pval, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
 
 knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
-```
-
-```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
-
-knitr::include_graphics("figures/THCA GSEA Heatmap fertig top 50.png")
 ```
