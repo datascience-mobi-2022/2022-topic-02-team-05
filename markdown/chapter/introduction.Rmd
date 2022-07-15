@@ -94,8 +94,6 @@ is to analyse and to identify highly expressed pathways [@GSEA]. For
 this, two conditions with replicates are compared, so a reference of
 normal expression data is needed.
 First, a gene list is defined. Then the statistically enriched pathways are identified and lastly, the results are visualized.
-GSEA is performed with the package 'fgsea'
-ref(xxx).
 
 ### Gene Set Variation Analysis
 
@@ -105,8 +103,6 @@ expression data. Like the GSEA, the approach helps to reduce noise, to
 further reduce dimensions and to improve the interpretation process
 [@GSVA]. The difference to the GSEA is that there no reference
 expression data is to perform the GSVA.
-
-GSVA is performed with the package xxx.
 
 ### Uniform Manifold Approximation and Projection for Dimension Reduction
 
@@ -141,8 +137,6 @@ In the analysis, a PCA is performed for the pan cancer analysis on the
 TCGA gene expression data, to find similarities and differences in
 pathway activity for each tumor type. Furthermore a PCA is performed for
 the focused analysis of THCA and normal tissue.
-
-PCA is performed with xxx.
 
 ### Jaccard index
 
