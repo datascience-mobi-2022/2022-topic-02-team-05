@@ -173,14 +173,15 @@ pre code {
 
 <div id="material-and-methods" class="section level1">
 <h1>Material and Methods</h1>
+<p>In the following, two analyses are performed: a pan cancer analysis and a focused analysis about THCA.</p>
 <div id="our-data-sets" class="section level2">
 <h2>Our data sets</h2>
 <p>For the analysis four data sets were provided.</p>
 <p>The first data set is a Gene expression data frame. The Gene expression data frame contains 60,000 genes and and their expression in 10,000 patients. It is derived from The Cancer Genome Atlas (TCGA). The expression of the genes was obtained by RNA-seq.</p>
 <p>The second data frame contains 37 clinical annotations like Tumor type, age, gender, etc. for each of the 10,000 patients from the Gene expression data frame.</p>
-<p>The third object is a list that contains five lists for the focused analysis, one list for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA). For the focused analysis, the THCA data was used. The THCA data contains 3 data frames, each one with information about the same 60 patients. The first data is a gene expression matrix from THCA tissue, the second data contains the gene expression from normal tissue and the third data frame contains the clinical annotations like age and gender. Gene expression data was obtained by RNA-seq.</p>
+<p>The third object is a list that contains five lists for the focused analysis, one list for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA). For the focused analysis, the THCA data (only DTC) was used. The THCA data contains 3 data frames, each one with information about the same 60 patients. The first data is a gene expression matrix from THCA tissue, the second data contains the gene expression from normal tissue and the third data frame contains the clinical annotations like age and gender. Gene expression data was obtained by RNA-seq.</p>
 <p>The fourth object contains 46 pathways involved in phenotypes partly included in the hallmarks of cancer and the genes involved in those pathways.</p>
-<p>SIND DIE DATEN NORMALISIERT –&gt; Normalisiert glaub ich (Anna) ODER ALS COUNTS? . –&gt; test-Zitate</p>
+<p>SIND DIE DATEN NORMALISIERT –&gt; Normalisiert glaub ich (Anna) ODER ALS COUNTS?</p>
 </div>
 <div id="metabolic-pathway-selection" class="section level2">
 <h2>Metabolic pathway selection</h2>
@@ -192,15 +193,15 @@ pre code {
 <h2>Preprocessing</h2>
 <div id="deleting-not-available-values-nas" class="section level3">
 <h3>Deleting Not Available Values (NA’s)</h3>
-<p>Deleting of NA’s was done with the R-function na.omit(x). But none of the gene expression matrices contained any NA’s.</p>
+<p>Deleting of NA’s was done with the R-function na.omit(x).</p>
 </div>
 <div id="low-variance-filtering" class="section level3">
 <h3>Low-Variance Filtering</h3>
-<p>Low variance filtering is performed to delete genes with a low variance in gene expression from the data set. It is performed to delete genes that are expressed the same in all cancer types (pancancer analysis) or the same in normal cells. Probably, these would be mostly housekeeping genes. To calculate the variance of the gene expression of a gene, the r-function var(x) is used and genes with a lower variance than a certain threshold value are removed.\ For the focused analysis the variance of the gene expression for each gene in tumor tissue was calculated. Genes with a variance beneath a certain threshold were deleted in the data sets of tumor and normal tissue.</p>
+<p>Low variance filtering is performed to delete genes with a low variance in gene expression from the data set. It is performed to delete genes that are expressed the same in all cancer types (pancancer analysis) or the same in normal cells. To calculate the variance of the gene expression of a gene, the r-function var(x) is used and genes with a lower variance than a certain threshold value are removed.\ For the focused analysis the variance of the gene expression for each gene in tumor tissue was calculated. Genes with a variance beneath a certain threshold were deleted in the data sets of tumor and normal tissue.</p>
 </div>
 <div id="biotype-filtering" class="section level3">
 <h3>Biotype Filtering</h3>
-<p>The biotype filtering was conducted for the pancancer data and the focussed analysis data. The biotype of each gene was determined (protein coding, RNA,…) and compared with the biotypes of pathways. To allow an appropriate comparison of the expression data and further reduce the data, only biotypes were kept that are available in the pathways. The hallmark pathways and our own pathways were almost all proteincoding, so the pathways with only protein coding genes and the protein coding genes of the expression matrices were kept. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt .</p>
+<p>The biotype filtering was conducted for the pancancer data and the focussed analysis data. The biotype of each gene was determined (protein coding, RNA,…) and compared with the biotypes of pathways. To allow an appropriate comparison of the expression data and further reduce the data, only biotypes were kept that are available in the pathways. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt <span class="citation">[@biomaRt]</span>.</p>
 <div id="selection-of-metabolic-pathways" class="section level4">
 <h4>Selection of metabolic pathways</h4>
 <p>(da eine hohe jaccard summe eine hohe überschneidung mit anderen pathways bedeutet. In einer heatmap sind hohe Jacccard indices weiß bis rot gefährbt. Ein niedriger Jaccard index ist blau gefärbt.)</p>
@@ -212,39 +213,212 @@ pre code {
 <h2>Descriptive analysis</h2>
 <div id="mean-variance-plot" class="section level3">
 <h3>Mean-variance plot</h3>
-<p>In a mean-variance plot the variance is plotted against the mean of expression values of the single genes. Therefore, the variance and mean were calculated by the R-function var(x) and mean(x).</p>
+<p>In a mean-variance plot the variance is plotted over the mean of expression values of the single genes across all patients. Thus, the variance and mean were calculated by the R-functions var(x) and mean(x). This is done to determine genes, which differ a lot in their expression levels across all patients. The plot is created with the package  xxx.</p>
 </div>
 <div id="violin-plot" class="section level3">
 <h3>Violin plot</h3>
-<p>To check the distribution of a data set and compare it with other data sets violin plots are used. Violin plots are tilted and mirrored density plots of gene expression values. The y-axis shows the gene expression value and the x-axis shows the amount of genes with a certain gene expression value.</p>
-<div id="volcano-plot" class="section level4">
-<h4>Volcano plot</h4>
-<p>A volcano plot is used to identify significantly differentially expressed genes. In the following analysis a volcano plot is used to identify which genes are significantly diferentially expressed in the analysed THCA tissue, compared to the analysed normal tissue. Therefore the mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way:</p>
+<p>To check the distribution of a data set and compare it with other data sets violin plots are used. Based on how similar the violin plots are, it can be implied that the data is normalized. Violin plots are tilted and mirrored density plots of gene expression values. The y-axis shows the gene expression value and the x-axis shows the amount of genes with a certain gene expression value.</p>
+</div>
+<div id="jaccard-index" class="section level3">
+<h3>Jaccard-Index</h3>
+<p>The Jaccard-Index is a method to describe the similarity between two quantities. It is computed via dividing the union by the intersection. This is used to determine the degree in which metabolic pathways are similar to each other.</p>
+</div>
+<div id="volcano-plot" class="section level3">
+<h3>Volcano plot</h3>
+<p>A volcano plot is used to identify significantly differentially expressed genes. This is done to determine genes or pathways, which are up- or down- regulated in tumor tissue vs. normal tissue. The mean of each gene is calculated for normal and THCA tissue and used for the calculation of the Log2-Foldchange (Log2FC) in the following way, since the provided expression data is already log2 data:</p>
 <p><span class="math display">\[
 log2FC = mean(normal tissue) - mean(tumor tissue)
-\]</span> In the next step, a two-sided t test was performed to determine the significance of a difference in expression.</p>
+\]</span> In the next step, a two-sided t-test was performed to determine the significance of a difference in expression.</p>
 <p>To avoid the accumulation of type 1 errors, a bonferroni correction was performed. n is the number of genes in the cleaned data set for focused analysis:</p>
 <p><span class="math display">\[
-A \alpha = \frac{0.025}{n}
+\alpha = \frac{0.025}{n}
 \]</span></p>
-<p>In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differentially expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.</p>
+<p>In the volcano plot the -log10 of the calculated p values is plotted against die Log2FC. Genes with a a lower p-value than the corrected alpha-value are significantly differently expressed. If the Log2FC is additionally higher than 0.1, the genes are significantly over expressed in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are significantly under expressed in tumor tissue.</p>
 </div>
 </div>
-</div>
-<div id="comparing-of-pathways" class="section level2">
-<h2>Comparing of Pathways</h2>
-<p>After reducing the number of Genes of the Gene Expression data frame and the THCA data by data cleaning, a descriptive analysis was performed with a Mean-variance plot and five violin plots of the TGCA data frame. The descriptive analysis of the THCA data was performed with a volcano plot and the distribution of the Tumor-specific data was displayed with violin plots.</p>
+<div id="data-reduction-and-pathway-activities" class="section level2">
+<h2>Data Reduction and Pathway Activities</h2>
 <div id="pca" class="section level3">
 <h3>PCA</h3>
 <p>The package xxx is used to perform the PCA. Therefore the data obtained from the GSEA was used. After performing the PCA, the results were plotted to visualize the different clusters.</p>
-<p>The PCA was performed for pathway and gene activity. For analysis of the gen activity the package xxx was used.</p>
-<p>Dazu wurde noch analysiert, wie die Pathways auf die PCs verteilt sind.</p>
+<p>The PCA was performed for pathway and gene activity. For analysis of the gen activity the package xxx was used. Dazu wurde noch analysiert, wie die Pathways auf die PCs verteilt sind.</p>
+</div>
+<div id="umap" class="section level3">
+<h3>UMAP</h3>
+<p>Like PCA, UMAP is a technique to reduce dimensions and to understand and visualize high dimensional data sets. Compared to PCA, UMAP better preserves the global structure and is much faster than other comparable techniques (for example t-SNE ).\ The algorithm starts by setting up a high-dimensional graph representation of the data. From each data point, a radius is extended and when two radii come into contact the points are connected. The radius is chosen individually for each point based on the distance to the nearest neighbor. The algorithm does not stop before every point is not connected at least to its closest neighbor.\ The resulting clustered high-dimensional graph is then optimized for a visualization in low-dimensions.\ Using this technique, the pan-cancer data is visualized.</p>
+</div>
+<div id="gsea" class="section level3">
+<h3>GSEA</h3>
+<p>The GSEA is used to identify enriched pathways in tumor tissue. Next to the tumor tissue data, the THCA data includes also a normal tissue gene expression data frame which is used as a reference for activity comparison.</p>
+<p>First, the log2FC is calculated for every gene of each each patient and is then ranked in a vector. This vector begins with the highest log2FC and ends with the lowest. A high log2FC implies that the this gene is higher expressed in tumor tissue compared to normal tissue in this particular patient.</p>
+<p>Using the ranked log2FC vectors, the activity of each pathway for the patient is calculated. By iterating over every gene of the ranked vector, it was checked if it lies or does not lie in a particular pathway. If a gene lies in the pathway, the log2FC value is summed up to a running sum. If the gene does not lie in the pathway, the log2FC value is subtracted from the running sum. Therefore, when a pathway is highly expressed compared to normal tissue, the the running sum scores a high value in the beginning and decreases to the end of the iteration. This results in a cumulative function that has a peak at a certain place. At this index of the ranked vector, the expression value of the corresponding gene is taken as the enrichment score of the analysed pathway and the patient belonging to the used vector. This process is then repeated for each pathway and each patient.</p>
+</div>
+<div id="gsva" class="section level3">
+<h3>GSVA</h3>
+<p>Next to the GSEA, the GSVA is an approach to identify the pathway activities from gene expression data. Differently to the GSEA, it does not need a reference data frame to compare to.\ Hence, there was no expression data provided for comparison in the TCGA analysis, GSVA was used. There are various solutions to perform GSVA, one of them is performed by Hänzelmann et al xxx by following those five steps.\ For performing a GSVA, firstly the cumulative density distribution of a gene over all samples is estimated. Then the expression statistic of a gene in a sample based on the cumulative density distribution is calculated to bring all of the expression values to the same level. The third step is to rank the genes based on the expression statistic and to normalize the ranks with z-transformation. The last step is to compute the enrichment score based on the obtained ranked list. Therefore the Kolmogorov-Smirnov-like rank statistic is calculated for each gene set. That is used to calculate the enrichment score for each pathway in each patient, which is shown a heatmap. (Hänzelmann, Castelo, and Guinney 2013) xxx Hänzelmann, Sonja, Robert Castelo, and Justin Guinney. 2013. “GSVA: Gene Set Variation Analysis for Microarray and Rna-Seq Data.” Journal Article. BMC Bioinformatics 14 (1): 7. <a href="https://doi.org/10.1186/1471-2105-14-7." class="uri">https://doi.org/10.1186/1471-2105-14-7.</a></p>
+</div>
+<div id="figure-x" class="section level3">
+<h3>Figure X</h3>
+<p>To identify pathways with the highest p-Value, obtained from GSVA and t-testing, a figure x is generated.</p>
+<p>For generating figure x, the data from generating a volcano plot is used to identify the pathways, that are significantly over- or underexpressed based on the p-value. Pathways with a p-value smaller than 0.025 and a log2FC bigger than zero are significantly overexpressed, if the log2FC is smaller than zero, the pathways are significantly underexpressed. In the next step, the pathways are ranked based on their p-value and the -log10(p-value) of each pathways is plotted against its rank. One plot is generated for overexpressed pathways and the other one for under expressed pathways.</p>
+</div>
+<div id="linear-regression" class="section level3">
+<h3>Linear Regression</h3>
+</div>
+<div id="neuronal-network" class="section level3">
+<h3>Neuronal Network</h3>
+<p>A neural network was used to predict the activity of REACTOME_INTERLEUKIN_36_PATHWAY based on the activity of other pathways. Therefore, the network was trained with the pathway activity of 45 xxx patients from the THCA data for focused analysis. The other 15 patients were used to validate the network, obtaining a mean squared error (MSE) value, to evaluate the precision of the network.</p>
+<p>For identification of the best initial conditions, 25 different networks are generated, each one with 2 hidden layers and different combinations of neurons per layer. For each combination the MSE is calculated and the 3 combinations with the lowest MSE are selected for selection of the best initial conditions regarding the weights and biases. For each of the 3 networks 100 random initial conditions are tested, resulting in one network with the lowest MSE.</p>
 </div>
 </div>
-<div id="tcga-data" class="section level2">
-<h2>TCGA data</h2>
-<p>What kind of data do we have? ## Used Packages</p>
-<p>show a table!</p>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<pre><code>## Warning: Paket &#39;readxl&#39; wurde unter R Version 4.1.3 erstellt</code></pre>
+<table>
+<caption>Packages used in the analysis.</caption>
+<colgroup>
+<col width="5%" />
+<col width="24%" />
+<col width="41%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Package</th>
+<th align="left">Lokalisation</th>
+<th align="left">Verwendung</th>
+<th align="left">Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">biomart</td>
+<td align="left">pre_02, pre_03, pre_05</td>
+<td align="left">renaming the genenames from the hallmarkpathways-dataframe into ensembleIDs</td>
+<td align="left"><a href="https://bioconductor.org/packages/release/bioc/html/biomaRt.html" class="uri">https://bioconductor.org/packages/release/bioc/html/biomaRt.html</a></td>
+</tr>
+<tr class="even">
+<td align="left">msigdbr</td>
+<td align="left">pre_03</td>
+<td align="left">downloading all of the canonical pathways and the genes which they include in homo sapiens from the msigbdr data base</td>
+<td align="left"><a href="https://bioconductor.org/packages/release/data/experiment/html/msigdb.html" class="uri">https://bioconductor.org/packages/release/data/experiment/html/msigdb.html</a></td>
+</tr>
+<tr class="odd">
+<td align="left">dplyr</td>
+<td align="left">pre_04, pre_05</td>
+<td align="left">tidying and manipulating of dataframes</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/dplyr/index.html" class="uri">https://cran.r-project.org/web/packages/dplyr/index.html</a></td>
+</tr>
+<tr class="even">
+<td align="left">ggplot2</td>
+<td align="left">pre_04, pre_05, descr_03, descr_04, THCA_01, THCA_02, pan_02, pan_04</td>
+<td align="left">allows for the creation of plots with more detailed options</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/ggplot2/index.html" class="uri">https://cran.r-project.org/web/packages/ggplot2/index.html</a></td>
+</tr>
+<tr class="odd">
+<td align="left">pheatmap</td>
+<td align="left">descr_01, pan_01, neu_02, neu_04</td>
+<td align="left">allows for the creation of heatmaps with more detailed options</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/pheatmap/pheatmap.pdf" class="uri">https://cran.r-project.org/web/packages/pheatmap/pheatmap.pdf</a></td>
+</tr>
+<tr class="even">
+<td align="left">vioplot</td>
+<td align="left">descr_02</td>
+<td align="left">creation of violinplots</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/vioplot/index.html" class="uri">https://cran.r-project.org/web/packages/vioplot/index.html</a></td>
+</tr>
+<tr class="odd">
+<td align="left">VennDiagram</td>
+<td align="left">descr_05</td>
+<td align="left">creation of VENN-diagrams</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/VennDiagram/VennDiagram.pdf" class="uri">https://cran.r-project.org/web/packages/VennDiagram/VennDiagram.pdf</a></td>
+</tr>
+<tr class="even">
+<td align="left">dplyr</td>
+<td align="left">THCA_01, pan_01</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">fgsea</td>
+<td align="left">THCA_01, pan_01</td>
+<td align="left">to do a GSEA</td>
+<td align="left"><a href="https://bioconductor.org/packages/release/bioc/html/fgsea.html" class="uri">https://bioconductor.org/packages/release/bioc/html/fgsea.html</a></td>
+</tr>
+<tr class="even">
+<td align="left">GSVA</td>
+<td align="left">THCA_01, pan_03</td>
+<td align="left">to do a GSVA</td>
+<td align="left"><a href="https://bioconductor.org/packages/release/bioc/html/GSVA.html" class="uri">https://bioconductor.org/packages/release/bioc/html/GSVA.html</a></td>
+</tr>
+<tr class="odd">
+<td align="left">ComplexHeatmap</td>
+<td align="left">THCA_01, pan_03, pan_04</td>
+<td align="left">allows for the creation of heatmaps with more detailed options</td>
+<td align="left"><a href="https://bioconductor.org/packages/release/bioc/html/ComplexHeatmap.html" class="uri">https://bioconductor.org/packages/release/bioc/html/ComplexHeatmap.html</a></td>
+</tr>
+<tr class="even">
+<td align="left">metaplot</td>
+<td align="left">THCA_02, pan_02, pan_04</td>
+<td align="left">data-driven plots</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/metaplot/index.html" class="uri">https://cran.r-project.org/web/packages/metaplot/index.html</a></td>
+</tr>
+<tr class="odd">
+<td align="left">gridExtra</td>
+<td align="left">THCA_02, pan_02, pan_04</td>
+<td align="left">implementation of “grid” graphics</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/gridExtra/index.html" class="uri">https://cran.r-project.org/web/packages/gridExtra/index.html</a></td>
+</tr>
+<tr class="even">
+<td align="left">umap</td>
+<td align="left">THCA_02, pan_02, pan_04</td>
+<td align="left">to do a UMAP</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/umap/index.html" class="uri">https://cran.r-project.org/web/packages/umap/index.html</a></td>
+</tr>
+<tr class="odd">
+<td align="left">gage</td>
+<td align="left">pan_01</td>
+<td align="left">application of GSEA</td>
+<td align="left"><a href="https://bioconductor.org/packages/release/bioc/html/gage.html" class="uri">https://bioconductor.org/packages/release/bioc/html/gage.html</a></td>
+</tr>
+<tr class="even">
+<td align="left">psych</td>
+<td align="left">pan_02</td>
+<td align="left">iterative factor analysis</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/psych/index.html" class="uri">https://cran.r-project.org/web/packages/psych/index.html</a></td>
+</tr>
+<tr class="odd">
+<td align="left">cluster</td>
+<td align="left">pan_04</td>
+<td align="left">cluster analysis</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/cluster/cluster.pdf" class="uri">https://cran.r-project.org/web/packages/cluster/cluster.pdf</a></td>
+</tr>
+<tr class="even">
+<td align="left">MASS</td>
+<td align="left">neu_00</td>
+<td align="left">implementation of neural network</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/MASS/index.html" class="uri">https://cran.r-project.org/web/packages/MASS/index.html</a></td>
+</tr>
+<tr class="odd">
+<td align="left">neuralnet</td>
+<td align="left">neu_03</td>
+<td align="left">training of neural networks</td>
+<td align="left"><a href="https://cran.r-project.org/web/packages/neuralnet/neuralnet.pdf" class="uri">https://cran.r-project.org/web/packages/neuralnet/neuralnet.pdf</a></td>
+</tr>
+<tr class="even">
+<td align="left">AnnotationDbi</td>
+<td align="left">descr_03</td>
+<td align="left">translating ensemble ids into gennames</td>
+<td align="left"><a href="https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html" class="uri">https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html</a></td>
+</tr>
+<tr class="odd">
+<td align="left">org.Hs.eg.db</td>
+<td align="left">descr_03</td>
+<td align="left">translating ensemble ids into gennames</td>
+<td align="left"><a href="https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html" class="uri">https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html</a></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 

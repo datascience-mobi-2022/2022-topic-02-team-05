@@ -271,5 +271,14 @@ best initial conditions regarding the weights and biases. For each of
 the 3 networks 100 random initial conditions are tested, resulting in
 one network with the lowest MSE.
 
-Packages Tabelle einfügen! --> sorry: habe leider die zeile gelöscht,
-hoffe du weißt noch, was du gemacht hast :(
+## Packages
+
+```{r, eval =TRUE, echo=FALSE}
+library(readxl)
+packages <- read_excel("C:/Users/maren/Documents/GitHub/2022-topic-02-team-05/markdown/PackagesRProjekt.xlsx")
+```
+
+```{r, eval = TRUE, echo=FALSE}
+
+knitr::kable(packages, format = "markdown", caption= "Packages used in the analysis.")
+```
