@@ -133,7 +133,8 @@ knitr::include_graphics("figures/Pan Cancer mean expression top 100 pathways.png
 
 ```{r exp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 100 most variant pathways for each patient. Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
 
-knitr::include_graphics("figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
+knitr::include_graphics(
+  "figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
 ```
 
 ### Dimension reduction of GSVA pan-cancer data reveals clusters in pathway activity
@@ -235,7 +236,8 @@ A and B or combined as for cluster C.
 
 ```{r THCAhm, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
 
-knitr::include_graphics("figures/THCA Heatmap from Pancancer data top 50 pathways.png")
+knitr::include_graphics(
+  "figures/THCA Heatmap from Pancancer data top 50 pathways.png")
 ```
 
 ### THCA subtypes do not differ in their metabolism.
@@ -312,7 +314,7 @@ data.
 knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
 ```
 
-```{r pval, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="F-test comparison of various regression models. p-values are obtained from a two-sided variance test and displayed as heatmap. nn = neuronal network, lm = linear regression, lmsp = linear regression with only significant pathways, null = null model."}
+```{r pval, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="F-test comparison of various regression models. p-values are obtained from a two-sided variance test and displayed as heatmap. nn = neuronal network, lm = linear regression, lmsp = linear regression with only significant pathways, null = null model."}
 
 knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
 ```
