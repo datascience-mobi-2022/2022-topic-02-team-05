@@ -1,7 +1,8 @@
 ---
-editor_options: 
-  markdown: 
+editor_options:
+  markdown:
     wrap: 72
+output: pdf_document
 ---
 
 # Material and Methods
@@ -177,15 +178,16 @@ die Pathways auf die PCs verteilt sind.
 Like PCA, UMAP is a technique to reduce dimensions and to understand and
 visualize high dimensional data sets. Compared to PCA, UMAP better
 preserves the global structure and is much faster than other comparable
-techniques (for example t-SNE \cite{xxx}).\\ The algorithm starts by
-setting up a high-dimensional graph representation of the data. From
+techniques (for example t-SNE \cite{xxx}).
+The algorithm starts by setting up a high-dimensional graph representation of the data. From
 each data point, a radius is extended and when two radii come into
 contact the points are connected. The radius is chosen individually for
 each point based on the distance to the nearest neighbor. The algorithm
 does not stop before every point is not connected at least to its
-closest neighbor.\\ The resulting clustered high-dimensional graph is
-then optimized for a visualization in low-dimensions.\\ Using this
-technique, the pan-cancer data is visualized.
+closest neighbor.
+The resulting clustered high-dimensional graph is
+then optimized for a visualization in low-dimensions.
+Using this technique, the pan-cancer data is visualized.
 
 ### GSEA
 
