@@ -33,7 +33,7 @@ dataframe complementes the data with the respective clinical
 annotations.
 
 The last object contains 46 pathways associated with the hallmarks of
-cancer.
+cancer in form of a list of string vectors.
 
 ## Metabolic pathway selection
 
@@ -64,20 +64,18 @@ biotypes of the genes were retrieved using the `biomart::getBM()`
 function from the biomaRt package [@biomart]. To allow for an
 appropriate comparison within all pathways, only MSigDB pathways where
 over 99% of their respective genes were present in the filtered
-expression data were selcted as final pathways.
+expression data were selected as final pathways.
 
-## Descriptive analysis
+## Methods for descriptive analysis
 
 ### Mean-variance plot
 
 In a mean-variance plot the variance is plotted over the mean of
-expression values of the single genes across all patients. Thus, the
-variance and mean were calculated by the R-functions var(x) and mean(x).
-This is done to determine genes, which differ a lot in their expression
-levels across all patients. The plot is created with the package
-\ref{ggplot2} xxx.
+expression values of single genes across all patients. Thus, the
+variance and mean were calculated for each gene in the THCA expression
+data. The final plot was created with the package ggplot2 \ref{ggplot2}.
 
-### Violin plot
+### KANN RAUS m.M.n Violin plot
 
 To check the distribution of a data set and compare it with other data
 sets violin plots are used. Based on how similar the violin plots are,
@@ -89,42 +87,47 @@ a certain gene expression value.
 ### Jaccard-Index
 
 The Jaccard-Index is a method to describe the similarity between two
-quantities. It is computed via dividing the union by the intersection.
-This is used to determine the degree in which metabolic pathways are
-similar to each other.
+quantities. To compute it, the intersection of all gene ENSEMBL-IDs from
+two compared pathways was divided by their union. We used this method to
+determine the degree in which pathways are similar to each other.
 
 ### Volcano plot
 
-A volcano plot is used to identify significantly differentially
-expressed genes. This is done to determine genes or pathways, which are
-up- or down- regulated in tumor tissue vs. normal tissue. The mean of
-each gene is calculated for normal and THCA tissue and used for the
-calculation of the Log2-Foldchange (Log2FC) in the following way, since
-the provided expression data is already log2 data:
+A volcano plot is used to identify genes displaying significantly
+different expression in carcinogenic versus homeostatic tissues. First,
+the log2 fold change (Log2FC) is calculated for each gene across all
+samples in the THCA expression data in the following way:
 
 $$
 log2FC = mean(normal tissue) - mean(tumor tissue)
-$$ In the next step, a two-sided t-test was performed to determine the
-significance of a difference in expression.
-
-To avoid the accumulation of type 1 errors, a bonferroni correction was
-performed. n is the number of genes in the cleaned data set for focused
-analysis:
+$$Next, a two-sided t-test was performed with the `t.test()` function to
+determine the significance of a difference in expression. To avoid the
+accumulation of type one errors, a Bonferroni correction was performed.
+n is the number of genes in the cleaned data set for focused analysis:
 
 $$
 \alpha = \frac{0.025}{n}
 $$
 
-In the volcano plot the -log10 of the calculated p values is plotted
-against die Log2FC. Genes with a a lower p-value than the corrected
-alpha-value are significantly differently expressed. If the Log2FC is
-additionally higher than 0.1, the genes are significantly over expressed
-in tumor tissue, if the Log2FC is higher lower than -0.1, the genes are
-significantly under expressed in tumor tissue.
+In the volcano plot the -log10 of the calculated p-values is plotted
+against die Log2FC. Genes with a lower p-value than the corrected
+significance level $\alpha$ are significantly differently expressed. If
+the Log2FC is additionally positive, the genes are significantly
+overexpressed in tumor tissue, if the Log2FC is negative, the genes are
+significantly underexpressed in tumor tissue.
 
-## Data Reduction and Pathway Activities
+## Dimension reduction and pathway enrichment analysis
 
-### UMAP
+### Principle Component Analysis (PCA)
+
+For the PCA, the data obtained by the GSEA (tumor vs normal) or by GSVA
+(pan cancer) was used. After performing the PCA, the results were
+plotted to visualize the different clusters.
+
+The PCA was performed for analyzing pathway and gene activity. PCA is
+performed by the built in r-function prcomp().
+
+### **Uniform Manifold Approximation and Projection for Dimension Reduction (**UMAP)
 
 Like PCA, UMAP is a technique to reduce dimensions and to understand and
 visualize high dimensional data sets. Compared to PCA, UMAP better
@@ -140,7 +143,7 @@ optimized for a visualization in low-dimensions. Using this technique,
 the pan-cancer data is visualized. UMAP is performed with the package
 "umap" [@umap].
 
-### GSEA
+### Gene Set Enrichment Analysis (GSEA)
 
 The GSEA is used to identify enriched pathways in tumor tissue. Next to
 the tumor tissue data, the THCA data includes also a normal tissue gene
@@ -167,7 +170,7 @@ corresponding gene is taken as the enrichment score of the analysed
 pathway and the patient belonging to the used vector. This process is
 then repeated for each pathway and each patient.
 
-### GSVA
+### Geneset Variation Analysis (GSVA)
 
 Next to the GSEA, the GSVA is an approach to identify the pathway
 activities from gene expression data. Differently to the GSEA, it does
@@ -188,16 +191,7 @@ heatmap [@GSVA].
 
 GSVA is performed with the package "GSVA" [@gsva].
 
-### PCA
-
-For the PCA, the data obtained by the GSEA (tumor vs normal) or by GSVA
-(pan cancer) was used. After performing the PCA, the results were
-plotted to visualize the different clusters.
-
-The PCA was performed for analyzing pathway and gene activity. PCA is
-performed by the built in r-function prcomp().
-
-### Figure X
+### KANN RAUS m.M.n Figure X
 
 To identify pathways with the highest p-Value, obtained from GSVA and
 t-testing, a figure x is generated.
