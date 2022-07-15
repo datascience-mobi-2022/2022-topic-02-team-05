@@ -307,12 +307,12 @@ From this data, we can conclude that a neuronal network is the best
 choice for most accurately predicting IL-36 pathway activity in our test
 data.
 
-```{r reg, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="True values "}
+```{r reg, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Regression results for various models on THCA GSEA test data. True values are plotted against predicted values, black slope indicate a perfect prediction."}
 
 knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
 ```
 
-```{r pval, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+```{r pval, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="F-test comparison of various regression models. p-values are obtained from a two-sided variance test and displayed as heatmap. nn = neuronal network, lm = linear regression, lmsp = linear regression with only significant pathways, null = null model."}
 
 knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
 ```
