@@ -1,8 +1,10 @@
 ---
 editor_options:
   markdown:
-    wrap: sentence
-output: pdf_document
+    wrap: 72
+output:
+  html_document:
+    df_print: paged
 ---
 
 # Results
