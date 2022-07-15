@@ -3,7 +3,7 @@ editor_options:
   markdown:
     wrap: 72
 output:
-  html_document:
+  pdf_document:
     df_print: paged
 ---
 
@@ -58,7 +58,7 @@ level of approximately 0. With this plot we were able to determine which
 genes differ significantly in their expression level across all cancer
 patients.
 
-```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
+```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
 
 knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
 
@@ -133,7 +133,8 @@ knitr::include_graphics("figures/Pan Cancer mean expression top 100 pathways.png
 
 ```{r exp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 100 most variant pathways for each patient. Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
 
-knitr::include_graphics("figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
+knitr::include_graphics(
+  "figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
 ```
 
 ### Dimension reduction of GSVA pan-cancer data reveals clusters in pathway activity
@@ -153,12 +154,12 @@ difficult to cluster in the mean GSVA of TCGA expression. The UMAP
 confirmed the assumption, that the histological type of a tumor has a
 major impact on the patients gene expression profile.
 
-```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by tumor type"}
+```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by tumor type"}
 
 knitr::include_graphics("figures/Pan Cancer UMAP.png")
 ```
 
-```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by histological type"}
+```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by histological type"}
 
 knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
 ```
@@ -235,7 +236,8 @@ A and B or combined as for cluster C.
 
 ```{r THCAhm, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
 
-knitr::include_graphics("figures/THCA Heatmap from Pancancer data top 50 pathways.png")
+knitr::include_graphics(
+  "figures/THCA Heatmap from Pancancer data top 50 pathways.png")
 ```
 
 ### THCA subtypes do not differ in their metabolism.
@@ -294,10 +296,10 @@ regression with just pathways contributing significantly to the result
 the performance was enhanced (MSE = 0.40), however, remained worse than
 a null model (MSE = +0.22). \@ref(fig:reg) Comparison of the MSE on test
 an training data reveals, that linear model is highly overfitted
-(ΔMSE = +0.55) with the linear model with significant pathways fitting
-slightly better (ΔMSE = +0.23) to the data. Our null model displayed an
-good, yet slightly underfitted performance with ΔMSE = -0.08. With a
-ΔMSE = +0.009 the neuronal network shows a perfect fit.
+($\Delta$MSE = +0.55) with the linear model with significant pathways fitting
+slightly better ($\Delta$MSE = +0.23) to the data. Our null model displayed an
+good, yet slightly underfitted performance with $\Delta$MSE = -0.08. With a
+$\Delta$MSE = +0.009 the neuronal network shows a perfect fit.
 
 A comparison of the four regression models via the F-test function
 `var.test()` showed a significant improvement of the neuronal network
@@ -307,12 +309,12 @@ From this data, we can conclude that a neuronal network is the best
 choice for most accurately predicting IL-36 pathway activity in our test
 data.
 
-```{r reg, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="True values "}
+```{r reg, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="Regression results for various models on THCA GSEA test data. True values are plotted against predicted values, black slope indicate a perfect prediction."}
 
 knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
 ```
 
-```{r pval, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+```{r pval, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="F-test comparison of various regression models. p-values are obtained from a two-sided variance test and displayed as heatmap. nn = neuronal network, lm = linear regression, lmsp = linear regression with only significant pathways, null = null model."}
 
 knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
 ```

@@ -1,5 +1,10 @@
 ---
----
+editor_options:
+  markdown:
+    wrap: 72
+output:
+  pdf_document:
+    df_print: paged
 ---
 
 # Discussion
@@ -8,7 +13,7 @@
 
 Our findings from pan-cancer expression data show promising results. Via GSVA analysis we identified four clusters in the cancer types correlating strongly to the associated histological type. Glioblastoma seem to take a special role as they are predominantly characterized by the high activity of neural crest differentiation pathways and receptor tyrosine kinases. This is in line with previous studies showing that glioblastomas derive from neural crest cells.
 
-xxx cite(Bednarczyk, J.L., McIntyre, B.W. Expression and ligand-binding function of the integrin α4β1 (VLA-4) on neural-crest-derived tumor cell lines. Clin Exp Metast 10, 281--290 (1992). <https://doi.org/10.1007/BF00133564>).
+xxx cite(Bednarczyk, J.L., McIntyre, B.W. Expression and ligand-binding function of the integrin a4b1 (VLA-4) on neural-crest-derived tumor cell lines. Clin Exp Metast 10, 281--290 (1992). <https://doi.org/10.1007/BF00133564>).
 
 This was also found for some melanoma like UVM, which explains the observed clustering of UVM with other glioblastoma. Also, the high receptor tyrosine kinase activity has been linked to the formation of UVM and glioblastoma and suggested as a possible target for therapy.
 
