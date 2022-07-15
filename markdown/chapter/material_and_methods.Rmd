@@ -3,7 +3,7 @@ editor_options:
   markdown:
     wrap: 72
 output:
-  html_document:
+  pdf_document:
     df_print: paged
 ---
 

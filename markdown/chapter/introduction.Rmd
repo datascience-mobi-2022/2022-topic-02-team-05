@@ -2,6 +2,9 @@
 editor_options: 
   markdown: 
     wrap: 72
+output:
+  pdf_document:
+    df_print: paged
 ---
 
 # Introduction
@@ -78,13 +81,19 @@ extracellular matrix from of the surrounding cells is essential.
 
 ### Gene Set Enrichment Analysis
 
-To analyse and compare the activity of pathways of gene expression data,
-a Gene Set Enrichment Analysis (GSEA) is performed. The aim of the GSEA
-is to analyse and to identify highly expressed pathways [@GSEA]. For
-this, two conditions with replicates are compared, requiring a reference
-of normal expression data. First, a gene list is defined. Then the
-statistically enriched pathways are identified and lastly, the results
-are visualized.
+To analyse how the activity of a gene set differs between two sets of
+gene expression data, a Gene Set Enrichment Analysis (GSEA) is
+performed. For this, the genes in the expression data have to be ranked
+decreasingly by a certain metric. Such metrics can include the log2 fold
+change between the sample expression data and a reference set or the
+associated p-values for each gene. After ranking, a cumulative sum of
+all expression values in the ranked sample is computed. If a gene is
+present in the gene set to be analysed the expression value of that gene
+is added to the running sum. However, if the current gene does not lie
+in the gene set the value is subtracted. The extremum of this running
+sum is termed the enrichment score of the gene set. It is positive if
+the gene set is overexpressed in the sample compared to the reference
+data and negative vice versa. [@GSEA]
 
 ### Gene Set Variation Analysis
 
