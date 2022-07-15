@@ -143,7 +143,8 @@ the provided expression data is already log2 data:
 
 $$
 log2FC = mean(normal tissue) - mean(tumor tissue)
-$$ In the next step, a two-sided t-test was performed to determine the
+$$ 
+In the next step, a two-sided t-test was performed to determine the
 significance of a difference in expression.
 
 To avoid the accumulation of type 1 errors, a bonferroni correction was
@@ -279,7 +280,38 @@ library(readxl)
 packages <- read_excel("~/GitHub/2022-topic-02-team-05/markdown/PackagesRProjekt.xlsx")
 ```
 
+\begin{table}[!ht]
+    \centering
+    \caption{Packages used in the analysis.}
+    \begin{tabular}{|m{3cm}|m{3cm}|m{5cm}|m{5cm}|}
+    \hline
+        Package  & Localisation & Usage & Link \\ \hline
+        biomart & pre\_02, pre\_03, pre\_05 & renaming the genenames from the hallmarkpathways-dataframe into ensembleIDs & https://bioconductor.org/packages/release/bioc/html/biomaRt.html \\ \hline
+        msigdbr & pre\_03 & downloading all of the canonical pathways and the genes which they include in homo sapiens from the msigbdr data base & https://bioconductor.org/packages/release/data/experiment/html/msigdb.html \\ \hline
+        dplyr & pre\_04, pre\_05 & tidying and manipulating of dataframes & https://cran.r-project.org/web/packages/dplyr/index.html \\ \hline
+        ggplot2 & pre\_04, pre\_05, descr\_03, descr\_04, THCA\_01, THCA\_02, pan\_02, pan\_04 & allows for the creation of plots with more detailed options & https://cran.r-project.org/web/packages/ggplot2/index.html \\ \hline
+        pheatmap & descr\_01, pan\_01, neu\_02, neu\_04 & allows for the creation of heatmaps with more detailed options & https://cran.r-project.org/web/packages/pheatmap/pheatmap.pdf \\ \hline
+        vioplot & descr\_02 & creation of violinplots & https://cran.r-project.org/web/packages/vioplot/index.html \\ \hline
+        VennDiagram & descr\_05 & creation of VENN-diagrams & https://cran.r-project.org/web/packages/VennDiagram/VennDiagram.pdf \\ \hline
+        dplyr & THCA\_01, pan\_01 & ~ & ~ \\ \hline
+        fgsea & THCA\_01, pan\_01 & to do a GSEA & https://bioconductor.org/packages/release/bioc/html/fgsea.html \\ \hline
+        GSVA & THCA\_01, pan\_03 & to do a GSVA & https://bioconductor.org/packages/release/bioc/html/GSVA.html \\ \hline
+        ComplexHeatmap & THCA\_01, pan\_03, pan\_04 & allows for the creation of heatmaps with more detailed options & https://bioconductor.org/packages/release/bioc/html/ComplexHeatmap.html \\ \hline
+        metaplot & THCA\_02, pan\_02, pan\_04 & data-driven plots & https://cran.r-project.org/web/packages/metaplot/index.html \\ \hline
+        gridExtra & THCA\_02, pan\_02, pan\_04 & "implementation of ""grid"" graphics " & https://cran.r-project.org/web/packages/gridExtra/index.html \\ \hline
+        umap & THCA\_02, pan\_02, pan\_04 & to do a UMAP & https://cran.r-project.org/web/packages/umap/index.html \\ \hline
+        gage & pan\_01 & application of GSEA & https://bioconductor.org/packages/release/bioc/html/gage.html \\ \hline
+        psych & pan\_02 & iterative factor analysis & https://cran.r-project.org/web/packages/psych/index.html \\ \hline
+        cluster & pan\_04 & cluster analysis & https://cran.r-project.org/web/packages/cluster/cluster.pdf \\ \hline
+        MASS & neu\_00 & implementation of neural network & https://cran.r-project.org/web/packages/MASS/index.html \\ \hline
+        neuralnet & neu\_03 & training of neural networks & https://cran.r-project.org/web/packages/neuralnet/neuralnet.pdf \\ \hline
+        AnnotationDbi & descr\_03 & translating ensemble ids into gennames  & https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html \\ \hline
+        org.Hs.eg.db & descr\_03 & translating ensemble ids into gennames  & https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html \\ \hline
+    \end{tabular}
+\end{table}
+
 ```{r, eval = TRUE, echo=FALSE}
 
 knitr::kable(packages, format = "markdown", caption= "Packages used in the analysis.")
+
 ```

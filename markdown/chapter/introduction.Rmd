@@ -115,8 +115,8 @@ dimensional structure of the data is maintained. In further
 visualization, the structure can be represented in clusters that would
 not be visible using PCA. Therefore, the identification of the clusters
 is a lot easier. is Thereby the UMAP keeps the overall structure of the
-data set, therefore clusters are easier.\\ The problem of the UMAP is,
-that although the overall structure is conserved, the distance between
+data set, therefore clusters are easier.
+The problem of the UMAP is that although the overall structure is conserved, the distance between
 the individual points is not proportional to the real distance in the
 data set. This arises from the non-linear dimensional reduction.
 
