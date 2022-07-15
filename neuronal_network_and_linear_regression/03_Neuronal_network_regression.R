@@ -120,8 +120,10 @@ best_architecture = as.numeric(
   strsplit(
     strsplit(names(sort(MSE_best)[1]), split = ',')[[1]][1], split = ':'
   )[[1]])
-# Das Beste Netz bekomen wir mit einer Architektur von 50:10 und den
-#Anfangsbedingungen bei set.seed(22)
+# Das Beste Netz bekomen wir mit einer Architektur von 10:20 und den
+#Anfangsbedingungen bei set.seed(50)
+
+
 
 
 #-------------------------------------------------------
@@ -150,6 +152,12 @@ nn.test = test_sc[,pathway]*(max(thca_gsea[pathway,])-min(thca_gsea[pathway,]))+
 
 #mean sum squared error des neuralen netzes
 nn.MSE = sum((nn.test - nn.prediction)^2)/nrow(test_sc)
+
+#MSE für training zur over/underfitting analyse
+prediction.train = as.numeric(compute(AI,train_sc[,!colnames(train_sc) == pathway])$net.result *(max(thca_gsea[pathway,])-min(thca_gsea[pathway,])) + min(thca_gsea[pathway,]))
+nn.train = train_sc[,pathway]*(max(thca_gsea[pathway,])-min(thca_gsea[pathway,]))+min(thca_gsea[pathway,])
+sum((nn.train - prediction.train)^2)/nrow(train_sc)
+
 
 #Speichern für Vergleich
 save(nn.prediction, file = 'data/regression/nn.prediction.RData')
