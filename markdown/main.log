@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.15)  15 JUL 2022 11:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.15)  15 JUL 2022 12:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -388,6 +388,73 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \fb@frh=\dimen153
 \FrameRule=\dimen154
 \FrameSep=\dimen155
+) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+\LTleft=\skip69
+\LTright=\skip70
+\LTpre=\skip71
+\LTpost=\skip72
+\LTchunksize=\count288
+\LTcapwidth=\dimen156
+\LT@head=\box56
+\LT@firsthead=\box57
+\LT@foot=\box58
+\LT@lastfoot=\box59
+\LT@gbox=\box60
+\LT@cols=\count289
+\LT@rows=\count290
+\c@LT@tables=\count291
+\c@LT@chunks=\count292
+\LT@p@ftn=\toks24
+)
+Class scrreprt Info: longtable captions redefined on input line 87.
+(c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen157
+\lightrulewidth=\dimen158
+\cmidrulewidth=\dimen159
+\belowrulesep=\dimen160
+\belowbottomsep=\dimen161
+\aboverulesep=\dimen162
+\abovetopsep=\dimen163
+\cmidrulesep=\dimen164
+\cmidrulekern=\dimen165
+\defaultaddspace=\dimen166
+\@cmidla=\count293
+\@cmidlb=\count294
+\@aboverulesep=\dimen167
+\@belowrulesep=\dimen168
+\@thisruleclass=\count295
+\@lastruleclass=\count296
+\@thisrulewidth=\dimen169
+) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2022/03/10 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen170
+\ar@mcellbox=\box61
+\extrarowheight=\dimen171
+\NC@list=\toks25
+\extratabsurround=\skip73
+\backup@length=\skip74
+\ar@cellbox=\box62
+) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count297
+\calc@Bcount=\count298
+\calc@Adimen=\dimen172
+\calc@Bdimen=\dimen173
+\calc@Askip=\skip75
+\calc@Bskip=\skip76
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count299
+\calc@Cskip=\skip77
+) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count300
+) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box63
+\fn@width=\dimen174
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
@@ -399,25 +466,13 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
-\Gin@req@height=\dimen156
-\Gin@req@width=\dimen157
+\Gin@req@height=\dimen175
+\Gin@req@width=\dimen176
 )
-\cslhangindent=\skip69
-\csllabelwidth=\skip70
-\cslentryspacingunit=\skip71
-(c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count288
-\calc@Bcount=\count289
-\calc@Adimen=\dimen158
-\calc@Bdimen=\dimen159
-\calc@Askip=\skip72
-\calc@Bskip=\skip73
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count290
-\calc@Cskip=\skip74
-) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+\cslhangindent=\skip78
+\csllabelwidth=\skip79
+\cslentryspacingunit=\skip80
+(c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
@@ -426,18 +481,18 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count291
-\Gm@cntv=\count292
-\c@Gm@tempcnt=\count293
-\Gm@bindingoffset=\dimen160
-\Gm@wd@mp=\dimen161
-\Gm@odd@mp=\dimen162
-\Gm@even@mp=\dimen163
-\Gm@layoutwidth=\dimen164
-\Gm@layoutheight=\dimen165
-\Gm@layouthoffset=\dimen166
-\Gm@layoutvoffset=\dimen167
-\Gm@dimlist=\toks24
+\Gm@cnth=\count301
+\Gm@cntv=\count302
+\c@Gm@tempcnt=\count303
+\Gm@bindingoffset=\dimen177
+\Gm@wd@mp=\dimen178
+\Gm@odd@mp=\dimen179
+\Gm@even@mp=\dimen180
+\Gm@layoutwidth=\dimen181
+\Gm@layoutheight=\dimen182
+\Gm@layouthoffset=\dimen183
+\Gm@layoutvoffset=\dimen184
+\Gm@dimlist=\toks26
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/koma-script/scrlayer-scrpage.sty
 Package: scrlayer-scrpage 2022/07/04 v3.37 KOMA-Script package (end user interface for scrlayer)
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/koma-script/scrlayer.sty
@@ -448,74 +503,71 @@ Package scrlayer-scrpage Info: Makeing stand-alone element `pagehead' from
 (scrlayer-scrpage)             alias to `pageheadfoot' on input line 1089.
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2022/07/12 v3.18b programmable bibliographies (PK/MW)
-(c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count294
-) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/logreq/logreq.sty
+(c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count295
+\lrq@indent=\count304
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 )) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 )
-\c@tabx@nest=\count296
-\c@listtotal=\count297
-\c@listcount=\count298
-\c@liststart=\count299
-\c@liststop=\count300
-\c@citecount=\count301
-\c@citetotal=\count302
-\c@multicitecount=\count303
-\c@multicitetotal=\count304
-\c@instcount=\count305
-\c@maxnames=\count306
-\c@minnames=\count307
-\c@maxitems=\count308
-\c@minitems=\count309
-\c@citecounter=\count310
-\c@maxcitecounter=\count311
-\c@savedcitecounter=\count312
-\c@uniquelist=\count313
-\c@uniquename=\count314
-\c@refsection=\count315
-\c@refsegment=\count316
-\c@maxextratitle=\count317
-\c@maxextratitleyear=\count318
-\c@maxextraname=\count319
-\c@maxextradate=\count320
-\c@maxextraalpha=\count321
-\c@abbrvpenalty=\count322
-\c@highnamepenalty=\count323
-\c@lownamepenalty=\count324
-\c@maxparens=\count325
-\c@parenlevel=\count326
-\blx@tempcnta=\count327
-\blx@tempcntb=\count328
-\blx@tempcntc=\count329
-\c@blx@maxsection=\count330
-\blx@maxsegment@0=\count331
-\blx@notetype=\count332
-\blx@parenlevel@text=\count333
-\blx@parenlevel@foot=\count334
-\blx@sectionciteorder@0=\count335
-\blx@sectionciteorderinternal@0=\count336
-\blx@entrysetcounter=\count337
-\blx@biblioinstance=\count338
-\labelnumberwidth=\skip75
-\labelalphawidth=\skip76
-\biblabelsep=\skip77
-\bibitemsep=\skip78
-\bibnamesep=\skip79
-\bibinitsep=\skip80
-\bibparsep=\skip81
-\bibhang=\skip82
+\c@tabx@nest=\count305
+\c@listtotal=\count306
+\c@listcount=\count307
+\c@liststart=\count308
+\c@liststop=\count309
+\c@citecount=\count310
+\c@citetotal=\count311
+\c@multicitecount=\count312
+\c@multicitetotal=\count313
+\c@instcount=\count314
+\c@maxnames=\count315
+\c@minnames=\count316
+\c@maxitems=\count317
+\c@minitems=\count318
+\c@citecounter=\count319
+\c@maxcitecounter=\count320
+\c@savedcitecounter=\count321
+\c@uniquelist=\count322
+\c@uniquename=\count323
+\c@refsection=\count324
+\c@refsegment=\count325
+\c@maxextratitle=\count326
+\c@maxextratitleyear=\count327
+\c@maxextraname=\count328
+\c@maxextradate=\count329
+\c@maxextraalpha=\count330
+\c@abbrvpenalty=\count331
+\c@highnamepenalty=\count332
+\c@lownamepenalty=\count333
+\c@maxparens=\count334
+\c@parenlevel=\count335
+\blx@tempcnta=\count336
+\blx@tempcntb=\count337
+\blx@tempcntc=\count338
+\c@blx@maxsection=\count339
+\blx@maxsegment@0=\count340
+\blx@notetype=\count341
+\blx@parenlevel@text=\count342
+\blx@parenlevel@foot=\count343
+\blx@sectionciteorder@0=\count344
+\blx@sectionciteorderinternal@0=\count345
+\blx@entrysetcounter=\count346
+\blx@biblioinstance=\count347
+\labelnumberwidth=\skip81
+\labelalphawidth=\skip82
+\biblabelsep=\skip83
+\bibitemsep=\skip84
+\bibnamesep=\skip85
+\bibinitsep=\skip86
+\bibparsep=\skip87
+\bibhang=\skip88
 \blx@bcfin=\read3
 \blx@bcfout=\write4
 \blx@langwohyphens=\language3
-\c@mincomprange=\count339
-\c@maxcomprange=\count340
-\c@mincompwidth=\count341
+\c@mincomprange=\count348
+\c@maxcomprange=\count349
+\c@mincompwidth=\count350
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/blx-dm.def
@@ -525,88 +577,88 @@ Package biblatex Info: Trying to load biblatex style data model...
 Package biblatex Info: ... file 'authoryear.dbx' not found.
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count342
-\c@savedafterword=\count343
-\c@annotator=\count344
-\c@savedannotator=\count345
-\c@author=\count346
-\c@savedauthor=\count347
-\c@bookauthor=\count348
-\c@savedbookauthor=\count349
-\c@commentator=\count350
-\c@savedcommentator=\count351
-\c@editor=\count352
-\c@savededitor=\count353
-\c@editora=\count354
-\c@savededitora=\count355
-\c@editorb=\count356
-\c@savededitorb=\count357
-\c@editorc=\count358
-\c@savededitorc=\count359
-\c@foreword=\count360
-\c@savedforeword=\count361
-\c@holder=\count362
-\c@savedholder=\count363
-\c@introduction=\count364
-\c@savedintroduction=\count365
-\c@namea=\count366
-\c@savednamea=\count367
-\c@nameb=\count368
-\c@savednameb=\count369
-\c@namec=\count370
-\c@savednamec=\count371
-\c@translator=\count372
-\c@savedtranslator=\count373
-\c@shortauthor=\count374
-\c@savedshortauthor=\count375
-\c@shorteditor=\count376
-\c@savedshorteditor=\count377
-\c@labelname=\count378
-\c@savedlabelname=\count379
-\c@institution=\count380
-\c@savedinstitution=\count381
-\c@lista=\count382
-\c@savedlista=\count383
-\c@listb=\count384
-\c@savedlistb=\count385
-\c@listc=\count386
-\c@savedlistc=\count387
-\c@listd=\count388
-\c@savedlistd=\count389
-\c@liste=\count390
-\c@savedliste=\count391
-\c@listf=\count392
-\c@savedlistf=\count393
-\c@location=\count394
-\c@savedlocation=\count395
-\c@organization=\count396
-\c@savedorganization=\count397
-\c@origlocation=\count398
-\c@savedoriglocation=\count399
-\c@origpublisher=\count400
-\c@savedorigpublisher=\count401
-\c@publisher=\count402
-\c@savedpublisher=\count403
-\c@language=\count404
-\c@savedlanguage=\count405
-\c@origlanguage=\count406
-\c@savedoriglanguage=\count407
-\c@pageref=\count408
-\c@savedpageref=\count409
-\shorthandwidth=\skip83
-\shortjournalwidth=\skip84
-\shortserieswidth=\skip85
-\shorttitlewidth=\skip86
-\shortauthorwidth=\skip87
-\shorteditorwidth=\skip88
-\locallabelnumberwidth=\skip89
-\locallabelalphawidth=\skip90
-\localshorthandwidth=\skip91
-\localshortjournalwidth=\skip92
-\localshortserieswidth=\skip93
-\localshorttitlewidth=\skip94
-\localshortauthorwidth=\skip95
-\localshorteditorwidth=\skip96
+\c@afterword=\count351
+\c@savedafterword=\count352
+\c@annotator=\count353
+\c@savedannotator=\count354
+\c@author=\count355
+\c@savedauthor=\count356
+\c@bookauthor=\count357
+\c@savedbookauthor=\count358
+\c@commentator=\count359
+\c@savedcommentator=\count360
+\c@editor=\count361
+\c@savededitor=\count362
+\c@editora=\count363
+\c@savededitora=\count364
+\c@editorb=\count365
+\c@savededitorb=\count366
+\c@editorc=\count367
+\c@savededitorc=\count368
+\c@foreword=\count369
+\c@savedforeword=\count370
+\c@holder=\count371
+\c@savedholder=\count372
+\c@introduction=\count373
+\c@savedintroduction=\count374
+\c@namea=\count375
+\c@savednamea=\count376
+\c@nameb=\count377
+\c@savednameb=\count378
+\c@namec=\count379
+\c@savednamec=\count380
+\c@translator=\count381
+\c@savedtranslator=\count382
+\c@shortauthor=\count383
+\c@savedshortauthor=\count384
+\c@shorteditor=\count385
+\c@savedshorteditor=\count386
+\c@labelname=\count387
+\c@savedlabelname=\count388
+\c@institution=\count389
+\c@savedinstitution=\count390
+\c@lista=\count391
+\c@savedlista=\count392
+\c@listb=\count393
+\c@savedlistb=\count394
+\c@listc=\count395
+\c@savedlistc=\count396
+\c@listd=\count397
+\c@savedlistd=\count398
+\c@liste=\count399
+\c@savedliste=\count400
+\c@listf=\count401
+\c@savedlistf=\count402
+\c@location=\count403
+\c@savedlocation=\count404
+\c@organization=\count405
+\c@savedorganization=\count406
+\c@origlocation=\count407
+\c@savedoriglocation=\count408
+\c@origpublisher=\count409
+\c@savedorigpublisher=\count410
+\c@publisher=\count411
+\c@savedpublisher=\count412
+\c@language=\count413
+\c@savedlanguage=\count414
+\c@origlanguage=\count415
+\c@savedoriglanguage=\count416
+\c@pageref=\count417
+\c@savedpageref=\count418
+\shorthandwidth=\skip89
+\shortjournalwidth=\skip90
+\shortserieswidth=\skip91
+\shorttitlewidth=\skip92
+\shortauthorwidth=\skip93
+\shorteditorwidth=\skip94
+\locallabelnumberwidth=\skip95
+\locallabelalphawidth=\skip96
+\localshorthandwidth=\skip97
+\localshortjournalwidth=\skip98
+\localshortserieswidth=\skip99
+\localshorttitlewidth=\skip100
+\localshortauthorwidth=\skip101
+\localshorteditorwidth=\skip102
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/blx-compat.def
@@ -616,19 +668,19 @@ Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.def
 File: biblatex.def 2022/07/12 v3.18b biblatex compatibility (PK/MW)
-\c@textcitecount=\count410
-\c@textcitetotal=\count411
-\c@textcitemaxnames=\count412
-\c@biburlbigbreakpenalty=\count413
-\c@biburlbreakpenalty=\count414
-\c@biburlnumpenalty=\count415
-\c@biburlucpenalty=\count416
-\c@biburllcpenalty=\count417
+\c@textcitecount=\count419
+\c@textcitetotal=\count420
+\c@textcitemaxnames=\count421
+\c@biburlbigbreakpenalty=\count422
+\c@biburlbreakpenalty=\count423
+\c@biburlnumpenalty=\count424
+\c@biburlucpenalty=\count425
+\c@biburllcpenalty=\count426
 \biburlbigskip=\muskip18
 \biburlnumskip=\muskip19
 \biburlucskip=\muskip20
 \biburllcskip=\muskip21
-\c@smartand=\count418
+\c@smartand=\count427
 )
 Package biblatex Info: Trying to load bibliography style 'authoryear'...
 Package biblatex Info: ... file 'authoryear.bbx' found.
@@ -638,8 +690,8 @@ Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
 File: standard.bbx 2022/07/12 v3.18b biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count419
-\c@bbx:relatedtotal=\count420
+\c@bbx:relatedcount=\count428
+\c@bbx:relatedtotal=\count429
 ))
 Package biblatex Info: Trying to load citation style 'authoryear'...
 Package biblatex Info: ... file 'authoryear.cbx' found.
@@ -664,8 +716,8 @@ Package biblatex Info: Document encoding is UTF8 ....
 Package: expl3 2022-07-14 L3 programming layer (loader) 
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count421
-\l__pdf_internal_box=\box56
+\l__color_backend_stack_int=\count430
+\l__pdf_internal_box=\box64
 ))
 Package biblatex Info: ... and expl3
 (biblatex)             2022-07-14 L3 programming layer (loader) 
@@ -679,13 +731,13 @@ Package: blx-case-expl3 2022/07/12 v3.18b expl3 case changing code for biblatex
 Package: xpatch 2020/03/25 v0.3a Extending etoolbox patching commands
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.sty
 Package: csquotes 2021-02-22 v5.2l context-sensitive quotations (JAW)
-\csq@reset=\count422
-\csq@gtype=\count423
-\csq@glevel=\count424
-\csq@qlevel=\count425
-\csq@maxlvl=\count426
-\csq@tshold=\count427
-\csq@ltx@everypar=\toks25
+\csq@reset=\count431
+\csq@gtype=\count432
+\csq@glevel=\count433
+\csq@qlevel=\count434
+\csq@maxlvl=\count435
+\csq@tshold=\count436
+\csq@ltx@everypar=\toks27
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.def
 File: csquotes.def 2021-02-22 v5.2l csquotes generic definitions (JAW)
 )
@@ -694,87 +746,48 @@ Package csquotes Info: ... configuration file loaded successfully.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/csquotes/csquotes.cfg
 File: csquotes.cfg 
 )) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count428
-\lst@gtempboxa=\box57
-\lst@token=\toks26
-\lst@length=\count429
-\lst@currlwidth=\dimen168
-\lst@column=\count430
-\lst@pos=\count431
-\lst@lostspace=\dimen169
-\lst@width=\dimen170
-\lst@newlines=\count432
-\lst@lineno=\count433
-\lst@maxwidth=\dimen171
+\lst@mode=\count437
+\lst@gtempboxa=\box65
+\lst@token=\toks28
+\lst@length=\count438
+\lst@currlwidth=\dimen185
+\lst@column=\count439
+\lst@pos=\count440
+\lst@lostspace=\dimen186
+\lst@width=\dimen187
+\lst@newlines=\count441
+\lst@lineno=\count442
+\lst@maxwidth=\dimen188
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count434
-\lst@skipnumbers=\count435
-\lst@framebox=\box58
+\c@lstnumber=\count443
+\lst@skipnumbers=\count444
+\lst@framebox=\box66
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/listings/listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
 ))
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
-(c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
-Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen172
-\lightrulewidth=\dimen173
-\cmidrulewidth=\dimen174
-\belowrulesep=\dimen175
-\belowbottomsep=\dimen176
-\aboverulesep=\dimen177
-\abovetopsep=\dimen178
-\cmidrulesep=\dimen179
-\cmidrulekern=\dimen180
-\defaultaddspace=\dimen181
-\@cmidla=\count436
-\@cmidlb=\count437
-\@aboverulesep=\dimen182
-\@belowrulesep=\dimen183
-\@thisruleclass=\count438
-\@lastruleclass=\count439
-\@thisrulewidth=\dimen184
-) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
-Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
-\LTleft=\skip97
-\LTright=\skip98
-\LTpre=\skip99
-\LTpost=\skip100
-\LTchunksize=\count440
-\LTcapwidth=\dimen185
-\LT@head=\box59
-\LT@firsthead=\box60
-\LT@foot=\box61
-\LT@lastfoot=\box62
-\LT@gbox=\box63
-\LT@cols=\count441
-\LT@rows=\count442
-\c@LT@tables=\count443
-\c@LT@chunks=\count444
-\LT@p@ftn=\toks27
-)
-Class scrreprt Info: longtable captions redefined on input line 140.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip101
+\multirow@colwidth=\skip103
 \multirow@cntb=\count445
-\multirow@dima=\skip102
-\bigstrutjot=\dimen186
+\multirow@dima=\skip104
+\bigstrutjot=\dimen189
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/rotating.sty
 Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 \c@r@tfl@t=\count446
-\rotFPtop=\skip103
-\rotFPbot=\skip104
-\rot@float@box=\box64
-\rot@mess@toks=\toks28
+\rotFPtop=\skip105
+\rotFPbot=\skip106
+\rot@float@box=\box67
+\rot@mess@toks=\toks29
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/subfigure/subfigure.sty
 Package: subfigure 2002/03/15 v2.1.5 subfigure package
-\subfigtopskip=\skip105
-\subfigcapskip=\skip106
-\subfigcaptopadj=\dimen187
-\subfigbottomskip=\skip107
-\subfigcapmargin=\dimen188
-\subfiglabelskip=\skip108
+\subfigtopskip=\skip107
+\subfigcapskip=\skip108
+\subfigcaptopadj=\dimen190
+\subfigbottomskip=\skip109
+\subfigcapmargin=\dimen191
+\subfiglabelskip=\skip110
 \c@subfigure=\count447
 \c@lofdepth=\count448
 \c@subtable=\count449
@@ -783,15 +796,15 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 * Local config file subfigure.cfg used *
 ****************************************
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/subfigure/subfigure.cfg)
-\subfig@top=\skip109
-\subfig@bottom=\skip110
+\subfig@top=\skip111
+\subfig@bottom=\skip112
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count451
-\float@exts=\toks29
-\float@box=\box65
-\@float@everytoks=\toks30
-\@floatcapt=\box66
+\float@exts=\toks30
+\float@box=\box68
+\@float@everytoks=\toks31
+\@floatcapt=\box69
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/acronym/acronym.sty
 Package: acronym 2020/04/17 v1.47 Support for acronyms (Tobias Oetiker)
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bigfoot/suffix.sty
@@ -802,7 +815,7 @@ Package: suffix 2006/07/15 1.5a Variant command support
 )
 Package: xstring 2021/07/21 v1.84 String manipulations (CT)
 )
-\AC@clearlist=\toks31
+\AC@clearlist=\toks32
 ) (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lipsum/lipsum.sty (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty
 Package: l3keys2e 2022-06-22 LaTeX2e option processing using LaTeX3 keys
 )
@@ -842,42 +855,42 @@ Package csquotes Info: ... none found.
 No file main.aux.
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-Package scrbase Info: activating english \abstractname on input line 166.
-Package scrbase Info: activating english \partname on input line 166.
-Package scrbase Info: activating english \chaptername on input line 166.
-Package scrbase Info: activating english \appendixname on input line 166.
-Package scrbase Info: activating english \figurename on input line 166.
-Package scrbase Info: activating english \tablename on input line 166.
-Package scrbase Info: activating english \contentsname on input line 166.
-Package scrbase Info: activating english \listfigurename on input line 166.
-Package scrbase Info: activating english \listtablename on input line 166.
-Package scrbase Info: activating english \bibname on input line 166.
-Package scrbase Info: activating english \indexname on input line 166.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 176.
+LaTeX Font Info:    ... okay on input line 176.
+Package scrbase Info: activating english \abstractname on input line 176.
+Package scrbase Info: activating english \partname on input line 176.
+Package scrbase Info: activating english \chaptername on input line 176.
+Package scrbase Info: activating english \appendixname on input line 176.
+Package scrbase Info: activating english \figurename on input line 176.
+Package scrbase Info: activating english \tablename on input line 176.
+Package scrbase Info: activating english \contentsname on input line 176.
+Package scrbase Info: activating english \listfigurename on input line 176.
+Package scrbase Info: activating english \listtablename on input line 176.
+Package scrbase Info: activating english \bibname on input line 176.
+Package scrbase Info: activating english \indexname on input line 176.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 166.
+Package hyperref Info: Link coloring OFF on input line 176.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -926,45 +939,45 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' not found.
 No file main.bbl.
-Package biblatex Info: Reference section=0 on input line 166.
-Package biblatex Info: Reference segment=0 on input line 166.
+Package biblatex Info: Reference section=0 on input line 176.
+Package biblatex Info: Reference segment=0 on input line 176.
 \c@lstlisting=\count457
-Package scrhack Info: undefining \float@addtolists on input line 166.
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 175.
+Package scrhack Info: undefining \float@addtolists on input line 176.
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 185.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 191.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 201.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 191.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 201.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 191.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 201.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 191.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 201.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 191.
+(Font)              <14.4> on input line 201.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 191.
+(Font)              <10> on input line 201.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 191.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 191.
+(Font)              <7> on input line 201.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 201.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 191.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 201.
 (c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (69.80684pt too wide) in paragraph at lines 191--197
+Overfull \hbox (69.80684pt too wide) in paragraph at lines 201--207
  [][] 
  []
 
@@ -978,11 +991,11 @@ No file main.toc.
 \openout5 = `main.toc'.
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 205.
+(Font)              <10.95> on input line 215.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 205.
+(Font)              <8> on input line 215.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 205.
+(Font)              <6> on input line 215.
 [2
 
 ] [3
@@ -994,7 +1007,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 ]
 chapter 1.
 
-Overfull \hbox (405.63547pt too wide) detected at line 219
+Overfull \hbox (405.63547pt too wide) detected at line 229
 \OT1/lmr/m/n/10.95 [\OML/lmm/m/it/10.95 KrebsrateundKrebs \OMS/lmsy/m/n/10.95 ^^@ \OML/lmm/m/it/10.95 SterberateinDeutschland\OT1/lmr/m/n/10.95 (\OML/lmm/m/it/10.95 krebsinformationsdienst:de\OT1/lmr/m/n/10.95 )](\OML/lmm/m/it/10.95 https \OT1/lmr/m/n/10.95 : \OML/lmm/m/it/10.95 ==www:krebsinformationsdienst:de=tumorarten=grundlagen=krebsstatistiken:php\OT1/lmr/m/n/10.95 )
  []
 
@@ -1003,83 +1016,206 @@ Overfull \hbox (405.63547pt too wide) detected at line 219
 ] [6] [7] [8] [9] [10]
 chapter 2.
 
-LaTeX Warning: Citation 'xxx' on page 11 undefined on input line 525.
+LaTeX Warning: Citation 'xxx' on page 11 undefined on input line 535.
 
 [11
 
 ] [12]
 
-LaTeX Warning: Reference `xxxfigure heatmap' on page 13 undefined on input line 592.
+LaTeX Warning: Reference `xxxfigure heatmap' on page 13 undefined on input line 602.
 
 
-LaTeX Warning: Reference `ggplot2' on page 13 undefined on input line 608.
+LaTeX Warning: Reference `ggplot2' on page 13 undefined on input line 618.
 
 [13] [14]
 
-LaTeX Warning: Citation 'xxx' on page 15 undefined on input line 679.
+LaTeX Warning: Citation 'xxx' on page 15 undefined on input line 689.
 
 [15] [16]
-Overfull \hbox (50.9614pt too wide) in paragraph at lines 763--769
+Overfull \hbox (50.9614pt too wide) in paragraph at lines 773--779
 \T1/lmr/m/n/10.95 A neu-ral net-work was used to pre-dict the ac-tiv-ity of RE-AC-TOME_INTERLEUKIN_36_PATHWAY
  []
 
-[17]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 791.
+(c:/Users/Anna/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+Overfull \hbox (19.24072pt too wide) in paragraph at lines 803--804
+[]\T1/lmr/m/n/10.95 Package  
+ []
+
+
+Overfull \hbox (19.24072pt too wide) in paragraph at lines 815--816
+[]\T1/lmr/m/n/10.95 Package  
+ []
+
+
+Overfull \hbox (18.20593pt too wide) in paragraph at lines 825--825
+[]|\T1/lmr/m/n/10.95 biomart|  
+ []
+
+
+Overfull \hbox (18.87495pt too wide) in paragraph at lines 828--828
+[]|\T1/lmr/m/n/10.95 msigdbr|  
+ []
+
+
+Overfull \hbox (5.73553pt too wide) in paragraph at lines 831--831
+[]|\T1/lmr/m/n/10.95 dplyr|  
+ []
+
+
+Overfull \hbox (15.74255pt too wide) in paragraph at lines 833--833
+[]|\T1/lmr/m/n/10.95 ggplot2|  
+ []
+
+
+Overfull \hbox (27.90878pt too wide) in paragraph at lines 837--837
+[]|\T1/lmr/m/n/10.95 pheatmap|  
+ []
+
+
+Overfull \hbox (13.61362pt too wide) in paragraph at lines 840--840
+[]|\T1/lmr/m/n/10.95 vioplot|  
+ []
+
+
+Overfull \hbox (46.03714pt too wide) in paragraph at lines 842--842
+[]|\T1/lmr/m/n/10.95 VennDiagram|  
+ []
+
+
+Overfull \hbox (5.73553pt too wide) in paragraph at lines 844--844
+[]|\T1/lmr/m/n/10.95 dplyr|  
+ []
+
+
+Overfull \hbox (3.94093pt too wide) in paragraph at lines 845--845
+[]|\T1/lmr/m/n/10.95 fgsea|  
+ []
+
+
+Overfull \hbox (10.34326pt too wide) in paragraph at lines 847--847
+[]|\T1/lmr/m/n/10.95 GSVA|  
+ []
+
+
+Overfull \hbox (66.23349pt too wide) in paragraph at lines 849--849
+[]|\T1/lmr/m/n/10.95 ComplexHeatmap|  
+ []
+
+
+Overfull \hbox (23.04237pt too wide) in paragraph at lines 852--852
+[]|\T1/lmr/m/n/10.95 metaplot|  
+ []
+
+
+Overfull \hbox (26.60147pt too wide) in paragraph at lines 854--854
+[]|\T1/lmr/m/n/10.95 gridExtra|  
+ []
+
+
+Overfull \hbox (7.22536pt too wide) in paragraph at lines 857--857
+[]|\T1/lmr/m/n/10.95 umap|  
+ []
+
+
+Overfull \hbox (1.75095pt too wide) in paragraph at lines 859--859
+[]|\T1/lmr/m/n/10.95 gage|  
+ []
+
+
+Overfull \hbox (7.28691pt too wide) in paragraph at lines 861--861
+[]|\T1/lmr/m/n/10.95 psych|  
+ []
+
+
+Overfull \hbox (12.184pt too wide) in paragraph at lines 863--863
+[]|\T1/lmr/m/n/10.95 cluster|  
+ []
+
+
+Overfull \hbox (10.8761pt too wide) in paragraph at lines 865--865
+[]|\T1/lmr/m/n/10.95 MASS|  
+ []
+
+
+Overfull \hbox (25.50629pt too wide) in paragraph at lines 867--867
+[]|\T1/lmr/m/n/10.95 neuralnet|  
+ []
+
+
+Overfull \hbox (52.3946pt too wide) in paragraph at lines 869--869
+[]|\T1/lmr/m/n/10.95 AnnotationDbi|  
+ []
+
+
+Overfull \hbox (39.86282pt too wide) in paragraph at lines 871--871
+[]|\T1/lmr/m/n/10.95 org.Hs.eg.db|  
+ []
+
+[17] [18] [19]
 chapter 3.
-[18
+[20
 
 ]
-<figures/Variance_over mean_cleaned_matrix.png, id=182, 736.7525pt x 867.24pt>
+<figures/Variance_over mean_cleaned_matrix.png, id=265, 736.7525pt x 867.24pt>
 File: figures/Variance_over mean_cleaned_matrix.png Graphic file (type png)
 <use figures/Variance_over mean_cleaned_matrix.png>
-Package pdftex.def Info: figures/Variance_over mean_cleaned_matrix.png  used on input line 841.
+Package pdftex.def Info: figures/Variance_over mean_cleaned_matrix.png  used on input line 936.
 (pdftex.def)             Requested size: 128.03426pt x 150.71063pt.
-<figures/Volcanoplot.png, id=184, 1258.7025pt x 696.6025pt>
+<figures/Volcanoplot.png, id=267, 1258.7025pt x 696.6025pt>
 File: figures/Volcanoplot.png Graphic file (type png)
 <use figures/Volcanoplot.png>
-Package pdftex.def Info: figures/Volcanoplot.png  used on input line 862.
+Package pdftex.def Info: figures/Volcanoplot.png  used on input line 957.
 (pdftex.def)             Requested size: 128.02872pt x 70.8548pt.
-[19
+[21
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.880 T
-       he tumor types were clustered based on their mean pathway activity and <./figures/Variance_over mean_cleaned_matrix.png>] [20
+l.975 T
+       he tumor types were clustered based on their mean pathway activity and <./figures/Variance_over mean_cleaned_matrix.png>] [22
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.920 
-       <./figures/Volcanoplot.png>]
-<figures/Pan Cancer mean expression.png, id=208, 1027.53554pt x 636.72952pt>
+l.1015 
+        <./figures/Volcanoplot.png>]
+<figures/Pan Cancer mean expression.png, id=289, 1027.53554pt x 636.72952pt>
 File: figures/Pan Cancer mean expression.png Graphic file (type png)
 <use figures/Pan Cancer mean expression.png>
-Package pdftex.def Info: figures/Pan Cancer mean expression.png  used on input line 923.
+Package pdftex.def Info: figures/Pan Cancer mean expression.png  used on input line 1018.
 (pdftex.def)             Requested size: 213.38995pt x 132.23064pt.
-<figures/Pan Cancer UMAP.png, id=209, 792.57242pt x 602.82085pt>
+<figures/Pan Cancer UMAP.png, id=290, 792.57242pt x 602.82085pt>
 File: figures/Pan Cancer UMAP.png Graphic file (type png)
 <use figures/Pan Cancer UMAP.png>
-Package pdftex.def Info: figures/Pan Cancer UMAP.png  used on input line 955.
+Package pdftex.def Info: figures/Pan Cancer UMAP.png  used on input line 1050.
 (pdftex.def)             Requested size: 213.39273pt x 162.30388pt.
-<figures/Pan Cancer UMAP cancer form.png, id=210, 1027.53554pt x 636.72952pt>
+<figures/Pan Cancer UMAP cancer form.png, id=291, 1027.53554pt x 636.72952pt>
 File: figures/Pan Cancer UMAP cancer form.png Graphic file (type png)
 <use figures/Pan Cancer UMAP cancer form.png>
-Package pdftex.def Info: figures/Pan Cancer UMAP cancer form.png  used on input line 964.
+Package pdftex.def Info: figures/Pan Cancer UMAP cancer form.png  used on input line 1059.
 (pdftex.def)             Requested size: 213.38995pt x 132.23064pt.
-[21
+[23
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.977 ...ocused analysis}\label{focused-analysis}}
-                                                   <./figures/Pan Cancer mean expression.png (PNG copy)>] [22
+l.1072 ...cused analysis}\label{focused-analysis}}
+                                                   <./figures/Pan Cancer mean expression.png (PNG copy)>] [24
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.977 ...ocused analysis}\label{focused-analysis}}
+l.1072 ...cused analysis}\label{focused-analysis}}
                                                   
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.977 ...ocused analysis}\label{focused-analysis}}
-                                                   <./figures/Pan Cancer UMAP.png> <./figures/Pan Cancer UMAP cancer form.png>] [23] [24]
+l.1072 ...cused analysis}\label{focused-analysis}}
+                                                   <./figures/Pan Cancer UMAP.png> <./figures/Pan Cancer UMAP cancer form.png>] [25] [26] [27]
+chapter 4.
+[28
+
+]
+chapter 5.
 
 ! LaTeX Error: Unicode character α (U+03B1)
                not set up for use with LaTeX.
@@ -1088,14 +1224,14 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1088 ...ne-related protein regulates integrin α
-                                                  6 and β4 levels via 
+l.1255 protein regulates integrin α
+                                    6 and β4 levels via transcriptional and 
 Here is how much of TeX's memory you used:
- 27238 strings out of 479983
- 522141 string characters out of 5886474
- 1469971 words of memory out of 5000000
- 44948 multiletter control sequences out of 15000+600000
- 532385 words of font info for 73 fonts, out of 8000000 for 9000
+ 27421 strings out of 479983
+ 525302 string characters out of 5886474
+ 1490546 words of memory out of 5000000
+ 45108 multiletter control sequences out of 15000+600000
+ 532704 words of font info for 74 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  108i,20n,106p,10608b,801s stack positions out of 10000i,1000n,20000p,200000b,200000s
 

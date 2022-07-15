@@ -83,6 +83,16 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -775,8 +785,93 @@ best initial conditions regarding the weights and biases. For each of
 the 3 networks 100 random initial conditions are tested, resulting in
 one network with the lowest MSE.
 
-Packages Tabelle einfügen! --\textgreater{} sorry: habe leider die zeile
-gelöscht, hoffe du weißt noch, was du gemacht hast :(
+\hypertarget{packages}{%
+\section{Packages}\label{packages}}
+
+\begin{verbatim}
+## Warning: Paket 'readxl' wurde unter R Version 4.1.3 erstellt
+\end{verbatim}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.24}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.42}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.29}}@{}}
+\caption{Packages used in the analysis.}\tabularnewline
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+Package
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lokalisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Verwendung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Link
+\end{minipage} \\
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedright
+Package
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lokalisation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Verwendung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Link
+\end{minipage} \\
+\midrule
+\endhead
+biomart & pre\_02, pre\_03, pre\_05 & renaming the genenames from the
+hallmarkpathways-dataframe into ensembleIDs &
+\url{https://bioconductor.org/packages/release/bioc/html/biomaRt.html} \\
+msigdbr & pre\_03 & downloading all of the canonical pathways and the
+genes which they include in homo sapiens from the msigbdr data base &
+\url{https://bioconductor.org/packages/release/data/experiment/html/msigdb.html} \\
+dplyr & pre\_04, pre\_05 & tidying and manipulating of dataframes &
+\url{https://cran.r-project.org/web/packages/dplyr/index.html} \\
+ggplot2 & pre\_04, pre\_05, descr\_03, descr\_04, THCA\_01, THCA\_02,
+pan\_02, pan\_04 & allows for the creation of plots with more detailed
+options &
+\url{https://cran.r-project.org/web/packages/ggplot2/index.html} \\
+pheatmap & descr\_01, pan\_01, neu\_02, neu\_04 & allows for the
+creation of heatmaps with more detailed options &
+\url{https://cran.r-project.org/web/packages/pheatmap/pheatmap.pdf} \\
+vioplot & descr\_02 & creation of violinplots &
+\url{https://cran.r-project.org/web/packages/vioplot/index.html} \\
+VennDiagram & descr\_05 & creation of VENN-diagrams &
+\url{https://cran.r-project.org/web/packages/VennDiagram/VennDiagram.pdf} \\
+dplyr & THCA\_01, pan\_01 & NA & NA \\
+fgsea & THCA\_01, pan\_01 & to do a GSEA &
+\url{https://bioconductor.org/packages/release/bioc/html/fgsea.html} \\
+GSVA & THCA\_01, pan\_03 & to do a GSVA &
+\url{https://bioconductor.org/packages/release/bioc/html/GSVA.html} \\
+ComplexHeatmap & THCA\_01, pan\_03, pan\_04 & allows for the creation of
+heatmaps with more detailed options &
+\url{https://bioconductor.org/packages/release/bioc/html/ComplexHeatmap.html} \\
+metaplot & THCA\_02, pan\_02, pan\_04 & data-driven plots &
+\url{https://cran.r-project.org/web/packages/metaplot/index.html} \\
+gridExtra & THCA\_02, pan\_02, pan\_04 & implementation of ``grid''
+graphics &
+\url{https://cran.r-project.org/web/packages/gridExtra/index.html} \\
+umap & THCA\_02, pan\_02, pan\_04 & to do a UMAP &
+\url{https://cran.r-project.org/web/packages/umap/index.html} \\
+gage & pan\_01 & application of GSEA &
+\url{https://bioconductor.org/packages/release/bioc/html/gage.html} \\
+psych & pan\_02 & iterative factor analysis &
+\url{https://cran.r-project.org/web/packages/psych/index.html} \\
+cluster & pan\_04 & cluster analysis &
+\url{https://cran.r-project.org/web/packages/cluster/cluster.pdf} \\
+MASS & neu\_00 & implementation of neural network &
+\url{https://cran.r-project.org/web/packages/MASS/index.html} \\
+neuralnet & neu\_03 & training of neural networks &
+\url{https://cran.r-project.org/web/packages/neuralnet/neuralnet.pdf} \\
+AnnotationDbi & descr\_03 & translating ensemble ids into gennames &
+\url{https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html} \\
+org.Hs.eg.db & descr\_03 & translating ensemble ids into gennames &
+\url{https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html} \\
+\bottomrule
+\end{longtable}
 
 \hypertarget{results}{%
 \chapter{Results}\label{results}}
@@ -1084,9 +1179,7 @@ pathways with an associated p-value of 8.411155e-15. As interleukin 36
 signaling is connected to both MAPK activity and through the activation
 of NF-kB also the expression of integrin alpha6beta4 effective
 regression might be crucial in finding potentially druggable targets in
-combating THCA(Queen \emph{et al.}, 2019) Msigdb xxx. Parathyroid
-hormone-related protein regulates integrin α6 and β4 levels via
-transcriptional and post-translational pathways Regression of the
+combating THCABhatia \emph{et al.} (2013) Msigdb xxx. Regression of the
 REACTOME\_INTERLEUKIN\_36\_PATHWAY gene set showed mixed results.
 
 As expected, the neuronal network performed best on the test data with a
@@ -1156,6 +1249,11 @@ Ben-Porath, I, Thomson, MW, Carey, VJ, Ge, R, Bell, GW, Regev, A, and
 Weinberg, RA (2008). An embryonic stem cell-like gene expression
 signature in poorly differentiated aggressive human tumors. Nat Genet
 40, 499--507.
+
+\leavevmode\vadjust pre{\hypertarget{ref-result7}{}}%
+Bhatia, V, Mula, RV, and Falzon, M (2013). Parathyroid hormone-related
+protein regulates integrin α6 and β4 levels via transcriptional and
+post-translational pathways. Exp Cell Res 319, 1419--1430.
 
 \leavevmode\vadjust pre{\hypertarget{ref-result1}{}}%
 Biggar, KK, and Li, SSC (2015). Non-histone protein methylation as a
