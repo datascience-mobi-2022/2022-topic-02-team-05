@@ -296,10 +296,10 @@ regression with just pathways contributing significantly to the result
 the performance was enhanced (MSE = 0.40), however, remained worse than
 a null model (MSE = +0.22). \@ref(fig:reg) Comparison of the MSE on test
 an training data reveals, that linear model is highly overfitted
-(ΔMSE = +0.55) with the linear model with significant pathways fitting
-slightly better (ΔMSE = +0.23) to the data. Our null model displayed an
-good, yet slightly underfitted performance with ΔMSE = -0.08. With a
-ΔMSE = +0.009 the neuronal network shows a perfect fit.
+($\Delta$MSE = +0.55) with the linear model with significant pathways fitting
+slightly better ($\Delta$MSE = +0.23) to the data. Our null model displayed an
+good, yet slightly underfitted performance with $\Delta$MSE = -0.08. With a
+$\Delta$MSE = +0.009 the neuronal network shows a perfect fit.
 
 A comparison of the four regression models via the F-test function
 `var.test()` showed a significant improvement of the neuronal network
