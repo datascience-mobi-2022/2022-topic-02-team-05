@@ -2,7 +2,9 @@
 editor_options:
   markdown:
     wrap: 72
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 # Material and Methods
@@ -320,6 +322,10 @@ packages <- read_excel("~/GitHub/2022-topic-02-team-05/markdown/PackagesRProjekt
 
 ```{r, eval = TRUE, echo=FALSE}
 
+<<<<<<< Updated upstream
 knitr::kable(packages, format = "markdown", caption= "Packages used in the analysis.")
 
+=======
+knitr::kable(packages, format = "latex", caption= "Packages used in the analysis.")
+>>>>>>> Stashed changes
 ```
