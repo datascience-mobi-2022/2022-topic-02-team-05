@@ -14,65 +14,42 @@ This was also found for some melanoma like UVM, which explains the observed clus
 
 xxx cite Jo, D.H., Kim, J.H. & Kim, J.H. Targeting tyrosine kinases for treatment of ocular tumors. Arch. Pharm. Res. 42, 305--318 (2019). <https://doi.org/10.1007/s12272-018-1094-3> <https://doi.org/10.1111/febs.12109>
 
-Further, especially liver and kidney adenocarcinoma seemed to form a strong subcluster within the other adenocarcinoma. They are characterized by exceptionally high activity of metabolic pathways such as carbohydrate metabolism, lipid, and amino acid synthesis. Again this change in metabolism was previously characterized for hepatocellular carcinoma.
+Further, especially liver and kidney adenocarcinoma seemed to form a strong subcluster within the other adenocarcinoma. They are characterized by exceptionally high activity of metabolic pathways such as carbohydrate metabolism, lipid, and amino acid synthesis. Again, this change in metabolism was previously found in hepatocellular carcinoma.
 
 xxx cite Sangineto M, Villani R, Cavallone F, Romano A, Loizzi D, Serviddio G. Lipid Metabolism in Development and Progression of Hepatocellular Carcinoma. Cancers. 2020; 12(6):1419. <https://doi.org/10.3390/cancers12061419>
 
-The most significant classification we found was the clustering of tumor types regarding their differentiation stage. Poorly differentiated tumors like leukemia and squamous cell carcinoma show an upregulation of pathways associated with embryonic stem cell-like expression signatures. In contrast highly differentiated tumors like most adenocarcinoma as well as most glioblastoma underexpress these genesets. Such a clustering by differentiation stage was previously described by Ben-Porath et al., however, these findings cannot be verified directly as provided annotation data did not contain suitable information regarding the differentiation stage.
+The most significant classification we found was the clustering of tumor types by their differentiation stage. Poorly differentiated tumors like leukemia and squamous cell carcinoma show an upregulation of pathways associated with embryonic stem cell-like expression signatures. In contrast highly differentiated tumors like most adenocarcinoma as well as most glioblastoma underexpress these gene sets. Such a clustering by differentiation stage was previously described by Ben-Porath et al.. However, these findings cannot be verified directly as provided annotation data did not contain information regarding the differentiation stage.
 
 xxx cite Ben-Porath, I., Thomson, M., Carey, V. et al. An embryonic stem cell--like gene expression signature in poorly differentiated aggressive human tumors. Nat Genet 40, 499--507 (2008). <https://doi.org/10.1038/ng.12>
 
 Taken together our results are in line with current research and allow for the following hypothesis: The expression profile of a given cancer type depends highly on its differentiation stage and its histological type but little on the actual tumor type itself. Understanding how these changes in expression link to mutational signatures might help in developing druggable targets for therapy.
 
-### THCA focussed analysis
+### THCA focused analysis
 
-From our GSEA and pan-cancer GSVA results, we identify two separate ways
-of carcinogenesis in THCA. The follicular subtype upregulates proliferative
-signaling over mTOR/PI3K and MAPK signaling pathways. This was previously shown
-by Furuya et al.
+From our GSEA and pan-cancer GSVA results, we identify two separate ways of carcinogenesis in THCA. The follicular subtype upregulates proliferative signaling through mTOR/PI3K and MAPK signaling pathways. This was previously shown by Furuya et al.
 
-Quelle: (Fumihiko Furuya, Changxue Lu, Mark C. Willingham, Sheue-yann Cheng,
-Inhibition of phosphatidylinositol 3-kinase delays tumor progression and blocks
-metastatic spread in a mouse model of thyroid cancer, *Carcinogenesis*, Volume 28, Issue 12, December 2007, Pages 2451--2458, <https://doi.org/10.1093/carcin/bgm174>)
+Quelle: (Fumihiko Furuya, Changxue Lu, Mark C. Willingham, Sheue-yann Cheng, Inhibition of phosphatidylinositol 3-kinase delays tumor progression and blocks metastatic spread in a mouse model of thyroid cancer, *Carcinogenesis*, Volume 28, Issue 12, December 2007, Pages 2451--2458, <https://doi.org/10.1093/carcin/bgm174>)
 
-The second way of carcinogenesis was observed in the data through Alpha6beta4, RAS, JAK/STAT, and
-EWSR1/FL1-fusion mediated signaling pathways. Such ways of carcinogenesis were
-linked to nonfollicular types of THCA.
+A second way of carcinogenesis by signaling through alpha6beta4, RAS, JAK/STAT, and EWSR1/FLI1-fusion mediated pathways was observed in the data. This way of carcinogenesis was linked to non-follicular types of THCA.
 
-Quelle:
-Effect of beta 4 Integrin Knockdown by RNA Interference in Anaplastic Thyroid
-Carcinoma
+Quelle: Effect of beta 4 Integrin Knockdown by RNA Interference in Anaplastic Thyroid Carcinoma
 
 Quelle: <https://doi.org/10.1002/jcp.27199>
 
 Quelle: <https://doi.org/10.1007/s00428-017-2095-1>
 
-These findings
-resulted in three distinct clusters in our expression data, upregulating either
-one or both ways of proliferative signaling. While the follicular subtype seemed
-to highly correlate with one cluster a similar process was not observed in tall-cell
-and classical phenotypes. With more detailed annotation data it might possible
-to link anaplastic and papillary histological subtypes of THCA to the two yet unassigned
-clusters.
+Pan-cancer GSVA shows three distinct clusters in the expression data, upregulating either one or both ways of proliferative signaling. While the follicular subtype seemed to strongly correlate with one cluster, a similar process was not observed in tall-cell and classical phenotypes. With more detailed annotation data it might be possible to link anaplastic and papillary histological subtypes of THCA to the two yet unassigned clusters.
 
-Despite differences in
-proliferative signaling, all clusters share an upregulated hedgehog signaling
-pathway which is consistent with the literature.
+Despite differences in proliferative signaling, all clusters share an upregulated hedgehog signaling pathway which is consistent with the literature.
 
 Quelle (<https://doi.org/10.1007/s12020-013-0015-y>)
 
-Also, metabolic changes in line with the Warburg effect were observed in
-all clusters.
+Also, metabolic changes in line with the Warburg effect were observed in all clusters.
 
 ### Regression of IL-36 pathway activity
 
-Our data suggest that our neuronal network is well suited to predict pathway activities from GSEA data. The model shows an excellent fit to data and produces only minor errors. However, both linear models struggle in predicting the data accurately. This might be since GSEA pathway activity data usually clusters into an up- and downregulated group with no values in between. As this is also the case for the REACTOME_INTERLEUKIN_36_PATHWAY, the two clusters might produce larger correlation values that might impact the accuracy of the regression coefficients and the intercept. Secondly, the correlation of the residuals with the test data values did not approach zero, thus, our linearity assumption is not met. We can therefore conclude that a linear regression model is not well suited to predict the REACTOME_INTERLEUKIN_36_PATHWAY activity accurately.
+Our data suggest that our neuronal network is well suited to predict pathway activities from GSEA data. The model shows an excellent fit to data and produces only minor errors. However, both linear models struggle in predicting the data accurately. This might be since GSEA pathway activity data usually clusters into an up- and downregulated group with no values in between. Since the REACTOME_INTERLEUKIN_36_PATHWAY also shows this problem, the two clusters might produce larger correlation values that might impact the accuracy of the regression coefficients and the intercept. Secondly, the correlation of the residuals with the test data values did not approach zero, thus, our linearity assumption is not met. Therefore, it can be concluded that a linear regression model is not well suited to predict the REACTOME_INTERLEUKIN_36_PATHWAY activity accurately.
 
 # Outlook
 
-The next step in this analysis could be the prediction of the histological
-type of THCA as well as the way of carcinogenesis. This might be possible with a
-larger training data set as well as more detailed and specified annotations. Furthermore,
-it might be possible to link whole genome sequencing and methylation data to
-pathway activity. In that way, one could suggest a suitable targeted therapy
-option for a THCA patient based only on sequencing data from a small biopsy sample.
+Futher ways of analysis could be the prediction of the histological type of THCA as well as the way of carcinogenesis with a neuronal network. This might be possible with a larger training data set as well as more detailed and specified annotations. Furthermore, it might be possible to link whole genome sequencing and methylation data to pathway activity. In that way, one could suggest a suitable targeted therapy option for a THCA patient based only on sequencing data from a small biopsy sample.
