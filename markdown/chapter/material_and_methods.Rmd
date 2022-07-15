@@ -1,5 +1,7 @@
 # Material and Methods
 
+In the following, two analyses are performed: a pan cancer analysis and a focused analysis about THCA.
+
 ## Our data sets
 
 For the analysis four data sets were provided.
@@ -34,7 +36,7 @@ Low variance filtering is performed to delete genes with a low variance in gene 
 
 ### Biotype Filtering
 
-The biotype filtering was conducted for the pancancer data and the focussed analysis data. The biotype of each gene was determined (protein coding, RNA,...) and compared with the biotypes of pathways. To allow an appropriate comparison of the expression data and further reduce the data, only biotypes were kept that are available in the pathways. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt \ref{biomaRt}.
+The biotype filtering was conducted for the pancancer data and the focussed analysis data. The biotype of each gene was determined (protein coding, RNA,...) and compared with the biotypes of pathways. To allow an appropriate comparison of the expression data and further reduce the data, only biotypes were kept that are available in the pathways. The biotype can be determined with the R-function checkbiotypes(x) from the package biomaRt [@biomaRt].
 
 #### Selection of metabolic pathways
 
@@ -46,7 +48,7 @@ To test for duplicate pathways in the selected metabolic pathways compared to th
 
 ### Mean-variance plot
 
-In a mean-variance plot the variance is plotted over the mean of expression values of the single genes across all patients. Thus, the variance and mean were calculated by the R-functions var(x) and mean(x). This is done to determine genes, which differ a lot in their expression levels across all patients. The plot is created with the package \ref{ggplot2}
+In a mean-variance plot the variance is plotted over the mean of expression values of the single genes across all patients. Thus, the variance and mean were calculated by the R-functions var(x) and mean(x). This is done to determine genes, which differ a lot in their expression levels across all patients. The plot is created with the package \ref{ggplot2} xxx.
 
 ### Violin plot
 
