@@ -202,6 +202,42 @@ results.
 
 To obtain numbers in the range of 0 and 1, a min max scaling is
 performed on the input data. Furthermore, the optimal number of neurons
-per layer and hidden layers must be determined.
+per layer and the best random weights and biases for the first sample
+must be determined, because some weights and biases may result in
+finding a local, but not global minimum of the cost function.
 
+After determining the random weights and bias, which resulted in a
+random output for the first sample, the cost function is calculated. To
+minimize the cost, resilient backpropagation with weight backtracking is
+used. Therefore, the gradient function of the cost function is
+determined. In resilient backpropagation, only the sign of the derivate
+is used, to avoid harmful effects of its magnitude. For minimizing the
+cost function, the ideal weights and biases are determined, based on the
+input and the expected output. (Theoretisch kann man hier ja noch
+schreiben, dass nicht nur das Erreichen des Minimums, sondern auch die
+Geschwindigkeit für das Erreichen des Minimums relevant sind).
 
+For the next samples those steps are repeated to reach the minimum of
+the cost function.
+
+$$
+Cost function = \frac {1}{2m} \sum_{i=1} ^{m} (x - y)^2
+$$
+
+*m* is the number of samples, *y* the output and *x* the expected
+output.
+
+Quelle für das ganze: (\@inproceedings{Riedmiller1994RpropD,
+
+  title={Rprop
+- Description and Implementation Details},
+
+ 
+author={Martin A. Riedmiller},
+
+  year={1994}
+
+}) [Rprop - Description and
+Implementation Details \| Semantic
+Scholar](https://www.semanticscholar.org/paper/Rprop-Description-and-Implementation-Details-Riedmiller/a8815421205d3a8938d78db974db1d4f3584ffb6)
+xxx
