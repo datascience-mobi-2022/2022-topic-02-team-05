@@ -7,105 +7,64 @@ output:
     df_print: paged
 ---
 
-# Material and Methods
+# Materials and Methods
 
-In the following, two analyses are performed: a pan cancer analysis and
-a focused analysis about THCA.
+For the means of this project two separate analysis are performed: a
+pan-cancer analysis focusing on differences between cancer types and a
+focused analysis investigating THCA.
 
-## Our data sets
+## Description of the underlying data
 
-For the analysis four data sets were provided.
+For the analysis four data sets were provided. For pan-cancer analysis a
+gene expression data frame with normalized and log2 transformed bulk
+RNA-seq expression data for 60,489 genes in 9741 patients with 33
+different forms of cancer was used. The data was derived from The Cancer
+Genome Atlas (TCGA). Complementing the TCGA expression data is an
+annotation dataframe with 37 clinical annotations regarding tumor type,
+tumor stage, gender, age, etc. for all patients.
 
-The first data set is a Gene expression data frame. The Gene expression
-data frame contains 60,000 genes and and their expression in 10,000
-patients. It is derived from The Cancer Genome Atlas (TCGA). The
-expression of the genes was obtained by RNA-seq.
-
-The second data frame contains 37 clinical annotations like Tumor type,
-age, gender, etc. for each of the 10,000 patients from the Gene
-expression data frame.
-
-The third object is a list that contains five lists for the focused
+The third object is a list containing five lists for the focused
 analysis, one list for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA).
-For the focused analysis, the THCA data (only DTC) was used. The THCA
-data contains 3 data frames, each one with information about the same 60
-patients. The first data is a gene expression matrix from THCA tissue,
-the second data contains the gene expression from normal tissue and the
-third data frame contains the clinical annotations like age and gender.
-Gene expression data was obtained by RNA-seq.
+For our focused analysis, the only the THCA data were used. The THCA
+list consists of three data frames: The first two contain normalized and
+log2 transformed bulk RNA-seq expression data for 19,624 genes in 59
+THCA patients for carcinogenic and homeostatic tissue. The third
+dataframe complementes the data with the respective clinical
+annotations.
 
-The fourth object contains 46 pathways involved in phenotypes partly
-included in the hallmarks of cancer and the genes involved in those
-pathways.
-
-SIND DIE DATEN NORMALISIERT --> Normalisiert glaub ich (Anna) ODER ALS
-COUNTS?
+The last object contains 46 pathways associated with the hallmarks of
+cancer.
 
 ## Metabolic pathway selection
 
-From the Molecular Signature Database (MSigDB) metabolic
-pathways were selected [@msigdb]. First, they were compared to the given
-Hallmark-Pathways in order to select pathways that differ to the
-Hallmark-Pathways. The goal was to identify more pathways, that are
-important for the development of cancer. Therefore it was important that
-as many genes from the selected pathways as possible are also included
-in the provided Hallmark pathways. To identify the relevant pathways,
-the intersection of genes was calculated and the genes with an
-intersection of at least 99% were maintained for further analysis.
+To perform enrichment analysis later on, 6366 canonical pathways were
+selected from the Molecular Signatures Database (MSigDB)\[@msigdb\] with
+the `msigdbr::msigdbr()` function. As not to introduce a bias during
+enrichment analysis, the similarity of MSigDB pathways among themselves
+as well as with the hallmark pathways was computed with the Jaccard
+index. Pathways with a Jaccard index greater than the 1$\sigma$ range
+were discarded.
 
-To avoid duplicates in between the metabolic pathways and between the
-Hallmark pathways and the metabolic pathways, the pathways were checked
-for duplicates with the Jaccard index. Pathways with a sum of Jaccard
-indices beyond the 1-sigma range were discarded.
+## Preprocessing of expression data
 
-## Preprocessing
+### Data cleaning
 
-### Deleting Not Available Values (NA's)
+All expression data were checked for missing values with the `na.omit()`
+function. Subsequently, low variance filtering was performed for TCGA
+and THCA tumor expression data. The variances of expression were
+computed for every gene across all samples and then, genes with
+variances blow a threshold were discarded to reduce dimensionality.
 
-Deleting of NA's was done with the R-function na.omit(x).
+### Biotype filtering
 
-### Low-Variance Filtering
-
-Low variance filtering is performed to delete genes with a low variance
-in gene expression from the data set. It is performed to delete genes
-that are expressed the same in all cancer types (pancancer analysis) or
-the same in normal cells. To calculate the variance of the gene
-expression of a gene, the r-function var(x) is used and genes with a
-lower variance than a certain threshold value are removed.
-For the
-focused analysis the variance of the gene expression for each gene in
-tumor tissue was calculated. Genes with a variance beneath a certain
-threshold were deleted in the data sets of tumor and normal tissue.
-
-### Biotype Filtering
-
-The biotype filtering was conducted for the pancancer data and the
-focussed analysis data. The biotype of each gene was determined (protein
-coding, RNA,...) and compared with the biotypes of pathways. To allow an
-appropriate comparison of the expression data and further reduce the
-data, only biotypes were kept that are available in the pathways. The
-biotype can be determined with the R-function checkbiotypes(x) from the
-package biomaRt [@biomart].
-
-#### Selection of metabolic pathways
-
-(da eine hohe jaccard summe eine hohe überschneidung mit anderen
-pathways bedeutet. In einer heatmap sind hohe Jacccard indices weiß bis
-rot gefährbt. Ein niedriger Jaccard index ist blau gefärbt.)
-
-To test for duplicate pathways in the selected metabolic pathways
-compared to the hallmark pathways and the compared tp the metabolic
-pathways themselves, the Jaccard index between to pathways were
-calculated.
-There were a few duplicates between the metabolic and
-Hallmark pathways. Those metabolic pathways with a high Jaccard index
-were discarded. The success of the cleaning was checked by again
-calculating the Jaccard index between the metabolic and the hallmark
-pathways. The values of the Jaccard index were then illustrated in a
-heatmap \ref{xxxfigure heatmap}. It can be assumed, that the selection
-of relevant pathways was successful because the pathways differ between
-each other. The number of metabolic pathways could be reduced from xxx
-to 600.
+Next, biotype filtering was performed for pan-cancer and THCA expression
+data to reduce dimensionality further. Only genes sharing biotypes with
+the hallmark pathways were kept for the the following analysis. The
+biotypes of the genes were retrieved using the `biomart::getBM()`
+function from the biomaRt package [@biomart]. To allow for an
+appropriate comparison within all pathways, only MSigDB pathways where
+over 99% of their respective genes were present in the filtered
+expression data were selcted as final pathways.
 
 ## Descriptive analysis
 
@@ -145,8 +104,7 @@ the provided expression data is already log2 data:
 
 $$
 log2FC = mean(normal tissue) - mean(tumor tissue)
-$$ 
-In the next step, a two-sided t-test was performed to determine the
+$$ In the next step, a two-sided t-test was performed to determine the
 significance of a difference in expression.
 
 To avoid the accumulation of type 1 errors, a bonferroni correction was
@@ -179,21 +137,21 @@ each point based on the distance to the nearest neighbor. The algorithm
 does not stop before every point is not connected at least to its
 closest neighbor. The resulting clustered high-dimensional graph is then
 optimized for a visualization in low-dimensions. Using this technique,
-the pan-cancer data is visualized.
-UMAP is performed with the package "umap" [@umap].
+the pan-cancer data is visualized. UMAP is performed with the package
+"umap" [@umap].
 
 ### GSEA
 
 The GSEA is used to identify enriched pathways in tumor tissue. Next to
 the tumor tissue data, the THCA data includes also a normal tissue gene
 expression data frame which is used as a reference for activity
-comparison. 
+comparison.
 
-GSEA is performed with the package "fgsea" [@fgsea]. First, the log2FC is calculated for every gene of each each patient and
-is then ranked in a vector. This vector begins with the highest log2FC
-and ends with the lowest. A high log2FC implies that the this gene is
-higher expressed in tumor tissue compared to normal tissue in this
-particular patient.
+GSEA is performed with the package "fgsea" [@fgsea]. First, the log2FC
+is calculated for every gene of each each patient and is then ranked in
+a vector. This vector begins with the highest log2FC and ends with the
+lowest. A high log2FC implies that the this gene is higher expressed in
+tumor tissue compared to normal tissue in this particular patient.
 
 Using the ranked log2FC vectors, the activity of each pathway for the
 patient is calculated. By iterating over every gene of the ranked
@@ -209,32 +167,35 @@ corresponding gene is taken as the enrichment score of the analysed
 pathway and the patient belonging to the used vector. This process is
 then repeated for each pathway and each patient.
 
-
 ### GSVA
 
 Next to the GSEA, the GSVA is an approach to identify the pathway
 activities from gene expression data. Differently to the GSEA, it does
-not need a reference data frame to compare to. 
-Hence, there was no expression data provided for comparison in the TCGA analysis, GSVA was used. There are various solutions to perform GSVA, one of them is
-performed by @GSVA by following those five steps.
-For performing a GSVA, firstly the cumulative density distribution of a gene
-over all samples is estimated. Then the expression statistic of a gene
-in a sample based on the cumulative density distribution is calculated
-to bring all of the expression values to the same level. The third step
-is to rank the genes based on the expression statistic and to normalize
-the ranks with z-transformation. The last step is to compute the
-enrichment score based on the obtained ranked list. Therefore the
-Kolmogorov-Smirnov-like rank statistic is calculated for each gene set.
-That is used to calculate the enrichment score for each pathway in each
-patient, which is shown a heatmap [@GSVA].
+not need a reference data frame to compare to. Hence, there was no
+expression data provided for comparison in the TCGA analysis, GSVA was
+used. There are various solutions to perform GSVA, one of them is
+performed by @GSVA by following those five steps. For performing a GSVA,
+firstly the cumulative density distribution of a gene over all samples
+is estimated. Then the expression statistic of a gene in a sample based
+on the cumulative density distribution is calculated to bring all of the
+expression values to the same level. The third step is to rank the genes
+based on the expression statistic and to normalize the ranks with
+z-transformation. The last step is to compute the enrichment score based
+on the obtained ranked list. Therefore the Kolmogorov-Smirnov-like rank
+statistic is calculated for each gene set. That is used to calculate the
+enrichment score for each pathway in each patient, which is shown a
+heatmap [@GSVA].
 
 GSVA is performed with the package "GSVA" [@gsva].
 
 ### PCA
 
-For the PCA, the data obtained by the GSEA (tumor vs normal) or by GSVA (pan cancer) was used. After performing the PCA, the results were plotted to visualize the different clusters.
+For the PCA, the data obtained by the GSEA (tumor vs normal) or by GSVA
+(pan cancer) was used. After performing the PCA, the results were
+plotted to visualize the different clusters.
 
-The PCA was performed for analyzing pathway and gene activity. PCA is performed by the built in r-function prcomp().
+The PCA was performed for analyzing pathway and gene activity. PCA is
+performed by the built in r-function prcomp().
 
 ### Figure X
 
@@ -263,8 +224,7 @@ variance is checked, 80% of the genes with low variance were omitted.
 For the regression analysis only 20% of the pathways were used, to only
 use significant pathways.
 
-The regression analysis was tested by 
-
+The regression analysis was tested by
 
 ### Neuronal Network
 
@@ -285,11 +245,12 @@ one network with the lowest MSE.
 
 ## Packages
 
-```{r, eval =TRUE, echo=FALSE}
+```{r, eval =TRUE, echo=FALSE, results='hide'}
 library(readxl)
 packages <- read_excel("~/GitHub/2022-topic-02-team-05/markdown/PackagesRProjekt.xlsx")
 ```
 
+```{=tex}
 \begin{table}[!ht]
     \centering
     \caption{Packages used in the analysis.}
@@ -319,13 +280,11 @@ packages <- read_excel("~/GitHub/2022-topic-02-team-05/markdown/PackagesRProjekt
         org.Hs.eg.db & descr\_03 & translating ensemble ids into gennames  & https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html \\ \hline
     \end{tabular}
 \end{table}
-
+```
 ```{r, eval = TRUE, echo=FALSE}
 
-<<<<<<< Updated upstream
 knitr::kable(packages, format = "markdown", caption= "Packages used in the analysis.")
 
-=======
 knitr::kable(packages, format = "latex", caption= "Packages used in the analysis.")
->>>>>>> Stashed changes
+
 ```

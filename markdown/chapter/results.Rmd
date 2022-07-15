@@ -11,36 +11,26 @@ output:
 
 ## Preprocessing
 
-### Data cleaning
+### Dimension reduction through low-variance and biotype filtering
 
 All dataframes were checked for NAs, which were subsequently deleted.
 Genes with a variance lower than 0.1 were removed to reduce
 dimensionality, as they contribute very little to the overall variance
-of the data set and are most likely house-keeping genes. Doing so, the
-number of genes in the pan-caner data set was reduced from 60,000 to
-approximately 19,000 genes.
-
-The low-variance filtering of the THCA data set was done in a similar
+of the data set and are most likely house-keeping genes.  The low-variance filtering of the THCA data set was done in a similar
 way. Genes with a lower variance than 0.06 were deleted in the tumor
-tissue and the normal tissue data. This resulted in a reduction from
-approximately 20,000 genes to 15,000 genes in both data frames.
-
-### Biotype filtering
-
-To reduce dimensionality further, we determined the biotypes of the
+tissue and the normal tissue data. To reduce dimensionality further, we determined the biotypes of the
 hallmark pathway genes, which was almost exclusively protein coding. To
 match this, only protein coding pathways were kept in all expression
-data sets for further analysis. The biotypes of our genes were retrieved
-using the `biomart::getBM()` function from the biomart package
-[@biomart].
+data sets for further analysis. Doing so, the
+number of genes in the pan-caner data set was reduced from 60,000 to
+approximately 19,000 genes and from
+approximately 20,000 genes to 15,000 genes in both THCA data frames.
 
-### Pathway selection
+### MSigDB pathway filtering
 
 The pathways from the MSigDB database were first aligned with the genes
-in our expression data [@msigdb]. Only pathways with a coverage of over
-99% were kept. To avoid biases during enrichment analysis jaccard
-indices between hallmark pathways and MSigDB pathways were computed and
-pathways with a high similarity were removed.
+in our expression data. Only pathways with a coverage of over
+99% were kept. To test for similarity in the selected metabolic pathways compared to the hallmark pathways and the metabolic pathways themselves, the Jaccard index between all pathways was calculated. A few MSigDB pathways with a high Jaccard index were identified and subsequently deleted. \ref{xxxfigure Jaccard heatmap in Apendix}. The number of MSigDB pathways could thus be reduced from 6366 to 657.
 
 ## Descriptive analysis
 
