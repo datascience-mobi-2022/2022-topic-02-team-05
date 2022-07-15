@@ -188,6 +188,7 @@ does not stop before every point is not connected at least to its
 closest neighbor. The resulting clustered high-dimensional graph is then
 optimized for a visualization in low-dimensions. Using this technique,
 the pan-cancer data is visualized.
+UMAP is performed with the package "umap" [@umap].
 
 ### GSEA
 
@@ -220,11 +221,10 @@ then repeated for each pathway and each patient.
 
 Next to the GSEA, the GSVA is an approach to identify the pathway
 activities from gene expression data. Differently to the GSEA, it does
-not need a reference data frame to compare to.\\ Hence, there was no
-expression data provided for comparison in the TCGA analysis, GSVA was
-used. There are various solutions to perform GSVA, one of them is
-performed by Hänzelmann et al xxx by following those five steps.\\ For
-performing a GSVA, firstly the cumulative density distribution of a gene
+not need a reference data frame to compare to. 
+Hence, there was no expression data provided for comparison in the TCGA analysis, GSVA was used. There are various solutions to perform GSVA, one of them is
+performed by @GSVA by following those five steps.
+For performing a GSVA, firstly the cumulative density distribution of a gene
 over all samples is estimated. Then the expression statistic of a gene
 in a sample based on the cumulative density distribution is calculated
 to bring all of the expression values to the same level. The third step
@@ -233,11 +233,7 @@ the ranks with z-transformation. The last step is to compute the
 enrichment score based on the obtained ranked list. Therefore the
 Kolmogorov-Smirnov-like rank statistic is calculated for each gene set.
 That is used to calculate the enrichment score for each pathway in each
-patient, which is shown a heatmap. (Hänzelmann, Castelo, and Guinney
-2013) xxx Hänzelmann, Sonja, Robert Castelo, and Justin Guinney. 2013.
-"GSVA: Gene Set Variation Analysis for Microarray and Rna-Seq Data."
-Journal Article. BMC Bioinformatics 14 (1): 7.
-<https://doi.org/10.1186/1471-2105-14-7.>
+patient, which is shown a heatmap [@GSVA].
 
 ### Figure X
 

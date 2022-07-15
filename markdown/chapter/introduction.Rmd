@@ -39,7 +39,7 @@ Melanoma is a tumor of the skin, a sarcoma derives from connective or
 supportive tissue cells. A glioblastoma is a tumor in the brain and
 leukemia affects the blood [@cell].
 
-## RNA-sequencing xxx
+## RNA-sequencing
 
 RNA-sequencing (RNA-seq) is performed by cleaning of RNA, fragmentation,
 translation of RNA to cDNA, sequencing of cDNA and comparing with the
@@ -57,19 +57,22 @@ Thyroid carcinoma (THCA) incidence increased dramatically over the past
 few years [@THCA]. To enlarge the understanding of THCA and thereby
 hopefully improve patients prognosis, this project focuses on finding
 genes that have a significantly different expression in THCA compared to
-other cancers and especially to normal tissue.\\ The main tasks of the
+other cancers and especially to normal tissue.
+The main tasks of the
 thyroid gland are synthesizing hormones and regulating body temperate
 and metabolism [@THgland1]. A lack of thyroid hormones can cause
 symptoms like headaches, nausea and depression. Most THCAs derive from
 thyroid cells and thereby the thyroid gland loses their function,
-resulting in a lack of thyroid hormones.\\ Thyroid cancer can occur in
+resulting in a lack of thyroid hormones.
+Thyroid cancer can occur in
 two different types, differentiated and undifferentiated thyroid cancer.
 Those two types again have histological subtypes. Papillary thyroid
 cancer (PTC), the most common THCA, follicular thyroid cancer (FTC) and
 tall cell variant cancer (TCV) are subtypes of differentiated thyroid
 cancer (DTC) while medullary and anaplastic thyroid cancer are subtypes
 of undifferentiated thyroid cancer (UTC). Prevalence of DTCs is clearly
-higher than of UTCs [@THCA2].\\ Regarding the presented DTCs, PTCs have
+higher than of UTCs [@THCA2].
+Regarding the presented DTCs, PTCs have
 the best clinical prognosis [@PCA1], while TCV cancers have the worst
 clinical outcome [@PCA_aggressive]. Therefore, the detection of the
 tumor type would be important and for more specific therapy options.
@@ -89,9 +92,9 @@ To analyse and compare the activity of pathways of gene expression data,
 a Gene Set Enrichment Analysis (GSEA) is performed. The aim of the GSEA
 is to analyse and to identify highly expressed pathways [@GSEA]. For
 this, two conditions with replicates are compared, so a reference of
-normal expression data is needed.\\ First, a gene list is defined. Then
-the statistically enriched pathways are identified and lastly, the
-results are visualized.\\ GSEA is performed with the package 'fgsea'
+normal expression data is needed.
+First, a gene list is defined. Then the statistically enriched pathways are identified and lastly, the results are visualized.
+GSEA is performed with the package 'fgsea'
 ref(xxx).
 
 ### Gene Set Variation Analysis
@@ -119,8 +122,6 @@ data set, therefore clusters are easier.
 The problem of the UMAP is that although the overall structure is conserved, the distance between
 the individual points is not proportional to the real distance in the
 data set. This arises from the non-linear dimensional reduction.
-
-UMAP is performed with the package xxx.
 
 ### Principal component analysis xxx QUELLE
 
@@ -176,9 +177,8 @@ improved with a neuronal network.
 
 ## Linear regression analysis
 
-Linear regression is a statistical model that uses measurable values to predict an outcome. For this purpose, a linear function serves as basis to built the linear regression equation. 
-In 
-
+Linear regression is a statistical model that uses measurable values to predict an outcome. For this purpose, a linear function serves as basis to built the linear regression equation [@lm]. 
+In gene expression data analysis, constructing a linear regression equation can be used to predict the activity of one gene (or pathway) by the activity of another.
 
 ### Neural network
 
