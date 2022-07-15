@@ -4,16 +4,28 @@
 
 # Discussion
 
-In der PCA war nicht so ein gutes Ergebnis zu erkennen, weil nur die ersten 2 PCs verwendet wurden und dadurch nicht die gesamte Varianz erklärt wurde, durch die Verwendung von mehr PCs oder von anderen PCs (zB 2 und 3) könnte man evtl. eine bessere Darstellung erhalten. Bei verwendung aller PCs in der UMAP waren eindeutige Cluster zu erkennen allerdings ist UMAP auch nicht die optimale Methode, weil da die Abstände innerhalb der Cluster nicht proportional zu den tatsächlichen Abständen sind weil die mehrdimensionalen Daten irgendwie auf 2 Dimensionen runtergebrochen werden mussten.
+### Pan-cancer analysis
 
-Die Ergebnisse der UMAPs entsprechen der Erwartungen. Carcinomas haben alle ähnliche Expressionsmuster, da sie alle epithelialen Zellen entspringen und deshalb ähnliche genetische Mechanismen brauchen, um zu einer Tumorzelle zu werden. Die expressionsmuster zu anderen histological tumor types unterscheiden sich. Das liegt daran, dass verschiedene genetische Mechanismen zur Tumorentstehung führen, da sie anderen Zellen entspringen. Dadurch ist auch die unterschiedliche Genexpression zwischen den einzelnen Tumortypen, die zwar den gleichen histological type haben, aber sich in ihrem Tumortyp unterscheiden, wie zB die Adenocarcionma.
+Our findings from pan-cancer expression data show promising results. Via GSVA analysis we identified four clusters in the cancer types correlating strongly to the associated histological type. Glioblastoma seem to take a special role as they are predominantly characterized by the high activity of neural crest differentiation pathways and receptor tyrosine kinases. This is in line with previous studies showing that glioblastomas derive from neural crest cells.
 
-Die Ergebnisse der GSVA ...
+xxx cite(Bednarczyk, J.L., McIntyre, B.W. Expression and ligand-binding function of the integrin α4β1 (VLA-4) on neural-crest-derived tumor cell lines. Clin Exp Metast 10, 281--290 (1992). <https://doi.org/10.1007/BF00133564>).
 
-GSVA mittlerer expressionswerte: dass hallmark pathways alle weiß sind entspricht unseren erwartungen
+This was also found for some melanoma like UVM, which explains the observed clustering of UVM with other glioblastoma. Also, the high receptor tyrosine kinase activity has been linked to the formation of UVM and glioblastoma and suggested as a possible target for therapy.
 
-Outlook:
+xxx cite Jo, D.H., Kim, J.H. & Kim, J.H. Targeting tyrosine kinases for treatment of ocular tumors. Arch. Pharm. Res. 42, 305--318 (2019). <https://doi.org/10.1007/s12272-018-1094-3> <https://doi.org/10.1111/febs.12109>
 
-Epigeentic profiles = auch epigenetische veränderungen werden in die Expressionsdate mit inebezogen, das wäre sehr sinnvol für die ANalyse, wird hier aber nicht beachetet
+Further, especially liver and kidney adenocarcinoma seemed to form a strong subcluster within the other adenocarcinoma. They are characterized by exceptionally high activity of metabolic pathways such as carbohydrate metabolism, lipid, and amino acid synthesis. Again this change in metabolism was previously characterized for hepatocellular carcinoma.
 
-Vergleich zwischen GSVA und GSEA --> weil einmal Vergleich mit tumor und normal
+xxx cite Sangineto M, Villani R, Cavallone F, Romano A, Loizzi D, Serviddio G. Lipid Metabolism in Development and Progression of Hepatocellular Carcinoma. Cancers. 2020; 12(6):1419. <https://doi.org/10.3390/cancers12061419>
+
+The most significant classification we found was the clustering of tumor types regarding their differentiation stage. Poorly differentiated tumors like leukemia and squamous cell carcinoma show an upregulation of pathways associated with embryonic stem cell-like expression signatures. In contrast highly differentiated tumors like most adenocarcinoma as well as most glioblastoma underexpress these genesets. Such a clustering by differentiation stage was previously described by Ben-Porath et al., however, these findings cannot be verified directly as provided annotation data did not contain suitable information regarding the differentiation stage.
+
+xxx cite Ben-Porath, I., Thomson, M., Carey, V. et al. An embryonic stem cell--like gene expression signature in poorly differentiated aggressive human tumors. Nat Genet 40, 499--507 (2008). <https://doi.org/10.1038/ng.12>
+
+Taken together our results are in line with current research and allow for the following hypothesis: The expression profile of a given cancer type depends highly on its differentiation stage and its histological type but little on the actual tumor type itself. Understanding how these changes in expression link to mutational signatures might help in developing druggable targets for therapy.
+
+### THCA focussed analysis
+
+### Regression of IL-36 pathway activity
+
+Our data suggest that our neuronal network is well suited to predict pathway activities from GSEA data. The model shows an excellent fit to data and produces only minor errors. However, both linear models struggle in predicting the data accurately. This might be since GSEA pathway activity data usually clusters into an up- and downregulated group with no values in between. As this is also the case for the REACTOME_INTERLEUKIN_36_PATHWAY, the two clusters might produce larger correlation values that might impact the accuracy of the regression coefficients and the intercept. Secondly, the correlation of the residuals with the test data values did not approach zero, thus, our linearity assumption is not met. We can therefore conclude that a linear regression model is not well suited to predict the REACTOME_INTERLEUKIN_36_PATHWAY activity accurately.
