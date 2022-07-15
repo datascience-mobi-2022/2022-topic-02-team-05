@@ -256,6 +256,19 @@ expressed pathways.
 
 ### Linear Regression
 
+A linear regression analysis is performed to predict the activity of xxx
+based on the activity of the other pathways.
+
+Firstly, the correlation of the pathways for predicting is checked, only
+pathways with a low correlation were kept. In the next step, the
+variance is checked, 80% of the genes with low variance were omitted.
+
+For the regression analysis only 20% of the pathways were used, to only
+use significant pathways.
+
+The regression analysis was tested by 
+
+
 ### Neuronal Network
 
 A neural network was used to predict the activity of

@@ -176,24 +176,16 @@ improved with a neuronal network.
 
 ## Linear regression analysis
 
-A linear regression analysis is performed to predict the activity of xxx
-based on the activity of the other pathways.
+Linear regression is a statistical model that uses measurable values to predict an outcome. For this purpose, a linear function serves as basis to built the linear regression equation. 
+In 
 
-Firstly, the correlation of the pathways for predicting is checked, only
-pathways with a low correlation were kept. In the next step, the
-variance is checked, 80% of the genes with low variance were omitted.
-
-For the regression analysis only 20% of the pathways were used, to only
-use significant pathways.
-
-The regression analysis was tested by
 
 ### Neural network
 
-Implementing a neural network was performed with the package neuralnet.
+Implementing a neural network was performed with the package neuralnet xxx.
 
 In general, a deep learning network consists of a input layer, multiple
-hidden layers and an output layer. Each one consisting of various
+hidden layers and an output layer [@neuronal]. Each one consisting of various
 neurons. The input layer contains as much neurons as input numbers are
 given for each sample. The output layer contains as much neurons as
 possible outputs. The number of neurons in each hidden layer and the
@@ -237,14 +229,3 @@ $$
 *m* is the number of samples, *y* the output and *x* the expected
 output.
 
-Quelle für das ganze: (\@inproceedings{Riedmiller1994RpropD,
-
-  title={Rprop - Description and Implementation Details},
-
-  author={Martin A. Riedmiller},
-
-  year={1994}
-
-}) [Rprop - Description and Implementation Details \| Semantic
-Scholar](https://www.semanticscholar.org/paper/Rprop-Description-and-Implementation-Details-Riedmiller/a8815421205d3a8938d78db974db1d4f3584ffb6)
-xxx
