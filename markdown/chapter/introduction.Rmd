@@ -176,7 +176,7 @@ In gene expression data analysis, constructing a linear regression equation can 
 
 ### Neural network
 
-Implementing a neural network was performed with the package neuralnet xxx.
+Implementing a neural network was performed with the package "neuralnet" [@neuralnet].
 
 In general, a deep learning network consists of a input layer, multiple
 hidden layers and an output layer [@neuronal]. Each one consisting of various
