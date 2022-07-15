@@ -26,6 +26,53 @@ Taken together our results are in line with current research and allow for the f
 
 ### THCA focussed analysis
 
+From our GSEA and pan-cancer GSVA results, we identify two separate ways
+of carcinogenesis in THCA. The follicular subtype upregulates proliferative
+signaling over mTOR/PI3K and MAPK signaling pathways. This was previously shown
+by Furuya et al.
+
+Quelle: (Fumihiko Furuya, Changxue Lu, Mark C. Willingham, Sheue-yann Cheng,
+Inhibition of phosphatidylinositol 3-kinase delays tumor progression and blocks
+metastatic spread in a mouse model of thyroid cancer, *Carcinogenesis*, Volume 28, Issue 12, December 2007, Pages 2451--2458, <https://doi.org/10.1093/carcin/bgm174>)
+
+The second way of carcinogenesis was observed in the data through Alpha6beta4, RAS, JAK/STAT, and
+EWSR1/FL1-fusion mediated signaling pathways. Such ways of carcinogenesis were
+linked to nonfollicular types of THCA.
+
+Quelle:
+Effect of beta 4 Integrin Knockdown by RNA Interference in Anaplastic Thyroid
+Carcinoma
+
+Quelle: <https://doi.org/10.1002/jcp.27199>
+
+Quelle: <https://doi.org/10.1007/s00428-017-2095-1>
+
+These findings
+resulted in three distinct clusters in our expression data, upregulating either
+one or both ways of proliferative signaling. While the follicular subtype seemed
+to highly correlate with one cluster a similar process was not observed in tall-cell
+and classical phenotypes. With more detailed annotation data it might possible
+to link anaplastic and papillary histological subtypes of THCA to the two yet unassigned
+clusters.
+
+Despite differences in
+proliferative signaling, all clusters share an upregulated hedgehog signaling
+pathway which is consistent with the literature.
+
+Quelle (<https://doi.org/10.1007/s12020-013-0015-y>)
+
+Also, metabolic changes in line with the Warburg effect were observed in
+all clusters.
+
 ### Regression of IL-36 pathway activity
 
 Our data suggest that our neuronal network is well suited to predict pathway activities from GSEA data. The model shows an excellent fit to data and produces only minor errors. However, both linear models struggle in predicting the data accurately. This might be since GSEA pathway activity data usually clusters into an up- and downregulated group with no values in between. As this is also the case for the REACTOME_INTERLEUKIN_36_PATHWAY, the two clusters might produce larger correlation values that might impact the accuracy of the regression coefficients and the intercept. Secondly, the correlation of the residuals with the test data values did not approach zero, thus, our linearity assumption is not met. We can therefore conclude that a linear regression model is not well suited to predict the REACTOME_INTERLEUKIN_36_PATHWAY activity accurately.
+
+# Outlook
+
+The next step in this analysis could be the prediction of the histological
+type of THCA as well as the way of carcinogenesis. This might be possible with a
+larger training data set as well as more detailed and specified annotations. Furthermore,
+it might be possible to link whole genome sequencing and methylation data to
+pathway activity. In that way, one could suggest a suitable targeted therapy
+option for a THCA patient based only on sequencing data from a small biopsy sample.
