@@ -27,18 +27,20 @@ approximately 20,000 genes to 15,000 genes in both data frames.
 
 ### Biotype filtering
 
-To reduce dimensionality further, we determined biotype of the hallmark
-pathway genes, which was almost exclusively protein coding. To match
-this, only protein coding pathways were kept in all expression data sets
-for further analysis.
+To reduce dimensionality further, we determined the biotypes of the
+hallmark pathway genes, which was almost exclusively protein coding. To
+match this, only protein coding pathways were kept in all expression
+data sets for further analysis. The biotypes of our genes were retrieved
+using the `biomart::getBM()` function from the biomart package
+[@biomart].
 
 ### Pathway selection
 
 The pathways from the MSigDB database were first aligned with the genes
-in our expression data [@msigdb]. Only pathways with a coverage of over 99% were
-kept. To avoid biases during enrichment analysis jaccard indices between
-hallmark pathways and MSigDB pathways were computed and pathways with a
-high similarity were removed.
+in our expression data [@msigdb]. Only pathways with a coverage of over
+99% were kept. To avoid biases during enrichment analysis jaccard
+indices between hallmark pathways and MSigDB pathways were computed and
+pathways with a high similarity were removed.
 
 ## Descriptive analysis
 
@@ -180,14 +182,13 @@ in THCA. These findings are consistent with previous studies that linked
 alpha6beta4 signaling to the development of aggressive forms of thyroid
 cancer \[@result4,@result3\]. Also, oncogenic signaling pathways
 commonly associated with different cancer types were significantly
-upregulated in THCAs. Among them, we observed ERBB2 and
-MST1 signaling commonly found in breast cancer. A role for MSP/Ron in
-breast cancer has recently been elucidated, wherein this pathway
-regulates tumor growth, angiogenesis and metastasis [@result2].
+upregulated in THCAs. Among them, we observed ERBB2 and MST1 signaling
+commonly found in breast cancer. A role for MSP/Ron in breast cancer has
+recently been elucidated, wherein this pathway regulates tumor growth,
+angiogenesis and metastasis [@result2].
 
-Further, signaling through the EWSR1/FL1-fusion protein was
-significantly upregulated in THCA and previously shown to promote the
-rapid development of myeloid/erythroid leukemia in mice [@msigdb].
+Further, signaling through the EWSR1/FLI1-fusion protein was
+significantly upregulated in THCA.
 Lastly, THCAs showed downregulation of non-histone protein methylation.
 This process was identified as an import modulator of intracellular
 signaling by the MAPK, WNT, BMP, Hippo, and JAK/STAT pathways and might
@@ -263,30 +264,21 @@ of NF-kB also the expression of integrin alpha6beta4 effective
 regression might be crucial in finding potentially druggable targets in
 combating THCA[@result4; @result7; @msigdb].
 
-Regression of the REACTOME_INTERLEUKIN_36_PATHWAY
-gene set showed mixed results. After multiple testing an architecture
-with two
-hidden layers with 10 and 20 neurons respectively at \` set.seed(50) \`
-was shown
-to produce the best results for neuronal network regression. Among the
-tested
-models, the neuronal network performed best on the test data with a mean
-squared error (MSE) of 0.06. However, the linear regression model failed
-to
-predict the data accurately (MSE = 0.62). Repeated linear regression
-with just
-pathways contributing significantly to the result the performance was
-enhanced
-(MSE = 0.40), however, remained worse than a null model (MSE = +0.22).
-(Fig. xxx). Comparison of the MSE on test an training data reveals, that
-linear
-model is highly overfitted (ΔMSE = +0.55) with the linear model
-with significant pathways fitting slightly better (ΔMSE = +0.23) to
-the data. Our null model displayed an good, yet slightly underfitted
-performance
-with ΔMSE = -0.08.
-With a ΔMSE = +0,009 the neuronal network shows a perfect fit. (Fig.
-xxx)
+Regression of the REACTOME_INTERLEUKIN_36_PATHWAY gene set showed mixed
+results. After multiple testing an architecture with two hidden layers
+with 10 and 20 neurons respectively at \` set.seed(50) \` was shown to
+produce the best results for neuronal network regression. Among the
+tested models, the neuronal network performed best on the test data with
+a mean squared error (MSE) of 0.06. However, the linear regression model
+failed to predict the data accurately (MSE = 0.62). Repeated linear
+regression with just pathways contributing significantly to the result
+the performance was enhanced (MSE = 0.40), however, remained worse than
+a null model (MSE = +0.22). (Fig. xxx). Comparison of the MSE on test an
+training data reveals, that linear model is highly overfitted
+(ΔMSE = +0.55) with the linear model with significant pathways fitting
+slightly better (ΔMSE = +0.23) to the data. Our null model displayed an
+good, yet slightly underfitted performance with ΔMSE = -0.08. With a
+ΔMSE = +0.009 the neuronal network shows a perfect fit. (Fig. xxx)
 
 A comparison of the four regression models via the F-test function
 `var.test()` showed a significant improvement of the neuronal network
