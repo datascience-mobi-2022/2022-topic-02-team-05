@@ -256,5 +256,20 @@ expressed pathways.
 
 ### Neuronal Network
 
+A neural network was used to predict the activity of
+REACTOME_INTERLEUKIN_36_PATHWAY based on the activity of other pathways.
+Therefore, the network was trained with the pathway activity of 45 xxx
+patients from the THCA data for focused analysis. The other 15 patients
+were used to validate the network, obtaining a mean squared error (MSE)
+value, to evaluate the precision of the network.
+
+For identification of the best initial conditions, 25 different networks
+are generated, each one with 2 hidden layers and different combinations
+of neurons per layer. For each combination the MSE is calculated and the
+3 combinations with the lowest MSE are selected for selection of the
+best initial conditions regarding the weights and biases. For each of
+the 3 networks 100 random initial conditions are tested, resulting in
+one network with the lowest MSE.
+
 Packages Tabelle einfügen! --> sorry: habe leider die zeile gelöscht,
 hoffe du weißt noch, was du gemacht hast :(
