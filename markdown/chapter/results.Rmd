@@ -58,7 +58,7 @@ level of approximately 0. With this plot we were able to determine which
 genes differ significantly in their expression level across all cancer
 patients.
 
-```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a genes expression, x-axis shows mean of a genes expression"}
+```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
 
 knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
 
@@ -71,9 +71,8 @@ expression data from tumor tissue was compared to the data from normal
 tissue by mean log2 fold change. Associated p-Values were comuted with a
 Wilcoxon rank sum test. (Figure \@ref(fig:showvolcanoplot)). The
 significance level adjusted to 1.755e-06 with a Bonferrioni adjustment.
-(!!!!! WICHTIG Welche sind up-regulated, welche down-regulated???)xxx
 
-```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Volcano plot of THCA expression data"}
+```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Volcano plot of THCA expression data. Downregulated genes are colored red, upregulated genes blue. Not significantly altered genes are colored green. Most significantly altered genes are labelled with their gene symbol"}
 
 knitr::include_graphics("figures/Volcanoplot.png")
 
@@ -85,7 +84,7 @@ knitr::include_graphics("figures/Volcanoplot.png")
 
 To find general clusters a heatmap with the mean expression of each gene
 in each tumor type was generated and clustered hierarchically. Figure
-\@ref(fig:meanexp)
+\@ref(fig:meanexp) and \@ref(fig:exp)
 
 The tumor types were clustered based on their mean pathway activity and
 formed four clusters correlating with their histological type. The first
@@ -127,9 +126,14 @@ detoxification. An up-regulation of all of these pathways may lead to
 cell growth and proliferation, due to higher metabolic activity,
 providing more biomass and energy.
 
-```{r meanexp, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="Mean expression of each pathway in each tumot type, annotated with pathway type, histological cancer type and clusters."}
+```{r meanexp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Mean pathway activity of the 100 most variant pathways for each tumor type. Column clusters were obtained by complete hierachical clustering and subsequently split into four groups. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
 
-knitr::include_graphics("figures/Pan Cancer mean expression.png")
+knitr::include_graphics("figures/Pan Cancer mean expression top 100 pathways.png")
+```
+
+```{r exp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 100 most variant pathways for each patient. Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
+
+knitr::include_graphics("figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
 ```
 
 ### Dimension reduction of GSVA pan-cancer data reveals clusters in pathway activity
@@ -149,12 +153,12 @@ difficult to cluster in the mean GSVA of TCGA expression. The UMAP
 confirmed the assumption, that the histological type of a tumor has a
 major impact on the patients gene expression profile.
 
-```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by tumor type"}
+```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by tumor type"}
 
 knitr::include_graphics("figures/Pan Cancer UMAP.png")
 ```
 
-```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='50%', fig.align='center', fig.cap="UMAP of TCGA expression data, colored by form of the tumor"}
+```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by histological type"}
 
 knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
 ```
@@ -173,56 +177,66 @@ between THCA and homeostatic thyroid tissue, GSVA was performed for the
 THCA expression data. Then, changes in pathway activity were computed by
 log2 fold change and the respective p-values were computed by a Wilcoxon
 rank-sum test. The most significantly altered pathways were then
-characterized. Most prominently among them were pathways linked to
-proliferative signaling such as upregulation of p53 inhibitory proteins
-and hedgehog pathway activating Gli proteins. Further, the alpha6beta4
-integrin signaling pathway and associated pathways such as IL-36
-signaling and Typ I hemidesmosome synthesis were significantly enhanced
-in THCA. These findings are consistent with previous studies that linked
-alpha6beta4 signaling to the development of aggressive forms of thyroid
-cancer \[@result4,@result3\]. Also, oncogenic signaling pathways
-commonly associated with different cancer types were significantly
-upregulated in THCAs. Among them, we observed ERBB2 and MST1 signaling
-commonly found in breast cancer. A role for MSP/Ron in breast cancer has
-recently been elucidated, wherein this pathway regulates tumor growth,
-angiogenesis and metastasis [@result2].
+characterized. \@ref(fig:THCAvolcano) Most prominently among them were
+pathways linked to proliferative signaling such as upregulation of p53
+inhibitory proteins and hedgehog pathway activating Gli proteins.
+Further, the alpha6beta4 integrin signaling pathway and associated
+pathways such as IL-36 signaling and Typ I hemidesmosome synthesis were
+significantly enhanced in THCA. These findings are consistent with
+previous studies that linked alpha6beta4 signaling to the development of
+aggressive forms of thyroid cancer [@result4,@result3]. Also, oncogenic
+signaling pathways commonly associated with different cancer types were
+significantly upregulated in THCAs. Among them, we observed ERBB2 and
+MST1 signaling commonly found in breast cancer. A role for MSP/Ron in
+breast cancer has recently been elucidated, wherein this pathway
+regulates tumor growth, angiogenesis and metastasis [@result2].
 
 Further, signaling through the EWSR1/FLI1-fusion protein was
-significantly upregulated in THCA.
-Lastly, THCAs showed downregulation of non-histone protein methylation.
-This process was identified as an import modulator of intracellular
-signaling by the MAPK, WNT, BMP, Hippo, and JAK/STAT pathways and might
-play an important role as a driver of carcinogenesis in THCA [@result1].
-Together these findings give a general overview of mechanisms driving
-carcinogenesis in THCA. However, no information about possible THCA
-subtypes or differences in patway activity between patients can be
-obtained from this data.
+significantly upregulated in THCA. Lastly, THCAs showed downregulation
+of non-histone protein methylation. This process was identified as an
+import modulator of intracellular signaling by the MAPK, WNT, BMP,
+Hippo, and JAK/STAT pathways and might play an important role as a
+driver of carcinogenesis in THCA [@result1]. Together these findings
+give a general overview of mechanisms driving carcinogenesis in THCA.
+However, no information about possible THCA subtypes or differences in
+patway activity between patients can be obtained from this data.
+
+```{r THCAvolcano, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Volcano plot of THCA pathway activity. Downregulated pathways are colored red, upregulated pathways blue. Not significantly altered pathways are colored green. Most significantly altered pathways are labelled with their name."}
+
+knitr::include_graphics("figures/Volcanoplot THCA GSVA data.png")
+```
 
 ### Pan-cancer data GSVA reveals three subtypes of THCA altering in proliferative signaling.
 
 To investigate potential subtypes of THCA, the respective samples were
 taken from the pan-cancer GSVA data. The optimal number of clusters was
 determined by an elbow plot and subsequent K-means clustering revealed a
-total of three subtypes in THCA. This is consistent with the three
-clusters of THCA observed in the full pan-cancer GSVA data. The
-follicular histological type was enriched in cluster B, with no tall
-cell types present in this cluster. Judging from histological type alone
-no difference in clusters A and C was observed. Most significant changes
-in pathway activity were observed in pathways concerning proliferative
-signaling. In comparison with all other tumor types, cluster A displayed
-high activity of RAS, JAK/STAT and EWSR1/FL1-fusion mediated signaling
-as well as elevated signatures associated with carcinogenesis driven by
-alpha6beta4 activity. In contrast, these pathways were downregulated in
-cluster B, with it showing elevated activity in mTOR, MAPK, PI3K, and
-EGFR signaling cascades. Cluster C was found to upregulate all the
-aforementioned forms of proliferative signaling. All clusters showed a
-homogenous upregulation of hedgehog, ERBB2, and MST1 pathway activity.
-Regarding immune response, cluster C showed no significant alterations
-in the respective hallmark pathways, however, these pathways were
-downregulated in both clusters A and B. With this data, we can identify
-two seemingly different forms of proliferative signaling driving
-carcinogenesis in THCA. These forms can either occur separately as in
-the case of clusters A and B or combined as for cluster C.
+total of three subtypes in THCA \@ref(fig:THCAhm). This is consistent
+with the three clusters of THCA observed in the full pan-cancer GSVA
+data. The follicular histological type was enriched in cluster B, with
+no tall cell types present in this cluster. Judging from histological
+type alone no difference in clusters A and C was observed. Most
+significant changes in pathway activity were observed in pathways
+concerning proliferative signaling. In comparison with all other tumor
+types, cluster A displayed high activity of RAS, JAK/STAT and
+EWSR1/FL1-fusion mediated signaling as well as elevated signatures
+associated with carcinogenesis driven by alpha6beta4 activity. In
+contrast, these pathways were downregulated in cluster B, with it
+showing elevated activity in mTOR, MAPK, PI3K, and EGFR signaling
+cascades. Cluster C was found to upregulate all the aforementioned forms
+of proliferative signaling. All clusters showed a homogenous
+upregulation of hedgehog, ERBB2, and MST1 pathway activity. Regarding
+immune response, cluster C showed no significant alterations in the
+respective hallmark pathways, however, these pathways were downregulated
+in both clusters A and B. With this data, we can identify two seemingly
+different forms of proliferative signaling driving carcinogenesis in
+THCA. These forms can either occur separately as in the case of clusters
+A and B or combined as for cluster C.
+
+```{r THCAhm, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
+
+knitr::include_graphics("figures/THCA Heatmap from Pancancer data top 50 pathways.png")
+```
 
 ### THCA subtypes do not differ in their metabolism.
 
@@ -231,11 +245,11 @@ thyroid tissue, GSEA was performed for the THCA data. Consistent with
 the pan-cancer analysis of THCA data, k-means clustering obtained three
 different clusters in pathway activity -- verified as the optimal number
 of clusters via an elbow plot. All clusters showed a similar change in
-metabolism. Katabolic pathways are downregulated whereas anabolic
-pathways e.g., fatty acid synthesis show increased activity in
-comparison with normal tissue. These changes in metabolic activity are
-in line with the Warburg effect. Further, the results seem consistent
-with the proliferative signaling activities found previously.
+metabolism \@ref(fig:THCAhmGSEA). Katabolic pathways are downregulated
+whereas anabolic pathways e.g., fatty acid synthesis show increased
+activity in comparison with normal tissue. These changes in metabolic
+activity are in line with the Warburg effect. Further, the results seem
+consistent with the proliferative signaling activities found previously.
 Alpha6beta4, RAS, JAK/STAT, and EWSR1/FL1-fusion mediated signaling is
 upregulated in clusters one and three with low expression in cluster
 two. However, the expected upregulation of mTOR, MAPK, PI3K, and EGFR
@@ -246,6 +260,11 @@ and two show a lower immune response compared to cluster three. From
 these GSEA results, we can conclude that the three subtypes of THCA
 differ in carcinogenesis and associated immune response but share a
 similar metabolism consistent with the Warburg effect.
+
+```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+
+knitr::include_graphics("figures/THCA GSEA Heatmap fertig top 50.png")
+```
 
 ## Regression analysis of THCA pathway activity
 
@@ -286,3 +305,18 @@ compared to all other models. All other models showed no significant
 differences in their performance (Fig. xxx) compared to each other. From
 this data, we can conclude that a neuronal network is the best choice
 for most accurately predicting IL-36 pathway activity in our test data.
+
+```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+
+knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
+```
+
+```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+
+knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
+```
+
+```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+
+knitr::include_graphics("figures/THCA GSEA Heatmap fertig top 50.png")
+```
