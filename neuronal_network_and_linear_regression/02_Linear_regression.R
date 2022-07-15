@@ -86,9 +86,9 @@ cor(train[, pathway], linear.model$y) #=> Cor zwischen Testwerten und Prediction
 #berrechnung des meansquared error als Guete für das Modell
 lm.MSE = sum((lm.prediction - test[,pathway])^2)/nrow(test) 
 
-#Anschauen der Residuals
-cor(train[, pathway], linear.model$residuals)
-#Korrelation ist nicht weit weg vom MSE => nicht übertrainert
+#Berrechnung des MSE für die Trainigsdaten um Über/Underfitting zu analysieren
+sum((predict(linear.model, train) - train[,pathway])^2)/nrow(train)
+
 qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model$residuals, seq(0,1,0.01)))
 #=> Residuals sind annähernd normalverteilt 
 
@@ -120,10 +120,9 @@ cor(train[, pathway], linear.model.new$fitted.values)
 #berrechnung des meansquared error als Guete für das Modell
 lm.new.MSE = sum((lm.new.prediction - test[,pathway])^2)/nrow(test) 
 
-#Anschauen der Residuals
-cor(train[, pathway], linear.model.new$residuals)
-#Korrelation ist nicht besonders niedrig und weicht vom MSE ab
-#=> schlechtes Modell evtl overtrained
+#Berrechnung des MSE für die Trainigsdaten um Über/Underfitting zu analysieren
+sum((predict(linear.model.new, train) - train[,pathway])^2)/nrow(train)
+
 qqplot(qnorm(seq(0,1,0.01)), quantile(linear.model.new$residuals, seq(0,1,0.01)))
 #=> Residuals sind nicht wirklich  normalverteilt 
 
@@ -139,6 +138,9 @@ save(lm.new.MSE, file = 'data/regression/lm.new.MSE.RData')
 null.prediction = rep(mean(train[, pathway]),nrow(test)) 
 #Nun berrechnen wir auch hier den MSE
 null.MSE = sum((null.prediction - test[,pathway])^2)/nrow(test)
+
+#Berrechung des MSe für die Trainigsdaten um Überunderfitting zu überprüfen
+sum((rep(mean(train[, pathway]),nrow(train)) - train[,pathway])^2)/nrow(train)
 
 #Speichern für Vergleich
 save(null.prediction, file = 'data/regression/null.prediction.RData')
