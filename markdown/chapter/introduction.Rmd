@@ -82,7 +82,9 @@ type [@PCA3].
 
 #### Integrin
 
-xxx
+Integrins are cellular adhesion molecules that bind to laminins in the extracellular matrix [@integrin1]. Together with other proteins, they form hemidesmosomes. Thereby, integrins are essential for the attachment of tissue cells. 
+An important step in the development of malignant cancers is the invasion into healty tissue. Thus, the detachment of the extracellular matrix and of the surrounding cells is essential. 
+
 
 ## Computational tools
 
