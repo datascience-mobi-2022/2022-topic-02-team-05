@@ -35,7 +35,7 @@ for further analysis.
 ### Pathway selection
 
 The pathways from the MSigDB database were first aligned with the genes
-in our expression data. Only pathways with a coverage of over 99% were
+in our expression data [@msigdb]. Only pathways with a coverage of over 99% were
 kept. To avoid biases during enrichment analysis jaccard indices between
 hallmark pathways and MSigDB pathways were computed and pathways with a
 high similarity were removed.
@@ -180,14 +180,14 @@ in THCA. These findings are consistent with previous studies that linked
 alpha6beta4 signaling to the development of aggressive forms of thyroid
 cancer \[@result4,@result3\]. Also, oncogenic signaling pathways
 commonly associated with different cancer types were significantly
-upregulated in THCAs. Among them, we observed ERBB2 QUELLE MSigDB and
+upregulated in THCAs. Among them, we observed ERBB2 and
 MST1 signaling commonly found in breast cancer. A role for MSP/Ron in
 breast cancer has recently been elucidated, wherein this pathway
-regulates tumor growth, angiogenesis, and metastasis [@result2].
+regulates tumor growth, angiogenesis and metastasis [@result2].
 
 Further, signaling through the EWSR1/FL1-fusion protein was
 significantly upregulated in THCA and previously shown to promote the
-rapid development of myeloid/erythroid leukemia in mice Quelle Msigdb.
+rapid development of myeloid/erythroid leukemia in mice [@msigdb].
 Lastly, THCAs showed downregulation of non-histone protein methylation.
 This process was identified as an import modulator of intracellular
 signaling by the MAPK, WNT, BMP, Hippo, and JAK/STAT pathways and might
@@ -261,7 +261,7 @@ pathways with an associated p-value of 8.411155e-15. As interleukin 36
 signaling is connected to both MAPK activity and through the activation
 of NF-kB also the expression of integrin alpha6beta4 effective
 regression might be crucial in finding potentially druggable targets in
-combating THCA[@result4, @result7] Msigdb xxx.
+combating THCA[@result4; @result7; @msigdb].
 
 Regression of the REACTOME_INTERLEUKIN_36_PATHWAY
 gene set showed mixed results. After multiple testing an architecture
