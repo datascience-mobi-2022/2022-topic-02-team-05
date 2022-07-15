@@ -41,8 +41,8 @@ COUNTS?
 
 ## Metabolic pathway selection
 
-From the Molecular Signature Database (MSigDB)\footnote{https://www.gsea-msigdb.org/gsea/msigdb/} metabolic
-pathways were selected. First, they were compared to the given
+From the Molecular Signature Database (MSigDB) metabolic
+pathways were selected [@msigdb]. First, they were compared to the given
 Hallmark-Pathways in order to select pathways that differ to the
 Hallmark-Pathways. The goal was to identify more pathways, that are
 important for the development of cancer. Therefore it was important that
@@ -69,7 +69,8 @@ in gene expression from the data set. It is performed to delete genes
 that are expressed the same in all cancer types (pancancer analysis) or
 the same in normal cells. To calculate the variance of the gene
 expression of a gene, the r-function var(x) is used and genes with a
-lower variance than a certain threshold value are removed.\\ For the
+lower variance than a certain threshold value are removed.
+For the
 focused analysis the variance of the gene expression for each gene in
 tumor tissue was calculated. Genes with a variance beneath a certain
 threshold were deleted in the data sets of tumor and normal tissue.
@@ -82,7 +83,7 @@ coding, RNA,...) and compared with the biotypes of pathways. To allow an
 appropriate comparison of the expression data and further reduce the
 data, only biotypes were kept that are available in the pathways. The
 biotype can be determined with the R-function checkbiotypes(x) from the
-package biomaRt [@biomaRt].
+package biomaRt [@biomart].
 
 #### Selection of metabolic pathways
 
@@ -93,7 +94,8 @@ rot gefährbt. Ein niedriger Jaccard index ist blau gefärbt.)
 To test for duplicate pathways in the selected metabolic pathways
 compared to the hallmark pathways and the compared tp the metabolic
 pathways themselves, the Jaccard index between to pathways were
-calculated.\\ There were a few duplicates between the metabolic and
+calculated.
+There were a few duplicates between the metabolic and
 Hallmark pathways. Those metabolic pathways with a high Jaccard index
 were discarded. The success of the cleaning was checked by again
 calculating the Jaccard index between the metabolic and the hallmark
