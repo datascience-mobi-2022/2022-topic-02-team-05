@@ -13,7 +13,6 @@ For the means of this project two separate analysis are performed: a
 pan-cancer analysis focusing on differences between cancer types and a
 focused analysis investigating THCA.
 
-## Description of the underlying data
 
 For the analysis four data sets were provided. For pan-cancer analysis a
 gene expression data frame with normalized and log2 transformed bulk
@@ -35,7 +34,6 @@ annotations.
 The last object contains 46 pathways associated with the hallmarks of
 cancer in form of a list of string vectors.
 
-## Metabolic pathway selection
 
 To perform enrichment analysis later on, 6366 canonical pathways were
 selected from the Molecular Signatures Database (MSigDB)[@msigdb] with
@@ -47,15 +45,11 @@ were discarded.
 
 ## Preprocessing of expression data
 
-### Data cleaning
-
 All expression data were checked for missing values with the `na.omit()`
 function. Subsequently, low variance filtering was performed for TCGA
 and THCA tumor expression data. The variances of expression were
 computed for every gene across all samples and then, genes with
 variances blow a threshold were discarded to reduce dimensionality.
-
-### Biotype filtering
 
 Next, biotype filtering was performed for pan-cancer and THCA expression
 data to reduce dimensionality further. Only genes sharing biotypes with
@@ -68,30 +62,15 @@ expression data were selected as final pathways.
 
 ## Methods for descriptive analysis
 
-### Mean-variance plot
-
 In a mean-variance plot the variance is plotted over the mean of
 expression values of single genes across all patients. Thus, the
 variance and mean were calculated for each gene in the THCA expression
 data. The final plot was created with the package ggplot2 \ref{ggplot2}.
 
-### KANN RAUS m.M.n Violin plot
-
-To check the distribution of a data set and compare it with other data
-sets violin plots are used. Based on how similar the violin plots are,
-it can be implied that the data is normalized. Violin plots are tilted
-and mirrored density plots of gene expression values. The y-axis shows
-the gene expression value and the x-axis shows the amount of genes with
-a certain gene expression value.
-
-### Jaccard-Index
-
-The Jaccard-Index is a method to describe the similarity between two
+Jaccard-Index is a method to describe the similarity between two
 quantities. To compute it, the intersection of all gene ENSEMBL-IDs from
 two compared pathways was divided by their union. We used this method to
 determine the degree in which pathways are similar to each other.
-
-### Volcano plot
 
 A volcano plot is used to identify genes displaying significantly
 different expression in carcinogenic versus homeostatic tissues. First,
@@ -151,8 +130,6 @@ expression data.
 
 ## Regression analysis
 
-### Linear Regression
-
 A linear regression analysis is performed to predict the activity of xxx
 based on the activity of the other pathways.
 
@@ -165,7 +142,6 @@ use significant pathways.
 
 The regression analysis was tested by
 
-### Neuronal Network
 
 A neural network was used to predict the activity of
 REACTOME_INTERLEUKIN_36_PATHWAY based on the activity of other pathways.

@@ -65,7 +65,7 @@ form hemidesmosomes. Thereby, integrin is essential for the integrity
 between cells. An important step in the development of malignant cancer
 is the invasion into healthy tissue. Thus, the detachment of the
 extracellular matrix from of the surrounding cells is essential and
-alterations of integrin are very common in cancer cells [@Integrin2].
+alterations of integrin are very common in cancer cells [@integrin2].
 
 ## Computational tools
 
