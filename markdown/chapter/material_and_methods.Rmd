@@ -38,7 +38,7 @@ cancer in form of a list of string vectors.
 ## Metabolic pathway selection
 
 To perform enrichment analysis later on, 6366 canonical pathways were
-selected from the Molecular Signatures Database (MSigDB)\[@msigdb\] with
+selected from the Molecular Signatures Database (MSigDB)[@msigdb] with
 the `msigdbr::msigdbr()` function. As not to introduce a bias during
 enrichment analysis, the similarity of MSigDB pathways among themselves
 as well as with the hallmark pathways was computed with the Jaccard
@@ -146,7 +146,7 @@ was used to minimized computation times. **xxx Quelle: seurat package**
 
 UMAP analysis was used to identify and visualize clusters in TCGA GSVA
 and expression data. This was achieved with the `umap()` function from
-the package "umap" \[@umap\] running on all PCs from TCGA GSVA ans
+the package "umap" [@umap] running on all PCs from TCGA GSVA ans
 expression data.
 
 ## Regression analysis
@@ -181,4 +181,3 @@ of neurons per layer. For each combination the MSE is calculated and the
 best initial conditions regarding the weights and biases. For each of
 the 3 networks 100 random initial conditions are tested, resulting in
 one network with the lowest MSE.
-
