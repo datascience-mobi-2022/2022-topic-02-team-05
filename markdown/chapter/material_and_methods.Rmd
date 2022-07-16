@@ -29,7 +29,8 @@ transformed bulk RNA-seq expression data for 19,624 genes in 59 THCA
 patients for carcinogenic and homeostatic tissue. The third data frame
 complements the data with the respective clinical annotations.
 
-The last object contains 46 pathways associated with the hallmarks of cancer in form of a list of string vectors.
+The last object contains 46 pathways associated with the hallmarks of
+cancer in form of a list of string vectors.
 
 To perform enrichment analysis later on, 6366 canonical pathways were
 selected from the Molecular Signatures Database (MSigDB)[@msigdb] with
@@ -117,12 +118,14 @@ PCA was performed to provide an uncorrelated data set for the subsequent
 UMAP. For the TCGA GSVA pathway activity data the `prcomp()` function
 was used. To verify the results, PCA was performed on TCGA expression
 data, as well. In this case `Seurat::RunPCA()` from the Seurat package
-was used to minimize computation time [@seurat]. 
+was used to minimize computation time [@seurat].
 
-UMAP analysis was used to identify and visualize clusters in TCGA GSVA
-and expression data. This was achieved with the `umap()` function from
-the package "umap" [@umap] running on all PCs from TCGA GSVA ans
-expression data.
+UMAP analysis was done on the principle components from previous PCA to
+identify and visualize clusters in TCGA GSVA and expression data. This
+was achieved with the `umap()` function from the package "umap" [@umap]
+running on all PCs from TCGA GSVA ans expression data. The computational
+effort is lower in UMAP than in PCA. UMAP works on uncorrelated features
+provided by the PCA.
 
 ## Regression analysis
 
@@ -161,17 +164,16 @@ one network with the lowest MSE.
 ## Environment
 
 The R version 4.0.1 was used, the table of used packages is attached in
-the appendix (see table \@ref(tab:packagesused)).
-A neural network was used to predict the activity of the
-REACTOME_INTERLEUKIN_36_PATHWAY based on the activity of other pathways.
-Therefore, the network was trained with the pathway activity of 45 xxx
-patients from the THCA data for focused analysis. The other 15 patients
-were used to validate the precision of the network, obtaining a mean
-squared error (MSE) value. For identification of the best initial
-conditions, 25 different networks were generated each of them with two
-hidden layers and different combinations of neurons per layer. For each
-combination the MSE is calculated and the three combinations with the
-lowest MSE are selected for selection of the best initial conditions
-regarding the weights and biases. For each of the three networks 100
-random initial conditions are tested, resulting in one singular network
-with the lowest MSE.
+the appendix (see table \@ref(tab:packagesused)). A neural network was
+used to predict the activity of the REACTOME_INTERLEUKIN_36_PATHWAY
+based on the activity of other pathways. Therefore, the network was
+trained with the pathway activity of 45 xxx patients from the THCA data
+for focused analysis. The other 15 patients were used to validate the
+precision of the network, obtaining a mean squared error (MSE) value.
+For identification of the best initial conditions, 25 different networks
+were generated each of them with two hidden layers and different
+combinations of neurons per layer. For each combination the MSE is
+calculated and the three combinations with the lowest MSE are selected
+for selection of the best initial conditions regarding the weights and
+biases. For each of the three networks 100 random initial conditions are
+tested, resulting in one singular network with the lowest MSE.
