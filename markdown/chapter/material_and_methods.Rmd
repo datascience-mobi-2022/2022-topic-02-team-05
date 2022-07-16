@@ -117,7 +117,7 @@ PCA was performed to provide an uncorrelated data set for the subsequent
 UMAP. For the TCGA GSVA pathway activity data the `prcomp()` function
 was used. To verify the results, PCA was performed on TCGA expression
 data, as well. In this case `Seurat::RunPCA()` from the Seurat package
-was used to minimize computation time. **xxx Quelle: seurat package**
+was used to minimize computation time [@seurat]. 
 
 UMAP analysis was used to identify and visualize clusters in TCGA GSVA
 and expression data. This was achieved with the `umap()` function from
