@@ -13,7 +13,6 @@ For the means of this project two separate analysis are performed: a
 pan-cancer analysis focusing on differences between cancer types and a
 focused analysis investigating THCA.
 
-
 For the analysis four data sets were provided. For pan-cancer analysis a
 gene expression data frame with normalized and log2 transformed bulk
 RNA-seq expression data for 60,489 genes in 9741 patients with 33
@@ -33,7 +32,6 @@ annotations.
 
 The last object contains 46 pathways associated with the hallmarks of
 cancer in form of a list of string vectors.
-
 
 To perform enrichment analysis later on, 6366 canonical pathways were
 selected from the Molecular Signatures Database (MSigDB)[@msigdb] with
@@ -142,7 +140,6 @@ use significant pathways.
 
 The regression analysis was tested by
 
-
 A neural network was used to predict the activity of
 REACTOME_INTERLEUKIN_36_PATHWAY based on the activity of other pathways.
 Therefore, the network was trained with the pathway activity of 45 xxx
@@ -157,3 +154,8 @@ of neurons per layer. For each combination the MSE is calculated and the
 best initial conditions regarding the weights and biases. For each of
 the 3 networks 100 random initial conditions are tested, resulting in
 one network with the lowest MSE.
+
+## Environment
+
+The R version 4.0.1 was used, the table of used packages is attached in
+the appendix (see table \@ref(tab:packagesused)).

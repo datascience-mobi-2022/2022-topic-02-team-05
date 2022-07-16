@@ -1,11 +1,45 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
 # Appendix
 
-
-
 ## Plots
-```{r showviolinplots, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data"}
 
-knitr::include_graphics("figures/Vioplots cancer types.png")
+```{r Jaccarddirtea, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="Heatmap, displaying jaccard index obtained by caomparing uncleaned metabolic pathways. Pathways with a high Jaccard index are colored red to white. Pathways without similarity are colored blue."}
+
+knitr::include_graphics("figures/appendix/Similarity_of_selected_pathways.png")
+
+```
+
+```{r Jaccardcleaned, echo=FALSE, eval=TRUE, out.width='110%', fig.align='center', fig.cap="Heatmap, displaying jaccard index obtained by comparing cleaned metabolic pathways. Pathways with a high Jaccard index are colored red to white. Pathways with low similarity are colored blue."}
+
+knitr::include_graphics("figures/appendix/Pathways_richtig_gecleand.png")
+```
+
+```{r UMAPGen, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="UMAP performed for gene expression data, colored by cancer type"}
+
+knitr::include_graphics("figures/appendix/Pan Cancer Geneexpression UMAP.png")
+
+```
+
+```{r UMAPGenform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="UMAP performed for gene expression data, colored by hiytological type"}
+
+knitr::include_graphics("figures/appendix/Pan Cancer Geneexpression UMAP cancer form.png")
+
+```
+
+```{r PCAcancerform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Results of PCA, PC 1 and 2 are shown, samples are colored by histological type."}
+
+knitr::include_graphics("figures/appendix/Pan Cancer PCA PC1und2 cancer form.png")
+
+```
+
+```{r PCAcancertype, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Results of PCA, PC 1 and 2 are shown, samples are colored by cancer type."}
+
+knitr::include_graphics("figures/appendix/Pan Cancer PCA PC1und2.png")
 
 ```
 
@@ -16,114 +50,7 @@ library(readxl)
 packages <- read_excel("~/GitHub/2022-topic-02-team-05/markdown/PackagesRProjekt.xlsx")
 ```
 
-```{=tex}
-\begin{table}[!ht]
-    \centering
-    \caption{Packages used in the analysis.}
-    \begin{tabular}{|m{3cm}|m{3cm}|m{5cm}|m{5cm}|}
-    \hline
-        Package  & Localisation & Usage & Link \\ \hline
-        biomart & pre\_02, pre\_03, pre\_05 & renaming the genenames from the hallmarkpathways-dataframe into ensembleIDs & https://bioconductor.org/packages/release/bioc/html/biomaRt.html \\ \hline
-        msigdbr & pre\_03 & downloading all of the canonical pathways and the genes which they include in homo sapiens from the msigbdr data base & https://bioconductor.org/packages/release/data/experiment/html/msigdb.html \\ \hline
-        dplyr & pre\_04, pre\_05 & tidying and manipulating of dataframes & https://cran.r-project.org/web/packages/dplyr/index.html \\ \hline
-        ggplot2 & pre\_04, pre\_05, descr\_03, descr\_04, THCA\_01, THCA\_02, pan\_02, pan\_04 & allows for the creation of plots with more detailed options & https://cran.r-project.org/web/packages/ggplot2/index.html \\ \hline
-        pheatmap & descr\_01, pan\_01, neu\_02, neu\_04 & allows for the creation of heatmaps with more detailed options & https://cran.r-project.org/web/packages/pheatmap/pheatmap.pdf \\ \hline
-        vioplot & descr\_02 & creation of violinplots & https://cran.r-project.org/web/packages/vioplot/index.html \\ \hline
-        VennDiagram & descr\_05 & creation of VENN-diagrams & https://cran.r-project.org/web/packages/VennDiagram/VennDiagram.pdf \\ \hline
-        dplyr & THCA\_01, pan\_01 & ~ & ~ \\ \hline
-        fgsea & THCA\_01, pan\_01 & to do a GSEA & https://bioconductor.org/packages/release/bioc/html/fgsea.html \\ \hline
-        GSVA & THCA\_01, pan\_03 & to do a GSVA & https://bioconductor.org/packages/release/bioc/html/GSVA.html \\ \hline
-        ComplexHeatmap & THCA\_01, pan\_03, pan\_04 & allows for the creation of heatmaps with more detailed options & https://bioconductor.org/packages/release/bioc/html/ComplexHeatmap.html \\ \hline
-        metaplot & THCA\_02, pan\_02, pan\_04 & data-driven plots & https://cran.r-project.org/web/packages/metaplot/index.html \\ \hline
-        gridExtra & THCA\_02, pan\_02, pan\_04 & "implementation of ""grid"" graphics " & https://cran.r-project.org/web/packages/gridExtra/index.html \\ \hline
-        umap & THCA\_02, pan\_02, pan\_04 & to do a UMAP & https://cran.r-project.org/web/packages/umap/index.html \\ \hline
-        gage & pan\_01 & application of GSEA & https://bioconductor.org/packages/release/bioc/html/gage.html \\ \hline
-        psych & pan\_02 & iterative factor analysis & https://cran.r-project.org/web/packages/psych/index.html \\ \hline
-        cluster & pan\_04 & cluster analysis & https://cran.r-project.org/web/packages/cluster/cluster.pdf \\ \hline
-        MASS & neu\_00 & implementation of neural network & https://cran.r-project.org/web/packages/MASS/index.html \\ \hline
-        neuralnet & neu\_03 & training of neural networks & https://cran.r-project.org/web/packages/neuralnet/neuralnet.pdf \\ \hline
-        AnnotationDbi & descr\_03 & translating ensemble ids into gennames  & https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html \\ \hline
-        org.Hs.eg.db & descr\_03 & translating ensemble ids into gennames  & https://bioconductor.org/packages/release/data/annotation/html/org.Hs.eg.db.html \\ \hline
-    \end{tabular}
-\end{table}
-```
-
-```{r, eval = TRUE, echo=FALSE}
+```{r packagesused, eval = TRUE, echo=FALSE}
 
 knitr::kable(packages, format = "markdown", caption= "Packages used in the analysis.")
-
-knitr::kable(packages, format = "latex", caption= "Packages used in the analysis.")
-
-```
-
-## Code
-world
-
-```{r challenge1, eval =FALSE}
-#createn einer liste mit allen patienten in dfs sortiert nach krebs
-cancers = list();cancers = vector('list',length(table(tcga_anno$cancer_type_abbreviation)))
-names(cancers) = names(table(tcga_anno$cancer_type_abbreviation))
-i=1
-for (i in 1:length(cancers)){
-  cancers[[i]] = tcga_exp_cleaned[,tcga_anno$cancer_type_abbreviation == names(cancers)[i]]
-}
-#function die einen krebstypen df und genesets als input nimmt und ein df mit pvalues ausgibt
-enrichment = function(expressiondata, genesets = genesets_ids){
-  ESmatrix = sapply(genesets, FUN = function(x){
-    ins = na.omit(match(x,rownames(expressiondata)))#indices der gene im aktuellen set
-    outs = -ins#indices der gene nicht im aktuellen set
-    #gibt einen vektor der für jeden patienten den pval für das aktuelle gene enthält
-    res = NULL
-    for (i in 1:ncol(expressiondata)){#testet für jeden patienten
-      res[i] = wilcox.test(expressiondata[ins,i],expressiondata[outs,i],'two.sided')$p.value
-    }
-    return(res)
-  })
-  row.names(ESmatrix) = colnames(expressiondata); return(ESmatrix)
-}
-pvalueslist = lapply(cancers, enrichment)#für die tests für jeden krebstypen durch
-```
-
-```{r challenge2, eval=FALSE}
-get_top10pathways_from_pvalues = function(df_p_values, length_genesets) {
-  
-  require(ggplot2)
-  
-  results <- list()
-    
-  df_p_values_log10 <- -log10(as.data.frame(df_p_values))
-    
-  mean_pathway <- as.data.frame(apply(df_p_values_log10, 1, mean))
-  rownames(mean_pathway) <- rownames(df_p_values_log10)
-  
-  ordered_score <- mean_pathway[order(-mean_pathway[ ,1]), 1]
-  top_10 <- data.frame(ordered_score[1:10])
-  colnames(top_10) <- "mean_pathway"
-  
-  ordered_names <- order(-mean_pathway[ ,1])
-  top_10_names <- ordered_names[1:10]
-  top_10$pathway_names <- row.names(mean_pathway)[top_10_names]
-  
-  results[[1]] <- top_10
-  
-  results[[2]] <- ggplot(data = top_10, aes(x = mean_pathway, y = reorder(pathway_names, mean_pathway)))+
-    geom_bar(stat = "identity")+
-    coord_cartesian(xlim =c(3, 3.75))+
-    labs(title = names(df_p_values),
-         x = "mean p-value pathway",
-         y = "pathway name")
-  
-  pathway_size <- order(-mean_pathway[ ,1])
-  top_10_size <- pathway_size[1:10]
-  top_10$pathway_size <- length_genesets[top_10_size]
-  
-  results[[3]] <- ggplot(data = top_10, aes(x = mean_pathway, y = reorder(pathway_names,
-                                                                          mean_pathway)))+
-    geom_point(aes(size = pathway_size))+
-    labs(title = names(df_p_values),
-         x = "mean p-value pathway",
-         y = "pathway name")
-  
-  return(results)
-}
 ```
