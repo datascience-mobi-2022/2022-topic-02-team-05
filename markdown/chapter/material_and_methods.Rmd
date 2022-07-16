@@ -118,57 +118,18 @@ significantly underexpressed in tumor tissue.
 
 ## Dimension reduction and pathway enrichment analysis
 
-### Principle Component Analysis (PCA)
+The GSEA was used to identify enriched pathways in THCA tumor tissue.
+Here, GSEA was performed with the package "fgsea" [@fgsea]. First, the
+expression values were ranked decreasingly by log2FC for every patient.
+Log2FC was chosen as the ranking metric as it easy to compute and shows
+a high sensitivity.
 
-For the PCA, the data obtained by the GSEA (tumor vs normal) or by GSVA
-(pan cancer) was used. After performing the PCA, the results were
-plotted to visualize the different clusters.
+xxx Quelle: Ranking metrics in gene set enrichment analysis: do they
+matter?
 
-The PCA was performed for analyzing pathway and gene activity. PCA is
-performed by the built in r-function prcomp().
-
-### **Uniform Manifold Approximation and Projection for Dimension Reduction (**UMAP)
-
-Like PCA, UMAP is a technique to reduce dimensions and to understand and
-visualize high dimensional data sets. Compared to PCA, UMAP better
-preserves the global structure and is much faster than other comparable
-techniques (for example t-SNE \cite{xxx}). The algorithm starts by
-setting up a high-dimensional graph representation of the data. From
-each data point, a radius is extended and when two radii come into
-contact the points are connected. The radius is chosen individually for
-each point based on the distance to the nearest neighbor. The algorithm
-does not stop before every point is not connected at least to its
-closest neighbor. The resulting clustered high-dimensional graph is then
-optimized for a visualization in low-dimensions. Using this technique,
-the pan-cancer data is visualized. UMAP is performed with the package
-"umap" [@umap].
-
-### Gene Set Enrichment Analysis (GSEA)
-
-The GSEA is used to identify enriched pathways in tumor tissue. Next to
-the tumor tissue data, the THCA data includes also a normal tissue gene
-expression data frame which is used as a reference for activity
-comparison.
-
-GSEA is performed with the package "fgsea" [@fgsea]. First, the log2FC
-is calculated for every gene of each each patient and is then ranked in
-a vector. This vector begins with the highest log2FC and ends with the
-lowest. A high log2FC implies that the this gene is higher expressed in
-tumor tissue compared to normal tissue in this particular patient.
-
-Using the ranked log2FC vectors, the activity of each pathway for the
-patient is calculated. By iterating over every gene of the ranked
-vector, it was checked if it lies or does not lie in a particular
-pathway. If a gene lies in the pathway, the log2FC value is summed up to
-a running sum. If the gene does not lie in the pathway, the log2FC value
-is subtracted from the running sum. Therefore, when a pathway is highly
-expressed compared to normal tissue, the the running sum scores a high
-value in the beginning and decreases to the end of the iteration. This
-results in a cumulative function that has a peak at a certain place. At
-this index of the ranked vector, the expression value of the
-corresponding gene is taken as the enrichment score of the analysed
-pathway and the patient belonging to the used vector. This process is
-then repeated for each pathway and each patient.
+Secondly, using the ranked log2FC vectors, the enrichment score of each
+pathway was calculated for each patient with the `fgseamultilevel()`
+function.
 
 ### Geneset Variation Analysis (GSVA)
 
@@ -177,19 +138,32 @@ activities from gene expression data. Differently to the GSEA, it does
 not need a reference data frame to compare to. Hence, there was no
 expression data provided for comparison in the TCGA analysis, GSVA was
 used. There are various solutions to perform GSVA, one of them is
-performed by @GSVA by following those five steps. For performing a GSVA,
-firstly the cumulative density distribution of a gene over all samples
-is estimated. Then the expression statistic of a gene in a sample based
-on the cumulative density distribution is calculated to bring all of the
-expression values to the same level. The third step is to rank the genes
-based on the expression statistic and to normalize the ranks with
-z-transformation. The last step is to compute the enrichment score based
-on the obtained ranked list. Therefore the Kolmogorov-Smirnov-like rank
-statistic is calculated for each gene set. That is used to calculate the
-enrichment score for each pathway in each patient, which is shown a
-heatmap [@GSVA].
+performed by [@GSVA\] by following those five steps. For performing a
+GSVA, firstly the cumulative density distribution of a gene over all
+samples is estimated. Then the expression statistic of a gene in a
+sample based on the cumulative density distribution is calculated to
+bring all of the expression values to the same level. The third step is
+to rank the genes based on the expression statistic and to normalize the
+ranks with z-transformation. The last step is to compute the enrichment
+score based on the obtained ranked list. Therefore the
+Kolmogorov-Smirnov-like rank statistic is calculated for each gene set.
+That is used to calculate the enrichment score for each pathway in each
+patient, which is shown a heatmap \[@GSVA].
 
 GSVA is performed with the package "GSVA" [@gsva].
+
+PCA was performed to provide an uncorrelated dataset for the subsequent
+UMAP. For the TCGA GSVA pathway activity data the `prcomp()` function
+was used. To verify the results, PCA was performed on TCGA expression
+data, as well. In this case `Seurat::RunPCA()` from the Seurat package
+was used to minimized computation times.
+
+Quelle: seurat package
+
+UMAP analysis was used to identify and visualize clusters in TCGA GSVA
+and expression data. This was achieved with the `umap()` function from
+the package "umap" \[@umap\] running on all PCs from TCGA GSVA ans
+expression data.
 
 ### KANN RAUS m.M.n Figure X
 
@@ -205,6 +179,8 @@ the next step, the pathways are ranked based on their p-value and the
 -log10(p-value) of each pathways is plotted against its rank. One plot
 is generated for overexpressed pathways and the other one for under
 expressed pathways.
+
+## Regression analysis
 
 ### Linear Regression
 

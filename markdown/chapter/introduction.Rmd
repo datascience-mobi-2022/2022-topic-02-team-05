@@ -104,39 +104,35 @@ further reduce dimensions and to improve the interpretation process
 [@GSVA]. The difference to the GSEA is that there is no reference
 expression data required to perform the GSVA.
 
+### Principal component analysis xxx QUELLE
+
+A Principal component analysis (PCA) is used to alter the coordinates of
+a given dataset to its eigenvectors. This matrix rotation results in a
+new set of basis vectors called principal components (PCs) - the
+eigenvectors - that are orthogonal and show little correlation. Sorting
+the PCs by their associated eigenvalue, sthe PCs explaining the most
+variance can easily be identified, as they have the highest eigenvalue.
+By displaying the data set in a coordinate system span by the n most
+variant PCs, the dimensionalty of the dataset is reduced to
+$\mathbb{R}^n$ with the lowest loss in variance.
+
 ### Uniform Manifold Approximation and Projection for Dimension Reduction
 
 The Uniform manifold approximation and projection for dimension
 reduction (UMAP) is a method to reduce the dimension of a
-multidimensional data set. In comparison to the PCA, UMAP can reduce
-dimensions where the data is not linear [@UMAP]. Thereby, the high
-dimensional structure of the data is maintained. In further
-visualization, the structure can be represented in clusters that would
-not be visible using PCA. Thereby, the identification of the clusters is
-a lot easier and the UMAP keeps the overall structure of the data set,
-which makes clustering easier. The disadvantage of the UMAP is that
-although the overall structure is conserved, the distance between the
-individual points is not proportional to the real distance in the data
-set. This arises from the non-linear dimensional reduction.
-
-### Principal component analysis xxx QUELLE
-
-A Principal component analysis (PCA) is used to reduce the dimension of
-a given data set. The dimensions are summarized in principal components
-(PCs) which do not correlate. Because the PCs summarize the dimensions,
-the first PCs explain most of the variance of the data set and thereby
-can be selected to explain the data. Still, one has to keep in mind,
-that by reducing the dimensions, not all of the variance is explained
-and some of the information is lost in the process. The ideal number of
-PCs can be determined with an elbow-plot. In our analysis we use a PCA
-as a foundation for the UMAP, because the UMAP can not work with
-correlated dimensions. Furthermore it is used to detect the most
-important pathways, which explain most of the variance in the first PCs.
-
-A PCA is performed for the pan cancer analysis on the TCGA gene
-expression data, to find similarities and differences in pathway
-activity for each tumor type. Furthermore a PCA is performed for the
-focused analysis of THCA tissue and normal tissue.
+multidimensional data set. Compared to PCA, UMAP preserves the global
+structure of the data better and is much faster than other comparable
+techniques like t-SNE \cite{xxx}. The algorithm starts by setting up a
+high-dimensional graph representation of the data. From each data point,
+a radius is extended and when two radii come into contact the points are
+connected in the graph. The radius is chosen individually for each point
+based on the distance to the nearest neighbor. The algorithm goes on
+until k points are connected or n iterations are reached. The resulting
+clustered high-dimensional graph is then optimized for a visualization
+in low-dimensions. A disadvantage of UMAP is that although the overall
+structure is conserved, the distances between the individual points are
+not proportional to the real distance in the data set. This arises from
+the non-linear dimensional reduction. [@UMAP]
 
 ### Jaccard index
 
@@ -181,7 +177,7 @@ activity of one gene (or pathway) by the activity of another.
 ### Neural network
 
 A neural network was performed using the package "neuralnet"
-\[@neuralnet\]. In general, a deep learning network consists of an input
+[@neuralnet]. In general, a deep learning network consists of an input
 layer, multiple hidden layers and an output layer [@neuronal]. Each one
 consisting of various neurons. The input layer contains as much neurons
 as input numbers are given for each sample. The output layer contains as
