@@ -127,23 +127,22 @@ The Jaccard index is the intersection, divided by the union of two sets.
 Therefore, it can be used to identify the similarity of the sets.
 
 Linear regression is a statistical model that uses measurable values to
-predict an outcome. For this
-purpose, a linear function serves as basis to build the linear
-regression equation \[@lm\]. The coefficients for each variable are
-estimated by their correlation and slope with the predicted parameter.
-Lastly, all coefficients as well as the intersect are optimized for the
-data set with a least sum of squares method.
+predict an outcome. For this purpose, a linear function serves as basis
+to build the linear regression equation \[@lm\]. The coefficients for
+each variable are estimated by their correlation and slope with the
+predicted parameter. Lastly, all coefficients as well as the intersect
+are optimized for the data set with a least sum of squares method.
 
 As an alternative to the linear regression a neuronal network can be
 used. In general, a deep learning network consists of an input layer,
 multiple hidden layers, and an output layer consisting of various
 neurons [@neuronal]. The input layer contains as much neurons as input
 numbers are given for each sample. The output is for a regression
-analysis a singular neuron. The number of neurons in each
-hidden layer and the number of hidden layers vary and must be tested to
-give best results. The activation of each neuron can be described as a
-linear composition of all the inputs $x_i$ from the previous layer
-associated with a weight $w_i$ and a bias:$$
+analysis a singular neuron. The number of neurons in each hidden layer
+and the number of hidden layers vary and must be tested to give best
+results. The activation of each neuron can be described as a linear
+composition of all the inputs $x_i$ from the previous layer associated
+with a weight $w_i$ and a bias:$$
 Activation = \sum_{i=1} ^{n} w_i x_i + bias
 $$To obtain neuron activations in the range of 0 and 1, a
 min/max-scaling is performed on the input data. The "learning effect" of
@@ -163,9 +162,9 @@ sign of the gradient is used, to avoid harmful effects of its magnitude.
 For the next samples those steps are repeated to reach the minimum of
 the cost function. A drawback of this method is that gradient decent
 only identifies local minima of the cost function. To find a global
-minimum the training has to
-be repeated with various initial weights and biases. After such a
-minimum is identified to network performs optimally for the data set.
+minimum the training has to be repeated with various initial weights and
+biases. After such a minimum is identified to network performs optimally
+for the data set.
 
 ## The analysis
 
