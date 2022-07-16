@@ -11,8 +11,7 @@ output:
 
 ## Preprocessing
 
-### Dimension reduction through low-variance and biotype filtering
-
+**Dimension reduction through low-variance and biotype filtering**
 All dataframes were checked for NAs, which were subsequently deleted.
 Genes with a variance lower than 0.1 were removed to reduce
 dimensionality, as they contribute very little to the overall variance
@@ -27,8 +26,7 @@ the number of genes in the pan-caner data set was reduced from 60,000 to
 approximately 19,000 genes and from approximately 20,000 genes to 15,000
 genes in both THCA data frames.
 
-### MSigDB pathway filtering
-
+**MSigDB pathway filtering**
 The pathways from the MSigDB database were first aligned with the genes
 in our expression data. Only pathways with a coverage of over 99% were
 kept. To test for similarity in the selected metabolic pathways compared
@@ -40,8 +38,7 @@ pathways could thus be reduced from 6366 to 657.
 
 ## Descriptive analysis
 
-### Mean-variance plot of TCGA expression data shows highly variant genes
-
+**Mean-variance plot of TCGA expression data shows highly variant genes.**
 To determine the genes from the TCGA expression data with a high
 variance, the variance was plotted over the mean (Figure
 \@ref(fig:showmeanvariance)). Additionally those genes with a variance
@@ -60,8 +57,7 @@ knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
 
 ```
 
-### Significantly up- and down regulated genes in THCA obtained from volcano plots
-
+**Significantly up- and down regulated genes in THCA obtained from volcano plots**
 To determine those genes that are up- or down-regulated in THCA, the
 expression data from tumor tissue was compared to the data from normal
 tissue by mean log2 fold change. Associated p-Values were comuted with a
@@ -76,8 +72,7 @@ knitr::include_graphics("figures/Volcanoplot.png")
 
 ## Pan cancer analysis
 
-### GSVA of TCGA expression data reveals four clusters of cancer types
-
+**GSVA of TCGA expression data reveals four clusters of cancer types.**
 To find general clusters a heatmap with the mean expression of each gene
 in each tumor type was generated and clustered hierarchically. Figure
 \@ref(fig:meanexp) and \@ref(fig:exp)
@@ -133,8 +128,7 @@ knitr::include_graphics(
   "figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
 ```
 
-### Dimension reduction of GSVA pan-cancer data reveals clusters in pathway activity
-
+**Dimension reduction of GSVA pan-cancer data reveals clusters in pathway activity.**
 PCA was performed on GSVA pan-cacner data to provide uncorrelted
 varibales for better UMAP analysis. No apparent clustering was observed
 only in PCA data (compare Figure xxx supplementray materail). Subsequent
@@ -167,8 +161,7 @@ appendix)xxx.
 
 ## Focused analysis
 
-### GSVA on THCA expression data reveals pathways driving thyroid carcinogenesis.
-
+**GSVA on THCA expression data reveals pathways driving thyroid carcinogenesis.**
 To grasp a general overview of the differences in pathway activity
 between THCA and homeostatic thyroid tissue, GSVA was performed for the
 THCA expression data. Then, changes in pathway activity were computed by
@@ -203,8 +196,7 @@ patway activity between patients can be obtained from this data.
 knitr::include_graphics("figures/Volcanoplot THCA GSVA data.png")
 ```
 
-### Pan-cancer data GSVA reveals three subtypes of THCA altering in proliferative signaling.
-
+**Pan-cancer data GSVA reveals three subtypes of THCA altering in proliferative signaling.**
 To investigate potential subtypes of THCA, the respective samples were
 taken from the pan-cancer GSVA data. The optimal number of clusters was
 determined by an elbow plot and subsequent K-means clustering revealed a
@@ -236,8 +228,7 @@ knitr::include_graphics(
   "figures/THCA Heatmap from Pancancer data top 50 pathways.png")
 ```
 
-### THCA subtypes do not differ in their metabolism.
-
+**THCA subtypes do not differ in their metabolism.**
 To investigate how the identified subtypes compare to homeostatic
 thyroid tissue, GSEA was performed for the THCA data. Consistent with
 the pan-cancer analysis of THCA data, k-means clustering obtained three
