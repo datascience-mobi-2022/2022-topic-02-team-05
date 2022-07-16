@@ -7,37 +7,36 @@
 \contentsline {section}{\numberline {1.5}Computational tools}{8}{section.1.5}%
 \contentsline {subsection}{\numberline {1.5.1}Gene Set Enrichment Analysis}{8}{subsection.1.5.1}%
 \contentsline {subsection}{\numberline {1.5.2}Gene Set Variation Analysis}{8}{subsection.1.5.2}%
-\contentsline {subsection}{\numberline {1.5.3}Uniform Manifold Approximation and Projection for Dimension Reduction}{8}{subsection.1.5.3}%
-\contentsline {subsection}{\numberline {1.5.4}Principal component analysis xxx QUELLE}{9}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.3}Principal component analysis xxx QUELLE}{8}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Uniform Manifold Approximation and Projection for Dimension Reduction}{9}{subsection.1.5.4}%
 \contentsline {subsection}{\numberline {1.5.5}Jaccard index}{9}{subsection.1.5.5}%
 \contentsline {section}{\numberline {1.6}Pan Cancer Analysis}{9}{section.1.6}%
 \contentsline {section}{\numberline {1.7}Focused analysis on THCA patients}{10}{section.1.7}%
 \contentsline {section}{\numberline {1.8}Linear regression analysis}{10}{section.1.8}%
 \contentsline {subsection}{\numberline {1.8.1}Neural network}{10}{subsection.1.8.1}%
-\contentsline {chapter}{\numberline {2}Material and Methods}{12}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Our data sets}{12}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Metabolic pathway selection}{13}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Preprocessing}{13}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}Deleting Not Available Values (NA's)}{13}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}Low-Variance Filtering}{13}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}Biotype Filtering}{14}{subsection.2.3.3}%
-\contentsline {subsubsection}{\numberline {2.3.3.1}Selection of metabolic pathways}{14}{subsubsection.2.3.3.1}%
-\contentsline {section}{\numberline {2.4}Descriptive analysis}{14}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Mean-variance plot}{14}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Violin plot}{15}{subsection.2.4.2}%
-\contentsline {subsection}{\numberline {2.4.3}Jaccard-Index}{15}{subsection.2.4.3}%
-\contentsline {subsection}{\numberline {2.4.4}Volcano plot}{15}{subsection.2.4.4}%
-\contentsline {section}{\numberline {2.5}Data Reduction and Pathway Activities}{16}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}PCA}{16}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}UMAP}{16}{subsection.2.5.2}%
-\contentsline {subsection}{\numberline {2.5.3}GSEA}{16}{subsection.2.5.3}%
-\contentsline {subsection}{\numberline {2.5.4}GSVA}{17}{subsection.2.5.4}%
-\contentsline {subsection}{\numberline {2.5.5}Figure X}{17}{subsection.2.5.5}%
-\contentsline {subsection}{\numberline {2.5.6}Linear Regression}{18}{subsection.2.5.6}%
-\contentsline {subsection}{\numberline {2.5.7}Neuronal Network}{18}{subsection.2.5.7}%
-\contentsline {section}{\numberline {2.6}Packages}{18}{section.2.6}%
-\contentsline {chapter}{\numberline {3}References}{23}{chapter.3}%
-\contentsline {chapter}{\numberline {4}Appendix}{25}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Plots}{25}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Code}{25}{section.4.2}%
+\contentsline {chapter}{\numberline {2}Materials and Methods}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Description of the underlying data}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Metabolic pathway selection}{12}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Preprocessing of expression data}{13}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Data cleaning}{13}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Biotype filtering}{13}{subsection.2.3.2}%
+\contentsline {section}{\numberline {2.4}Methods for descriptive analysis}{13}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Mean-variance plot}{13}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}KANN RAUS m.M.n Violin plot}{14}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.3}Jaccard-Index}{14}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Volcano plot}{14}{subsection.2.4.4}%
+\contentsline {section}{\numberline {2.5}Dimension reduction and pathway enrichment analysis}{15}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Regression analysis}{15}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Linear Regression}{15}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Neuronal Network}{16}{subsection.2.6.2}%
+\contentsline {section}{\numberline {2.7}Packages}{16}{section.2.7}%
+\contentsline {chapter}{\numberline {3}Discussion}{21}{chapter.3}%
+\contentsline {subsection}{\numberline {3.0.1}Pan-cancer analysis}{21}{subsection.3.0.1}%
+\contentsline {subsection}{\numberline {3.0.2}THCA focused analysis}{22}{subsection.3.0.2}%
+\contentsline {subsection}{\numberline {3.0.3}Regression of IL-36 pathway activity}{23}{subsection.3.0.3}%
+\contentsline {chapter}{\numberline {4}Outlook}{24}{chapter.4}%
+\contentsline {chapter}{\numberline {5}References}{25}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Appendix}{27}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Plots}{27}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Code}{27}{section.6.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

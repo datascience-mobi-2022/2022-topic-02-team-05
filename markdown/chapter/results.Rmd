@@ -16,21 +16,27 @@ output:
 All dataframes were checked for NAs, which were subsequently deleted.
 Genes with a variance lower than 0.1 were removed to reduce
 dimensionality, as they contribute very little to the overall variance
-of the data set and are most likely house-keeping genes.  The low-variance filtering of the THCA data set was done in a similar
-way. Genes with a lower variance than 0.06 were deleted in the tumor
-tissue and the normal tissue data. To reduce dimensionality further, we determined the biotypes of the
-hallmark pathway genes, which was almost exclusively protein coding. To
-match this, only protein coding pathways were kept in all expression
-data sets for further analysis. Doing so, the
-number of genes in the pan-caner data set was reduced from 60,000 to
-approximately 19,000 genes and from
-approximately 20,000 genes to 15,000 genes in both THCA data frames.
+of the data set and are most likely house-keeping genes. The
+low-variance filtering of the THCA data set was done in a similar way.
+Genes with a lower variance than 0.06 were deleted in the tumor tissue
+and the normal tissue data. To reduce dimensionality further, we
+determined the biotypes of the hallmark pathway genes, which was almost
+exclusively protein coding. To match this, only protein coding pathways
+were kept in all expression data sets for further analysis. Doing so,
+the number of genes in the pan-caner data set was reduced from 60,000 to
+approximately 19,000 genes and from approximately 20,000 genes to 15,000
+genes in both THCA data frames.
 
 ### MSigDB pathway filtering
 
 The pathways from the MSigDB database were first aligned with the genes
-in our expression data. Only pathways with a coverage of over
-99% were kept. To test for similarity in the selected metabolic pathways compared to the hallmark pathways and the metabolic pathways themselves, the Jaccard index between all pathways was calculated. A few MSigDB pathways with a high Jaccard index were identified and subsequently deleted. \ref{xxxfigure Jaccard heatmap in Apendix}. The number of MSigDB pathways could thus be reduced from 6366 to 657.
+in our expression data. Only pathways with a coverage of over 99% were
+kept. To test for similarity in the selected metabolic pathways compared
+to the hallmark pathways and the metabolic pathways themselves, the
+Jaccard index between all pathways was calculated. A few MSigDB pathways
+with a high Jaccard index were identified and subsequently deleted.
+\ref{xxxfigure Jaccard heatmap in Apendix}. The number of MSigDB
+pathways could thus be reduced from 6366 to 657.
 
 ## Descriptive analysis
 
@@ -286,10 +292,11 @@ regression with just pathways contributing significantly to the result
 the performance was enhanced (MSE = 0.40), however, remained worse than
 a null model (MSE = +0.22). \@ref(fig:reg) Comparison of the MSE on test
 an training data reveals, that linear model is highly overfitted
-($\Delta$MSE = +0.55) with the linear model with significant pathways fitting
-slightly better ($\Delta$MSE = +0.23) to the data. Our null model displayed an
-good, yet slightly underfitted performance with $\Delta$MSE = -0.08. With a
-$\Delta$MSE = +0.009 the neuronal network shows a perfect fit.
+($\Delta$MSE = +0.55) with the linear model with significant pathways
+fitting slightly better ($\Delta$MSE = +0.23) to the data. Our null
+model displayed an good, yet slightly underfitted performance with
+$\Delta$MSE = -0.08. With a $\Delta$MSE = +0.009 the neuronal network
+shows a perfect fit.
 
 A comparison of the four regression models via the F-test function
 `var.test()` showed a significant improvement of the neuronal network

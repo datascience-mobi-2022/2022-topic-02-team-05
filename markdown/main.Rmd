@@ -103,6 +103,8 @@ bibliography: [bib/packages.bib, bib/test.bib]
 ```{r child = "chapter/material_and_methods.Rmd"}
 ```
 
+```{r child = "chapter/discussion.Rmd"}
+```
 
 
 # References
