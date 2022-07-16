@@ -101,7 +101,7 @@ The Gene Set Variation Analysis (GSVA) is performed with the same
 intention as the GSEA - to analyse the gene set activities in gene
 expression data. However, no reference data is required to successfully
 perform GSVA. There are various approaches to GSVA, one of them is
-performed by [@GSVA\] by following five steps. First, the cumulative
+performed by \[@GSVA\] by following five steps. First, the cumulative
 density distribution of a gene over all samples is estimated. Then the
 expression statistic of a gene in a sample based on the cumulative
 density distribution is calculated to bring all of the expression values
@@ -109,7 +109,7 @@ to the same level. The third step is to rank the genes based on the
 expression statistic and to normalize the ranks with z-transformation.
 Lastly, the enrichment score is computed based on the obtained ranked
 list by calculating the Kolmogorov-Smirnov-like rank statistic for each
-gene set. \[@GSVA]
+gene set. \[@GSVA\]
 
 ### Principal component analysis xxx QUELLE
 
