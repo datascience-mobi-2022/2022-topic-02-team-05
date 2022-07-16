@@ -9,7 +9,7 @@ output:
 
 # Materials and Methods
 
-For the means of this project two separate analysis are performed: a
+In the course of this project two separate analysis are performed: a
 pan-cancer analysis focusing on differences between cancer types and a
 focused analysis investigating THCA.
 
@@ -18,20 +18,18 @@ gene expression data frame with normalized and log2 transformed bulk
 RNA-seq expression data for 60,489 genes in 9741 patients with 33
 different forms of cancer was used. The data was derived from The Cancer
 Genome Atlas (TCGA). Complementing the TCGA expression data is an
-annotation dataframe with 37 clinical annotations regarding tumor type,
+annotation data frame with 37 clinical annotations regarding tumor type,
 tumor stage, gender, age, etc. for all patients.
 
-The third object is a list containing five lists for the focused
+The third piece of data is a list containing five lists for the focused
 analysis, one list for each tumor type (BRCA, KIRC, LUAD, PRAD, THCA).
-For our focused analysis, the only the THCA data were used. The THCA
-list consists of three data frames: The first two contain normalized and
-log2 transformed bulk RNA-seq expression data for 19,624 genes in 59
-THCA patients for carcinogenic and homeostatic tissue. The third
-dataframe complementes the data with the respective clinical
-annotations.
+For our focused analysis, only the THCA data were used. The THCA list
+consists of three data frames: The first two contain normalized and log2
+transformed bulk RNA-seq expression data for 19,624 genes in 59 THCA
+patients for carcinogenic and homeostatic tissue. The third data frame
+complements the data with the respective clinical annotations.
 
-The last object contains 46 pathways associated with the hallmarks of
-cancer in form of a list of string vectors.
+The last object contains 46 pathways associated with the hallmarks of cancer in form of a list of string vectors.
 
 To perform enrichment analysis later on, 6366 canonical pathways were
 selected from the Molecular Signatures Database (MSigDB)[@msigdb] with
@@ -47,15 +45,15 @@ All expression data were checked for missing values with the `na.omit()`
 function. Subsequently, low variance filtering was performed for TCGA
 and THCA tumor expression data. The variances of expression were
 computed for every gene across all samples and then, genes with
-variances blow a threshold were discarded to reduce dimensionality.
+variances below a threshold were discarded to reduce dimensionality.
 
 Next, biotype filtering was performed for pan-cancer and THCA expression
 data to reduce dimensionality further. Only genes sharing biotypes with
 the hallmark pathways were kept for the the following analysis. The
 biotypes of the genes were retrieved using the `biomart::getBM()`
 function from the biomaRt package [@biomart]. To allow for an
-appropriate comparison within all pathways, only MSigDB pathways where
-over 99% of their respective genes were present in the filtered
+appropriate comparison within all pathways, only MSigDB pathways in
+which over 99% of their respective genes were present in the filtered
 expression data were selected as final pathways.
 
 ## Methods for descriptive analysis
@@ -65,15 +63,15 @@ expression values of single genes across all patients. Thus, the
 variance and mean were calculated for each gene in the THCA expression
 data. The final plot was created with the package ggplot2 \ref{ggplot2}.
 
-Jaccard-Index is a method to describe the similarity between two
-quantities. To compute it, the intersection of all gene ENSEMBL-IDs from
+Jaccard index is a method to describe the similarity between two
+quantities. To compute it, the intersection of all gene EnsembleIDs from
 two compared pathways was divided by their union. We used this method to
 determine the degree in which pathways are similar to each other.
 
 A volcano plot is used to identify genes displaying significantly
-different expression in carcinogenic versus homeostatic tissues. First,
-the log2 fold change (Log2FC) is calculated for each gene across all
-samples in the THCA expression data in the following way:
+different expression in cancerous versus homeostatic tissues. First, the
+log2 fold change (Log2FC) is calculated for each gene across all samples
+in the THCA expression data in the following way:
 
 $$
 log2FC = mean(normal tissue) - mean(tumor tissue)
@@ -87,7 +85,7 @@ $$
 $$
 
 In the volcano plot the -log10 of the calculated p-values is plotted
-against die Log2FC. Genes with a lower p-value than the corrected
+against the Log2FC. Genes with a lower p-value than the corrected
 significance level $\alpha$ are significantly differently expressed. If
 the Log2FC is additionally positive, the genes are significantly
 overexpressed in tumor tissue, if the Log2FC is negative, the genes are
@@ -97,12 +95,12 @@ significantly underexpressed in tumor tissue.
 
 The GSEA was used to identify enriched pathways in THCA tumor tissue.
 Here, GSEA was performed with the package "fgsea" [@fgsea]. First, the
-expression values were ranked decreasingly by log2FC for every patient.
-Log2FC was chosen as the ranking metric as it easy to compute and shows
-a high sensitivity. **xxx Quelle: Ranking metrics in gene set enrichment
-analysis: do they matter?** Secondly, using the ranked log2FC vectors,
-the enrichment score of each pathway was calculated for each patient
-with the `fgseamultilevel()` function.
+expression values were ranked in decreasing order by Log2FC for every
+patient. Log2FC was chosen as the ranking metric as it is easy to
+compute and shows a high sensitivity. **xxx Quelle: Ranking metrics in
+gene set enrichment analysis: do they matter?** Secondly, using the
+ranked Log2FC vectors, the enrichment score of each pathway was
+calculated for each patient with the `fgseamultilevel()` function.
 
 As no normal tissue reference data was provided for the TCGA expression
 data, pathway activities were computed via GSVA. The analysis was
@@ -110,16 +108,16 @@ performed with the `gsva()` function from the "GSVA" package [@gsva]. To
 give a general overview over the differences in expression of THCA and
 homeostatic thyroid tissue GSVA, the THCA expression data were also
 analysed by GSVA. To do so, tumor and normal expression data were
-combined into a singular dataframe of which enrichment scores were
-computed with `gsva()`. Than, the GSVA data was split again and the
+combined into a singular data frame of which enrichment scores were
+computed with `gsva()`. Then, the GSVA data was split again and the
 log2FC between the two matrices was computed and taken as pathway
 activity.
 
-PCA was performed to provide an uncorrelated dataset for the subsequent
+PCA was performed to provide an uncorrelated data set for the subsequent
 UMAP. For the TCGA GSVA pathway activity data the `prcomp()` function
 was used. To verify the results, PCA was performed on TCGA expression
 data, as well. In this case `Seurat::RunPCA()` from the Seurat package
-was used to minimized computation times. **xxx Quelle: seurat package**
+was used to minimize computation time. **xxx Quelle: seurat package**
 
 UMAP analysis was used to identify and visualize clusters in TCGA GSVA
 and expression data. This was achieved with the `umap()` function from
@@ -129,7 +127,12 @@ expression data.
 ## Regression analysis
 
 A linear regression analysis is performed to predict the activity of xxx
-based on the activity of the other pathways.
+based on the activity of the other pathways. Firstly, the correlation of
+the pathways that are used for prediction is checked. Only pathways with
+a low correlation were kept. In the next step, the variance is checked.
+80% of the genes with low variance were omitted. For the regression
+analysis only 20% of the pathways were used, to only use significant
+pathways. The regression analysis was tested by xxx
 
 Firstly, the correlation of the pathways for predicting is checked, only
 pathways with a low correlation were kept. In the next step, the
@@ -159,3 +162,16 @@ one network with the lowest MSE.
 
 The R version 4.0.1 was used, the table of used packages is attached in
 the appendix (see table \@ref(tab:packagesused)).
+A neural network was used to predict the activity of the
+REACTOME_INTERLEUKIN_36_PATHWAY based on the activity of other pathways.
+Therefore, the network was trained with the pathway activity of 45 xxx
+patients from the THCA data for focused analysis. The other 15 patients
+were used to validate the precision of the network, obtaining a mean
+squared error (MSE) value. For identification of the best initial
+conditions, 25 different networks were generated each of them with two
+hidden layers and different combinations of neurons per layer. For each
+combination the MSE is calculated and the three combinations with the
+lowest MSE are selected for selection of the best initial conditions
+regarding the weights and biases. For each of the three networks 100
+random initial conditions are tested, resulting in one singular network
+with the lowest MSE.
