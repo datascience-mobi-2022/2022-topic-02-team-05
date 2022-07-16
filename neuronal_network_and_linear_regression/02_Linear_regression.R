@@ -17,7 +17,7 @@ load('data/regression/train.RData')
 #--------------------------------------------------------
 path.values = train[, colnames(train) == pathway]
 
-#Varianz cleaning der Daten (nur die 20% der Variantesten bleiben'
+#Varianz cleaning der Daten (nur die 10% der Variantesten bleiben'
 variance = apply(train[, !colnames(train) == pathway], 2, var)
 train.topvar = train[, variance > quantile(variance, probs = 0.9)]; rm(variance)
 cor.topvar = cor(train.topvar)
