@@ -9,9 +9,7 @@ output:
 
 # Introduction
 
-In 2019 230,000 cancer deaths were documented in Germany xxx
-\[[Krebsrate und Krebs-Sterberate in Deutschland
-(krebsinformationsdienst.de)](https://www.krebsinformationsdienst.de/tumorarten/grundlagen/krebsstatistiken.php)\].
+In 2019 230,000 cancer deaths were documented in Germany\footnote{ https://www.krebsinformationsdienst.de/tumorarten/grundlagen/krebsstatistiken.php}.
 To detect and fight tumors, the development of new treatment and
 detection methods is essential. For that it is beneficial to find a
 similarities in mutational causes across different tumors by using
@@ -75,7 +73,7 @@ extracellular matrix [@integrin1]. Together with other proteins they
 form hemidesmosomes. Thereby, integrin is essential for the integrity
 between cells. An important step in the development of malignant cancer
 is the invasion into healthy tissue. Thus, the detachment of the
-extracellular matrix from of the surrounding cells is essential.
+extracellular matrix from of the surrounding cells is essential and alterations of integrin are very common in cancer cells [@Integrin2].
 
 ## Computational tools
 
@@ -129,7 +127,7 @@ The Uniform manifold approximation and projection for dimension
 reduction (UMAP) is a method to reduce the dimension of a
 multidimensional data set. Compared to PCA, UMAP preserves the global
 structure of the data better and is much faster than other comparable
-techniques like t-SNE **Quelle: xxx** \cite{xxx}. The algorithm starts
+techniques like t-SNE [@tSNE]. The algorithm starts
 by setting up a high-dimensional graph representation of the data. From
 each data point, a radius is extended and when two radii come into
 contact the points are connected in the graph. The radius is chosen
@@ -182,7 +180,7 @@ to built the linear regression equation [@lm]. In gene expression data
 analysis a linear regression equation can be used to predict the
 activity of one gene (or pathway) by the activity of another.
 
-### Neural network
+## Neural network
 
 A neural network was performed using the package "neuralnet"
 [@neuralnet]. In general, a deep learning network consists of an input
