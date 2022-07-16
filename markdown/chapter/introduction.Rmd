@@ -98,11 +98,18 @@ data and negative vice versa. [@GSEA]
 ### Gene Set Variation Analysis
 
 The Gene Set Variation Analysis (GSVA) is performed with the same
-intention as the GSEA - to analyse the pathway activities from gene
-expression data. Like the GSEA, the approach helps to reduce noise, to
-further reduce dimensions and to improve the interpretation process
-[@GSVA]. The difference to the GSEA is that there is no reference
-expression data required to perform the GSVA.
+intention as the GSEA - to analyse the gene set activities in gene
+expression data. However, no reference data is required to successfully
+perform GSVA. There are various approaches to GSVA, one of them is
+performed by [@GSVA\] by following five steps. First, the cumulative
+density distribution of a gene over all samples is estimated. Then the
+expression statistic of a gene in a sample based on the cumulative
+density distribution is calculated to bring all of the expression values
+to the same level. The third step is to rank the genes based on the
+expression statistic and to normalize the ranks with z-transformation.
+Lastly, the enrichment score is computed based on the obtained ranked
+list by calculating the Kolmogorov-Smirnov-like rank statistic for each
+gene set. \[@GSVA]
 
 ### Principal component analysis xxx QUELLE
 
@@ -122,17 +129,18 @@ The Uniform manifold approximation and projection for dimension
 reduction (UMAP) is a method to reduce the dimension of a
 multidimensional data set. Compared to PCA, UMAP preserves the global
 structure of the data better and is much faster than other comparable
-techniques like t-SNE \cite{xxx}. The algorithm starts by setting up a
-high-dimensional graph representation of the data. From each data point,
-a radius is extended and when two radii come into contact the points are
-connected in the graph. The radius is chosen individually for each point
-based on the distance to the nearest neighbor. The algorithm goes on
-until k points are connected or n iterations are reached. The resulting
-clustered high-dimensional graph is then optimized for a visualization
-in low-dimensions. A disadvantage of UMAP is that although the overall
-structure is conserved, the distances between the individual points are
-not proportional to the real distance in the data set. This arises from
-the non-linear dimensional reduction. [@UMAP]
+techniques like t-SNE **Quelle: xxx** \cite{xxx}. The algorithm starts
+by setting up a high-dimensional graph representation of the data. From
+each data point, a radius is extended and when two radii come into
+contact the points are connected in the graph. The radius is chosen
+individually for each point based on the distance to the nearest
+neighbor. The algorithm goes on until k points are connected or n
+iterations are reached. The resulting clustered high-dimensional graph
+is then optimized for a visualization in low-dimensions. A disadvantage
+of UMAP is that although the overall structure is conserved, the
+distances between the individual points are not proportional to the real
+distance in the data set. This arises from the non-linear dimensional
+reduction. [@UMAP]
 
 ### Jaccard index
 

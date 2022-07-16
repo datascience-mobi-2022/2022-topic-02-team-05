@@ -122,63 +122,32 @@ The GSEA was used to identify enriched pathways in THCA tumor tissue.
 Here, GSEA was performed with the package "fgsea" [@fgsea]. First, the
 expression values were ranked decreasingly by log2FC for every patient.
 Log2FC was chosen as the ranking metric as it easy to compute and shows
-a high sensitivity.
+a high sensitivity. **xxx Quelle: Ranking metrics in gene set enrichment
+analysis: do they matter?** Secondly, using the ranked log2FC vectors,
+the enrichment score of each pathway was calculated for each patient
+with the `fgseamultilevel()` function.
 
-xxx Quelle: Ranking metrics in gene set enrichment analysis: do they
-matter?
-
-Secondly, using the ranked log2FC vectors, the enrichment score of each
-pathway was calculated for each patient with the `fgseamultilevel()`
-function.
-
-### Geneset Variation Analysis (GSVA)
-
-Next to the GSEA, the GSVA is an approach to identify the pathway
-activities from gene expression data. Differently to the GSEA, it does
-not need a reference data frame to compare to. Hence, there was no
-expression data provided for comparison in the TCGA analysis, GSVA was
-used. There are various solutions to perform GSVA, one of them is
-performed by [@GSVA\] by following those five steps. For performing a
-GSVA, firstly the cumulative density distribution of a gene over all
-samples is estimated. Then the expression statistic of a gene in a
-sample based on the cumulative density distribution is calculated to
-bring all of the expression values to the same level. The third step is
-to rank the genes based on the expression statistic and to normalize the
-ranks with z-transformation. The last step is to compute the enrichment
-score based on the obtained ranked list. Therefore the
-Kolmogorov-Smirnov-like rank statistic is calculated for each gene set.
-That is used to calculate the enrichment score for each pathway in each
-patient, which is shown a heatmap \[@GSVA].
-
-GSVA is performed with the package "GSVA" [@gsva].
+As no normal tissue reference data was provided for the TCGA expression
+data, pathway activities were computed via GSVA. The analysis was
+performed with the `gsva()` function from the "GSVA" package [@gsva]. To
+give a general overview over the differences in expression of THCA and
+homeostatic thyroid tissue GSVA, the THCA expression data were also
+analysed by GSVA. To do so, tumor and normal expression data were
+combined into a singular dataframe of which enrichment scores were
+computed with `gsva()`. Than, the GSVA data was split again and the
+log2FC between the two matrices was computed and taken as pathway
+activity.
 
 PCA was performed to provide an uncorrelated dataset for the subsequent
 UMAP. For the TCGA GSVA pathway activity data the `prcomp()` function
 was used. To verify the results, PCA was performed on TCGA expression
 data, as well. In this case `Seurat::RunPCA()` from the Seurat package
-was used to minimized computation times.
-
-Quelle: seurat package
+was used to minimized computation times. **xxx Quelle: seurat package**
 
 UMAP analysis was used to identify and visualize clusters in TCGA GSVA
 and expression data. This was achieved with the `umap()` function from
 the package "umap" \[@umap\] running on all PCs from TCGA GSVA ans
 expression data.
-
-### KANN RAUS m.M.n Figure X
-
-To identify pathways with the highest p-Value, obtained from GSVA and
-t-testing, a figure x is generated.
-
-For generating figure x, the data from generating a volcano plot is used
-to identify the pathways, that are significantly over- or underexpressed
-based on the p-value. Pathways with a p-value smaller than 0.025 and a
-log2FC bigger than zero are significantly overexpressed, if the log2FC
-is smaller than zero, the pathways are significantly underexpressed. In
-the next step, the pathways are ranked based on their p-value and the
--log10(p-value) of each pathways is plotted against its rank. One plot
-is generated for overexpressed pathways and the other one for under
-expressed pathways.
 
 ## Regression analysis
 
