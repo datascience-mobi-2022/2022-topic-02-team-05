@@ -47,7 +47,7 @@ header-includes:
   - \setkomafont{captionlabel}{\usekomafont{caption}\bfseries\small}
   - \setkomafont{pagehead}{\normalfont\scshape}
 csl: bib/molecular-biology-of-the-cell.csl
-bibliography: [bib/packages.bib, bib/test.bib]
+bibliography: [bib/test.bib]
 ---
 
 <!-- Based on Nicolas Peschkes LaTeX Template for MoBis, if you want further information on the packages just check it here: https://gitlab.com/npeschke/LaTeX-Template-IPMB -->
