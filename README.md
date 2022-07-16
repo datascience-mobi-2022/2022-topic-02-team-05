@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 ## 2022-topic-02-team-05
 
 # Thyroid cancer (THCA)
@@ -67,8 +61,11 @@ BONUS_Wang_challenge: function that takes a cancertype dataframe and genesets as
 
 02_THCA_PCA_and_UMAP: PCA and UMAP of the expression data of THCA expressiondata (via foldchange) and of the GSEA values for the THCA data
 
-### neuronal_network_and_linear_regression: contains code for the linear regression to predict pathway activity and the neuronal network as an alternative
+### neuronal_network_and_linear_regression: 
+contains code for the linear regression to predict pathway activity and the neuronal network as an alternative
 
-### output: contains image files of the plots from or R code
+### output: 
+contains image files of the plots from or R code
 
-### markdown: contains the final report as a Rmarkdown ("main") and bib folders for references, citations and pictures in the report 
+### markdown: 
+contains the final report as a Rmarkdown ("main") and bib folders for references, citations and pictures in the report 
