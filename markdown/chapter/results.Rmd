@@ -263,8 +263,8 @@ variant pathways among which the REACTOME_INTERLEUKIN_36_PATHWAY gene
 set was selected. This gene set ranks 8th among the highest upregulated
 pathways with an associated p-value of 8.411155e-15. Interleukin 36
 signaling is connected to both MAPK activity and through the activation
-of NF-kB and also the expression of integrin
-alpha6beta4.[@result4;@result7; @msigdb].
+of NF-kB and also the expression of integrin alpha6beta4.[@result4;
+@result7; @msigdb].
 
 Regression of the REACTOME_INTERLEUKIN_36_PATHWAY gene set showed mixed
 results. After multiple testing an architecture with two hidden layers
