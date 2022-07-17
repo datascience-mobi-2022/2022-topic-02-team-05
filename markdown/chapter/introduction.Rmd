@@ -70,7 +70,7 @@ alterations of integrin are very common in cancer cells [@integrin2].
 ## Computational tools
 
 To analyse how the activity of a gene set differs between two sets of
-gene expression data, a Gene Set Enrichment Analysis (GSEA) is
+gene expression data, a GSEA is
 performed. For this, the genes in the expression data have to be ranked
 decreasingly by a certain metric. Such metrics can include the log2 fold
 change between the sample expression data and a reference set or the
