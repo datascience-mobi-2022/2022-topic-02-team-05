@@ -83,7 +83,7 @@
    type = {Book}
 }
 
-@article{GSEA,
+@article{GSEA_anders,
    author = {Reimand, Jüri and Isserlin, Ruth and Voisin, Veronique and Kucera, Mike and Tannus-Lopes, Christian and Rostamianfar, Asha and Wadi, Lina and Meyer, Mona and Wong, Jeff and Xu, Changjiang and Merico, Daniele and Bader, Gary D.},
    title = {Pathway enrichment analysis and visualization of omics data using g:Profiler, GSEA, Cytoscape and EnrichmentMap},
    journal = {Nature Protocols},
@@ -97,6 +97,51 @@
    year = {2019},
    type = {Journal Article}
 }
+
+@article{GSEA,
+   author = {Subramanian, A. and Tamayo, P. and Mootha, V. K. and Mukherjee, S. and Ebert, B. L. and Gillette, M. A. and Paulovich, A. and Pomeroy, S. L. and Golub, T. R. and Lander, E. S. and Mesirov, J. P.},
+   title = {Gene set enrichment analysis: a knowledge-based approach for interpreting genome-wide expression profiles},
+   journal = {Proc Natl Acad Sci U S A},
+   volume = {102},
+   number = {43},
+   pages = {15545-50},
+   note = {1091-6490
+Subramanian, Aravind
+Tamayo, Pablo
+Mootha, Vamsi K
+Mukherjee, Sayan
+Ebert, Benjamin L
+Gillette, Michael A
+Paulovich, Amanda
+Pomeroy, Scott L
+Golub, Todd R
+Lander, Eric S
+Mesirov, Jill P
+R01 CA109467/CA/NCI NIH HHS/United States
+T32 CA009172/CA/NCI NIH HHS/United States
+Journal Article
+2005/10/04
+Proc Natl Acad Sci U S A. 2005 Oct 25;102(43):15545-50. doi: 10.1073/pnas.0506580102. Epub 2005 Sep 30.},
+   abstract = {Although genomewide RNA expression analysis has become a routine tool in biomedical research, extracting biological insight from such information remains a major challenge. Here, we describe a powerful analytical method called Gene Set Enrichment Analysis (GSEA) for interpreting gene expression data. The method derives its power by focusing on gene sets, that is, groups of genes that share common biological function, chromosomal location, or regulation. We demonstrate how GSEA yields insights into several cancer-related data sets, including leukemia and lung cancer. Notably, where single-gene analysis finds little similarity between two independent studies of patient survival in lung cancer, GSEA reveals many biological pathways in common. The GSEA method is embodied in a freely available software package, together with an initial database of 1,325 biologically defined gene sets.},
+   keywords = {Cell Line, Tumor
+Female
+Gene Expression Profiling/*methods
+Genes, p53/physiology
+Genome
+Humans
+Leukemia, Myeloid, Acute/genetics
+Lung Neoplasms/genetics/mortality
+Male
+*Oligonucleotide Array Sequence Analysis
+Precursor Cell Lymphoblastic Leukemia-Lymphoma/genetics},
+   ISSN = {0027-8424 (Print)
+0027-8424},
+   DOI = {10.1073/pnas.0506580102},
+   year = {2005},
+   type = {Journal Article}
+}
+
+
 
 @article{UMAP,
    author = {Sharma, Sujata and Quinn, David and Melenhorst, J. Joseph and Pruteanu-Malinici, Iulian},
@@ -1030,6 +1075,47 @@ Urinary Bladder Neoplasms/genetics/pathology},
    type = {Journal Article}
 }
 
+@article{PCA,
+   author = {Reese, Allan},
+   title = {Modern Statistics for Modern Biology S. HolmesW. Huber 2019 Cambridge Cambridge University Press xxiv + 382 pp., £ 49.99 ISBN 978‐1‐108‐70529‐5},
+   journal = {Journal of the Royal Statistical Society: Series A (Statistics in Society)},
+   volume = {182},
+   pages = {1647-1647},
+   DOI = {10.1111/rssa.12511},
+   year = {2019},
+   type = {Journal Article}
+}
+
+@article{rank,
+   author = {Zyla, J. and Marczyk, M. and Weiner, J. and Polanska, J.},
+   title = {Ranking metrics in gene set enrichment analysis: do they matter?},
+   journal = {BMC Bioinformatics},
+   volume = {18},
+   number = {1},
+   pages = {256},
+   note = {1471-2105
+Zyla, Joanna
+Marczyk, Michal
+Weiner, January
+Polanska, Joanna
+Journal Article
+2017/05/14
+BMC Bioinformatics. 2017 May 12;18(1):256. doi: 10.1186/s12859-017-1674-0.},
+   abstract = {BACKGROUND: There exist many methods for describing the complex relation between changes of gene expression in molecular pathways or gene ontologies under different experimental conditions. Among them, Gene Set Enrichment Analysis seems to be one of the most commonly used (over 10,000 citations). An important parameter, which could affect the final result, is the choice of a metric for the ranking of genes. Applying a default ranking metric may lead to poor results. METHODS AND RESULTS: In this work 28 benchmark data sets were used to evaluate the sensitivity and false positive rate of gene set analysis for 16 different ranking metrics including new proposals. Furthermore, the robustness of the chosen methods to sample size was tested. Using k-means clustering algorithm a group of four metrics with the highest performance in terms of overall sensitivity, overall false positive rate and computational load was established i.e. absolute value of Moderated Welch Test statistic, Minimum Significant Difference, absolute value of Signal-To-Noise ratio and Baumgartner-Weiss-Schindler test statistic. In case of false positive rate estimation, all selected ranking metrics were robust with respect to sample size. In case of sensitivity, the absolute value of Moderated Welch Test statistic and absolute value of Signal-To-Noise ratio gave stable results, while Baumgartner-Weiss-Schindler and Minimum Significant Difference showed better results for larger sample size. Finally, the Gene Set Enrichment Analysis method with all tested ranking metrics was parallelised and implemented in MATLAB, and is available at https://github.com/ZAEDPolSl/MrGSEA . CONCLUSIONS: Choosing a ranking metric in Gene Set Enrichment Analysis has critical impact on results of pathway enrichment analysis. The absolute value of Moderated Welch Test has the best overall sensitivity and Minimum Significant Difference has the best overall specificity of gene set analysis. When the number of non-normally distributed genes is high, using Baumgartner-Weiss-Schindler test statistic gives better outcomes. Also, it finds more enriched pathways than other tested metrics, which may induce new biological discoveries.},
+   keywords = {*Algorithms
+Oligonucleotide Array Sequence Analysis
+Sample Size
+Signal-To-Noise Ratio
+Functional genomics
+Gsea
+Pathway analysis
+Ranking metrics},
+   ISSN = {1471-2105},
+   DOI = {10.1186/s12859-017-1674-0},
+   year = {2017},
+   type = {Journal Article}
+}
+
 
 
 
@@ -1162,4 +1248,11 @@ Vaccination
    type = {Journal Article}
 }
 
-
+@Book{ggplot2,
+   author = {Hadley Wickham},
+   title = {ggplot2: Elegant Graphics for Data Analysis},
+   publisher = {Springer-Verlag New York},
+   year = {2016},
+   isbn = {978-3-319-24277-4},
+   url = {https://ggplot2.tidyverse.org},
+  }
