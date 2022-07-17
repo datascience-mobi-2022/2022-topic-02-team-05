@@ -44,8 +44,6 @@ annotations of the THCA matrix
 
 ### pan_cancer
 
-01_GSEA_of_TCGA_exp: computing of enrichment scores for the expressiondata from the TCGA based on GSEA
-
 02_PCA_and_UMAP: PCA and UMAP of the expressiondata from the TCGA and the enrichment scores of the pathways
 
 03_GSVA_of_TCGA: GSVA of the THCA expressiondata and comparison with GSEA
