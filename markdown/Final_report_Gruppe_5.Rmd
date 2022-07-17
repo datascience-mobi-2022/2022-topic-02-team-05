@@ -139,61 +139,59 @@ UVM – Uveal melanoma
 # Introduction
 
 ## Biological background
-
 In 2019 230,000 cancer deaths were documented in
 Germany\footnote{ https://www.krebsinformationsdienst.de/tumorarten/grundlagen/krebsstatistiken.php}.
 To detect and fight these tumors, the development of new treatment and
 detection methods is essential. A crucial step in this direction was the
 characterization of the Hallmarks of Cancer - properties present in
-every tumor. Among others those are: resisting cell death, inducing
-angiogenesis, enabling replicative immortality, activating invasion and
+every tumor. Among others, those are: resisting cell death, inducing
+angiogenesis, enabling replicative immortality, activating invasion, and
 evading growth suppressors [@cancer_hallmarks].
 
 However, the different histological types of tumors are equally
 important when characterizing cancers. Carcinoma, which can be further
-subcathegorized into adenocarcinoma, squamous cell carcinoma,
-transitional cell carcinoma, derive from epithelial cells. Melanoma are
-skin tumors, sarcoma derive from mesenchymal tissue, glioblastoma from
-cells in the central nervous system and leukemia affect bloodcells
+subcategorized into adenocarcinoma, squamous cell carcinoma,
+and transitional cell carcinoma, all derive from epithelial cells. Melanomas are skin tumors, sarcoma derive from mesenchymal tissue, glioblastoma from cells in the central nervous system and leukemia affects blood cells
 [@cell].
 
 Here we focus on Thyroid carcinoma (THCA) as its incidence increased
 dramatically over the past few years [@THCA]. It arises in the thyroid
-gland which main function is synthesizing hormones and regulating body
+gland whose main function is synthesizing hormones and regulating body
 temperate and metabolism [@THgland1]. THCA can occur in two different
 types, differentiated and undifferentiated thyroid cancer. Those two
 types again have histological subtypes. Papillary thyroid cancer (PTC),
-the most common THCA, follicular thyroid cancer (FTC) and a tall cell
+the most common THCA, follicular thyroid cancer (FTC), and a tall cell
 variant (TCV) are subtypes of differentiated thyroid cancer (DTC).
 Medullary and anaplastic thyroid cancer are subtypes of undifferentiated
-thyroid cancer (UTC). The prevalence of DTCs is clearly higher than of
+thyroid cancer (UTC). The prevalence of DTCs is higher than that of
 UTCs [@THCA2]. Among all THCAs DTCs, PTCs have the best clinical
 prognosis [@PCA1], while TCV cancers have the worst clinical outcome
 [@PCA_aggressive]. Therefore, the characterization of different or
-distinct expression patterns for each histological subype would be
-important for more specific therapy options. Even though, all thyroid
+distinct expression patterns for each histological subtype would be
+important for more specific therapy options. Even though all thyroid
 cancers are treated with thyroidectomy and radioactive iodine, the
 additional therapy differs for each histological type [@PCA3]. For
-example, only some THCAs subtypes experiance integrin alpha6beta4 driven
-carcinogenis which might provide a viable target for thearpy. Integrins
+example, only some THCAs subtypes experience integrin alpha6beta4 driven
+carcinogenesis which might provide a viable target for therapy. Integrins
 are cellular adhesion molecules, that bind to laminin in the
-extracellular matrix [@integrin1]. Together with other proteins they
+extracellular matrix [@integrin1]. Together with other proteins, they
 form hemidesmosomes. Thereby, integrins are essential for the integrity
-between cells. An important step in the development of malignant cancer
-is the invasion into healthy tissue. Thus, the detachment of the
-extracellular matrix from of the surrounding cells is essential and
+of tissues. An important step in the development of malignant tumors
+is the invasion of healthy tissue. Thus, the detachment of the
+extracellular matrix from the surrounding cells is essential and
 alterations of integrin are very common in cancer cells [@integrin2].
 
 ## Computational tools
+## Computational tools
 
-To analyse how the activity of a gene set differs between two sets of
+To analyze how the activity of a gene set differs between two sets of
 gene expression data, a Gene Set Enrichment Analysis (GSEA) is
 performed. For this, the genes in the expression data have to be ranked
 decreasingly by a certain metric. Such metrics can include the
 associated p-values for each gene or the log2 fold change between the
 sample expression data and a reference set. After ranking, a cumulative
 sum of all expression values in the ranked sample is computed. If a gene
-is present in the gene set to be analysed the expression value of that
+is present in the gene set to be analyzed the expression value of that
 gene is added to the running sum. However, if the current gene does not
 lie in the gene set the value is subtracted. The extremum of this
 running sum is termed the enrichment score of the gene set. It is
@@ -201,7 +199,7 @@ positive if the gene set is overexpressed in the sample compared to the
 reference data and negative vice versa [@GSEA].
 
 The Gene Set Variation Analysis (GSVA) is performed with the same
-intention as the GSEA - to analyse the gene set activities in gene
+intention as the GSEA - to analyze the gene set activities in gene
 expression data. However, no reference data is required to successfully
 perform GSVA. There are various approaches to GSVA, one of them is
 performed by [@GSVA] by following five steps. First, the cumulative
@@ -224,8 +222,8 @@ a radius is extended and when two radii come into contact the points are
 connected in the graph. The radius is chosen individually for each point
 based on the distance to the nearest neighbor. The algorithm goes on
 until k points are connected or n iterations are reached. The resulting
-clustered high-dimensional graph is then optimized for a visualization
-in low-dimensions. A disadvantage of UMAP is that although the overall
+clustered high-dimensional graph is then optimized for visualization
+in low dimensions. A disadvantage of UMAP is that although the overall
 structure is conserved, the distances between the individual points are
 not proportional to the real distance in the data set. This arises from
 the non-linear dimensional reduction [@UMAP].
@@ -233,12 +231,12 @@ the non-linear dimensional reduction [@UMAP].
 The Jaccard index is the intersection, divided by the union of two sets.
 Therefore, it can be used to identify the similarity of the sets.
 
-For data regression a neuronal network can be used. In general, a deep
+For data regression, a neuronal network can be used. In general, a deep
 learning network consists of an input layer, multiple hidden layers, and
 an output layer consisting of various neurons [@neuronal]. The input
-layer contains as much neurons as features are given for each sample.
+layer contains as many neurons as features are given for each sample.
 The number of neurons in each hidden layer and the number of hidden
-layers vary and must be tested to give best results. The activation of
+layers vary and must be tested to give the best results. The activation of
 each neuron can be described as a linear composition of all the inputs
 $x_i$ from the previous layer associated with a weight $w_i$ and a
 bias:$$
@@ -246,26 +244,25 @@ Activation = \sum_{i=1} ^{n} w_i x_i + bias
 $$To obtain neuron activations in the range of 0 and 1, a
 min/max-scaling is performed on the input data. The "learning effect" of
 the network is achieved by optimizing the randomly chosen weights and
-biases via gradient decent. To do so, for each training iteration the
+biases via gradient descent. To do so, for each training iteration the
 error of the network is computed by a cost function. Next, the cost
 function value must be reduced. Therefore, its gradient is computed, and
 all weights and biases are adjusted accordingly in a process called
 backpropagation. In resilient backpropagation, only the sign of the
 gradient is used, to avoid harmful effects of its magnitude. For the
-next samples those steps are repeated to reach the minimum of the cost
-function. A drawback of this method is that gradient decent only
+next samples, those steps are repeated to reach the minimum of the cost
+function. A drawback of this method is that gradient descent only
 identifies local minima of the cost function. To find a global minimum
 the training has to be repeated with various initial weights and biases.
 After such a minimum is identified to network performs optimally for the
 data set.
 
 ## Goals for the analysis
-
-Using pan-cancer expression data we identify clusters between cancer
-types regarding their expression profiles as well es hallmark and
-metabolic pathway activities. Then, our focus shifts to THCA, were we
-identify subclusters in gene expression linking them to histological
-types. Additionally, we analyse pathways that alter significantly
+Using pan-cancer expression data, we identify clusters between cancer
+types regarding their expression profiles as well as the hallmark and
+metabolic pathway activities. Then, our focus shifts to THCA, where we
+discover subclusters in gene expression linking them to histological
+types. Additionally, we analyze pathways that alter significantly
 between THCA and homeostatic thyroid tissue and predict their activities
 with linear and neuronal network regression.
 
