@@ -38,6 +38,10 @@ header-includes:
   - \usepackage{lipsum}
   - \usepackage{scrhack}
   - \usepackage{setspace}
+  - \usepackage{etoolbox}
+  - \makeatletter
+  - \patchcmd{\scr@startchapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+  - \makeatother
   - \onehalfspacing
   - \emergencystretch=50pt
   - \clubpenalty = 10000
@@ -100,36 +104,34 @@ editor_options:
 
 In recent years bioinformatic methods became a tool of utmost importance
 in medical research. To detect specific gene and pathway patterns in
-different cancer types or histological types, a pan-cancer analysis is
-done. Furthermore, a focused analysis is done to specify different
-subcategories within a certain cancer type and to identify targets for
-therapy. As main methods in identifying up- or downregulated pathways,
-Gene Set Enrichment Analysis (GSEA) and Gene Set Variation Analysis
-(GSVA) are used. GSVA of The Cancer Genome Atlas (TCGA) expression data,
-containing 33 different tumor types, reveals four clusters of cancer
-types, which are defined by different histological types like
-glioblastoma and adenocarcinoma. Thus, the histological types seem to
-correlate with a specific set of pathways that are especially enriched
-in certain types. Furthermore, GSVA results of Thyroid cancer expression
-data show that thyroid carcinogenesis is associated with the
-up-regulation of proliferation signaling pathways like the hedgehog
-pathway, alpha6beta4 integrin signaling pathway, and associated pathways
-such as interleukin 36 signaling. Also, the down-regulation of a pathway
-that is associated with an increased MAP-kinase activity goes along with
-carcinogenesis. Based on those proliferation signaling pathways, three
-subclusters form inside the thyroid carcinoma (THCA) patients from the
-pan-cancer data. One THCA subcluster that could be linked to the
-follicular histological subtype is defined by increased mTOR and MAPK
-activity while having low alpha6beta4 activity. In contrast, another
-THCA subcluster is defined by a low mTOR and MAPK activity, but a high
-alpha6beta4 activity. The third THCA subtype is linked to the enhanced
-activity of both of these proliferation signaling pathways. These
-results promise more success in THCA treatment, as a more precise
-diagnosis of the distinct THCA subtypes, and with this a more targeted
-therapy is possible. To improve the understanding of THCA, and thereby
-hopefully improve patients' prognosis, this project focuses on finding
-genes that have a significantly different expression in THCA compared to
-other cancers and especially to normal tissue.
+different cancer types or histological types, here, we perform
+pan-cancer analysis. Furthermore, we carry out a focused analysis to
+specify different subcategories within a certain cancer type and to
+identify targets for therapy. As main methods in identifying up- or
+downregulated pathways, Gene Set Enrichment Analysis (GSEA) and Gene Set
+Variation Analysis (GSVA) are used. GSVA of The Cancer Genome Atlas
+(TCGA) expression data, containing 33 different tumor types, reveals
+four clusters of cancer types, which are defined by different
+histological types like glioblastoma and adenocarcinoma. Thus, the
+histological types seem to correlate with a specific set of pathways
+that are especially enriched in certain types. Furthermore, GSVA results
+of Thyroid cancer (THCA) expression data show that thyroid
+carcinogenesis is associated with the upregulation of proliferation
+signaling pathways like the hedgehog pathway, alpha6beta4 integrin
+signaling pathway, and associated pathways such as interleukin 36
+signaling. Based on those proliferation signaling pathways, three
+subclusters form inside the THCA patients from the pan-cancer data. One
+THCA subcluster could be linked to the follicular histological subtype
+and is defined by increased mTOR and MAPK activity while having low
+alpha6beta4 activity. In contrast, another THCA subcluster is defined by
+a low mTOR and MAPK activity, but a high alpha6beta4 activity. The third
+THCA subtype we identified shows both ways of proliferation signaling.
+These results promise more success in THCA treatment, as a more precise
+diagnosis of the distinct THCA subtypes is possible allowing for better
+treatment. To improve the understanding of THCA, and thereby bettering
+patients' prognosis, this project focuses on finding genes that have a
+significantly altered expression in THCA compared to other cancers and
+especially to normal tissue. \clearpage
 
 \addchap{Abbreviations}
 
@@ -164,87 +166,61 @@ TCV -- Tall cell variant\
 THCA -- Thyroid carcinoma\
 UMAP -- Uniform manifold approximation and projection\
 UTC -- Undifferentiated thyroid cancer\
-UVM -- Uveal melanoma
+UVM -- Uveal melanoma \clearpage
 
+```{=tex}
 \tableofcontents
-
+\clearpage
+```
 # Introduction
-
-## Biological background
 
 In 2019 230,000 cancer deaths were documented in
 Germany\footnote{ https://www.krebsinformationsdienst.de/tumorarten/grundlagen/krebsstatistiken.php}.
 To detect and fight these tumors, the development of new treatment and
 detection methods is essential. A crucial step in this direction was the
-characterization of the Hallmarks of Cancer - properties present in
-every tumor. Among others, those are: resisting cell death, inducing
-angiogenesis, enabling replicative immortality, activating invasion, and
-evading growth suppressors [@cancer_hallmarks].
+definition of the Hallmarks of Cancer - properties present in every
+tumor[@cancer_hallmarks]. However, the different histological types of
+tumors are equally important when characterizing cancers. Carcinoma,
+which can be further subcategorized into adenocarcinoma, squamous cell
+carcinoma, and transitional cell carcinoma, all derive from epithelial
+cells. Further forms include melanomas, glioblastomas and leukemia
+[@cell].
 
-However, the different histological types of tumors are equally
-important when characterizing cancers. Carcinoma, which can be further
-subcategorized into adenocarcinoma, squamous cell carcinoma, and
-transitional cell carcinoma, all derive from epithelial cells. Melanomas
-are skin tumors, sarcoma derive from mesenchymal tissue, glioblastoma
-from cells in the central nervous system and leukemia affects blood
-cells [@cell].
-
-Here we focus on Thyroid carcinoma (THCA) as its incidence increased
-dramatically over the past few years [@THCA]. It arises in the thyroid
-gland whose main function is synthesizing hormones and regulating body
-temperate and metabolism [@THgland1]. THCA can occur in two different
-types, differentiated and undifferentiated thyroid cancer. Those two
-types again have histological subtypes. Papillary thyroid cancer (PTC),
-the most common THCA, follicular thyroid cancer (FTC), and a tall cell
-variant (TCV) are subtypes of differentiated thyroid cancer (DTC).
-Medullary and anaplastic thyroid cancer are subtypes of undifferentiated
-thyroid cancer (UTC). The prevalence of DTCs is higher than that of UTCs
-[@THCA2]. Among all THCAs DTCs, PTCs have the best clinical prognosis
-[@PCA1], while TCV cancers have the worst clinical outcome
-[@PCA_aggressive]. Therefore, the characterization of different or
-distinct expression patterns for each histological subtype would be
-important for more specific therapy options. Even though all thyroid
-cancers are treated with thyroidectomy and radioactive iodine, the
-additional therapy differs for each histological type [@PCA3]. For
+Here we focus on thyroid carcinoma (THCA) as its incidence increased
+dramatically over the past few years [@THCA]. Papillary thyroid cancer
+(PTC), follicular thyroid cancer (FTC), and a tall cell variant (TCV)
+are subtypes of differentiated thyroid cancer. Among them DTCs and PTCs
+have the best clinical prognosis [@PCA1], while TCV cancers have the
+worst outcome [@PCA_aggressive]. Therefore, the characterization of
+different or distinct expression patterns for each histological subtype
+would be important for more specific therapy options [@PCA3]. For
 example, only some THCAs subtypes experience integrin alpha6beta4 driven
 carcinogenesis which might provide a viable target for therapy.
 Integrins are cellular adhesion molecules, that bind to laminin in the
-extracellular matrix [@integrin1]. Together with other proteins, they
-form hemidesmosomes. Thereby, integrins are essential for the integrity
-of tissues. An important step in the development of malignant tumors is
-the invasion of healthy tissue. Thus, the detachment of the
-extracellular matrix from the surrounding cells is essential and
-alterations of integrin are very common in cancer cells [@integrin2].
-
-## Computational tools
+extracellular matrix [@integrin1]. Alterations of integrin signaling are
+very common in cancer cells [@integrin2].
 
 To analyze how the activity of a gene set differs between two sets of
 gene expression data, a Gene Set Enrichment Analysis (GSEA) is
 performed. For this, the genes in the expression data have to be ranked
-decreasingly by a certain metric. Such metrics can include the
-associated p-values for each gene or the log2 fold change between the
-sample expression data and a reference set. After ranking, a cumulative
-sum of all expression values in the ranked sample is computed. If a gene
-is present in the gene set to be analyzed the expression value of that
-gene is added to the running sum. However, if the current gene does not
-lie in the gene set the value is subtracted. The extremum of this
-running sum is termed the enrichment score of the gene set. It is
-positive if the gene set is overexpressed in the sample compared to the
-reference data and negative vice versa [@GSEA].
+decreasingly by a certain metric like the associated p-values or the
+log2 fold change. After ranking, a cumulative sum of all expression
+values in the ranked sample is computed. If a gene is present in the
+gene set to be analyzed the expression value of that gene is added to
+the running sum, otherwise it is subtracted. The extremum of this
+running sum is termed the enrichment score of the gene set. [@GSEA]
 
 The Gene Set Variation Analysis (GSVA) is performed with the same
-intention as the GSEA - to analyze the gene set activities in gene
-expression data. However, no reference data is required to successfully
-perform GSVA. There are various approaches to GSVA, one of them is
-performed by [@GSVA] by following five steps. First, the cumulative
-density distribution of a gene over all samples is estimated. Then the
-expression statistic of a gene in a sample based on the cumulative
-density distribution is calculated to bring all of the expression values
-to the same level. The third step is to rank the genes based on the
-expression statistic and to normalize the ranks with z-transformation.
-Lastly, the enrichment score is computed based on the obtained ranked
-list by calculating the Kolmogorov-Smirnov-like rank statistic for each
-gene set [@GSVA].
+intention as the GSEA. However, no reference data is required to
+successfully perform GSVA. GSVA is performed in following five steps.
+First, the cumulative density distribution of a gene over all samples is
+estimated. Then the expression statistic of a gene in a sample is
+calculated based on the cumulative density distribution to bring all of
+the expression values to the same level. The third step is to rank the
+genes based on the expression statistic and to normalize the ranks with
+z-transformation. Lastly, the enrichment score is computed based on the
+obtained ranked list by calculating the Kolmogorov-Smirnov-like rank
+statistic for each gene set. [@GSVA]
 
 The Uniform manifold approximation and projection for dimension
 reduction (UMAP) is a fast method to reduce the dimension of a
@@ -256,10 +232,7 @@ in the graph. The algorithm goes on until k points are connected or n
 iterations are reached. The resulting clustered high-dimensional graph
 is then optimized for visualization in low dimensions. However, this
 non-linear dimension reduction results in the distances between
-individual points not being proportional to their real distance [@UMAP].
-
-The Jaccard index is the intersection, divided by the union of two sets.
-Therefore, it can be used to identify the similarity of the sets.
+individual points not being proportional to their real distance. [@UMAP]
 
 For data regression, a neuronal network can be used. In general, a deep
 learning network consists of an input layer, multiple hidden layers, and
@@ -267,22 +240,18 @@ an output layer consisting of various neurons [@neuronal]. The number of
 neurons in each hidden layer and the number of hidden layers vary and
 must be tested to give the best results. The activation of each neuron
 can be described as a linear composition of all the inputs $x_i$ from
-the previous layer associated with a weight $w_i$ and a bias:$$
-Activation = \sum_{i=1} ^{n} w_i x_i + bias
-$$To obtain neuron activations in the range of 0 and 1, a
-min/max-scaling is performed on the input data. The "learning effect" of
-the network is achieved by optimizing the randomly chosen weights and
-biases via gradient descent. To do so, for each training iteration the
-error of the network is computed by a cost function. Next, the cost
-function value must be reduced. Therefore, its gradient is computed, and
-all weights and biases are adjusted accordingly in a process called
-backpropagation. For the next samples, those steps are repeated to reach
-the minimum of the cost function. A drawback of this method is that
-gradient descent only identifies local minima of the cost function. To
-find a global minimum the training has to be repeated with various
-initial weights and biases.
-
-## Goals for the analysis
+the previous layer associated with a weight $w_i$ and a bias $b_i$:$$
+Activation = \sum_{i=1} ^{n} w_i x_i + b_i
+$$The "learning effect" of the network is achieved by optimizing the
+randomly chosen weights and biases via gradient descent. To do so, for
+each training iteration the error of the network is computed by a cost
+function. Next, the cost function value must be reduced. Therefore, its
+gradient is computed, and all weights and biases are adjusted
+accordingly in a process called backpropagation. For the next samples,
+those steps are repeated to reach the minimum of the cost function. A
+drawback of this method is that gradient descent only identifies local
+minima of the cost function. To find a global minimum the training has
+to be repeated with various initial weights and biases.
 
 Using pan-cancer expression data, we identify clusters between cancer
 types regarding their expression profiles as well as the hallmark and
@@ -807,7 +776,11 @@ variable are estimated by their correlation and slope with the predicted
 parameter. Lastly, all coefficients as well as the intersect are
 optimized for the data set with a least sum of squares method.
 
+The Jaccard index is the intersection, divided by the union of two sets.
+Therefore, it can be used to identify the similarity of the sets.
+
 ## Additional Figures
+
 ```{r reg, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{Regression results for various models on THCA GSEA test data.} True values are plotted against predicted values, black slope indicate a perfect prediction."}
 
 knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
@@ -851,8 +824,6 @@ knitr::include_graphics("figures/Pan Cancer Geneexpression UMAP cancer form.png"
 knitr::include_graphics("figures/Pan Cancer PCA PC1und2 cancer form.png")
 
 ```
-
-
 
 ## Packages
 
