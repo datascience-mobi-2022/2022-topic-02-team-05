@@ -614,14 +614,14 @@ be better predicted by a null model (Fig xxx supplementary material). To
 factor in biological significance, the intersect of the 25 most
 significantly altered pathways from GSVA with the high variance pathways
 was computed. This resulted in three significantly altered and highly
-variant pathways among which the REACTOME_INTERLEUKIN_36_PATHWAY gene
+variant pathways among which the REACTOME_INTERLEUKIN_36_PATHWAY (IL-36 pathway) gene
 set was selected. This gene set ranks 8th among the highest upregulated
 pathways with an associated p-value of 8.411155e-15. Interleukin 36
 signaling is connected to both MAPK activity and through the activation
 of NF-kB and also the expression of integrin alpha6beta4.[@result4;
 @result7; @msigdb].
 
-Regression of the REACTOME_INTERLEUKIN_36_PATHWAY (IL-36 pathway) gene
+Regression of the IL-36 pathway gene
 set showed mixed results. After multiple testing an architecture with
 two hidden layers with 10 and 20 neurons respectively at `set.seed(50)`
 was shown to produce the best results for neuronal network regression.
