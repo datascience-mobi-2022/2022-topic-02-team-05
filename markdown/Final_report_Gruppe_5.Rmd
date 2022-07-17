@@ -6,12 +6,14 @@ output:
   html_document:
     code_folding: hide
 documentclass: scrreprt
+fontsize: 11pt
+linestretch: 1.15
 classoption: [parskip, oneside] # für drucken twoside
 geometry:
-  - left=2.50cm
-  - right=2.50cm
-  - top=2.50cm
-  - bottom=2.50cm
+  - left=2.0cm
+  - right=2.0cm
+  - top=0.7cm
+  - bottom=2.00cm
   - includehead
   - includefoot
 header-includes:
@@ -19,7 +21,7 @@ header-includes:
   - \usepackage[utf8]{inputenc}
   - \usepackage[T1]{fontenc}
   - \usepackage{lmodern}
-  - \usepackage[onehalfspacing]{setspace}
+#  - \usepackage[onehalfspacing]{setspace}
   - \usepackage[headsepline]{scrlayer-scrpage}
   - \usepackage{url}
   - \usepackage[backend=biber, style=authoryear, giveninits=true, maxbibnames=99, uniquename=init, maxcitenames=2, hyperref=true, date=year]{biblatex}
@@ -57,6 +59,8 @@ header-includes:
   - \setkomafont{caption}{\sffamily\small}
   - \setkomafont{captionlabel}{\usekomafont{caption}\bfseries\small}
   - \setkomafont{pagehead}{\normalfont\scshape}
+  - \renewcommand*{\chapterheadstartvskip}{\vspace*{0.5cm}}
+  - \renewcommand*{\chapterheadendvskip}{\vspace*{0.1cm}}
 csl: bib/molecular-biology-of-the-cell.csl
 bibliography: [bib/test.bib]
 editor_options: 
@@ -179,7 +183,7 @@ Germany\footnote{ https://www.krebsinformationsdienst.de/tumorarten/grundlagen/k
 To detect and fight these tumors, the development of new treatment and
 detection methods is essential. A crucial step in this direction was the
 definition of the Hallmarks of Cancer - properties present in every
-tumor[@cancer_hallmarks]. However, the different histological types of
+tumor [@cancer_hallmarks]. However, the different histological types of
 tumors are equally important when characterizing cancers. Carcinoma,
 which can be further subcategorized into adenocarcinoma, squamous cell
 carcinoma, and transitional cell carcinoma, all derive from epithelial
@@ -263,66 +267,29 @@ with linear and neuronal network regression.
 
 # Materials and Methods
 
-## Given data
-
-For pan-cancer analysis, a gene expression data frame with normalized
-and log2 transformed bulk RNA-seq expression data for 60,489 genes in
-9741 patients with 33 different forms of cancer and clinical annotations
-was used. The data was derived from The Cancer Genome Atlas (TCGA).
-
-For the focused analysis, only THCA data consiting of three data frames
-was used: The first two contain normalized, and log2 transformed bulk
-RNA-seq expression data for 19,624 genes in 59 THCA patients for
-carcinogenic and homeostatic tissue. The third data frame complements
-the data with the respective clinical annotations.
-
-The last object contains 46 pathways associated with the hallmarks of
-cancer in the form of a list of vectors containing gene identifiers. To
-perform enrichment analysis, 6366 canonical pathways were selected from
-the Molecular Signatures Database (MSigDB) [@msigdb] with the
-`msigdbr::msigdbr()` function. As not to introduce a bias during
-enrichment analysis, the similarity of MSigDB pathways among themselves
-as well as with the hallmark pathways was computed with the Jaccard
-index. The pathways with a Jaccard index greater than a set threshold
-were discarded.
-
-## Preprocessing of expression data
-
-All expression data were checked for missing values. Subsequently, low
-variance filtering was performed for TCGA and THCA tumor expression
-data. Genes with variances below a threshold of 0.1 were discarded to
-reduce dimensionality.
-
-Next, biotype filtering was performed for pan-cancer and THCA expression
-data to reduce dimensionality further. Only genes sharing biotypes with
-the hallmark pathways were kept for the following analysis. The biotypes
-of the genes were retrieved using the `biomart::getBM()` function from
-the "biomart" package [@biomart]. Only MSigDB pathways in which over 99%
-of their respective genes were present in the filtered expression data
-were selected as final pathways.
+We were provided with bulk RNA-seq gene expression data and the
+corresponding clinical annotations from the cancer genome atlas (TCGA).
+The data was processed and cleaned by workflows described in the
+supplementary materials section.
 
 ## Methods for descriptive analysis
 
 In a mean-variance plot, the variance is plotted over the mean
 expression value of a single gene across all patients. Thus, the
 variance and mean were calculated for each gene in the THCA expression
-data. The final plot was created with the package ggplot2 \[[@ggplot2].
-
-A volcano plot is used to identify genes displaying significantly
+data. The final plot was created with the package ggplot2 [@ggplot2]. A
+volcano plot is used to identify genes displaying significantly
 differentially expressed genes in cancerous versus homeostatic tissues.
 First, the log2 fold change (Log2FC) is calculated for each gene across
 all samples in the THCA expression data in the following way: $$
 log2FC = mean(normal tissue) - mean(tumor tissue)
-$$ Next, a two-sided Wilcoxon rank sum test was performed with the
+$$Next, a two-sided Wilcoxon rank sum test was performed with the
 `wilcox.test()` function to determine the significance of a difference
 in expression. To avoid the accumulation of type one errors, a
-Bonferroni correction was performed. In the volcano plot the -log10 of
-the calculated p-values are plotted against the Log2FC. Genes with a
-lower p-value than the corrected significance level $\alpha$ are
-significantly differentially expressed. If the Log2FC is additionally
-positive, the genes are significantly overexpressed in tumor tissue. If
-the Log2FC is negative, the genes are significantly underexpressed in
-tumor tissue.
+Bonferroni correction was performed. Genes with a lower p-value than the
+corrected significance level $\alpha$ are significantly differentially
+expressed. If the Log2FC is additionally positive, the genes are
+significantly overexpressed in tumor tissue and vice versa.
 
 ## Gene Set Scoring and Dimension Reduction
 
@@ -332,28 +299,26 @@ expression values were ranked in decreasing order by Log2FC for every
 patient. Log2FC was chosen as the ranking metric as it is easy to
 compute and shows a high sensitivity [@rank]. Secondly, using the ranked
 Log2FC vectors, the enrichment score of each pathway was calculated for
-each patient with the `fgseamultilevel()` function.
+each patient with the `fgsea::fgseamultilevel()` function.
 
 As no normal tissue reference data was provided for the TCGA expression
 data, pathway activities were computed via GSVA. The analysis was
-performed with the `gsva()` function from the "GSVA" package [@gsva]. To
-give a general overview of the differences in expression of THCA and
-homeostatic thyroid tissue GSVA, the THCA expression data were also
-analyzed by GSVA. To do so, tumor and normal expression data were
+performed with the `gsva::gsva()` function from the "GSVA" package
+[@gsva]. To give a general overview of the differences in expression of
+THCA and homeostatic thyroid tissue GSVA, the THCA expression data were
+also analyzed by GSVA. To do so, tumor and normal expression data were
 combined into a singular data frame of which enrichment scores were
-computed with `gsva()`. Then, the GSVA data was split again and the
-log2FC between the two matrices was computed and taken as pathway
-activity.
+computed. Then, the GSVA data was split again and the log2FC between the
+two matrices was computed and taken as pathway activity.
 
 PCA was performed to provide a set of orthogonal data for the subsequent
 UMAP. For the pan-cancer GSVA pathway activity data the `prcomp()`
 function was used. To verify the results, PCA was performed on TCGA
 expression data, as well. In this case `Seurat::RunPCA()` from the
-Seurat package was used to minimize computation time [@seurat].
-
-UMAP analysis was conducted on all principle components from previous
-PCA to identify and visualize clusters in TCGA GSVA and expression data.
-This was achieved with the `umap()` function from the package "umap"
+Seurat package was used to minimize computation time [@seurat]. UMAP
+analysis was conducted on all principle components from previous PCA to
+identify and visualize clusters in TCGA GSVA and expression data. This
+was achieved with the `umap::umap()` function from the package "umap"
 [@umap] running on all PCs from TCGA GSVA expression data.
 
 ## Regression analysis
@@ -364,74 +329,66 @@ appropriately the THCA GSEA data set was divided into a training and
 test data set containing 44 and 15 samples respectively. A linear
 regression analysis was performed on the training data with the `glm()`
 function. To do so, the correlation of all pathways was computed and
-pathways with high correlations are omitted. Subsequently, 10% of the
-most variant pathways are selected as variables for the regression
+pathways with high correlations were omitted. Subsequently, 10% of the
+most variant pathways were selected as variables for the regression
 model. A second model was introduced by selecting only those pathways
 contributing significantly to the model.
 
 A neural network was implemented to predict the pathway activity using
 the `neuralnet()` function from the "neuralnet" package [@neuralnet].
 For identification of the best initial conditions, 25 different networks
-are generated, each with two hidden layers and different combinations of
-neurons per layer. For each combination, the network was trained on the
-min-max-scaled training data, and the best network was determined by the
-lowest mean squared error (MSE) in the test data.
+were generated, each with two hidden layers and different combinations
+of neurons per layer. For each combination, the network was trained on
+the min-max-scaled training data, and the best network was determined by
+the lowest mean squared error (MSE) in the test data.
 
 ## Environment
 
 The R version 4.0.1 was used, the table of used packages is attached in
-the appendix (see table \@ref(tab:packagesused)).
+the supplementary material (table 6.1).
 
 # Results
 
 ## Preprocessing
 
-**Dimension reduction through low-variance and biotype filtering.** All
-the TCGA and THCA expression data were scanned for NAs, which were
-subsequently deleted. Genes with a variance lower than 0.1 were removed
-to reduce dimensionality, as they contribute very little to the overall
-variance of the data set. The low-variance filtering of the THCA data
-set was done similarly. Genes with lower variance than 0.06 were deleted
-in the tumor tissue and the normal tissue data. To reduce dimensionality
-further, the biotype of the hallmark pathway genes was determined, which
-was almost exclusively protein-coding. To match this, only
-protein-coding pathways were kept in all expression data sets for
-further analysis. In doing so, the number of genes in the pan-caner data
-set was reduced from 60,000 to approximately 19,000 genes and from
-approximately 20,000 genes to 15,000 genes in the THCA data.
+**Dimension reduction through low-variance and biotype filtering.** TCGA
+genes with a variance lower than 0.1 were removed. The low-variance
+filtering of the THCA data set was done similarly. Genes with lower
+variance than 0.06 were deleted in the tumor tissue and the normal
+tissue data. To reduce dimensionality further, the biotype of the
+hallmark pathway genes was determined, which was almost exclusively
+protein-coding. To match this, only protein-coding pathways were kept in
+all expression data sets for further analysis. In doing so, the number
+of genes in the pan-caner data set was reduced from 60,000 to
+approximately 19,000 genes and from approximately 20,000 genes to 15,000
+genes in the THCA data.
 
-**MSigDB pathway filtering.** The pathways from the MSigDB database were
-first aligned with the genes in our expression data. Only pathways with
-a coverage of over 99% were kept. To test for similarity in the selected
+**MSigDB pathway filtering.** To test for similarity in the selected
 metabolic pathways compared to the hallmark pathways and the metabolic
 pathways themselves, the Jaccard index between all pathways was
 calculated. Pathways with a high Jaccard indexes were identified and
-subsequently deleted. Heatmaps displaying the Jaccard index of cleaned
-and uncleaned data can be seen in the appendix \@ref(fig:Jaccarddirtea)
-\@ref(fig:Jaccardcleaned). The number of MSigDB pathways could thus be
+subsequently deleted. The number of MSigDB pathways could thus be
 reduced from 6366 to 657.
 
 ## Descriptive analysis
 
 **Mean-variance plot of TCGA expression data shows highly variant
 genes.** To determine the genes from the TCGA expression data with high
-variance, the variance was plotted over the mean (Figure
-\@ref(fig:showmeanvariance)). Additionally, those genes with a variance
-higher than 33 were labeled with their EnsembleID. The distribution of
-genes in this plot shows that the highly variant genes are around a log2
-mean expression level of 0. The plot also shows that very few genes are
-at a low or a very high mean expression level. Most genes are expressed
+variance, the variance was plotted over the mean (Supplementary material
+figure \ref{fig:showmeanvariance}). The distribution of genes in this
+plot shows that the highly variant genes are around a log2 mean
+expression level of 0. The plot also shows that very few genes are at a
+low or a very high mean expression level. Most genes are expressed
 across all patients at a log2 mean expression level of approximately 0.
-With this plot, we were able to determine which genes differ
-significantly in their expression level across all cancer patients.
+Among the most variant genes were RPS4Y, CORNIFIN and CK-6C.
 
 **Significantly up- and downregulated genes in THCA obtained from
 volcano plots.** To determine up- or downregulated genes in THCA
 corresponding p-Values were computed with a Wilcoxon rank sum test.
-(Figure \@ref(fig:showvolcanoplot)). The significance level was adjusted
+(Figure \ref{fig:showvolcanoplot}). The significance level was adjusted
 to 1.755e-06 with a Bonferroni adjustment.
 
-```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.cap="Volcano plot of THCA expression data. Downregulated genes are colored red, upregulated genes blue. Not significantly altered genes are colored green. Most significantly altered genes are labelled with their gene symbol"}
+```{r showvolcanoplot, echo=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.cap="\\textbf{Volcano plot of THCA expression data.} Downregulated genes are colored red, upregulated genes blue. Not significantly altered genes are colored green. Most significantly altered genes are labelled with their gene symbol"}
 
 knitr::include_graphics("figures/Volcanoplot.png")
 
@@ -440,25 +397,21 @@ knitr::include_graphics("figures/Volcanoplot.png")
 ## Pan cancer analysis
 
 **GSVA of TCGA expression data reveals four clusters of cancer types.**
-A pathway activity matrix was computed as described in section
-(methods). The obtained pathway activity matrix was visualized in a
-heatmap. \@ref(fig:meanexp) and supplementary material \@ref(fig:exp)
-
-The tumor types were clustered hierarchically based on their mean
-pathway activity and formed four clusters correlating with their
-histological type. The first cluster contains mainly adenocarcinomas,
-while the second one contains predominately glioblastomas. Leukemias are
-found only in the third cluster, and the last cluster is enriched with
-sarcomas and carcinomas. Melanomas appear in the second and fourth
-clusters. Furthermore, three observations were made regarding specific
-information about pathway activity.
-
-Pathways, which are important for nucleus import and export like the Ran
-shuttle pathway, as well as pathways for transcription regulators in
-embryonic stem cells are downregulated in glioblastoma and
-adenocarcinoma. However, these pathways are upregulated in all other
-histological types \@ref(fig:meanexp).
-
+A pathway activity matrix was computed as described in methods section.
+The obtained pathway activity matrix was visualized as a heatmap.
+(Figure \ref{fig:meanexp} and supplementary material figure
+\ref{fig:exp}) The tumor types were clustered hierarchically based on
+their mean pathway activity and formed four clusters correlating with
+their histological type. The first cluster contains mainly
+adenocarcinomas, while the second one contains predominately
+glioblastomas. Leukemias are found only in the third cluster, and the
+last cluster is enriched with sarcomas and carcinomas. Melanomas appear
+in the second and fourth clusters. Furthermore, three observations were
+made regarding specific information about pathway activity. Pathways,
+which are important for nucleus import and export like the Ran shuttle
+pathway, as well as pathways for transcription regulators in embryonic
+stem cells are downregulated in glioblastoma and adenocarcinoma.
+However, these pathways are upregulated in all other histological types.
 Another observation is the clustering of glioblastoma. Pathways
 initiating neurogenesis and pathways linked to differentiation of the
 neural crest are upregulated only in glioblastoma [@result6]. Two other
@@ -466,16 +419,14 @@ pathways, that are upregulated in glioblastoma cells are pathways linked
 to the activity of tyrosine kinases. The upregulation of tyrosine
 kinases promotes cell growth and proliferation [@cell]. Taken together
 these two observations are in line with the expected high proliferation
-rate commonly found in glioblastoma.
+rate commonly found in glioblastoma. The third cluster is mainly related
+to adenocarcinomas, more specifically liver hepatocellular carcinoma
+(LIHC), kidney renal papillary cell carcinoma (KICH) and kidney renal
+clear cell carcinoma (KIRC). The upregulated pathways are involved in
+the metabolism of carbohydrates, synthesis of lipids, synthesis of amino
+acids and detoxification.
 
-The third cluster is mainly related to adenocarcinomas, more
-specifically liver hepatocellular carcinoma (LIHC), kidney renal
-papillary cell carcinoma (KICH) and kidney renal clear cell carcinoma
-(KIRC). The upregulated pathways are involved in the metabolism of
-carbohydrates, synthesis of lipids, synthesis of amino acids and
-detoxification.
-
-```{r meanexp, echo=FALSE, eval=TRUE, out.width='87%', fig.align='center', fig.cap="Mean pathway activity of the 100 most variant pathways for each tumor type. Column clusters were obtained by complete hierachical clustering and subsequently split into four groups. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
+```{r meanexp, echo=FALSE, eval=TRUE, out.width='87%', fig.align='center', fig.cap="\\textbf{Mean pathway activity of the 100 most variant pathways for each tumor type.} Column clusters were obtained by complete hierachical clustering and subsequently split into four groups. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure 6.2."}
 
 knitr::include_graphics("figures/Pan Cancer mean expression top 100 pathways.png")
 ```
@@ -483,29 +434,29 @@ knitr::include_graphics("figures/Pan Cancer mean expression top 100 pathways.png
 **Dimension reduction of GSVA pan-cancer data reveals clusters in
 pathway activity.** PCA was performed on GSVA pan-cancer for UMAP
 analysis. No apparent clustering was observed only in PCA data
-(Supplementary material @ref(fig:PCAcancerform) and
-\@ref(fig:PCAcancertype) ). Subsequent UMAP analysis, showed clear
-clusters for most cancer types. (\@ref(fig:UMAPPanType) and
-Supplementary material \@ref(fig:UMAPPanForm)). This complements the
-results obtained from our heatmap and reassures, that the tumor types
-have characteristic pathway activities. However, some cancers cluster
-better with their histological type rather than tumor type. This was
-observed mainly for carcinomas like squamous cell carcinoma and
-transitional cell carcinoma, as well as sarcoma, lung adenocarcinoma,
-and ovarian cancer. These are the same histological types that proved
-difficult to cluster in the mean GSVA of TCGA expression. The UMAP
-confirmed the assumption, that the histological type of a tumor has a
-major impact on the patients' gene expression profile.
+(Supplementary material figure \ref{fig:PCAcancerform}). Subsequent UMAP
+analysis, showed clear clusters for most cancer types. (Figure
+\ref{fig:UMAPPanType} and supplementary material figure
+\ref{fig:UMAPPanForm}). This complements the results obtained from our
+heatmap and reassures, that the tumor types have characteristic pathway
+activities. However, some cancers cluster better with their histological
+type rather than tumor type. This was observed mainly for carcinomas
+like squamous cell carcinoma and transitional cell carcinoma, as well as
+sarcoma, lung adenocarcinoma, and ovarian cancer. These are the same
+histological types that proved difficult to cluster in the mean GSVA of
+TCGA expression. The UMAP confirmed the assumption, that the
+histological type of a tumor has a major impact on the patients' gene
+expression profile.
 
-```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by tumor type"}
+```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{UMAP of TCGA pathway activity.} Data points are colored by tumor type"}
 
 knitr::include_graphics("figures/Pan Cancer UMAP.png")
 ```
 
 The same analysis was performed for gene expression activity instead of
 pathway activity to check for the reliability of the results. Similar
-clusters were observed, which confirms our results. See
-\@ref(fig:UMAPGenform), \@ref(fig:UMAPGen) in the appendix.
+clusters were observed, which confirms our results. See figure
+\ref{fig:UMAPGenform} in the supplementary material.
 
 ## Focused analysis
 
@@ -514,7 +465,7 @@ carcinogenesis.** To grasp a general overview of the differences in
 pathway activity between THCA and homeostatic thyroid tissue, GSVA was
 performed for the THCA expression data. Based on the GSVA results,
 differentially different active pathways were identified using the
-workflow described for volcano plots \@ref(fig:THCAvolcano). Most
+workflow described for volcano plots \ref{fig:THCAvolcano}. Most
 prominently among them were pathways linked to proliferative signaling,
 such as upregulation of p53 inhibitory proteins and hedgehog pathway
 activating Gli proteins. Further, the alpha6beta4 integrin signaling
@@ -524,7 +475,7 @@ signaling through the EWSR1/FLI1-fusion protein was upregulated
 significantly in THCA. Lastly, THCA showed downregulation of non-histone
 protein methylation.
 
-```{r THCAvolcano, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="Volcano plot of THCA pathway activity. Downregulated pathways are colored red, upregulated pathways blue. Not significantly altered pathways are colored green. Most significantly altered pathways are labelled with their name."}
+```{r THCAvolcano, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{Volcano plot of THCA pathway activity.} Downregulated pathways are colored red, upregulated pathways blue. Not significantly altered pathways are colored green. Most significantly altered pathways are labelled with their name."}
 
 knitr::include_graphics("figures/Volcanoplot THCA GSVA data.png")
 ```
@@ -534,18 +485,18 @@ proliferative signaling.** To investigate potential subtypes of THCA,
 the respective samples were taken from the pan-cancer GSVA data. The
 optimal number of clusters was determined by an elbow plot and
 subsequent K-means clustering revealed a total of three subtypes in THCA
-\@ref(fig:THCAhm). This is consistent with the three clusters of THCA
-observed in the full pan-cancer GSVA data. The follicular histological
-type was enriched in cluster B, with no tall cell types present in this
-cluster. Judging from histological type alone no difference in clusters
-A and C was observed. Most significant changes in pathway activity were
-observed in pathways concerning proliferative signaling. In comparison
-with all other tumor types, cluster A displayed high activity of RAS,
-JAK/STAT and EWSR1/FL1-fusion mediated signaling as well as elevated
-signatures associated with carcinogenesis driven by alpha6beta4
-activity. In contrast, these pathways were downregulated in cluster B,
-with it showing elevated activity in mTOR, MAPK, PI3K, and EGFR
-signaling cascades. Cluster C was found to upregulate all the
+(Figure \ref{fig:THCAhm}). This is consistent with the three clusters of
+THCA observed in the full pan-cancer GSVA data. The follicular
+histological type was enriched in cluster B, with no tall cell types
+present in this cluster. Judging from histological type alone no
+difference in clusters A and C was observed. Most significant changes in
+pathway activity were observed in pathways concerning proliferative
+signaling. In comparison with all other tumor types, cluster A displayed
+high activity of RAS, JAK/STAT and EWSR1/FL1-fusion mediated signaling
+as well as elevated signatures associated with carcinogenesis driven by
+alpha6beta4 activity. In contrast, these pathways were downregulated in
+cluster B, with it showing elevated activity in mTOR, MAPK, PI3K, and
+EGFR signaling cascades. Cluster C was found to upregulate all the
 aforementioned forms of proliferative signaling. All clusters showed a
 homogenous upregulation of hedgehog, ERBB2, and MST1 pathway activity.
 Regarding immune response, cluster C showed no significant alterations
@@ -555,7 +506,7 @@ two seemingly different forms of proliferative signaling driving
 carcinogenesis in THCA. These forms can either occur separately as in
 the case of clusters A and B or combined as for cluster C.
 
-```{r THCAhm, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
+```{r THCAhm, echo=FALSE, eval=TRUE, out.width='90%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient.} Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSVA of pan-cancer expression data."}
 
 knitr::include_graphics("figures/THCA Heatmap from Pancancer data top 50 pathways.png")
 ```
@@ -566,20 +517,20 @@ performed for the THCA data. Consistent with the pan-cancer analysis of
 THCA data, k-means clustering obtained three different clusters in
 pathway activity -- verified as the optimal number of clusters via an
 elbow plot. All clusters showed a similar change in metabolism
-\@ref(fig:THCAhmGSEA). Catabolic pathways are downregulated whereas
-anabolic pathways e.g., fatty acid synthesis show increased activity in
-comparison with normal tissue. Further, the results seem consistent with
-the proliferative signaling activities found previously. Alpha6beta4,
-RAS, JAK/STAT, and EWSR1/FL1-fusion mediated signaling is upregulated in
-clusters one and three with low expression in cluster two. However, the
-upregulation of mTOR, MAPK, PI3K, and EGFR signaling in clusters two and
-three was observed only in some samples. Regarding, immune response the
-expression profiles are again consistent with differences observed in
-the GSVA pan-cancer data: Both clusters one and two show a lower immune
-response compared to cluster three. From these GSEA results, we can
-conclude that the three subtypes of THCA differ in carcinogenesis and
-associated immune response but share a similar metabolism consistent
-with the Warburg effect.
+(supplementary material figure \ref{fig:THCAhmGSEA}). Catabolic pathways
+are downregulated whereas anabolic pathways e.g., fatty acid synthesis
+show increased activity in comparison with normal tissue. Further, the
+results seem consistent with the proliferative signaling activities
+found previously. Alpha6beta4, RAS, JAK/STAT, and EWSR1/FL1-fusion
+mediated signaling is upregulated in clusters one and three with low
+expression in cluster two. However, the upregulation of mTOR, MAPK,
+PI3K, and EGFR signaling in clusters two and three was observed only in
+some samples. Regarding, immune response the expression profiles are
+again consistent with differences observed in the GSVA pan-cancer data:
+Both clusters one and two show a lower immune response compared to
+cluster three. From these GSEA results, we can conclude that the three
+subtypes of THCA differ in carcinogenesis and associated immune response
+but share a similar metabolism consistent with the Warburg effect.
 
 ## Regression analysis of THCA pathway activity
 
@@ -606,21 +557,21 @@ error (MSE) of 0.06. However, the linear regression model failed to
 predict the data accurately (MSE = 0.62). Repeated linear regression
 with just pathways contributing significantly to the result, the
 performance was enhanced (MSE = 0.40), however, remained worse than a
-null model (MSE = +0.22). \@ref(fig:reg) A comparison of the MSE on the
-test and training data revealed, that the linear model is highly
-overfitted ($\Delta$MSE = +0.55) with the linear model with significant
-pathways fitting slightly better ($\Delta$MSE = +0.23) to the data. Our
-null model displayed a good, yet slightly underfitted performance with
-$\Delta$MSE = -0.08. With a $\Delta$MSE = +0.009 the neuronal network
-shows an excellent fit.
+null model (MSE = 0.22) (Supplementary material figure \ref{fig:reg}). A
+comparison of the MSE on the test and training data revealed, that the
+linear model is highly overfitted ($\Delta$MSE = +0.55) with the linear
+model with significant pathways fitting slightly better
+($\Delta$MSE = +0.23) to the data. Our null model displayed a good, yet
+slightly underfitted performance with $\Delta$MSE = -0.08. With a
+$\Delta$MSE = +0.009 the neuronal network shows an excellent fit.
 
 A comparison of the four regression models via the F-test function
 `var.test()` showed a significant improvement in the neuronal network
 compared to all other models. All other models showed no significant
-differences in their performance \@ref(fig:reg) compared to each other.
-From this data, we can conclude that a neuronal network is the best
-choice for most accurately predicting IL-36 pathway activity in our test
-data.
+differences in their performance compared to each other. (Supplementary
+material figure \ref{fig:reg}) From this data, we can conclude that a
+neuronal network is the best choice for most accurately predicting IL-36
+pathway activity in our test data.
 
 # Discussion
 
@@ -750,12 +701,49 @@ activity. In that way, one could suggest a suitable targeted therapy
 option for a THCA patient based only on sequencing data from a small
 biopsy sample.
 
+\clearpage
+
 # References
 
 ::: {#refs}
 :::
 
+\clearpage
+
 # Supplementary material
+
+## Given data
+
+For pan-cancer analysis, a gene expression data frame with normalized
+and log2 transformed bulk RNA-seq expression data for 60,489 genes in
+9741 patients with 33 different forms of cancer and clinical annotations
+was used. The data was derived from The Cancer Genome Atlas (TCGA). For
+the focused analysis, only THCA data consisting of three data frames was
+used: The first two contain normalized, and log2 transformed bulk
+RNA-seq expression data for 19,624 genes in 59 THCA patients for
+carcinogenic and homeostatic tissue. The third data frame complements
+the data with the respective clinical annotations. The last object
+contains 46 pathways associated with the hallmarks of cancer in the form
+of a list of vectors containing gene identifiers. To perform enrichment
+analysis, all 6366 canonical pathways were selected from the Molecular
+Signatures Database (MSigDB) [@msigdb] with the `msigdbr::msigdbr()`
+function. As not to introduce a bias during enrichment analysis, the
+similarity of MSigDB pathways among themselves as well as with the
+hallmark pathways was computed with the Jaccard index. The pathways with
+a Jaccard index greater than a set threshold were discarded.
+
+## Preprocessing of expression data
+
+All expression data were checked for missing values. Subsequently, low
+variance filtering was performed for TCGA and THCA tumor expression
+data. Genes with variances below a threshold were discarded to reduce
+dimensionality. Next, biotype filtering was performed for pan-cancer and
+THCA expression data to reduce dimensionality further. Only genes
+sharing biotypes with the hallmark pathways were kept for the following
+analysis. The biotypes of the genes were retrieved using the
+`biomart::getBM()` function from the "biomart" package [@biomart]. Only
+MSigDB pathways in which over 99% of their respective genes were present
+in the filtered expression data were selected as final pathways.
 
 ## Additional Computational Methods
 
@@ -780,6 +768,39 @@ The Jaccard index is the intersection, divided by the union of two sets.
 Therefore, it can be used to identify the similarity of the sets.
 
 ## Additional Figures
+```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="\\textbf{Mean-variance plot of cleaned TCGA expression data.} Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
+
+knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
+
+```
+
+```{r exp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 100 most variant pathways for each patient.} Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
+
+knitr::include_graphics(
+  "figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
+```
+
+```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{UMAP of TCGA pathway activity,} colored by histological type"}
+
+knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
+```
+
+```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient.} Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+
+knitr::include_graphics("figures/THCA GSEA Heatmap fertig top 50.png")
+```
+
+```{r PCAcancerform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Results of PCA,} PC 1 and 2 are shown, samples are colored by histological type."}
+
+knitr::include_graphics("figures/Pan Cancer PCA PC1und2 cancer form.png")
+
+```
+
+```{r UMAPGenform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{UMAP performed for gene expression data,} colored by hiytological type"}
+
+knitr::include_graphics("figures/Pan Cancer Geneexpression UMAP cancer form.png")
+
+```
 
 ```{r reg, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{Regression results for various models on THCA GSEA test data.} True values are plotted against predicted values, black slope indicate a perfect prediction."}
 
@@ -791,48 +812,13 @@ knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
 knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
 ```
 
-```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient.} Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
-
-knitr::include_graphics("figures/THCA GSEA Heatmap fertig top 50.png")
-```
-
-```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{UMAP of TCGA pathway activity,} colored by histological type"}
-
-knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
-```
-
-```{r exp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 100 most variant pathways for each patient.} Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
-
-knitr::include_graphics(
-  "figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
-```
-
-```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="\\textbf{Mean-variance plot of cleaned TCGA expression data.} Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
-
-knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
-
-```
-
-```{r UMAPGenform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{UMAP performed for gene expression data,} colored by hiytological type"}
-
-knitr::include_graphics("figures/Pan Cancer Geneexpression UMAP cancer form.png")
-
-```
-
-```{r PCAcancerform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Results of PCA,} PC 1 and 2 are shown, samples are colored by histological type."}
-
-knitr::include_graphics("figures/Pan Cancer PCA PC1und2 cancer form.png")
-
-```
-
 ## Packages
-
 ```{r, eval =TRUE, echo=FALSE, results='hide'}
 library(readxl)
 packages <- read_excel("PackagesRProjekt.xlsx")
 ```
 
-```{r packagesused, eval = TRUE, echo=FALSE}
+```{r packagesused,message=FALSE, warning=FALSE, eval = TRUE, echo=FALSE}
 
 knitr::kable(packages, format = "markdown", caption= "Packages used in the analysis.")
 ```
