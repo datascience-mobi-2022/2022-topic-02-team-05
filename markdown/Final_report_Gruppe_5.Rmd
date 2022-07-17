@@ -72,11 +72,7 @@ editor_options:
     {\vspace{\stretch{2}}}
     {\usekomafont{title}
 
-        {\Huge Thyorid cancer: Comparison of linar model and neuronal network (xxx)}
-
-        {\Huge 3-Sätze-Zusammenfassung}
-
-        {\Huge sfsf}
+        {\Huge Identification of thyroid cancer subtypes driving carcinogenesis through different ways of proliferative signaling }
 
     }
 
@@ -87,8 +83,8 @@ editor_options:
 
     {\small
         \begin{tabular}{rl}
-            Autoren & Anna Lange, David Matuschek, Jakob Then, Maren Schneider\\
-            Abgabetermin &20.07.2022\\
+            Authors & Anna Lange, David Matuschek, Jakob Then, Maren Schneider\\
+            Date & 20.07.2022\\
         \end{tabular}
     }
 
@@ -101,34 +97,35 @@ editor_options:
 \addchap{Abstract}
 
 In the recent years bioinformatic methods became a tool of utmost
-importance in medical research. To define specific genes and pathways in
-different cancer types or histological types pan-cancer analysis are
-done. A focused analysis is done to specify different subcategories
-within a certain cancer type and to identify targets for targeted
-therapy. The main methods in identifying up- or down-regulated pathways
-are GSEA and GSVA. GSVA of TCGA expression data reveals four clusters of
-cancer types, which are defined by different histological types like
-glioblastoma and adenocarcinoma. The histological types therefore seems
-to correlate with a specific set of pathways being especially enriched
-in certain cancer types. Furthermore, a GSVA of Thyroid cancer
-expression data shows that thyroid carcinogenisis is associated with the
-up-regulation of proliferative signalling pathways like the hedgehog
-pathway and alpha6beta4 integrin signaling pathway and associated
-pathways such as IL-36 signaling. It also showed the down-regulation of
-a pathway that is associated with an increased MAP-kinase acitivity. It
-is based on those proliferative signalling pathways that three
-subclusters form inside of the THCA patients from the pan-cancer data.
-One THCA subtype that could be linked to the follicular histological
-subtype is defined by increased mTOR and MAPK acitivity, while having
-low alpha6beta4 activity. In contrast another THCA subtype is defined by
-a low mTOR and MAPK activity, but a high alpha6beta4 activity. The third
-THCA subtype is linked to enhanced activity of both of these
-proliferative signalling pathways. These results promise better results
-is treatment, as a more percise diagnosis of the distinct THCA subtypse
-is possible To improve the understanding of THCA and thereby hopefully
-improve patients prognosis, this project focuses on finding genes that
-have a significantly different expression in THCA compared to other
-cancers and especially to normal tissue.
+importance in medical research. To detect specific gene and pathway
+patterns accross different cancer or histological types pan-cancer
+analysis are done. A focused analysis is done to specify different
+subcategories within a certain cancer type and to identify targets for
+targeted therapy. The main methods in identifying up- or down-regulated
+pathways are GSEA and GSVA. GSVA of TCGA expression data from 33 tumor
+types reveals four clusters of cancer types, which are defined by
+different histological types like glioblastoma and adenocarcinoma. The
+histological types therefore seems to correlate with a specific set of
+pathways being especially enriched in certain cancer types. Furthermore,
+GSVA results of Thyroid cancer expression data shows that thyroid
+carcinogenesis is associated with the up-regulation of proliferative
+signalling pathways like the hedgehog pathway and alpha6beta4 integrin
+signaling pathway and associated pathways such as IL-36 signaling. Our
+findings also show the down-regulation of a pathway that is associated
+with an increased MAP-kinase activity. It is based on those
+proliferative signalling pathways that three subclusters form inside of
+the THCA patients from the pan-cancer data. One THCA subtype that could
+be linked to the follicular histological subtype is defined by increased
+mTOR and MAPK activity, while having low alpha6beta4 activity. In
+contrast another THCA subtype is defined by a low mTOR and MAPK
+activity, but a high alpha6beta4 activity. The third THCA subtype is
+linked to enhanced activity of both of ways of proliferative signalling.
+These results promise better treatment options, as a more percise
+diagnosis of the distinct THCA subtypes is possible. To improve the
+understanding of THCA and thereby hopefully improve patients prognosis,
+this project focuses on finding genes that have a significantly
+different expression in THCA compared to other cancers and especially to
+normal tissue.
 
 \addchap{Abbreviations}
 
@@ -169,36 +166,36 @@ Medullary and anaplastic thyroid cancer are subtypes of undifferentiated
 thyroid cancer (UTC). The prevalence of DTCs is clearly higher than of
 UTCs [@THCA2]. Among all THCAs DTCs, PTCs have the best clinical
 prognosis [@PCA1], while TCV cancers have the worst clinical outcome
-[@PCA_aggressive]. Therefore, the characterization of the differnt gene
-expression for each histological subype would be important for more
-specific therapy options. Even though, all thyroid cancers are treated
-with thyroidectomy and radioactive iodine, the additional therapy
-differs for each histological type [@PCA3]. For example, only some THCAs
-subtypes experiance integrin alpha6beta4 driven carcinogenis which might
-provide a viable target for thearpy. Integrins are cellular adhesion
-molecules, that bind to laminin in the extracellular matrix
-[@integrin1]. Together with other proteins they form hemidesmosomes.
-Thereby, integrins are essential for the integrity between cells. An
-important step in the development of malignant cancer is the invasion
-into healthy tissue. Thus, the detachment of the extracellular matrix
-from of the surrounding cells is essential and alterations of integrin
-are very common in cancer cells [@integrin2].
+[@PCA_aggressive]. Therefore, the characterization of different or
+distinct expression patterns for each histological subype would be
+important for more specific therapy options. Even though, all thyroid
+cancers are treated with thyroidectomy and radioactive iodine, the
+additional therapy differs for each histological type [@PCA3]. For
+example, only some THCAs subtypes experiance integrin alpha6beta4 driven
+carcinogenis which might provide a viable target for thearpy. Integrins
+are cellular adhesion molecules, that bind to laminin in the
+extracellular matrix [@integrin1]. Together with other proteins they
+form hemidesmosomes. Thereby, integrins are essential for the integrity
+between cells. An important step in the development of malignant cancer
+is the invasion into healthy tissue. Thus, the detachment of the
+extracellular matrix from of the surrounding cells is essential and
+alterations of integrin are very common in cancer cells [@integrin2].
 
 ## Computational tools
 
 To analyse how the activity of a gene set differs between two sets of
 gene expression data, a Gene Set Enrichment Analysis (GSEA) is
 performed. For this, the genes in the expression data have to be ranked
-decreasingly by a certain metric. Such metrics can include the log2 fold
-change between the sample expression data and a reference set or the
-associated p-values for each gene. After ranking, a cumulative sum of
-all expression values in the ranked sample is computed. If a gene is
-present in the gene set to be analysed the expression value of that gene
-is added to the running sum. However, if the current gene does not lie
-in the gene set the value is subtracted. The extremum of this running
-sum is termed the enrichment score of the gene set. It is positive if
-the gene set is overexpressed in the sample compared to the reference
-data and negative vice versa. [@GSEA]
+decreasingly by a certain metric. Such metrics can include the
+associated p-values for each gene or the log2 fold change between the
+sample expression data and a reference set. After ranking, a cumulative
+sum of all expression values in the ranked sample is computed. If a gene
+is present in the gene set to be analysed the expression value of that
+gene is added to the running sum. However, if the current gene does not
+lie in the gene set the value is subtracted. The extremum of this
+running sum is termed the enrichment score of the gene set. It is
+positive if the gene set is overexpressed in the sample compared to the
+reference data and negative vice versa. [@GSEA]
 
 The Gene Set Variation Analysis (GSVA) is performed with the same
 intention as the GSEA - to analyse the gene set activities in gene
@@ -796,12 +793,12 @@ The finding that the alpha6beta4 integrin signaling pathway and
 associated pathways such as IL-36 signaling and Typ I hemidesmosome
 synthesis were significantly enhanced in THCA is in line with previous
 studies. Those studies link alpha6beta4 signaling to the development of
-aggressive forms of thyroid cancer [@result4,@result3]. Also, oncogenic
-signaling pathways commonly associated with different cancer types were
-significantly upregulated in THCAs. Among them, we observed ERBB2 and
-MST1 signaling commonly found in breast cancer. A role for MSP/Ron in
-breast cancer has recently been elucidated, wherein this pathway
-regulates tumor growth, angiogenesis and metastasis [@result2].
+aggressive forms of thyroid cancer \[@result4,@result3\]. Also,
+oncogenic signaling pathways commonly associated with different cancer
+types were significantly upregulated in THCAs. Among them, we observed
+ERBB2 and MST1 signaling commonly found in breast cancer. A role for
+MSP/Ron in breast cancer has recently been elucidated, wherein this
+pathway regulates tumor growth, angiogenesis and metastasis [@result2].
 
 A main pathway up-regulated in THCA is signaling through
 EWSR1/FLI1-fusion protein, while non-histone protein methylation is
