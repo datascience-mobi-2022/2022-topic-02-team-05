@@ -97,7 +97,6 @@ editor_options:
 <!-- Abstract -->
 
 \addchap{Abstract}
-
 In the recent years bioinformatic methods became a tool of utmost
 importance in medical research. To detect specific gene and pathway
 patterns accross different cancer or histological types pan-cancer
@@ -130,8 +129,37 @@ different expression in THCA compared to other cancers and especially to
 normal tissue.
 
 \addchap{Abbreviations}
+BRCA – Breast invasive carcinoma  
+EGFR – Endothelial growth factor receptor  
+ERBB2 – Erb-b2 receptor tyrosine kinase 2  
+EWSR1/FLI1 – Ewing sarcoma breakpoint region 1 / Friend leukemia integration 1  
+FTC – Follicular thyroid cancer  
+GSEA – Gene Set Enrichment Analysis  
+GSVA – Gene Set Variation Analysis  
+IL-36 – Interleukin 36  
+JAK/STAT – Januskinase / Signal Transducers and Activators of Transcription  
+KICH – Kidney renal papillary cell carcinoma  
+KIRC – Kidney renal clear cell carcinoma   
+LIHC – Liver hepatocellular carcinoma   
+Log2FC – Log2 fold change   
+LUAD – Lung adenocarcinoma   
+MAPK – Mitogen-activated protein kinase   
+MSE – Mean squared error  
+MST1 – Makrophage stimulating protein 1  
+mTOR – Mammalian target of rapamycin   
+NF-kB – Nuclear factor kappa-light-chain-enhancer of activated B-cells  
+PCA – Principal component analysis   
+PI3K – Phosphoinositid-3-kinase   
+PRAD – Prostate adenocarcinoma   
+PTC – Papillary thyroid cancer   
+RAS – Rat sarcoma   
+TCGA – The Cancer Genome Atlas  
+TCV – Tall cell variant  
+THCA – Thyroid carcinoma  
+UMAP – Uniform manifold approximation and projection  
+UTC – Undifferentiated thyroid cancer  
+UVM – Uveal melanoma  
 
-xxxxxx
 
 \tableofcontents
 
@@ -761,7 +789,7 @@ type but little on the actual tumor type itself. Understanding how these
 changes in expression link to mutational signatures might help in
 developing druggable targets for therapy.
 
-xxx noch was zu THCA und regression
+Our findings suggest THCA can be devided into three subtypes based on which proliferative signaling pathway is active. These findings are in line with previous studies. 
 
 Futher ways of analysis could be the prediction of the histological type
 of THCA as well as the way of carcinogenesis with a neuronal network.

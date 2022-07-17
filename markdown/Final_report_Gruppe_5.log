@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.16)  17 JUL 2022 16:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.16)  17 JUL 2022 18:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -974,19 +974,19 @@ chapter without number
 ]
 chapter 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 205.
+(Font)              <9> on input line 237.
 [5
 
 ] [6] [7] [8]
 chapter 2.
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 367.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 399.
 (c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [9
 
 ]
 
-LaTeX Warning: Reference `ggplot2' on page 10 undefined on input line 400.
+LaTeX Warning: Reference `ggplot2' on page 10 undefined on input line 432.
 
 [10] [11] [12]
 chapter 3.
@@ -996,56 +996,56 @@ chapter 3.
 <figures/Volcanoplot.png, id=138, 1258.7025pt x 696.6025pt>
 File: figures/Volcanoplot.png Graphic file (type png)
 <use figures/Volcanoplot.png>
-Package pdftex.def Info: figures/Volcanoplot.png  used on input line 542.
+Package pdftex.def Info: figures/Volcanoplot.png  used on input line 574.
 (pdftex.def)             Requested size: 455.24524pt x 251.94592pt.
 [14
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.565 
+l.597 
        <./figures/Volcanoplot.png>]
 <figures/Pan Cancer mean expression top 100 pathways.png, id=149, 1027.53554pt x 636.72952pt>
 File: figures/Pan Cancer mean expression top 100 pathways.png Graphic file (type png)
 <use figures/Pan Cancer mean expression top 100 pathways.png>
-Package pdftex.def Info: figures/Pan Cancer mean expression top 100 pathways.png  used on input line 591.
+Package pdftex.def Info: figures/Pan Cancer mean expression top 100 pathways.png  used on input line 623.
 (pdftex.def)             Requested size: 396.04926pt x 245.41852pt.
 <figures/Pan Cancer UMAP.png, id=150, 792.57242pt x 602.82085pt>
 File: figures/Pan Cancer UMAP.png Graphic file (type png)
 <use figures/Pan Cancer UMAP.png>
-Package pdftex.def Info: figures/Pan Cancer UMAP.png  used on input line 617.
+Package pdftex.def Info: figures/Pan Cancer UMAP.png  used on input line 649.
 (pdftex.def)             Requested size: 364.18864pt x 276.9974pt.
 [15] [16
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.646 
+l.678 
       
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.646 
+l.678 
        <./figures/Pan Cancer mean expression top 100 pathways.png (PNG copy)> <./figures/Pan Cancer UMAP.png>]
 <figures/Volcanoplot THCA GSVA data.png, id=163, 1027.53554pt x 636.72952pt>
 File: figures/Volcanoplot THCA GSVA data.png Graphic file (type png)
 <use figures/Volcanoplot THCA GSVA data.png>
-Package pdftex.def Info: figures/Volcanoplot THCA GSVA data.png  used on input line 649.
+Package pdftex.def Info: figures/Volcanoplot THCA GSVA data.png  used on input line 681.
 (pdftex.def)             Requested size: 364.18971pt x 225.67622pt.
 [17
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.683 
+l.715 
        <./figures/Volcanoplot THCA GSVA data.png (PNG copy)>]
 <figures/THCA Heatmap from Pancancer data top 50 pathways.png, id=169, 1027.53554pt x 636.72952pt>
 File: figures/THCA Heatmap from Pancancer data top 50 pathways.png Graphic file (type png)
 <use figures/THCA Heatmap from Pancancer data top 50 pathways.png>
-Package pdftex.def Info: figures/THCA Heatmap from Pancancer data top 50 pathways.png  used on input line 686.
+Package pdftex.def Info: figures/THCA Heatmap from Pancancer data top 50 pathways.png  used on input line 718.
 (pdftex.def)             Requested size: 455.23714pt x 282.09528pt.
 [18
 pdfTeX warning (ext4): destination with the same identifier (name{figure.3.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.713 
+l.745 
        <./figures/THCA Heatmap from Pancancer data top 50 pathways.png (PNG copy)>] [19] [20]
 chapter 4.
 [21
@@ -1078,7 +1078,7 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
 
 {c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss12.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss17.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on Final_report_Gruppe_5.pdf (27 pages, 1292414 bytes).
+Output written on Final_report_Gruppe_5.pdf (27 pages, 1293276 bytes).
 PDF statistics:
  430 PDF objects out of 1000 (max. 8388607)
  354 compressed objects within 4 object streams
