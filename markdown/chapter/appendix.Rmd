@@ -14,45 +14,45 @@ Linear regression is a statistical model that uses measurable values to predict 
 
 ## Additional Figures
 
-```{r reg, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="**Regression results for various models on THCA GSEA test data.** True values are plotted against predicted values, black slope indicate a perfect prediction."}
+```{r reg, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{Regression results for various models on THCA GSEA test data.} True values are plotted against predicted values, black slope indicate a perfect prediction."}
 
 knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
 ```
 
-```{r pval, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="**F-test comparison of various regression models.** p-values are obtained from a two-sided variance test and displayed as heatmap. nn = neuronal network, lm = linear regression, lmsp = linear regression with only significant pathways, null = null model."}
+```{r pval, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="\\textbf{F-test comparison of various regression models.} p-values are obtained from a two-sided variance test and displayed as heatmap. nn = neuronal network, lm = linear regression, lmsp = linear regression with only significant pathways, null = null model."}
 
 knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
 ```
 
-```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="**Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient.** Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient.} Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
 
 knitr::include_graphics("figures/THCA GSEA Heatmap fertig top 50.png")
 ```
 
-```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="**UMAP of TCGA pathway activity,** colored by histological type"}
+```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{UMAP of TCGA pathway activity,} colored by histological type"}
 
 knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
 ```
 
-```{r exp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="**Pathway activity of the 100 most variant pathways for each patient.** Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
+```{r exp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 100 most variant pathways for each patient.} Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
 
 knitr::include_graphics(
   "figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
 ```
 
-```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="**Mean-variance plot of cleaned TCGA expression data.** Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
+```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="\\textbf{Mean-variance plot of cleaned TCGA expression data.} Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
 
 knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
 
 ```
 
-```{r UMAPGenform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="**UMAP performed for gene expression data,** colored by hiytological type"}
+```{r UMAPGenform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{UMAP performed for gene expression data,} colored by hiytological type"}
 
 knitr::include_graphics("figures/appendix/Pan Cancer Geneexpression UMAP cancer form.png")
 
 ```
 
-```{r PCAcancerform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="**Results of PCA,** PC 1 and 2 are shown, samples are colored by histological type."}
+```{r PCAcancerform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Results of PCA,} PC 1 and 2 are shown, samples are colored by histological type."}
 
 knitr::include_graphics("figures/appendix/Pan Cancer PCA PC1und2 cancer form.png")
 
