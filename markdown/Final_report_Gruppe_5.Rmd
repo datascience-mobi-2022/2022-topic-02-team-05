@@ -213,16 +213,6 @@ Lastly, the enrichment score is computed based on the obtained ranked
 list by calculating the Kolmogorov-Smirnov-like rank statistic for each
 gene set. [@GSVA]
 
-A Principal component analysis (PCA) xxx QUELLE is used to alter the
-coordinates of a given dataset to its eigenvectors. This matrix rotation
-results in a new set of basis vectors called principal components (PCs)
-- the eigenvectors - that are orthogonal and show little correlation.
-Sorting the PCs by their associated eigenvalue, the PCs explaining the
-most variance can easily be identified, as they have the highest
-eigenvalue. By displaying the data set in a coordinate system span by
-the $n$ most variant PCs, the dimensionalty of the dataset is reduced to
-$\mathbb{R}^n$ with the lowest loss in variance.
-
 The Uniform manifold approximation and projection for dimension
 reduction (UMAP) is a method to reduce the dimension of a
 multidimensional data set. Compared to PCA, UMAP preserves the global
@@ -242,22 +232,15 @@ the non-linear dimensional reduction. [@UMAP]
 The Jaccard index is the intersection, divided by the union of two sets.
 Therefore, it can be used to identify the similarity of the sets.
 
-Linear regression is a statistical model that uses measurable values to
-predict an outcome. For this purpose, a linear function serves as basis
-to build the linear regression equation [@lm]. The coefficients for each
-variable are estimated by their correlation and slope with the predicted
-parameter. Lastly, all coefficients as well as the intersect are
-optimized for the data set with a least sum of squares method.
-
-As an alternative to the linear regression a neuronal network can be
-used. In general, a deep learning network consists of an input layer,
-multiple hidden layers, and an output layer consisting of various
-neurons [@neuronal]. The input layer contains as much neurons as
-features are given for each sample. The number of neurons in each hidden
-layer and the number of hidden layers vary and must be tested to give
-best results. The activation of each neuron can be described as a linear
-composition of all the inputs $x_i$ from the previous layer associated
-with a weight $w_i$ and a bias:$$
+For data regression a neuronal network can be used. In general, a deep
+learning network consists of an input layer, multiple hidden layers, and
+an output layer consisting of various neurons [@neuronal]. The input
+layer contains as much neurons as features are given for each sample.
+The number of neurons in each hidden layer and the number of hidden
+layers vary and must be tested to give best results. The activation of
+each neuron can be described as a linear composition of all the inputs
+$x_i$ from the previous layer associated with a weight $w_i$ and a
+bias:$$
 Activation = \sum_{i=1} ^{n} w_i x_i + bias
 $$To obtain neuron activations in the range of 0 and 1, a
 min/max-scaling is performed on the input data. The "learning effect" of
@@ -424,7 +407,6 @@ the appendix (see table \@ref(tab:packagesused)).
 ## Preprocessing
 
 **Dimension reduction through low-variance and biotype filtering**
-
 All the TCGA and THCA expression data were checked for NAs, which were
 subsequently deleted. Genes with a variance lower than 0.1 were removed
 to reduce dimensionality, as they contribute very little to the overall
@@ -440,7 +422,6 @@ set was reduced from 60,000 to approximately 19,000 genes and from
 approximately 20,000 genes to 15,000 genes in the THCA data.
 
 **MSigDB pathway filtering**
-
 The pathways from the MSigDB database were first aligned with the genes
 in our expression data. Only pathways with a coverage of over 99% were
 kept. To test for similarity in the selected metabolic pathways compared
@@ -453,9 +434,7 @@ number of MSigDB pathways could thus be reduced from 6366 to 657.
 
 ## Descriptive analysis
 
-**Mean-variance plot of TCGA expression data shows highly variant
-genes**
-
+**Mean-variance plot of TCGA expression data shows highly variant genes**
 To determine the genes from the TCGA expression data with a high
 variance, the variance was plotted over the mean (Figure
 \@ref(fig:showmeanvariance)). Additionally those genes with a variance
@@ -468,15 +447,7 @@ level of approximately 0. With this plot we were able to determine which
 genes differ significantly in their expression level across all cancer
 patients.
 
-```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="Mean-variance plot of cleaned TCGA expression data. Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
-
-knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
-
-```
-
-**Significantly up- and down regulated genes in THCA obtained from
-volcano plots**
-
+**Significantly up- and down regulated genes in THCA obtained from volcano plots**
 To determine up- or down-regulated genes in THCA corresponding p-Values
 were computed with a Wilcoxon rank sum test. (Figure
 \@ref(fig:showvolcanoplot)). The significance level was adjusted to
@@ -491,7 +462,6 @@ knitr::include_graphics("figures/Volcanoplot.png")
 ## Pan cancer analysis
 
 **GSVA of TCGA expression data reveals four clusters of cancer types.**
-
 A pathway activity matrix was computed as described in section
 (methods). The obtained pathway activity matrix was visualised in a
 heatmap. \@ref(fig:meanexp) and supplementary material \@ref(fig:exp)
@@ -527,20 +497,14 @@ papillary cell carcinoma (KICH) and kidney renal clear cell carcinoma
 carbohydrates, synthesis of lipids, synthesis of amino acids and
 detoxification.
 
-```{r meanexp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Mean pathway activity of the 100 most variant pathways for each tumor type. Column clusters were obtained by complete hierachical clustering and subsequently split into four groups. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
+```{r meanexp, echo=FALSE, eval=TRUE, out.width='87%', fig.align='center', fig.cap="Mean pathway activity of the 100 most variant pathways for each tumor type. Column clusters were obtained by complete hierachical clustering and subsequently split into four groups. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
 
 knitr::include_graphics("figures/Pan Cancer mean expression top 100 pathways.png")
 ```
 
-```{r exp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 100 most variant pathways for each patient. Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
-
-knitr::include_graphics(
-  "figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
-```
 
 **Dimension reduction of GSVA pan-cancer data reveals clusters in
 pathway activity.**
-
 PCA was performed on GSVA pan-cancer for UMAP analysis. No apparent
 clustering was observed only in PCA data (Supplementary material
 @ref(fig:PCAcancerform) and \@ref(fig:PCAcancertype) ). Subsequent UMAP
@@ -561,12 +525,6 @@ expression profile.
 
 knitr::include_graphics("figures/Pan Cancer UMAP.png")
 ```
-
-```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="UMAP of TCGA pathway activity, colored by histological type"}
-
-knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
-```
-
 The same analysis was performed for gene expression activity instead of
 pathway activity to check for reliability of the results. Similar
 clusters were observed, which confirms our results. See
@@ -576,7 +534,6 @@ clusters were observed, which confirms our results. See
 
 **GSVA on THCA expression data reveals pathways driving thyroid
 carcinogenesis.**
-
 To grasp a general overview of the differences in pathway activity
 between THCA and homeostatic thyroid tissue, GSVA was performed for the
 THCA expression data. Based on the GSVA results, differantially
@@ -590,7 +547,7 @@ significantly enhanced in THCA. Further, signaling through the
 EWSR1/FLI1-fusion protein was significantly upregulated in THCA. Lastly,
 THCAs showed downregulation of non-histone protein methylation.
 
-```{r THCAvolcano, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Volcano plot of THCA pathway activity. Downregulated pathways are colored red, upregulated pathways blue. Not significantly altered pathways are colored green. Most significantly altered pathways are labelled with their name."}
+```{r THCAvolcano, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="Volcano plot of THCA pathway activity. Downregulated pathways are colored red, upregulated pathways blue. Not significantly altered pathways are colored green. Most significantly altered pathways are labelled with their name."}
 
 knitr::include_graphics("figures/Volcanoplot THCA GSVA data.png")
 ```
@@ -629,7 +586,6 @@ knitr::include_graphics("figures/THCA Heatmap from Pancancer data top 50 pathway
 ```
 
 **THCA subtypes do not differ in their metabolism.**
-
 To investigate how the identified subtypes compare to homeostatic
 thyroid tissue, GSEA was performed for the THCA data. Consistent with
 the pan-cancer analysis of THCA data, k-means clustering obtained three
@@ -650,13 +606,7 @@ GSEA results, we can conclude that the three subtypes of THCA differ in
 carcinogenesis and associated immune response but share a similar
 metabolism consistent with the Warburg effect.
 
-```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient. Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
-
-knitr::include_graphics("figures/THCA GSEA Heatmap fertig top 50.png")
-```
-
 ## Regression analysis of THCA pathway activity
-
 To select a suitable pathway for regression analysis, the top 20%
 pathways regarding their variance in activity were chosen, as for the
 regression model to predict. Pathways with little variance were found to
@@ -696,18 +646,8 @@ From this data, we can conclude that a neuronal network is the best
 choice for most accurately predicting IL-36 pathway activity in our test
 data.
 
-```{r reg, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="Regression results for various models on THCA GSEA test data. True values are plotted against predicted values, black slope indicate a perfect prediction."}
-
-knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
-```
-
-```{r pval, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="F-test comparison of various regression models. p-values are obtained from a two-sided variance test and displayed as heatmap. nn = neuronal network, lm = linear regression, lmsp = linear regression with only significant pathways, null = null model."}
-
-knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
-```
 
 # Discussion
-
 Our pan-cancer analysis showed four clusters in pathway activity data.
 We were able to find specific pathways, which were enriched only in
 certain histological types like glioblastomas and adenocarcinomas. The
@@ -814,7 +754,6 @@ linear regression model is not well suited to predict the IL-36 pathway
 activity accurately.
 
 **Conclusion and Outlook**
-
 Taken together our results are in line with current research and allow
 for the following hypothesis: The expression profile of a given cancer
 type depends highly on its differentiation stage and its histological

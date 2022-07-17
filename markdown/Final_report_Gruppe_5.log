@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.16)  17 JUL 2022 15:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.16)  17 JUL 2022 16:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -822,18 +822,266 @@ File: setspace.hak 2022/07/04 v3.37 KOMA-Script scrhack part (hacking package se
 1: chapter
 1: chapter
 1: section
-! Missing \endcsname inserted.
-<to be read again> 
-                   \protect 
-l.125 \ifLuaTeX
-                
-Here is how much of TeX's memory you used:
- 24841 strings out of 479983
- 476918 string characters out of 5886392
- 1181586 words of memory out of 5000000
- 42773 multiletter control sequences out of 15000+600000
- 472549 words of font info for 30 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 108i,1n,106p,10625b,386s stack positions out of 10000i,1000n,20000p,200000b,200000s
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... none found.
+(./Final_report_Gruppe_5.aux)
+\openout1 = `Final_report_Gruppe_5.aux'.
 
-!  ==> Fatal error occurred, no output PDF file produced!
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+Package scrbase Info: activating english \abstractname on input line 128.
+Package scrbase Info: activating english \partname on input line 128.
+Package scrbase Info: activating english \chaptername on input line 128.
+Package scrbase Info: activating english \appendixname on input line 128.
+Package scrbase Info: activating english \figurename on input line 128.
+Package scrbase Info: activating english \tablename on input line 128.
+Package scrbase Info: activating english \contentsname on input line 128.
+Package scrbase Info: activating english \listfigurename on input line 128.
+Package scrbase Info: activating english \listtablename on input line 128.
+Package scrbase Info: activating english \bibname on input line 128.
+Package scrbase Info: activating english \indexname on input line 128.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+))
+Package hyperref Info: Link coloring OFF on input line 128.
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: includehead includefoot 
+* h-part:(L,W,R)=(71.13188pt, 455.24417pt, 71.13188pt)
+* v-part:(T,H,B)=(71.13188pt, 702.78317pt, 71.13188pt)
+* \paperwidth=597.50793pt
+* \paperheight=845.04694pt
+* \textwidth=455.24417pt
+* \textheight=617.78316pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-1.1381pt
+* \headheight=17.0pt
+* \headsep=20.40001pt
+* \topskip=11.0pt
+* \footskip=47.6pt
+* \marginparwidth=59.7508pt
+* \marginparsep=12.8401pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2022/07/12 v3.18b biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout3 = `Final_report_Gruppe_5.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'Final_report_Gruppe_5.bbl' not found.
+No file Final_report_Gruppe_5.bbl.
+Package biblatex Info: Reference section=0 on input line 128.
+Package biblatex Info: Reference segment=0 on input line 128.
+\c@lstlisting=\count454
+Package scrhack Info: undefining \float@addtolists on input line 128.
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 137.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmss.fd
+File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 149.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 149.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 149.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 149.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 149.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 149.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 149.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 149.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 149.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+
+
+{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+chapter without number
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 192.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 192.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 192.
+[2
+
+]
+chapter without number
+[3
+
+] (./Final_report_Gruppe_5.toc)
+\tf@toc=\write4
+\openout4 = `Final_report_Gruppe_5.toc'.
+
+[4
+
+]
+chapter 1.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 205.
+[5
+
+] [6] [7] [8]
+chapter 2.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 367.
+(c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [9
+
+]
+
+LaTeX Warning: Reference `ggplot2' on page 10 undefined on input line 400.
+
+[10] [11] [12]
+chapter 3.
+[13
+
+]
+<figures/Volcanoplot.png, id=138, 1258.7025pt x 696.6025pt>
+File: figures/Volcanoplot.png Graphic file (type png)
+<use figures/Volcanoplot.png>
+Package pdftex.def Info: figures/Volcanoplot.png  used on input line 542.
+(pdftex.def)             Requested size: 455.24524pt x 251.94592pt.
+[14
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.565 
+       <./figures/Volcanoplot.png>]
+<figures/Pan Cancer mean expression top 100 pathways.png, id=149, 1027.53554pt x 636.72952pt>
+File: figures/Pan Cancer mean expression top 100 pathways.png Graphic file (type png)
+<use figures/Pan Cancer mean expression top 100 pathways.png>
+Package pdftex.def Info: figures/Pan Cancer mean expression top 100 pathways.png  used on input line 591.
+(pdftex.def)             Requested size: 396.04926pt x 245.41852pt.
+<figures/Pan Cancer UMAP.png, id=150, 792.57242pt x 602.82085pt>
+File: figures/Pan Cancer UMAP.png Graphic file (type png)
+<use figures/Pan Cancer UMAP.png>
+Package pdftex.def Info: figures/Pan Cancer UMAP.png  used on input line 617.
+(pdftex.def)             Requested size: 364.18864pt x 276.9974pt.
+[15] [16
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.646 
+      
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.646 
+       <./figures/Pan Cancer mean expression top 100 pathways.png (PNG copy)> <./figures/Pan Cancer UMAP.png>]
+<figures/Volcanoplot THCA GSVA data.png, id=163, 1027.53554pt x 636.72952pt>
+File: figures/Volcanoplot THCA GSVA data.png Graphic file (type png)
+<use figures/Volcanoplot THCA GSVA data.png>
+Package pdftex.def Info: figures/Volcanoplot THCA GSVA data.png  used on input line 649.
+(pdftex.def)             Requested size: 364.18971pt x 225.67622pt.
+[17
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.683 
+       <./figures/Volcanoplot THCA GSVA data.png (PNG copy)>]
+<figures/THCA Heatmap from Pancancer data top 50 pathways.png, id=169, 1027.53554pt x 636.72952pt>
+File: figures/THCA Heatmap from Pancancer data top 50 pathways.png Graphic file (type png)
+<use figures/THCA Heatmap from Pancancer data top 50 pathways.png>
+Package pdftex.def Info: figures/THCA Heatmap from Pancancer data top 50 pathways.png  used on input line 686.
+(pdftex.def)             Requested size: 455.23714pt x 282.09528pt.
+[18
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.713 
+       <./figures/THCA Heatmap from Pancancer data top 50 pathways.png (PNG copy)>] [19] [20]
+chapter 4.
+[21
+
+] [22] [23]
+chapter 5.
+[24
+
+] [25] [26]
+chapter 6.
+[27
+
+] (./Final_report_Gruppe_5.aux)
+
+LaTeX Warning: There were undefined references.
+
+Package logreq Info: Writing requests to 'Final_report_Gruppe_5.run.xml'.
+\openout1 = `Final_report_Gruppe_5.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 26594 strings out of 479983
+ 510874 string characters out of 5886392
+ 1464193 words of memory out of 5000000
+ 44314 multiletter control sequences out of 15000+600000
+ 545883 words of font info for 82 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 108i,20n,106p,10625b,801s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exist, replaced by a fixed one
+
+{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss12.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss17.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/jakob/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on Final_report_Gruppe_5.pdf (27 pages, 1292414 bytes).
+PDF statistics:
+ 430 PDF objects out of 1000 (max. 8388607)
+ 354 compressed objects within 4 object streams
+ 115 named destinations out of 1000 (max. 500000)
+ 202 words of extra memory for PDF output out of 10000 (max. 10000000)
+
