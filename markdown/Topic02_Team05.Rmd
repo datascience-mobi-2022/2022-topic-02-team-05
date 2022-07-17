@@ -426,15 +426,14 @@ clear cell carcinoma (KIRC). The upregulated pathways are involved in
 the metabolism of carbohydrates, synthesis of lipids, synthesis of amino
 acids and detoxification.
 
-```{r meanexp, echo=FALSE, eval=TRUE, out.width='87%', fig.align='center', fig.cap="\\textbf{Mean pathway activity of the 100 most variant pathways for each tumor type.} Column clusters were obtained by complete hierachical clustering and subsequently split into four groups. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure 6.2."}
+```{r meanexp, echo=FALSE, eval=TRUE, out.width='87%', fig.align='center', fig.cap="\\textbf{Mean pathway activity of the 100 most variant pathways for each tumor type.} Column clusters were obtained by complete hierachical clustering and subsequently split into four groups. Pathway activities were computed via GSVA of pan-cancer expression data. For all sample activities see figure 6.3."}
 
 knitr::include_graphics("figures/Pan Cancer mean expression top 100 pathways.png")
 ```
 
 **Dimension reduction of GSVA pan-cancer data reveals clusters in
 pathway activity.** PCA was performed on GSVA pan-cancer data for UMAP
-analysis. No apparent clustering was observed in the PCA data
-(Supplementary material figure \ref{fig:PCAcancerform}). Subsequent UMAP
+analysis. No apparent clustering was observed in the PCA data. Subsequent UMAP
 analysis, showed clear clusters for most cancer types. (Figure
 \ref{fig:UMAPPanType} and supplementary material figure
 \ref{fig:UMAPPanForm}). This complements the results obtained from our
@@ -448,8 +447,7 @@ GSVA of TCGA expression. The UMAP confirmes, that the histological type
 of a tumor has a major impact on the patients' gene expression profile.
 The same analysis was performed for gene expression activity instead of
 pathway activity to check for the reliability of the results. Similar
-clusters were observed, which confirms our results. See figure
-\ref{fig:UMAPGenform} in the supplementary material.
+clusters were observed, which confirms our results.
 
 ```{r UMAPPanType, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{UMAP of TCGA pathway activity.} Data points are colored by tumor type"}
 
@@ -764,55 +762,9 @@ optimized for the data set with a least sum of squares method.
 The Jaccard index is the intersection, divided by the union of two sets.
 Therefore, it can be used to identify the similarity of the sets.
 
-## Additional Figures
-
-```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="\\textbf{Mean-variance plot of cleaned TCGA expression data.} Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their ENSEMBL-ID"}
-
-knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
-
-```
-
-```{r exp, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 100 most variant pathways for each patient.} Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data. For all pathway activities see figure (XXX in the apendix)."}
-
-knitr::include_graphics(
-  "figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
-```
-
-```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{UMAP of TCGA pathway activity,} colored by histological type"}
-
-knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
-```
-
-```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient.} Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
-
-knitr::include_graphics("figures/THCA GSEA Heatmap fertig top 50.png")
-```
-
-```{r PCAcancerform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{Results of PCA,} PC 1 and 2 are shown, samples are colored by histological type."}
-
-knitr::include_graphics("figures/Pan Cancer PCA PC1und2 cancer form.png")
-
-```
-
-```{r UMAPGenform, echo=FALSE, eval=TRUE, out.width='100%', fig.align='center', fig.cap="\\textbf{UMAP performed for gene expression data,} colored by hiytological type"}
-
-knitr::include_graphics("figures/Pan Cancer Geneexpression UMAP cancer form.png")
-
-```
-
-```{r reg, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{Regression results for various models on THCA GSEA test data.} True values are plotted against predicted values, black slope indicate a perfect prediction."}
-
-knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
-```
-
-```{r pval, echo=FALSE, eval=TRUE, out.width='30%', fig.align='center', fig.cap="\\textbf{F-test comparison of various regression models.} p-values are obtained from a two-sided variance test and displayed as heatmap. nn = neuronal network, lm = linear regression, lmsp = linear regression with only significant pathways, null = null model."}
-
-knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
-```
-
 ## Packages
 
-```{r, eval =TRUE, echo=FALSE, results='hide'}
+```{r, eval =TRUE, echo=FALSE, results='hide', message = FALSE, warning = FALSE}
 library(readxl)
 packages <- read_excel("PackagesRProjekt.xlsx")
 ```
@@ -821,3 +773,38 @@ packages <- read_excel("PackagesRProjekt.xlsx")
 
 knitr::kable(packages, format = "markdown", caption= "Packages used in the analysis.")
 ```
+\clearpage
+
+## Additional Figures
+
+```{r showmeanvariance, echo=FALSE, eval=TRUE, out.width='43%', fig.align='center', fig.cap="\\textbf{Mean-variance plot of cleaned TCGA expression data.} Y-axis shows variance of a gene expression, x-axis shows the log2 mean of a gene expression. Genes with variance greater 33 are labelled with their EnsemblID"}
+
+knitr::include_graphics("figures/Variance_over mean_cleaned_matrix.png")
+
+```
+
+```{r UMAPPanForm, echo=FALSE, eval=TRUE, out.width='65%', fig.align='center', fig.cap="\\textbf{UMAP of TCGA pathway activity,} colored by histological type"}
+
+knitr::include_graphics("figures/Pan Cancer UMAP cancer form.png")
+```
+
+```{r exp, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 100 most variant pathways for each patient.} Column and row clusters were obtained by complete hierachical clustering. Pathway activities were computed via GSVA of pan-cancer expression data."}
+
+knitr::include_graphics(
+  "figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png")
+```
+
+```{r THCAhmGSEA, echo=FALSE, eval=TRUE, out.width='80%', fig.align='center', fig.cap="\\textbf{Pathway activity of the 50 most variant, hallmark, and 20 most significantly altered pathways for each patient.} Column clusters were obtained by k-means clustering with k=3. Pathway activities were computed via GSEA of THCA expression data. For all pathway activities see figure (XXX in the apendix)."}
+
+knitr::include_graphics("figures/THCA GSEA Heatmap fertig top 50.png")
+```
+
+```{r reg, echo=FALSE, eval=TRUE, out.width='60%', fig.align='center',fig.show = "hold", fig.cap="\\textbf{Regression results for various models on THCA GSEA test data.} True values are plotted against predicted values, black slope indicate a perfect prediction. p-values are obtained from a two-sided variance test and displayed as heatmap. nn = neuronal network, lm = linear regression, lmsp = linear regression with only significant pathways, null = null model."}
+
+knitr::include_graphics("figures/Regression comparison plot IL36 genes.png")
+knitr::include_graphics("figures/Regression comparison Pvalues IL36 genes.png")
+```
+
+
+
+
