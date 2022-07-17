@@ -36,7 +36,7 @@ to the hallmark pathways and the metabolic pathways themselves, the
 Jaccard index between all pathways was calculated. A few MSigDB pathways
 with a high Jaccard index were identified and subsequently deleted.
 Heatmaps, displaying the jaccard index of cleaned and uncleaned data can
-be seen in the appendix \@ref(fig:Jaccarddirtea)
+be seen in the appendix ~\ref{fig:Jaccarddirtea}
 \@ref(fig:Jaccardcleaned). The number of MSigDB pathways could thus be
 reduced from 6366 to 657.
 
@@ -46,8 +46,8 @@ reduced from 6366 to 657.
 genes.**
 
 To determine the genes from the TCGA expression data with a high
-variance, the variance was plotted over the mean (Figure
-\@ref(fig:showmeanvariance)). Additionally those genes with a variance
+variance, the variance was plotted over the mean (Figure \ref{fig:showmeanvariance}).
+Additionally those genes with a variance
 higher than 33 were labeled with their EnsembleID. The distribution of
 genes in this plot shows that the highly variant genes are around a log2
 mean expression level of 0. The plot also shows, that very few genes are
