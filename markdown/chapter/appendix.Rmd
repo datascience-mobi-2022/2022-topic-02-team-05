@@ -62,7 +62,7 @@ knitr::include_graphics("figures/appendix/Pan Cancer PCA PC1und2 cancer form.png
 
 ```{r, eval =TRUE, echo=FALSE, results='hide'}
 library(readxl)
-packages <- read_excel("markdown/PackagesRProjekt.xlsx")
+packages <- read_excel("C:/Users/jakob/Documents/GitHub/2022-topic-02-team-05/markdown/PackagesRProjekt.xlsx")
 ```
 
 ```{r packagesused, eval = TRUE, echo=FALSE}
