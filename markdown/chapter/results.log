@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.16)  16 JUL 2022 13:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.7.16)  17 JUL 2022 22:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -158,7 +158,9 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
-) (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+) (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bookmark/bookmark.sty
+Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
+(c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2022-06-20 v7.00s Hypertext links for LaTeX
 (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
@@ -269,14 +271,17 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
 \Hy@SectionHShift=\skip52
-) (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+) (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
+\BKM@id=\count282
+)) (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count282
-\Gm@cntv=\count283
-\c@Gm@tempcnt=\count284
+\Gm@cnth=\count283
+\Gm@cntv=\count284
+\c@Gm@tempcnt=\count285
 \Gm@bindingoffset=\dimen152
 \Gm@wd@mp=\dimen153
 \Gm@odd@mp=\dimen154
@@ -301,7 +306,7 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 \Gin@req@width=\dimen161
 ) (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count285
+\l__color_backend_stack_int=\count286
 \l__pdf_internal_box=\box53
 ) (./results.aux)
 \openout1 = `results.aux'.
@@ -331,10 +336,6 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring OFF on input line 67.
-(./results.out) (./results.out)
-\@outlinefile=\write3
-\openout3 = `results.out'.
-
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -370,122 +371,121 @@ Package hyperref Info: Link coloring OFF on input line 67.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-LaTeX Warning: Reference `xxxfigure Jaccard heatmap in Apendix' on page 1 undefined on input line 99.
+LaTeX Warning: Reference `fig:Jaccarddirtea' on page 1 undefined on input line 100.
 
-<figures/Variance_over mean_cleaned_matrix.png, id=24, 736.7525pt x 867.24pt>
+<figures/Variance_over mean_cleaned_matrix.png, id=5, 736.7525pt x 867.24pt>
 File: figures/Variance_over mean_cleaned_matrix.png Graphic file (type png)
 <use figures/Variance_over mean_cleaned_matrix.png>
-Package pdftex.def Info: figures/Variance_over mean_cleaned_matrix.png  used on input line 120.
+Package pdftex.def Info: figures/Variance_over mean_cleaned_matrix.png  used on input line 124.
 (pdftex.def)             Requested size: 305.33064pt x 359.40828pt.
-<figures/Volcanoplot.png, id=26, 1258.7025pt x 696.6025pt>
+<figures/Volcanoplot.png, id=7, 1258.7025pt x 696.6025pt>
 File: figures/Volcanoplot.png Graphic file (type png)
 <use figures/Volcanoplot.png>
-Package pdftex.def Info: figures/Volcanoplot.png  used on input line 138.
+Package pdftex.def Info: figures/Volcanoplot.png  used on input line 141.
 (pdftex.def)             Requested size: 469.74594pt x 259.97104pt.
 [1
 
 {c:/Users/maren/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2 <./figures/Variance_over mean_cleaned_matrix.png>]
-<figures/Pan Cancer mean expression top 100 pathways.png, id=44, 1027.53554pt x 636.72952pt>
+<figures/Pan Cancer mean expression top 100 pathways.png, id=30, 1027.53554pt x 636.72952pt>
 File: figures/Pan Cancer mean expression top 100 pathways.png Graphic file (type png)
 <use figures/Pan Cancer mean expression top 100 pathways.png>
-Package pdftex.def Info: figures/Pan Cancer mean expression top 100 pathways.png  used on input line 196.
+Package pdftex.def Info: figures/Pan Cancer mean expression top 100 pathways.png  used on input line 197.
 (pdftex.def)             Requested size: 469.75581pt x 291.09201pt.
-<figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png, id=45, 1027.53554pt x 636.72952pt>
+<figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png, id=31, 1027.53554pt x 636.72952pt>
 File: figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png Graphic file (type png)
 <use figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png>
-Package pdftex.def Info: figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png  used on input line 204.
+Package pdftex.def Info: figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png  used on input line 206.
 (pdftex.def)             Requested size: 469.75581pt x 291.09201pt.
-<figures/Pan Cancer UMAP.png, id=46, 792.57242pt x 602.82085pt>
+[3 <./figures/Volcanoplot.png>] [4 <./figures/Pan Cancer mean expression top 100 pathways.png (PNG copy)>] [5 <./figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png (PNG copy)>]
+<figures/Pan Cancer UMAP.png, id=48, 792.57242pt x 602.82085pt>
 File: figures/Pan Cancer UMAP.png Graphic file (type png)
 <use figures/Pan Cancer UMAP.png>
-Package pdftex.def Info: figures/Pan Cancer UMAP.png  used on input line 231.
+Package pdftex.def Info: figures/Pan Cancer UMAP.png  used on input line 233.
 (pdftex.def)             Requested size: 375.79857pt x 285.82776pt.
-<figures/Pan Cancer UMAP cancer form.png, id=47, 1027.53554pt x 636.72952pt>
+<figures/Pan Cancer UMAP cancer form.png, id=49, 1027.53554pt x 636.72952pt>
 File: figures/Pan Cancer UMAP cancer form.png Graphic file (type png)
 <use figures/Pan Cancer UMAP cancer form.png>
-Package pdftex.def Info: figures/Pan Cancer UMAP cancer form.png  used on input line 239.
+Package pdftex.def Info: figures/Pan Cancer UMAP cancer form.png  used on input line 242.
 (pdftex.def)             Requested size: 375.7921pt x 232.86583pt.
-[3 <./figures/Volcanoplot.png>] [4 <./figures/Pan Cancer mean expression top 100 pathways.png (PNG copy)>] [5 <./figures/Pan Cancer GSVA Heatmap neu und fertig top 100 Pathways.png (PNG copy)>] [6 <./figures/Pan Cancer UMAP.png> <./figures/Pan Cancer UMAP cancer form.png>]
-<figures/Volcanoplot THCA GSVA data.png, id=72, 1027.53554pt x 636.72952pt>
+<figures/Volcanoplot THCA GSVA data.png, id=50, 1027.53554pt x 636.72952pt>
 File: figures/Volcanoplot THCA GSVA data.png Graphic file (type png)
 <use figures/Volcanoplot THCA GSVA data.png>
-Package pdftex.def Info: figures/Volcanoplot THCA GSVA data.png  used on input line 288.
+Package pdftex.def Info: figures/Volcanoplot THCA GSVA data.png  used on input line 276.
 (pdftex.def)             Requested size: 469.75581pt x 291.09201pt.
-<figures/THCA Heatmap from Pancancer data top 50 pathways.png, id=73, 1027.53554pt x 636.72952pt>
+[6 <./figures/Pan Cancer UMAP.png>] [7 <./figures/Pan Cancer UMAP cancer form.png> <./figures/Volcanoplot THCA GSVA data.png (PNG copy)>]
+<figures/THCA Heatmap from Pancancer data top 50 pathways.png, id=67, 1027.53554pt x 636.72952pt>
 File: figures/THCA Heatmap from Pancancer data top 50 pathways.png Graphic file (type png)
 <use figures/THCA Heatmap from Pancancer data top 50 pathways.png>
-Package pdftex.def Info: figures/THCA Heatmap from Pancancer data top 50 pathways.png  used on input line 325.
+Package pdftex.def Info: figures/THCA Heatmap from Pancancer data top 50 pathways.png  used on input line 313.
 (pdftex.def)             Requested size: 469.75581pt x 291.09201pt.
-[7] [8 <./figures/Volcanoplot THCA GSVA data.png (PNG copy)>] [9 <./figures/THCA Heatmap from Pancancer data top 50 pathways.png (PNG copy)>]
-<figures/THCA GSEA Heatmap fertig top 50.png, id=90, 1027.53554pt x 636.72952pt>
+[8 <./figures/THCA Heatmap from Pancancer data top 50 pathways.png (PNG copy)>]
+<figures/THCA GSEA Heatmap fertig top 50.png, id=73, 1027.53554pt x 636.72952pt>
 File: figures/THCA GSEA Heatmap fertig top 50.png Graphic file (type png)
 <use figures/THCA GSEA Heatmap fertig top 50.png>
-Package pdftex.def Info: figures/THCA GSEA Heatmap fertig top 50.png  used on input line 357.
+Package pdftex.def Info: figures/THCA GSEA Heatmap fertig top 50.png  used on input line 344.
 (pdftex.def)             Requested size: 469.75581pt x 291.09201pt.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 394.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 380.
 (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 394.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 380.
 (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 394.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 380.
 (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 394.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 380.
 (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 394.
+(Font)              <10> on input line 380.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 394.
+(Font)              <7> on input line 380.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 394.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 394.
+(Font)              <5> on input line 380.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 380.
 (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 394.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 380.
 (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [10 <./figures/THCA GSEA Heatmap fertig top 50.png (PNG copy)>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 401.
+) [9 <./figures/THCA GSEA Heatmap fertig top 50.png (PNG copy)>]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 387.
 (c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<figures/Regression comparison plot IL36 genes.png, id=97, 743.59322pt x 606.58849pt>
+<figures/Regression comparison plot IL36 genes.png, id=81, 743.59322pt x 606.58849pt>
 File: figures/Regression comparison plot IL36 genes.png Graphic file (type png)
 <use figures/Regression comparison plot IL36 genes.png>
-Package pdftex.def Info: figures/Regression comparison plot IL36 genes.png  used on input line 410.
+Package pdftex.def Info: figures/Regression comparison plot IL36 genes.png  used on input line 396.
 (pdftex.def)             Requested size: 375.81229pt x 306.57004pt.
-<figures/Regression comparison Pvalues IL36 genes.png, id=98, 271.26938pt x 216.46748pt>
+<figures/Regression comparison Pvalues IL36 genes.png, id=82, 432.24995pt x 352.44469pt>
 File: figures/Regression comparison Pvalues IL36 genes.png Graphic file (type png)
 <use figures/Regression comparison Pvalues IL36 genes.png>
-Package pdftex.def Info: figures/Regression comparison Pvalues IL36 genes.png  used on input line 418.
-(pdftex.def)             Requested size: 140.92842pt x 112.45804pt.
-[11 <./figures/Regression comparison plot IL36 genes.png>] [12 <./figures/Regression comparison Pvalues IL36 genes.png>] (./results.aux)
+Package pdftex.def Info: figures/Regression comparison Pvalues IL36 genes.png  used on input line 405.
+(pdftex.def)             Requested size: 140.92805pt x 114.90886pt.
+[10 <./figures/Regression comparison plot IL36 genes.png>] [11 <./figures/Regression comparison Pvalues IL36 genes.png>] (./results.aux)
 
 LaTeX Warning: There were undefined references.
 
-Package rerunfilecheck Info: File `results.out' has not changed.
-(rerunfilecheck)             Checksum: 9AE83DCD26826DE4676BAB9323BF1906;779.
  ) 
 Here is how much of TeX's memory you used:
- 10628 strings out of 479983
- 170929 string characters out of 5886392
- 470245 words of memory out of 5000000
- 28625 multiletter control sequences out of 15000+600000
+ 10885 strings out of 479983
+ 175309 string characters out of 5886392
+ 472903 words of memory out of 5000000
+ 28880 multiletter control sequences out of 15000+600000
  499812 words of font info for 51 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,6n,77p,460b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 86i,6n,91p,593b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}<c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/maren/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on results.pdf (12 pages, 1977598 bytes).
+Output written on results.pdf (11 pages, 1975509 bytes).
 PDF statistics:
- 146 PDF objects out of 1000 (max. 8388607)
- 104 compressed objects within 2 object streams
- 34 named destinations out of 1000 (max. 500000)
- 96 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 148 PDF objects out of 1000 (max. 8388607)
+ 107 compressed objects within 2 object streams
+ 35 named destinations out of 1000 (max. 500000)
+ 104 words of extra memory for PDF output out of 10000 (max. 10000000)
 
