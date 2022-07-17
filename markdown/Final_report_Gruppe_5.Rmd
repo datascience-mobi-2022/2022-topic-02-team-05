@@ -37,6 +37,8 @@ header-includes:
   - \usepackage{acronym}
   - \usepackage{lipsum}
   - \usepackage{scrhack}
+  - \usepackage{setspace}
+  - \onehalfspacing
   - \emergencystretch=50pt
   - \clubpenalty = 10000
   - \widowpenalty = 10000
